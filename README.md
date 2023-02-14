@@ -1,22 +1,22 @@
-# Interoperability for all users on the Flow blockchain
+# Interoperability for all users on the Flow blockchain :dizzy:
 
 
 ## What is InterFlow? (and why)
 
-#### A mobile app. (because we want to make it easy)
+- A mobile app. *(because we want to make it easy)*
 
-#### An app to start using quickly, and without complicated steps. (because we need to make it simple)
+- An app to start using quickly, and without complicated steps. *(because we need to make it easy)*
 
-#### The place where you can safely view and share your assets (and those of your friends). (because everyone needs it)
+- The place where you can safely view and share your assets (and those of your friends). *(because everyone needs it)*
 
 
 ## What it's *NOT* InterFlow? (and why)
 
-#### Another NFT project. (because we are the centre between all these projects)
+- Another NFT project. *(because we are the centre between all these projects)*
 
-#### Another wallet. (because we are the centre between all these wallets)
+- Another wallet. *(because we are the centre between all these wallets)*
 
-#### A social media app. (because we are more, much more than that)
+- A social media app. *(because we are more, much more than that)*
 
 
 ## Our features
