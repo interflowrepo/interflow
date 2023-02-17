@@ -8,8 +8,12 @@ const AvailableWalletsView = ({
   getAllStoredData,
   closeAvailableWalletsView,
 }) => {
+
+  const onPressAction = async (service) => {
+    await onPressActionFn(service);
+  };
   // getStorageData();
-  // getAllStoredData();
+  getAllStoredData();
 
   return (
     <View
@@ -37,7 +41,7 @@ const AvailableWalletsView = ({
                 <View style={styles.buttonContainer} key={service.endpoint}>
                   <Pressable
                     style={styles.button}
-                    onPress={() => onPressActionFn(service)}
+                    onPress={() => onPressAction(service)}
                   >
                     <Text style={styles.buttonLabel}>
                       {service.provider.name}
