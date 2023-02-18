@@ -106,12 +106,14 @@ const BottomSheetModal = ({
                 style={styles.background}
               >
             <HorizontalList />
-                <TouchableOpacity
+            <HorizontalList />
+            <HorizontalList />
+                {/* <TouchableOpacity
                   style={styles.modalButton}
                   onPress={toggleModal}
                 >
                   <Text style={styles.modalButtonText}>Close</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </ImageBackground>
             </View>
           </Animated.View>

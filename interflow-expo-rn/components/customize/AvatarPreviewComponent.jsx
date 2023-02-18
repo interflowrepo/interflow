@@ -1,10 +1,13 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 
 export default function AvatarPreviewComponent({item}) {
   return (
     <View key={item.id} style={styles.item}>
-    <Text>{item.title}</Text>
+        <Image 
+          source={{uri: item.url}}
+          style={{width: 90, height: 90}}
+        />
   </View>
   )
 }
@@ -14,10 +17,9 @@ const styles = StyleSheet.create({
       // height: 100,
     },
     item: {
-      backgroundColor: "gray",
-      padding: 20,
-      margin: 10,
-      borderRadius: 10,
+      backgroundColor: "transparent",
+      marginHorizontal: 10,
+      marginTop: 10,
     },
     title: {
       fontSize: 20,

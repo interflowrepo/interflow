@@ -1,12 +1,41 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei/native";
+import { useFrame } from "@react-three/fiber/native";
 import GlassesIcon from "./GlassesIcon";
 
-export default function AvatarComponent(props) {
-  const { nodes  } = useGLTF(require("../models/kira.glb"));
+export default function NativeAvatar(props) {
+  const { nodes } = useGLTF(require("../models/kira.glb"));
+
+  const ref = useRef();
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
+  });
+
+  if (props.icon) {
+    return (
+      <group ref={ref} {...props} dispose={null}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.kaedim_mesh_7.geometry}
+          material={nodes.kaedim_mesh_7.material}
+        >
+          {/* t shirt */}
+          <meshBasicMaterial color={props.shirtColor} />
+        </mesh>
+      </group>
+    );
+  }
+
   return (
     <group {...props} dispose={null}>
-      <GlassesIcon scale={0.002} position={[-0.05,0.76,0.13]} rotation={[0, -0.5,0]} animated={false} />
+      <GlassesIcon
+        scale={0.002}
+        position={[-0.05, 0.76, 0.13]}
+        rotation={[0, -0.5, 0]}
+        animated={false}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -31,7 +60,6 @@ export default function AvatarComponent(props) {
       >
         {/* left show base
                         <meshBasicMaterial color="indigo" /> */}
-
       </mesh>
       <mesh
         castShadow
@@ -94,8 +122,7 @@ export default function AvatarComponent(props) {
         material={nodes.kaedim_mesh_9.material}
       >
         {/* left eye */}
-                        {/* <meshBasicMaterial color="black" /> */}
-
+        {/* <meshBasicMaterial color="black" /> */}
       </mesh>
 
       <mesh

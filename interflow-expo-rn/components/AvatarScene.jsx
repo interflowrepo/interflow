@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Suspense } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,15 +25,19 @@ import SphereActionsComponent from "../components/SphereActionsComponent";
 import NativeAvatar from "../components/NativeAvatar";
 import BottomSheetModal from "../components/BottomSheetModal";
 import SphereComponent from "./SphereComponent";
+import Circle from "./customize/wheel/Circle";
+import TestCircle from "./customize/wheel/TestCircle";
 
 const { width, height } = Dimensions.get("window");
 
 const AvatarScene = () => {
-  const [Zoom, setZoom] = useState(0.7)
+  const [Zoom, setZoom] = useState(0.7);
   const [showModal, setShowModal] = useState(false);
   const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
 
   const toggleModal = () => {
+    if (showModal) setZoom(0.7);
+
     setShowModal(!showModal);
     Animated.spring(bottomSheetAnimation, {
       toValue: showModal ? 0 : 1,
@@ -54,9 +58,8 @@ const AvatarScene = () => {
   const screenHeight = Dimensions.get("window").height;
   const bottomSheetHeight = screenHeight - 300;
 
-
   const handleSphereSelection = (sphere) => {
-    setZoom(0.5)
+    setZoom(0.5);
     toggleModal();
   };
 
@@ -65,7 +68,7 @@ const AvatarScene = () => {
     contentTranslateY,
     bottomSheetHeight,
     toggleModal,
-    showModal
+    showModal,
   };
 
   return (
@@ -79,6 +82,7 @@ const AvatarScene = () => {
         }}
       >
         <View style={{ height: "100%", width: "100%" }}>
+          {/* <Suspense fallback={null}> */}
           <Canvas style={{ height, width }}>
             <Backdrop
               floor={0.6}
@@ -99,18 +103,41 @@ const AvatarScene = () => {
               <NativeAvatar scale={4} position={[0.1, 0, 0]} />
             </Stage>
             {/* <Caustics backside lightSource={[2.5, 5, -2.5]}> */}
-            <SphereComponent onPress={handleSphereSelection} />
+            <SphereComponent
+              position={[2.7, 3, 0]}
+              glasses
+              onPress={handleSphereSelection}
+            />
+            <SphereComponent
+              position={[2.7, 1, 0]}
+              onPress={handleSphereSelection}
+            />
             {/* </Caustics> */}
           </Canvas>
+          {/* </Suspense> */}
         </View>
         {/* <SphereActionsComponent /> */}
       </View>
       <BottomSheetModal {...modalProps} />
+      <View style={styles.circleContainer}>
+        {/* <Circle diameter={400} color="blue" /> */}
+      </View>
+             <TestCircle />
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  circleContainer: {
+    width,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: -90,
+  },
+
   arrowsContainer: {
     position: "absolute",
     display: "flex",
