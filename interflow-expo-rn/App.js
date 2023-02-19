@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnboardingView from "./views/OnboardingView";
 import CustomizeView from "./views/CustomizeView";
+import WalletsConnectionView from "./views/WalletsConnectionView";
 import PrimaryBtn from "./components/PrimaryBtn";
 // import LinearGradient from "react-native-linear-gradient";
 
@@ -26,6 +27,10 @@ function App() {
           }}
           component={OnboardingView}
         />
+        <Stack.Screen
+          name="Wallets"
+          component={WalletsConnectionView}
+          />
         <Stack.Screen
           name="Customize"
           component={CustomizeView}

@@ -3,16 +3,16 @@ import React from "react";
 import GlassesIcon from "./GlassesIcon";
 import NativeAvatar from "./NativeAvatar";
 
-export default function SphereComponent({ onPress, position, glasses }) {
+export default function SphereComponent({ onPress, position, type }) {
   return (
     <group
       position={position}
       onPointerDown={(e) => {
         e.stopPropagation();
-        onPress("glasses");
+        onPress(type);
       }}
     >
-      {glasses ? (
+      {type == "accesories" ? (
         <GlassesIcon scale={0.005} position={[0, 0, 0]} animated />
       ) : (
         <NativeAvatar scale={1} position={[0, -0.4, 0]} icon animated />

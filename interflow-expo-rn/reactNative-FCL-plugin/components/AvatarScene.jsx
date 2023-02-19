@@ -33,14 +33,18 @@ const { width, height } = Dimensions.get("window");
 const AvatarScene = () => {
   const [Zoom, setZoom] = useState(0.7);
   const [showModal, setShowModal] = useState(false);
+  const [showWheelModal, setShowWheelModal] = useState(false);
   const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
 
-  const toggleModal = () => {
-    if (showModal) setZoom(0.7);
+  const toggleModal = (type) => {
+    if (showModal || showWheelModal) setZoom(0.7);
 
-    setShowModal(!showModal);
+    type == "accesories"
+      ? setShowModal(!showModal)
+      : setShowWheelModal(!showWheelModal);
+
     Animated.spring(bottomSheetAnimation, {
-      toValue: showModal ? 0 : 1,
+      toValue: showModal || showWheelModal ? 0 : 1,
       useNativeDriver: true,
     }).start();
   };
@@ -58,9 +62,9 @@ const AvatarScene = () => {
   const screenHeight = Dimensions.get("window").height;
   const bottomSheetHeight = screenHeight - 300;
 
-  const handleSphereSelection = (sphere) => {
+  const handleSphereSelection = (type) => {
     setZoom(0.5);
-    toggleModal();
+    toggleModal(type);
   };
 
   const modalProps = {
@@ -69,6 +73,11 @@ const AvatarScene = () => {
     bottomSheetHeight,
     toggleModal,
     showModal,
+  };
+  
+  const modalWheelProps = {
+    contentTranslateY,
+    bottomSheetHeight,
   };
 
   return (
@@ -105,11 +114,12 @@ const AvatarScene = () => {
             {/* <Caustics backside lightSource={[2.5, 5, -2.5]}> */}
             <SphereComponent
               position={[2.7, 3, 0]}
-              glasses
+              type="accesories"
               onPress={handleSphereSelection}
             />
             <SphereComponent
               position={[2.7, 1, 0]}
+              type="outfit"
               onPress={handleSphereSelection}
             />
             {/* </Caustics> */}
@@ -119,11 +129,8 @@ const AvatarScene = () => {
         {/* <SphereActionsComponent /> */}
       </View>
       <BottomSheetModal {...modalProps} />
-      <View style={styles.circleContainer}>
-        {/* <Circle diameter={400} color="blue" /> */}
-      </View>
-             <TestCircle />
-
+      {/* <View style={styles.circleContainer}> */}
+      {showWheelModal && <TestCircle {...modalWheelProps} />} 
     </View>
   );
 };

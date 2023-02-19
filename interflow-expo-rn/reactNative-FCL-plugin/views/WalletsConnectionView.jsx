@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Button from "./Button";
+import Button from "../components/Button";
 import { useFcl } from "../contexts/FclContext";
 
-export default function HomeComponent() {
+export default function WalletsConnectionView() {
   const { authenticate, removeWallet, wallets } = useFcl();
 
   const removeWalletFn = useCallback(async (address) => {
