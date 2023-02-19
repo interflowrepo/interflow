@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, Image, Dimensions } from "react-native";
 import PagerView from "react-native-pager-view";
 import AnimationComponent from "../components/AnimationComponent";
-import PrimaryBtn from "../components/PrimaryBtn";
+// import PrimaryBtn from "../components/PrimaryBtn";
 import PrimaryBtnComponent from "../components/PrimaryBtnComponent";
 import PrimaryBtnTxt from "../components/PrimaryBtnTxt";
 import SecondaryBtn from "../components/SecondaryBtn";
@@ -37,7 +37,7 @@ const steps = [
   },
 ];
 
-const OnboardingView = ({navigation}) => {
+const OnboardingView = ({ navigation }) => {
   const [ActualIdx, setActualIdx] = useState(0);
 
   return (
@@ -59,7 +59,10 @@ const OnboardingView = ({navigation}) => {
             <AnimationComponent />
           </View>
           <View style={styles.actionsContainer}>
-            <PrimaryBtnComponent label={"CONNECT WALLETS"} />
+            <PrimaryBtnComponent
+              label={"CONNECT WALLETS"}
+              onPress={() => navigation.navigate("Wallets")}
+            />
             <View style={styles.secondaryBtnContainer}>
               <SecondaryBtn label={"SKIP"} />
             </View>
@@ -79,9 +82,10 @@ const OnboardingView = ({navigation}) => {
             </Text>
           </View>
           <View style={styles.actionsContainer}>
-           <PrimaryBtnComponent label={"CUSTOMIZE"} onPress={
-              () => navigation.navigate("Customize")
-           } />
+            <PrimaryBtnComponent
+              label={"CUSTOMIZE"}
+              onPress={() => navigation.navigate("Customize")}
+            />
             <View style={styles.secondaryBtnContainer}>
               <SecondaryBtn label={"SKIP"} />
             </View>
