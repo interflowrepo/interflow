@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnboardingView from "./views/OnboardingView";
 import CustomizeView from "./views/CustomizeView";
 import WalletsConnectionView from "./views/WalletsConnectionView";
-import PrimaryBtn from "./components/PrimaryBtn";
+// import PrimaryBtn from "./components/PrimaryBtn";
 
 const Stack = createNativeStackNavigator();
 
