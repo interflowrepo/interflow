@@ -105,7 +105,9 @@ const OnboardingView = ({ navigation }) => {
             </Text>
           </View>
           <View style={styles.actionsContainer}>
-            <PrimaryBtnComponent label="TAKE PHOTO" />
+            <PrimaryBtnComponent label="TAKE PHOTO" 
+            onPress={() => navigation.navigate("Photo")}
+            />
             <View style={styles.secondaryBtnContainer}>
               <SecondaryBtn label={"SKIP"} />
             </View>

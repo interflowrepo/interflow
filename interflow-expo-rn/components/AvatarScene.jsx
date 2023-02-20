@@ -30,7 +30,7 @@ import TestCircle from "./customize/wheel/TestCircle";
 
 const { width, height } = Dimensions.get("window");
 
-const AvatarScene = () => {
+const AvatarScene = ({ pfp, handleImgSave }) => {
   const [Zoom, setZoom] = useState(0.7);
   const [showModal, setShowModal] = useState(false);
   const [showWheelModal, setShowWheelModal] = useState(false);
@@ -63,8 +63,12 @@ const AvatarScene = () => {
   const bottomSheetHeight = screenHeight - 300;
 
   const handleSphereSelection = (type) => {
-    setZoom(0.5);
-    toggleModal(type);
+    if (type == "camera") {
+      handleImgSave();
+    } else {
+      setZoom(0.5);
+      toggleModal(type);
+    }
   };
 
   const modalProps = {
@@ -74,7 +78,7 @@ const AvatarScene = () => {
     toggleModal,
     showModal,
   };
-  
+
   const modalWheelProps = {
     contentTranslateY,
     bottomSheetHeight,
@@ -112,16 +116,26 @@ const AvatarScene = () => {
               <NativeAvatar scale={4} position={[0.1, 0, 0]} />
             </Stage>
             {/* <Caustics backside lightSource={[2.5, 5, -2.5]}> */}
-            <SphereComponent
-              position={[2.7, 3, 0]}
-              type="accesories"
-              onPress={handleSphereSelection}
-            />
-            <SphereComponent
-              position={[2.7, 1, 0]}
-              type="outfit"
-              onPress={handleSphereSelection}
-            />
+            {!pfp ? (
+              <>
+                <SphereComponent
+                  position={[2.7, 3, 0]}
+                  type="accesories"
+                  onPress={handleSphereSelection}
+                />
+                <SphereComponent
+                  position={[2.7, 1, 0]}
+                  type="outfit"
+                  onPress={handleSphereSelection}
+                />
+              </>
+            ) : (
+              <SphereComponent
+                position={[0, -3.3, 2]}
+                type="camera"
+                onPress={handleSphereSelection}
+              />
+            )}
             {/* </Caustics> */}
           </Canvas>
           {/* </Suspense> */}
@@ -130,7 +144,7 @@ const AvatarScene = () => {
       </View>
       <BottomSheetModal {...modalProps} />
       {/* <View style={styles.circleContainer}> */}
-      {showWheelModal && <TestCircle {...modalWheelProps} />} 
+      {showWheelModal && <TestCircle {...modalWheelProps} />}
     </View>
   );
 };
