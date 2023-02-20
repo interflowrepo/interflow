@@ -1,0 +1,80 @@
+{
+  "name": "@walletconnect/mobile-registry",
+  "version": "1.4.0",
+  "description": "Registry for WalletConnect mobile-to-mobile linking supported Wallets",
+  "scripts": {
+    "build": "node ./scripts/format.js"
+  },
+  "keywords": [
+    "WalletConnect",
+    "mobile",
+    "registry"
+  ],
+  "author": "WalletConnect <walletconnect.org>",
+  "homepage": "https://github.com/WalletConnect/walletconnect-monorepo#readme",
+  "license": "MIT",
+  "main": "registry.json",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WalletConnect/walletconnect-monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WalletConnect/walletconnect-monorepo/issues"
+  },
+  "devDependencies": {
+    "@walletconnect/utils": "^1.4.0",
+    "axios": "^0.21.0"
+  },
+  "react-native": {
+    "zlib": "browserify-zlib",
+    "console": "console-browserify",
+    "constants": "constants-browserify",
+    "crypto": "react-native-crypto",
+    "dns": "dns.js",
+    "net": "react-native-tcp",
+    "domain": "domain-browser",
+    "http": "@tradle/react-native-http",
+    "https": "https-browserify",
+    "os": "react-native-os",
+    "path": "path-browserify",
+    "querystring": "querystring-es3",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "dgram": "react-native-udp",
+    "stream": "stream-browserify",
+    "timers": "timers-browserify",
+    "tty": "tty-browserify",
+    "vm": "vm-browserify",
+    "tls": false
+  },
+  "browser": {
+    "zlib": "browserify-zlib",
+    "console": "console-browserify",
+    "constants": "constants-browserify",
+    "crypto": "react-native-crypto",
+    "dns": "dns.js",
+    "net": "react-native-tcp",
+    "domain": "domain-browser",
+    "http": "@tradle/react-native-http",
+    "https": "https-browserify",
+    "os": "react-native-os",
+    "path": "path-browserify",
+    "querystring": "querystring-es3",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "dgram": "react-native-udp",
+    "stream": "stream-browserify",
+    "timers": "timers-browserify",
+    "tty": "tty-browserify",
+    "vm": "vm-browserify",
+    "tls": false
+  }
+}
