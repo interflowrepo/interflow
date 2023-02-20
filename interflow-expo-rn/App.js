@@ -11,6 +11,8 @@ import SocialView from "./views/SocialView";
 import GamesView from "./views/GamesView";
 import WalletsConnectionView from "./views/WalletsConnectionView";
 import PfpView from "./views/PfpView.jsx";
+import LoginComponent from "./components/LoginComponent.jsx";
+import AuthContext from "./contexts/AuthContext.jsx";
 import UserContext, { useUser } from "./contexts/UserContext.jsx";
 import FclContext from "./contexts/FclContext";
 import HeaderComponent from "./components/HeaderComponent.jsx";
@@ -55,9 +57,10 @@ const styles = StyleSheet.create({
 
 export default function App() {
   return (
+    <AuthContext>
     <UserContext>
       <FclContext>
-        {/* <HomeComponent /> */}
+        {/* <LoginComponent /> */}
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -158,5 +161,6 @@ export default function App() {
         </NavigationContainer>
       </FclContext>
     </UserContext>
+    </AuthContext>
   );
 }

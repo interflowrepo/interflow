@@ -14,7 +14,7 @@ import {
   getService,
   storeBloctoData,
   storeDapperData,
-} from "../utils/authUser";
+} from "../utils/authFclUser";
 import { injectedJavaScript } from "../utils/blocto/injectedJavaScript";
 import AvailableWalletsView from "../components/AvailableWalletsView";
 
@@ -25,17 +25,17 @@ export default function FclProvider({ children }) {
   const [linkUrl, setLinkUrl] = useState();
   const [openWalletWebView, setOpenWalletWebView] = useState(false);
   const [userAddr, setUserAddr] = useState();
-  const [openAvailableWalletsView, setOpenAvailableWalletsView] = useState(false);
+  const [openAvailableWalletsView, setOpenAvailableWalletsView] =
+    useState(false);
   const [wallets, setWallets] = useState([]);
 
   useEffect(() => {
     fcl.discovery.authn.subscribe((res) => setServices(res.results));
-    if(linkUrl != '' && linkUrl != undefined){
+    if (linkUrl != "" && linkUrl != undefined) {
       setOpenWalletWebView(true);
-    } 
+    }
     getWallets();
   }, [services, linkUrl]);
-
 
   const getWallets = async () => {
     const wallets = await getAllStoredData();
@@ -64,8 +64,8 @@ export default function FclProvider({ children }) {
       let link = `${postResponse.local.endpoint}?l6n=http%3A%2F%2Flocalhost%3A3000&channel=${postResponse.local.params.channel}&authenticationId=${postResponse.local.params.authenticationId}&fclVersion=${postResponse.local.params.fclVersion}`;
       await updateLink(link);
       console.log("postResponse", postResponse);
-      
-      await checkAuthStatus(postResponse.local.params.authenticationId)
+
+      await checkAuthStatus(postResponse.local.params.authenticationId);
     }
   }, []);
 
@@ -97,7 +97,7 @@ export default function FclProvider({ children }) {
         setOpenWalletWebView(false);
         setOpenAvailableWalletsView(false);
         setServices(undefined);
-        setLinkUrl('');
+        setLinkUrl("");
       } else if (statusData.status == "PENDING") {
         setTimeout(() => {
           checkAuthStatus(authId);
@@ -107,7 +107,7 @@ export default function FclProvider({ children }) {
         setOpenWalletWebView(false);
         setOpenAvailableWalletsView(false);
         setServices(undefined);
-        setLinkUrl('');
+        setLinkUrl("");
       }
     }
   }, []);
@@ -171,7 +171,7 @@ export default function FclProvider({ children }) {
     setOpenWalletWebView(false);
     setOpenAvailableWalletsView(false);
     setServices(undefined);
-    setLinkUrl('');
+    setLinkUrl("");
   };
 
   const value = {
@@ -201,7 +201,7 @@ export default function FclProvider({ children }) {
           closeAvailableWalletsView={closeAvailableWalletsView}
         />
       )}
-      {(openWalletWebView && linkUrl != '') && (
+      {openWalletWebView && linkUrl != "" && (
         <View
           style={{
             flex: 1,
@@ -217,7 +217,7 @@ export default function FclProvider({ children }) {
             onMessage={async (e) => {
               if (JSON.parse(e.nativeEvent.data).name != null) {
                 getDapperWallet(e.nativeEvent.data);
-              } 
+              }
               console.log("Events: ", e.nativeEvent.data);
             }}
             injectedJavaScriptForMainFrameOnly={true}
