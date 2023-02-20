@@ -9,7 +9,8 @@ import OnboardingView from "./views/OnboardingView";
 import CustomizeView from "./views/CustomizeView";
 import WalletsConnectionView from "./views/WalletsConnectionView";
 import PfpView from "./views/PfpView.jsx";
-// import PrimaryBtn from "./components/PrimaryBtn";
+import LoginComponent from "./components/LoginComponent.jsx";
+import AuthContext from "./contexts/AuthContext.jsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,94 +22,96 @@ const styles = StyleSheet.create({
 
 export default function App() {
   return (
-    <FclContext>
-      {/* <HomeComponent /> */}
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Onboarding"
-            options={{
-              headerShown: false,
-            }}
-            component={OnboardingView}
-          />
-          <Stack.Screen
-            name="Wallets"
-            options={{
-              headerShown: false,
-            }}
-            component={WalletsConnectionView}
-          />
-          <Stack.Screen
-            name="Customize"
-            component={CustomizeView}
-            options={{
-              // headerStyle: styles.navBar,
-              headerBackground: () => (
-                <View
-                  style={{
-                    flex: 1,
-                    backgroundColor: "transparent",
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: '#f0f0f0',
-                  }}
-                >
-                  <ImageBackground
-                    source={require("./assets/avatar/bg(1).png")}
+    <AuthContext>
+      <FclContext>
+        {/* <LoginComponent /> */}
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Onboarding"
+              options={{
+                headerShown: false,
+              }}
+              component={OnboardingView}
+            />
+            <Stack.Screen
+              name="Wallets"
+              options={{
+                headerShown: false,
+              }}
+              component={WalletsConnectionView}
+            />
+            <Stack.Screen
+              name="Customize"
+              component={CustomizeView}
+              options={{
+                // headerStyle: styles.navBar,
+                headerBackground: () => (
+                  <View
                     style={{
                       flex: 1,
-                      resizeMode: "cover",
-                      justifyContent: "center",
+                      backgroundColor: "transparent",
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: '#f0f0f0',
                     }}
-                  ></ImageBackground>
-                </View>
-              ),
-              headerTintColor: "#fff",
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-              // headerTitleStyle: {
-              //   color: "white",
-              // },
-              // headerTitle: (props) => (
-              //   <View>
-              //     <Text style={{ color: "white" }}>{props.children}</Text>
-              //   </View>
-              // ),
-            }}
-          />
-          <Stack.Screen
-            name="Photo"
-            component={PfpView}
-            options={{
-              // headerStyle: styles.navBar,
-              headerBackground: () => (
-                <View
-                  style={{
-                    flex: 1,
-                    backgroundColor: "transparent",
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: '#f0f0f0',
-                  }}
-                >
-                  <ImageBackground
-                    source={require("./assets/avatar/bg(1).png")}
+                  >
+                    <ImageBackground
+                      source={require("./assets/avatar/bg(1).png")}
+                      style={{
+                        flex: 1,
+                        resizeMode: "cover",
+                        justifyContent: "center",
+                      }}
+                    ></ImageBackground>
+                  </View>
+                ),
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                // headerTitleStyle: {
+                //   color: "white",
+                // },
+                // headerTitle: (props) => (
+                //   <View>
+                //     <Text style={{ color: "white" }}>{props.children}</Text>
+                //   </View>
+                // ),
+              }}
+            />
+            <Stack.Screen
+              name="Photo"
+              component={PfpView}
+              options={{
+                // headerStyle: styles.navBar,
+                headerBackground: () => (
+                  <View
                     style={{
                       flex: 1,
-                      resizeMode: "cover",
-                      justifyContent: "center",
+                      backgroundColor: "transparent",
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: '#f0f0f0',
                     }}
-                  ></ImageBackground>
-                </View>
-              ),
-              headerTintColor: "#fff",
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </FclContext>
+                  >
+                    <ImageBackground
+                      source={require("./assets/avatar/bg(1).png")}
+                      style={{
+                        flex: 1,
+                        resizeMode: "cover",
+                        justifyContent: "center",
+                      }}
+                    ></ImageBackground>
+                  </View>
+                ),
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FclContext>
+    </AuthContext>
   );
 }
