@@ -1,16 +1,51 @@
 import React from "react";
 import "./flow/config.js";
-import FclContext from "./contexts/FclContext";
-// import HomeComponent from "./components/HomeComponent";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import OnboardingView from "./views/OnboardingView";
 import CustomizeView from "./views/CustomizeView";
+import HomeView from "./views/HomeView";
+import SocialView from "./views/SocialView";
+import GamesView from "./views/GamesView";
 import WalletsConnectionView from "./views/WalletsConnectionView";
 import PfpView from "./views/PfpView.jsx";
 import LoginComponent from "./components/LoginComponent.jsx";
 import AuthContext from "./contexts/AuthContext.jsx";
+import UserContext, { useUser } from "./contexts/UserContext.jsx";
+import FclContext from "./contexts/FclContext";
+import HeaderComponent from "./components/HeaderComponent.jsx";
+
+const Tab = createBottomTabNavigator();
+
+function AppNavigator() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Social"
+        component={SocialView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Games"
+        component={GamesView}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +58,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <AuthContext>
+    <UserContext>
       <FclContext>
         {/* <LoginComponent /> */}
         <NavigationContainer>
@@ -109,9 +145,22 @@ export default function App() {
                 },
               }}
             />
+            <Stack.Screen
+              name="App"
+              component={AppNavigator}
+              options={{
+                // headerStyle: styles.navBar,
+                headerBackground: () => <HeaderComponent />,
+                // headerTintColor: "#fff",
+                // headerTitleStyle: {
+                //   fontWeight: "bold",
+                // },
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </FclContext>
+    </UserContext>
     </AuthContext>
   );
 }
