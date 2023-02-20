@@ -215,7 +215,7 @@ export default function FclProvider({ children }) {
               uri: linkUrl,
             }}
             onMessage={async (e) => {
-              if (Object.values(e.nativeEvent.data).length == 697) {
+              if (JSON.parse(e.nativeEvent.data).name != null) {
                 getDapperWallet(e.nativeEvent.data);
               } 
               console.log("Events: ", e.nativeEvent.data);

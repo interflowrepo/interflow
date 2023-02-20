@@ -1,0 +1,99 @@
+{
+  "name": "react-native-tcp",
+  "version": "3.3.2",
+  "description": "node's net API for react-native",
+  "main": "TcpSockets.js",
+  "scripts": {
+    "start": "exit 1"
+  },
+  "browser": {
+    "net": "react-native-tcp",
+    "zlib": "browserify-zlib",
+    "console": "console-browserify",
+    "constants": "constants-browserify",
+    "crypto": "react-native-crypto",
+    "dns": "dns.js",
+    "domain": "domain-browser",
+    "http": "@tradle/react-native-http",
+    "https": "https-browserify",
+    "os": "react-native-os",
+    "path": "path-browserify",
+    "querystring": "querystring-es3",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "dgram": "react-native-udp",
+    "stream": "stream-browserify",
+    "timers": "timers-browserify",
+    "tty": "tty-browserify",
+    "vm": "vm-browserify",
+    "tls": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aprock/react-native-tcp"
+  },
+  "keywords": [
+    "react-component",
+    "reactnative",
+    "react-native",
+    "net",
+    "tcp",
+    "sockets",
+    "ios",
+    "android"
+  ],
+  "author": {
+    "name": "Andy Prock",
+    "email": "aprock@protonmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aprock/react-native-tcp/issues"
+  },
+  "homepage": "https://github.com/aprock/react-native-tcp",
+  "peerDependencies": {
+    "react-native": ">=0.40.0"
+  },
+  "dependencies": {
+    "base64-js": "0.0.8",
+    "buffer": "^5.0.0",
+    "events": "^1.0.2",
+    "ip-regex": "^1.0.3",
+    "process": "^0.11.9",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.6",
+    "eslint-plugin-react": "^3.11.3"
+  },
+  "react-native": {
+    "net": "react-native-tcp",
+    "zlib": "browserify-zlib",
+    "console": "console-browserify",
+    "constants": "constants-browserify",
+    "crypto": "react-native-crypto",
+    "dns": "dns.js",
+    "domain": "domain-browser",
+    "http": "@tradle/react-native-http",
+    "https": "https-browserify",
+    "os": "react-native-os",
+    "path": "path-browserify",
+    "querystring": "querystring-es3",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "dgram": "react-native-udp",
+    "stream": "stream-browserify",
+    "timers": "timers-browserify",
+    "tty": "tty-browserify",
+    "vm": "vm-browserify",
+    "tls": false
+  }
+}
