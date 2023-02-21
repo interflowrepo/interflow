@@ -1,5 +1,9 @@
 # Flow Wallet API
 
+Run local with:
+
+env $(cat .env | grep -v "#" | xargs) go run main.go
+
 **NOTE: This repository is currently not maintained.**
 
 The Flow Wallet API is a REST HTTP service that allows a developer to integrate wallet functionality into a larger Flow application infrastructure.
