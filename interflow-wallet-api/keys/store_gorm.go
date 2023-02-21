@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/flow-hydraulics/flow-wallet-api/datastore/lib"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore/lib"
 )
 
 type GormStore struct {

@@ -9,21 +9,21 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/accounts"
-	"github.com/flow-hydraulics/flow-wallet-api/chain_events"
-	"github.com/flow-hydraulics/flow-wallet-api/configs"
-	"github.com/flow-hydraulics/flow-wallet-api/datastore/gorm"
-	"github.com/flow-hydraulics/flow-wallet-api/handlers"
-	"github.com/flow-hydraulics/flow-wallet-api/jobs"
-	"github.com/flow-hydraulics/flow-wallet-api/keys"
-	"github.com/flow-hydraulics/flow-wallet-api/keys/basic"
-	"github.com/flow-hydraulics/flow-wallet-api/ops"
-	"github.com/flow-hydraulics/flow-wallet-api/system"
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
-	"github.com/flow-hydraulics/flow-wallet-api/tokens"
-	"github.com/flow-hydraulics/flow-wallet-api/transactions"
 	"github.com/gomodule/redigo/redis"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/accounts"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/chain_events"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/configs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore/gorm"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/handlers"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/jobs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys/basic"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/ops"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/system"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/tokens"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/transactions"
 	access "github.com/onflow/flow-go-sdk/access/grpc"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/ratelimit"
@@ -165,7 +165,7 @@ func runServer(cfg *configs.Config) {
 	rv := r.PathPrefix("/{apiVersion}").Subrouter()
 
 	// Debug
-	rv.Handle("/debug", handlers.Debug("https://github.com/flow-hydraulics/flow-wallet-api", sha1ver, buildTime)).Methods(http.MethodGet)
+	rv.Handle("/debug", handlers.Debug("https://github.com/interflowrepo/interflow/interflow-wallet-api", sha1ver, buildTime)).Methods(http.MethodGet)
 
 	// Health
 	rv.HandleFunc("/health/ready", handlers.HandleHealthReady).Methods(http.MethodGet)

@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
 )
 
 // Templates is a HTTP server for template management.

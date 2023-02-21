@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/handlers"
-	"github.com/flow-hydraulics/flow-wallet-api/tests/test"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/handlers"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/tests/test"
 )
 
 func TestSettingsE2E(t *testing.T) {

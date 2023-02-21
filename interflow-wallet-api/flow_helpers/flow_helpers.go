@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/errors"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/errors"
 	"github.com/jpillora/backoff"
 	"github.com/onflow/cadence"
 	"github.com/onflow/flow-go-sdk"

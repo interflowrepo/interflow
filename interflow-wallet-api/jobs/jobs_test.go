@@ -13,8 +13,8 @@ import (
 
 	"github.com/sirupsen/logrus/hooks/test"
 
-	"github.com/flow-hydraulics/flow-wallet-api/datastore"
 	"github.com/google/uuid"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore"
 )
 
 type dummyStore struct{}

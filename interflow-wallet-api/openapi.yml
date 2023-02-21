@@ -4,9 +4,9 @@ info:
   description: A REST HTTP service that allows a developer to integrate wallet functionality into a larger Flow application infrastructure
   version: 0.9.0
   contact:
-    url: 'https://github.com/orgs/flow-hydraulics/teams/wallet'
+    url: "https://github.com/orgs/flow-hydraulics/teams/wallet"
 servers:
-  - url: 'http://localhost:3000/v1'
+  - url: "http://localhost:3000/v1"
 tags:
   - name: Debugging
     description: View useful debugging information about the Wallet API.
@@ -17,7 +17,7 @@ tags:
   - name: Accounts
     description: Create and lists accounts managed by this Wallet API.
   - name: Account Transactions
-    description: 'Send, list and get transactions for an account.'
+    description: "Send, list and get transactions for an account."
   - name: Account Fungible Tokens
     description: Manage fungible tokens for an account.
   - name: Account Non-Fungible Tokens
@@ -27,9 +27,9 @@ tags:
   - name: Scripts
     description: Run zero-cost Cadence scripts to read on-chain data.
   - name: Fungible Tokens
-    description: 'Initialize tokens, withdraw funds and detect deposits of fungible tokens.'
+    description: "Initialize tokens, withdraw funds and detect deposits of fungible tokens."
   - name: Non-Fungible Tokens
-    description: 'Initialize non-fungible tokens, transfer NFTs and detect deposits of NFTs.'
+    description: "Initialize non-fungible tokens, transfer NFTs and detect deposits of NFTs."
   - name: Jobs
     description: View the status of asynchronous tasks being completed by the Wallet API.
   - name: Watchlist
@@ -44,25 +44,25 @@ paths:
       tags:
         - Debugging
       responses:
-        '200':
+        "200":
           description: OK
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/debugInfo'
+                $ref: "#/components/schemas/debugInfo"
   /system/settings:
     get:
       summary: Get system settings
       tags:
         - System
       responses:
-        '200':
+        "200":
           description: OK
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   maintenanceMode:
@@ -82,12 +82,12 @@ paths:
       summary: Set system settings
       operationId: post-system-settings
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   maintenanceMode:
@@ -97,7 +97,7 @@ paths:
                 x-examples:
                   example-1:
                     maintenanceMode: false
-        '400':
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -110,7 +110,7 @@ paths:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 maintenanceMode:
@@ -124,22 +124,22 @@ paths:
                   maintenanceMode: true
         description: Post only fields you want to be changed.
       parameters:
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/idempotencyKey"
   /system/sync-account-key-count:
     post:
       summary: Sync key count for existing accounts
       tags:
         - System
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/job'
+                $ref: "#/components/schemas/job"
       operationId: post-system-sync-account-key-count
       parameters:
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/idempotencyKey"
       requestBody:
         content:
           application/json:
@@ -151,14 +151,14 @@ paths:
             examples:
               example-1:
                 value:
-                  address: '0xf669cb8d41ce0c74'
+                  address: "0xf669cb8d41ce0c74"
   /health/ready:
     get:
       summary: Healthcheck ready
       tags:
         - Healthcheck
       responses:
-        '200':
+        "200":
           description: OK
       operationId: get-health-ready
       description: Always responds with 200 OK when the service is running
@@ -168,12 +168,12 @@ paths:
       tags:
         - Healthcheck
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   jobsInit:
@@ -233,7 +233,7 @@ paths:
         - Fungible Tokens
         - Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -241,11 +241,11 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/fungibleToken'
-                    - $ref: '#/components/schemas/nonFungibleToken'
+                    - $ref: "#/components/schemas/fungibleToken"
+                    - $ref: "#/components/schemas/nonFungibleToken"
     post:
       summary: Enable a new token
-      description: 'Enable a new token by sending its name, address and required Cadence transaction codes'
+      description: "Enable a new token by sending its name, address and required Cadence transaction codes"
       operationId: enableNewToken
       tags:
         - Fungible Tokens
@@ -255,14 +255,14 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/fungibleTokenEnable'
-                - $ref: '#/components/schemas/nonFungibleTokenEnable'
+                - $ref: "#/components/schemas/fungibleTokenEnable"
+                - $ref: "#/components/schemas/nonFungibleTokenEnable"
       responses:
-        '201':
+        "201":
           description: OK
       parameters:
-        - $ref: '#/components/parameters/idempotencyKey'
-  '/tokens/{id_or_name}':
+        - $ref: "#/components/parameters/idempotencyKey"
+  "/tokens/{id_or_name}":
     parameters:
       - name: id_or_name
         in: path
@@ -280,15 +280,15 @@ paths:
         - Fungible Tokens
         - Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/fungibleTokenDetails'
-                  - $ref: '#/components/schemas/nonFungibleTokenDetails'
-  '/tokens/{id}':
+                  - $ref: "#/components/schemas/fungibleTokenDetails"
+                  - $ref: "#/components/schemas/nonFungibleTokenDetails"
+  "/tokens/{id}":
     parameters:
       - name: id
         in: path
@@ -298,13 +298,13 @@ paths:
           example: 1
     delete:
       summary: Remove a token from the service
-      description: 'Remove a token, disabling functionality regarding it. Won''t affect accounts.'
+      description: "Remove a token, disabling functionality regarding it. Won't affect accounts."
       operationId: removeToken
       tags:
         - Fungible Tokens
         - Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: Removal OK.
           content:
             application/json:
@@ -318,14 +318,14 @@ paths:
       tags:
         - Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/fungibleToken'
+                  $ref: "#/components/schemas/fungibleToken"
   /non-fungible-tokens:
     get:
       summary: List enabled non-fungible tokens
@@ -334,14 +334,14 @@ paths:
       tags:
         - Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/nonFungibleToken'
+                  $ref: "#/components/schemas/nonFungibleToken"
   /transactions:
     get:
       summary: List all transactions
@@ -350,20 +350,20 @@ paths:
       tags:
         - Transactions
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/transaction'
-  '/transactions/{transactionId}':
+                  $ref: "#/components/schemas/transaction"
+  "/transactions/{transactionId}":
     parameters:
-      - $ref: '#/components/parameters/transactionId'
+      - $ref: "#/components/parameters/transactionId"
     get:
       summary: Get a transaction
       description: |-
@@ -373,12 +373,12 @@ paths:
       tags:
         - Transactions
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transactionWithEvents'
+                $ref: "#/components/schemas/transactionWithEvents"
   /scripts:
     post:
       summary: Execute a script on chain
@@ -390,19 +390,19 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/script'
+                - $ref: "#/components/schemas/script"
                 - example:
-                    code: 'pub fun main(): Int { return 1 }'
+                    code: "pub fun main(): Int { return 1 }"
                     arguments: []
       responses:
-        '200':
+        "200":
           description: Ok
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/cadenceValue'
-                  - $ref: '#/components/schemas/plainValue'
+                  - $ref: "#/components/schemas/cadenceValue"
+                  - $ref: "#/components/schemas/plainValue"
   /jobs:
     get:
       summary: List all jobs
@@ -410,32 +410,32 @@ paths:
       tags:
         - Jobs
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/job'
-  '/jobs/{jobId}':
+                  $ref: "#/components/schemas/job"
+  "/jobs/{jobId}":
     parameters:
-      - $ref: '#/components/parameters/jobId'
+      - $ref: "#/components/parameters/jobId"
     get:
       summary: Get job details
       operationId: getJobDetails
       tags:
         - Jobs
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/job'
+                $ref: "#/components/schemas/job"
   /accounts:
     get:
       summary: List accounts
@@ -444,17 +444,17 @@ paths:
       tags:
         - Accounts
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/account'
+                  $ref: "#/components/schemas/account"
     post:
       summary: Create an account
       description: Create a new account that will be managed by the wallet service. Returns a job.
@@ -462,20 +462,20 @@ paths:
       tags:
         - Accounts
       parameters:
-        - $ref: '#/components/parameters/sync'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/sync"
+        - $ref: "#/components/parameters/idempotencyKey"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/job'
-                  - $ref: '#/components/schemas/account'
-  '/accounts/{address}':
+                  - $ref: "#/components/schemas/job"
+                  - $ref: "#/components/schemas/account"
+  "/accounts/{address}":
     parameters:
-      - $ref: '#/components/parameters/address'
+      - $ref: "#/components/parameters/address"
     get:
       summary: Get an account
       description: Get the details of a specific account.
@@ -483,37 +483,37 @@ paths:
       tags:
         - Accounts
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/account'
-  '/accounts/{address}/sign':
+                $ref: "#/components/schemas/account"
+  "/accounts/{address}/sign":
     post:
       summary: Sign a raw transaction
-      description: 'Sign a transaction with custodial account keys, without sending it. Signed transaction is returned in response (with signatures).'
+      description: "Sign a transaction with custodial account keys, without sending it. Signed transaction is returned in response (with signatures)."
       operationId: signRawTransaction
       tags:
         - Account Transactions
       parameters:
-        - $ref: '#/components/parameters/address'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/address"
+        - $ref: "#/components/parameters/idempotencyKey"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/script'
+              $ref: "#/components/schemas/script"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/signedTransaction'
-  '/accounts/{address}/transactions':
+                $ref: "#/components/schemas/signedTransaction"
+  "/accounts/{address}/transactions":
     parameters:
-      - $ref: '#/components/parameters/address'
+      - $ref: "#/components/parameters/address"
     get:
       summary: List account raw transactions
       description: Get a list of all transactions sent by an account.
@@ -521,17 +521,17 @@ paths:
       tags:
         - Account Transactions
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/transaction'
+                  $ref: "#/components/schemas/transaction"
     post:
       summary: Send a raw transaction
       description: |-
@@ -541,26 +541,26 @@ paths:
       tags:
         - Account Transactions
       parameters:
-        - $ref: '#/components/parameters/sync'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/sync"
+        - $ref: "#/components/parameters/idempotencyKey"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/script'
+              $ref: "#/components/schemas/script"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/job'
-                  - $ref: '#/components/schemas/transactionWithEvents'
-  '/accounts/{address}/transactions/{transactionId}':
+                  - $ref: "#/components/schemas/job"
+                  - $ref: "#/components/schemas/transactionWithEvents"
+  "/accounts/{address}/transactions/{transactionId}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/transactionId'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/transactionId"
     get:
       summary: Get a raw transaction
       description: Get the details of a raw transaction sent by an account.
@@ -568,15 +568,15 @@ paths:
       tags:
         - Account Transactions
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transaction'
-  '/accounts/{address}/fungible-tokens':
+                $ref: "#/components/schemas/transaction"
+  "/accounts/{address}/fungible-tokens":
     parameters:
-      - $ref: '#/components/parameters/address'
+      - $ref: "#/components/parameters/address"
     get:
       summary: List account fungible tokens
       description: List fungible tokens that are enabled for an account.
@@ -584,18 +584,18 @@ paths:
       tags:
         - Account Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/accountFungibleToken'
-  '/accounts/{address}/fungible-tokens/{tokenName}':
+                  $ref: "#/components/schemas/accountFungibleToken"
+  "/accounts/{address}/fungible-tokens/{tokenName}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/fungibleTokenName'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/fungibleTokenName"
     get:
       summary: Get account fungible tokens details
       description: Get details (balance) regarding a fungible token for an account.
@@ -603,49 +603,49 @@ paths:
       tags:
         - Account Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/accountFungibleTokenDetails'
+                  $ref: "#/components/schemas/accountFungibleTokenDetails"
     post:
       summary: Enable a fungible token for an account
       operationId: enableFungibleTokenForAccount
       tags:
         - Account Fungible Tokens
       parameters:
-        - $ref: '#/components/parameters/sync'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/sync"
+        - $ref: "#/components/parameters/idempotencyKey"
       responses:
-        '201':
+        "201":
           description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/job'
-                  - $ref: '#/components/schemas/transactionWithEvents'
-  '/accounts/{address}/fungible-tokens/{tokenName}/withdrawals':
+                  - $ref: "#/components/schemas/job"
+                  - $ref: "#/components/schemas/transactionWithEvents"
+  "/accounts/{address}/fungible-tokens/{tokenName}/withdrawals":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/fungibleTokenName'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/fungibleTokenName"
     get:
       summary: List accounts withdrawals of a fungible token
       operationId: listAccountFungibleTokenWithdrawals
       tags:
         - Account Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/fungibleTokenWithdrawal'
+                  $ref: "#/components/schemas/fungibleTokenWithdrawal"
     post:
       summary: Create a fungible token withdrawal
       operationId: createFungibleTokenWithdrawal
@@ -655,74 +655,74 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/fungibleTokenWithdrawalRequest'
+              $ref: "#/components/schemas/fungibleTokenWithdrawalRequest"
       parameters:
-        - $ref: '#/components/parameters/sync'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/sync"
+        - $ref: "#/components/parameters/idempotencyKey"
       responses:
-        '201':
+        "201":
           description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/job'
-                  - $ref: '#/components/schemas/transactionWithEvents'
-  '/accounts/{address}/fungible-tokens/{tokenName}/withdrawals/{transactionId}':
+                  - $ref: "#/components/schemas/job"
+                  - $ref: "#/components/schemas/transactionWithEvents"
+  "/accounts/{address}/fungible-tokens/{tokenName}/withdrawals/{transactionId}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/fungibleTokenName'
-      - $ref: '#/components/parameters/transactionId'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/fungibleTokenName"
+      - $ref: "#/components/parameters/transactionId"
     get:
       summary: Get details of a fungible token withdrawal
       operationId: getFungibleTokenWithdrawalDetails
       tags:
         - Account Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/fungibleTokenWithdrawal'
-  '/accounts/{address}/fungible-tokens/{tokenName}/deposits':
+                $ref: "#/components/schemas/fungibleTokenWithdrawal"
+  "/accounts/{address}/fungible-tokens/{tokenName}/deposits":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/fungibleTokenName'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/fungibleTokenName"
     get:
       summary: List accounts deposits of a fungible token
       operationId: listAccountFungibleTokenDeposits
       tags:
         - Account Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/fungibleTokenDeposit'
-  '/accounts/{address}/fungible-tokens/{tokenName}/deposits/{transactionId}':
+                  $ref: "#/components/schemas/fungibleTokenDeposit"
+  "/accounts/{address}/fungible-tokens/{tokenName}/deposits/{transactionId}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/fungibleTokenName'
-      - $ref: '#/components/parameters/transactionId'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/fungibleTokenName"
+      - $ref: "#/components/parameters/transactionId"
     get:
       summary: Get details of a fungible token deposit
       operationId: getFungibleTokenDepositDetails
       tags:
         - Account Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/fungibleTokenDeposit'
-  '/accounts/{address}/non-fungible-tokens':
+                $ref: "#/components/schemas/fungibleTokenDeposit"
+  "/accounts/{address}/non-fungible-tokens":
     parameters:
-      - $ref: '#/components/parameters/address'
+      - $ref: "#/components/parameters/address"
     get:
       summary: List accounts non-fungible tokens
       description: List all non-fungible tokens that are enabled for an account.
@@ -730,18 +730,18 @@ paths:
       tags:
         - Account Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/accountNonFungibleToken'
-  '/accounts/{address}/non-fungible-tokens/{tokenName}':
+                  $ref: "#/components/schemas/accountNonFungibleToken"
+  "/accounts/{address}/non-fungible-tokens/{tokenName}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/nonFungibleTokenName'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/nonFungibleTokenName"
     get:
       summary: Get account non-fungible token details
       description: Get details (balance) regarding a non-fungible token for an account.
@@ -749,47 +749,47 @@ paths:
       tags:
         - Account Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/accountNonFungibleTokenDetails'
+                $ref: "#/components/schemas/accountNonFungibleTokenDetails"
     post:
       summary: Enable a non-fungible token for an account
       operationId: enableNonFungibleTokenForAccount
       tags:
         - Account Non-Fungible Tokens
       parameters:
-        - $ref: '#/components/parameters/sync'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/sync"
+        - $ref: "#/components/parameters/idempotencyKey"
       responses:
-        '201':
+        "201":
           description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/job'
-                  - $ref: '#/components/schemas/transactionWithEvents'
-  '/accounts/{address}/non-fungible-tokens/{tokenName}/withdrawals':
+                  - $ref: "#/components/schemas/job"
+                  - $ref: "#/components/schemas/transactionWithEvents"
+  "/accounts/{address}/non-fungible-tokens/{tokenName}/withdrawals":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/nonFungibleTokenName'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/nonFungibleTokenName"
     get:
       summary: List withdrawals of a non-fungible token
       operationId: listNonFungibleTokenWithdrawals
       tags:
         - Account Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/nonFungibleTokenWithdrawal'
+                  $ref: "#/components/schemas/nonFungibleTokenWithdrawal"
     post:
       summary: Create a non-fungible token withdrawal
       operationId: createNonFungibleTokenWithdrawal
@@ -799,71 +799,71 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/nonFungibleTokenWithdrawalRequest'
+              $ref: "#/components/schemas/nonFungibleTokenWithdrawalRequest"
       parameters:
-        - $ref: '#/components/parameters/sync'
-        - $ref: '#/components/parameters/idempotencyKey'
+        - $ref: "#/components/parameters/sync"
+        - $ref: "#/components/parameters/idempotencyKey"
       responses:
-        '201':
+        "201":
           description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/job'
-                  - $ref: '#/components/schemas/transactionWithEvents'
-  '/accounts/{address}/non-fungible-tokens/{tokenName}/withdrawals/{transactionId}':
+                  - $ref: "#/components/schemas/job"
+                  - $ref: "#/components/schemas/transactionWithEvents"
+  "/accounts/{address}/non-fungible-tokens/{tokenName}/withdrawals/{transactionId}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/nonFungibleTokenName'
-      - $ref: '#/components/parameters/transactionId'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/nonFungibleTokenName"
+      - $ref: "#/components/parameters/transactionId"
     get:
       summary: Get details of a non-fungible token withdrawal
       operationId: getNonFungibleTokenWithdrawalDetails
       tags:
         - Account Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nonFungibleTokenWithdrawal'
-  '/accounts/{address}/non-fungible-tokens/{tokenName}/deposits':
+                $ref: "#/components/schemas/nonFungibleTokenWithdrawal"
+  "/accounts/{address}/non-fungible-tokens/{tokenName}/deposits":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/nonFungibleTokenName'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/nonFungibleTokenName"
     get:
       summary: List deposits of a non-fungible token
       operationId: listNonFungibleTokenDeposits
       tags:
         - Account Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/nonFungibleTokenDeposit'
-  '/accounts/{address}/non-fungible-tokens/{tokenName}/deposits/{transactionId}':
+                  $ref: "#/components/schemas/nonFungibleTokenDeposit"
+  "/accounts/{address}/non-fungible-tokens/{tokenName}/deposits/{transactionId}":
     parameters:
-      - $ref: '#/components/parameters/address'
-      - $ref: '#/components/parameters/nonFungibleTokenName'
-      - $ref: '#/components/parameters/transactionId'
+      - $ref: "#/components/parameters/address"
+      - $ref: "#/components/parameters/nonFungibleTokenName"
+      - $ref: "#/components/parameters/transactionId"
     get:
       summary: Get details of a non-fungible token deposit
       operationId: getNonFungibleTokenDepositDetails
       tags:
         - Account Non-Fungible Tokens
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nonFungibleTokenDeposit'
+                $ref: "#/components/schemas/nonFungibleTokenDeposit"
   /watchlist/accounts:
     post:
       summary: Add a non-custodial account to watchlist.
@@ -876,21 +876,21 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/account'
+                - $ref: "#/components/schemas/account"
                 - example:
-                    address: '0xf8d6e0586b0a20c7'
+                    address: "0xf8d6e0586b0a20c7"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/account'
+                $ref: "#/components/schemas/account"
       parameters:
-        - $ref: '#/components/parameters/idempotencyKey'
-  '/watchlist/accounts/{address}':
+        - $ref: "#/components/parameters/idempotencyKey"
+  "/watchlist/accounts/{address}":
     parameters:
-      - $ref: '#/components/parameters/address'
+      - $ref: "#/components/parameters/address"
     delete:
       summary: Remove a non-custodial account from watchlist.
       description: Remove an account from a watchlist of non-custodial accounts' deposits.
@@ -898,9 +898,9 @@ paths:
       tags:
         - Watchlist
       responses:
-        '200':
+        "200":
           description: OK
-  '/ops/missing-fungible-token-vaults/stats':
+  "/ops/missing-fungible-token-vaults/stats":
     get:
       summary: Returns number of uninitialized accounts per enabled fungible token.
       description: Returns number of uninitialized accounts per enabled fungible token based on the database. You can also use this endpoint to check the init job progress.
@@ -908,15 +908,15 @@ paths:
       tags:
         - Ops
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/tokenCount'
-  '/ops/missing-fungible-token-vaults/start':
+                  $ref: "#/components/schemas/tokenCount"
+  "/ops/missing-fungible-token-vaults/start":
     get:
       summary: Starts the fungible token vault initialization job.
       description: Starts the fungible token vault initialization job. The job is singleton.
@@ -924,7 +924,7 @@ paths:
       tags:
         - Ops
       responses:
-        '200':
+        "200":
           description: OK
           content:
             text/plain:
@@ -952,45 +952,45 @@ components:
           Content-Type: application/json
           Connection: close
 
-        ver: https://github.com/flow-hydraulics/flow-wallet-api/commit/
+        ver: https://github.com/interflowrepo/interflow/interflow-wallet-api/commit/
         built on:
         api version called: v1
     account:
-      description: 'Response data for account info, private key NOT included'
+      description: "Response data for account info, private key NOT included"
       type: object
       x-examples:
         example-1:
-          address: '0x179b6b1cb6755e31'
+          address: "0x179b6b1cb6755e31"
           keys:
             - index: 0
               type: local
-              publicKey: '0xc885376ff315cc26e9740e5f5418c1e515cf690e590433a4774c2b9f4c522e7dbbb720b5049bed79820c66c8e6555997900579e6885b131180bb844cd87f4c62'
+              publicKey: "0xc885376ff315cc26e9740e5f5418c1e515cf690e590433a4774c2b9f4c522e7dbbb720b5049bed79820c66c8e6555997900579e6885b131180bb844cd87f4c62"
               signAlgo: ECDSA_P256
               hashAlgo: SHA3_256
-              createdAt: '2021-11-18T13:08:04.4236649+02:00'
-              updatedAt: '2021-11-18T13:08:04.4236649+02:00'
+              createdAt: "2021-11-18T13:08:04.4236649+02:00"
+              updatedAt: "2021-11-18T13:08:04.4236649+02:00"
           type: custodial
-          createdAt: '2021-11-18T13:08:04.4230401+02:00'
-          updatedAt: '2021-11-18T13:08:04.4230401+02:00'
+          createdAt: "2021-11-18T13:08:04.4230401+02:00"
+          updatedAt: "2021-11-18T13:08:04.4230401+02:00"
       properties:
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         keys:
           type: array
           items:
-            $ref: '#/components/schemas/key'
+            $ref: "#/components/schemas/key"
         type:
           type: string
           example: custodial
         createdAt:
           type: string
           minLength: 1
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
           format: date-time
         updatedAt:
           type: string
-          example: '2021-04-27T05:49:54.211+00:00'
+          example: "2021-04-27T05:49:54.211+00:00"
           format: date-time
     transactionEvent:
       type: object
@@ -1021,10 +1021,10 @@ components:
           example: ftsetup
         createdAt:
           type: string
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
         updatedAt:
           type: string
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
     transactionWithEvents:
       type: object
       properties:
@@ -1037,13 +1037,13 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/transactionEvent'
+            $ref: "#/components/schemas/transactionEvent"
         createdAt:
           type: string
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
         updatedAt:
           type: string
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
     signedTransaction:
       type: object
       properties:
@@ -1090,11 +1090,11 @@ components:
         payloadSignatures:
           type: array
           items:
-            $ref: '#/components/schemas/transactionSignature'
+            $ref: "#/components/schemas/transactionSignature"
         envelopeSignatures:
           type: array
           items:
-            $ref: '#/components/schemas/transactionSignature'
+            $ref: "#/components/schemas/transactionSignature"
     transactionSignature:
       type: object
       properties:
@@ -1115,13 +1115,13 @@ components:
           example: 717c25c2-4b54-4588-8f83-72f37ae1a0e8
         type:
           type: string
-          example: ''
+          example: ""
         state:
-          $ref: '#/components/schemas/jobState'
+          $ref: "#/components/schemas/jobState"
         error:
           type: string
-          example: ''
-          description: 'Final error message, blank if job completed successfully'
+          example: ""
+          description: "Final error message, blank if job completed successfully"
         errors:
           type: array
           description: Error messages recorded during all job executions including retries
@@ -1130,16 +1130,16 @@ components:
             example: an error occurred
         result:
           type: string
-          example: ''
+          example: ""
         transactionId:
           type: string
           example: f1e272ee125b370e5129215179705791220764bf71da2aa938c94181b2c06685
         createdAt:
           type: string
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
         updatedAt:
           type: string
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
     script:
       type: object
       properties:
@@ -1172,7 +1172,7 @@ components:
           example: FlowToken
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         type:
           type: string
           example: FT
@@ -1190,7 +1190,7 @@ components:
           example: flowToken
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         type:
           type: string
           example: FT
@@ -1224,7 +1224,7 @@ components:
           example: /storage/fusdVault
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         type:
           type: string
           example: FT
@@ -1242,10 +1242,10 @@ components:
       properties:
         recipient:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         amount:
           type: string
-          example: '1.0'
+          example: "1.0"
     fungibleTokenWithdrawal:
       type: object
       properties:
@@ -1254,7 +1254,7 @@ components:
           example: f1e272ee125b370e5129215179705791220764bf71da2aa938c94181b2c06685
         amount:
           type: string
-          example: '1.0'
+          example: "1.0"
         nftId:
           type: number
           example: 0
@@ -1263,13 +1263,13 @@ components:
           example: FlowToken
         createdAt:
           type: string
-          example: '2021-06-167T12:05:24.613704+03:00'
+          example: "2021-06-167T12:05:24.613704+03:00"
         updatedAt:
           type: string
-          example: '2021-06-16T12:05:24.617898+03:00'
+          example: "2021-06-16T12:05:24.617898+03:00"
         recipient:
           type: string
-          example: '0x01cf0e2f2f715450'
+          example: "0x01cf0e2f2f715450"
     fungibleTokenDeposit:
       type: object
       properties:
@@ -1278,7 +1278,7 @@ components:
           example: f1e272ee125b370e5129215179705791220764bf71da2aa938c94181b2c06685
         amount:
           type: string
-          example: '1.0'
+          example: "1.0"
         nftId:
           type: number
           example: 0
@@ -1287,13 +1287,13 @@ components:
           example: FlowToken
         createdAt:
           type: string
-          example: '2021-06-167T12:05:24.613704+03:00'
+          example: "2021-06-167T12:05:24.613704+03:00"
         updatedAt:
           type: string
-          example: '2021-06-16T12:05:24.617898+03:00'
+          example: "2021-06-16T12:05:24.617898+03:00"
         sender:
           type: string
-          example: '0x01cf0e2f2f715450'
+          example: "0x01cf0e2f2f715450"
     nonFungibleToken:
       type: object
       properties:
@@ -1305,7 +1305,7 @@ components:
           example: ExampleNFT
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         type:
           type: string
           example: NFT
@@ -1320,7 +1320,7 @@ components:
           example: ExampleNFT
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         type:
           type: string
           example: NFT
@@ -1341,7 +1341,7 @@ components:
           example: ExampleNFT
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         type:
           type: string
           example: NFT
@@ -1359,7 +1359,7 @@ components:
       properties:
         recipient:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
         nftId:
           type: number
           example: 2
@@ -1371,7 +1371,7 @@ components:
           example: f1e272ee125b370e5129215179705791220764bf71da2aa938c94181b2c06685
         amount:
           type: string
-          example: ''
+          example: ""
         nftId:
           type: number
           example: 2
@@ -1380,13 +1380,13 @@ components:
           example: ExampleNft
         createdAt:
           type: string
-          example: '2021-06-167T12:05:24.613704+03:00'
+          example: "2021-06-167T12:05:24.613704+03:00"
         updatedAt:
           type: string
-          example: '2021-06-16T12:05:24.617898+03:00'
+          example: "2021-06-16T12:05:24.617898+03:00"
         recipient:
           type: string
-          example: '0x01cf0e2f2f715450'
+          example: "0x01cf0e2f2f715450"
     nonFungibleTokenDeposit:
       type: object
       properties:
@@ -1395,7 +1395,7 @@ components:
           example: f1e272ee125b370e5129215179705791220764bf71da2aa938c94181b2c06685
         amount:
           type: string
-          example: ''
+          example: ""
         nftId:
           type: number
           example: 2
@@ -1404,13 +1404,13 @@ components:
           example: ExampleNFT
         createdAt:
           type: string
-          example: '2021-06-167T12:05:24.613704+03:00'
+          example: "2021-06-167T12:05:24.613704+03:00"
         updatedAt:
           type: string
-          example: '2021-06-16T12:05:24.617898+03:00'
+          example: "2021-06-16T12:05:24.617898+03:00"
         sender:
           type: string
-          example: '0x01cf0e2f2f715450'
+          example: "0x01cf0e2f2f715450"
     accountFungibleToken:
       type: object
       properties:
@@ -1419,7 +1419,7 @@ components:
           example: FlowToken
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
     accountFungibleTokenDetails:
       type: object
       properties:
@@ -1437,7 +1437,7 @@ components:
           example: ExampleNFT
         address:
           type: string
-          example: '0xf8d6e0586b0a20c7'
+          example: "0xf8d6e0586b0a20c7"
     accountNonFungibleTokenDetails:
       type: object
       properties:
@@ -1458,17 +1458,17 @@ components:
         example-1:
           index: 0
           type: local
-          publicKey: '0xc885376ff315cc26e9740e5f5418c1e515cf690e590433a4774c2b9f4c522e7dbbb720b5049bed79820c66c8e6555997900579e6885b131180bb844cd87f4c62'
+          publicKey: "0xc885376ff315cc26e9740e5f5418c1e515cf690e590433a4774c2b9f4c522e7dbbb720b5049bed79820c66c8e6555997900579e6885b131180bb844cd87f4c62"
           signAlgo: ECDSA_P256
           hashAlgo: SHA3_256
-          createdAt: '2021-11-18T13:08:04.4236649+02:00'
-          updatedAt: '2021-11-18T13:08:04.4236649+02:00'
+          createdAt: "2021-11-18T13:08:04.4236649+02:00"
+          updatedAt: "2021-11-18T13:08:04.4236649+02:00"
       properties:
         index:
           type: number
           minimum: 0
         type:
-          $ref: '#/components/schemas/keyType'
+          $ref: "#/components/schemas/keyType"
         publicKey:
           type: string
           minLength: 1
@@ -1482,11 +1482,11 @@ components:
           type: string
           minLength: 1
           format: date-time
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
         updatedAt:
           type: string
           format: date-time
-          example: '2021-04-27T05:49:53.211+00:00'
+          example: "2021-04-27T05:49:53.211+00:00"
       required:
         - index
         - type
@@ -1536,7 +1536,7 @@ components:
       required: true
       schema:
         type: string
-        example: '0xf8d6e0586b0a20c7'
+        example: "0xf8d6e0586b0a20c7"
     jobId:
       name: jobId
       in: path

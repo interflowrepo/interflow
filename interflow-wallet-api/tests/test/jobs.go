@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/jobs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/jobs"
 )
 
 func WaitForJob(jobSvc jobs.Service, jobId string) (*jobs.Job, error) {

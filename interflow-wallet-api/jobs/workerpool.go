@@ -11,9 +11,9 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/flow-hydraulics/flow-wallet-api/datastore"
-	wallet_errors "github.com/flow-hydraulics/flow-wallet-api/errors"
-	"github.com/flow-hydraulics/flow-wallet-api/system"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore"
+	wallet_errors "github.com/interflowrepo/interflow/interflow-wallet-api/errors"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/system"
 )
 
 var (

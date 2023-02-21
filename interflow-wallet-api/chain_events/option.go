@@ -1,7 +1,7 @@
 package chain_events
 
 import (
-	"github.com/flow-hydraulics/flow-wallet-api/system"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/system"
 )
 
 type ListenerOption func(*ListenerImpl)

@@ -1,5 +1,9 @@
 # Flow Wallet API
 
+Run local with:
+
+env $(cat .env | grep -v "#" | xargs) go run main.go
+
 **NOTE: This repository is currently not maintained.**
 
 The Flow Wallet API is a REST HTTP service that allows a developer to integrate wallet functionality into a larger Flow application infrastructure.
@@ -43,7 +47,7 @@ View the [Wallet API documentation and OpenAPI (Swagger) specification](https://
 The Wallet API is provided as a Docker image:
 
 ```sh
-docker pull ghcr.io/flow-hydraulics/flow-wallet-api:latest
+docker pull ghcr.io/interflowrepo/interflow/interflow-wallet-api:latest
 ```
 
 ### Basic example usage
@@ -117,6 +121,7 @@ TokenName:ContractAddress:ReceiverPublicPath:BalancePublicPath:VaultStoragePath
 ```
 
 Example (mainnet):
+
 ```
 FiatToken:0xb19436aae4d94622:FiatToken.VaultReceiverPubPath:FiatToken.VaultBalancePubPath:FiatToken.VaultStoragePath
 ```

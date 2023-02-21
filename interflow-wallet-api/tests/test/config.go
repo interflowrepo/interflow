@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/flow-hydraulics/flow-wallet-api/configs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/configs"
 )
 
 // LoadConfig loads test config

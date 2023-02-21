@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/jobs"
-	"github.com/flow-hydraulics/flow-wallet-api/tests/test"
 	"github.com/google/uuid"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/jobs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/tests/test"
 )
 
 func Test_WorkerPoolExecutesJobWithSuccess(t *testing.T) {

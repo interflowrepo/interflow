@@ -1,4 +1,4 @@
-module github.com/flow-hydraulics/flow-wallet-api
+module github.com/interflowrepo/interflow/interflow-wallet-api
 
 go 1.17
 

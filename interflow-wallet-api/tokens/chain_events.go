@@ -4,10 +4,10 @@ import (
 	"context"
 	"strings"
 
-	"github.com/flow-hydraulics/flow-wallet-api/accounts"
-	"github.com/flow-hydraulics/flow-wallet-api/chain_events"
-	"github.com/flow-hydraulics/flow-wallet-api/flow_helpers"
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/accounts"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/chain_events"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/flow_helpers"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
 	"github.com/onflow/flow-go-sdk"
 	log "github.com/sirupsen/logrus"
 )
