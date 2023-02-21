@@ -1111,19 +1111,17 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-<<<<<<< HEAD
-"@expo/apple-utils@0.0.0-alpha.37":
-  version "0.0.0-alpha.37"
-  resolved "https://registry.yarnpkg.com/@expo/apple-utils/-/apple-utils-0.0.0-alpha.37.tgz#e85dea5c4ada8f1e8e26ce9670fb6d38c0092299"
-  integrity sha512-/v7adya/u6GDBj7py+HsnKmA11VwG34z4/7peJdMfu8M3LZ2G14dsaxEqdndrCAuEyJ6gQ88sggjcjPjzQXdmg==
-=======
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
   integrity sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==
   dependencies:
     "@types/hammerjs" "^2.0.36"
->>>>>>> main
+
+"@expo/apple-utils@0.0.0-alpha.37":
+  version "0.0.0-alpha.37"
+  resolved "https://registry.yarnpkg.com/@expo/apple-utils/-/apple-utils-0.0.0-alpha.37.tgz#e85dea5c4ada8f1e8e26ce9670fb6d38c0092299"
+  integrity sha512-/v7adya/u6GDBj7py+HsnKmA11VwG34z4/7peJdMfu8M3LZ2G14dsaxEqdndrCAuEyJ6gQ88sggjcjPjzQXdmg==
 
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"
@@ -6154,12 +6152,6 @@ expo-gl@~12.0.1:
   dependencies:
     invariant "^2.2.4"
 
-<<<<<<< HEAD
-expo-json-utils@~0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/expo-json-utils/-/expo-json-utils-0.4.0.tgz#47ae83a1cc973101d62371f94790e9ad39491751"
-  integrity sha512-lK6gjea72XTYafpKNNJaMrBK5dYAX8LFLXrp/M1MKJU4Zy7EHd2rKrLwop3GZts8VdwLHeVcMko79SAbhe3i5Q==
-=======
 expo-image-loader@~4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-4.0.0.tgz#a17e5f95a4c1671791168dd5dfc221bf2f88480c"
@@ -6178,7 +6170,11 @@ expo-image-picker@~14.0.2:
   integrity sha512-VN5wMWzhYhIRhFq8I1pjMbn/ivjlhWfxzJpz5jUOf3mQ8vxrI5GcR8cJO9kyYwuCrI9W3GUzh/aDt7QRSTQDDA==
   dependencies:
     expo-image-loader "~4.0.0"
->>>>>>> main
+
+expo-json-utils@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/expo-json-utils/-/expo-json-utils-0.4.0.tgz#47ae83a1cc973101d62371f94790e9ad39491751"
+  integrity sha512-lK6gjea72XTYafpKNNJaMrBK5dYAX8LFLXrp/M1MKJU4Zy7EHd2rKrLwop3GZts8VdwLHeVcMko79SAbhe3i5Q==
 
 expo-keep-awake@~11.0.1:
   version "11.0.1"
@@ -11028,14 +11024,13 @@ react-native-crypto@^2.0.1, react-native-crypto@^2.2.0:
     public-encrypt "^4.0.0"
     randomfill "^1.0.3"
 
-<<<<<<< HEAD
 react-native-dotenv@^3.4.7:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-3.4.7.tgz#131374dd5c22b1173f7025b2a3b4e124b0142e03"
   integrity sha512-GqUDdmrtKw7qYS9jjQLipEPctMd0YuSBNVZBNlaHtaHMJ63iaB4FABO4uX0iSUJpgMwozZki4fRv4dDHmVUoLg==
   dependencies:
     dotenv "^16.0.3"
-=======
+
 react-native-gesture-handler@~2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.8.0.tgz#ef9857871c10663c95a51546225b6e00cd4740cf"
@@ -11046,7 +11041,6 @@ react-native-gesture-handler@~2.8.0:
     invariant "^2.2.4"
     lodash "^4.17.21"
     prop-types "^15.7.2"
->>>>>>> main
 
 react-native-gradle-plugin@^0.70.3:
   version "0.70.3"
