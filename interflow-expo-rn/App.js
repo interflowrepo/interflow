@@ -9,11 +9,83 @@ import CustomizeView from "./views/CustomizeView";
 import HomeView from "./views/HomeView";
 import SocialView from "./views/SocialView";
 import GamesView from "./views/GamesView";
+import RevealView from "./views/RevealView";
 import WalletsConnectionView from "./views/WalletsConnectionView";
 import PfpView from "./views/PfpView.jsx";
 import UserContext, { useUser } from "./contexts/UserContext.jsx";
 import FclContext from "./contexts/FclContext";
 import HeaderComponent from "./components/HeaderComponent.jsx";
+import UserDetailsView from "./views/UserDetailsView.jsx";
+import MetaraceView from "./views/games/MetaraceView.jsx";
+
+const HomeStack = createNativeStackNavigator();
+
+function HomeStackNavigator() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeView"
+        component={HomeView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name="Reveal"
+        component={RevealView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name="Metarace"
+        component={MetaraceView}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </HomeStack.Navigator>
+  );
+}
+
+const SocialStack = createNativeStackNavigator();
+
+function SocialStackNavigator() {
+  return (
+    <SocialStack.Navigator>
+      <SocialStack.Screen
+        name="SocialView"
+        component={SocialView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <SocialStack.Screen
+        name="UserDetails"
+        component={UserDetailsView}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </SocialStack.Navigator>
+  );
+}
+
+const GamesStack = createNativeStackNavigator();
+
+function GamesStackNavigator() {
+  return (
+    <GamesStack.Navigator>
+      <GamesStack.Screen
+        name="GamesView"
+        component={GamesView}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </GamesStack.Navigator>
+  );
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -22,21 +94,21 @@ function AppNavigator() {
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
-        component={HomeView}
+        component={HomeStackNavigator}
         options={{
           headerShown: false,
         }}
       />
       <Tab.Screen
         name="Social"
-        component={SocialView}
+        component={SocialStackNavigator}
         options={{
           headerShown: false,
         }}
       />
       <Tab.Screen
         name="Games"
-        component={GamesView}
+        component={GamesStackNavigator}
         options={{
           headerShown: false,
         }}
@@ -60,7 +132,7 @@ export default function App() {
         {/* <HomeComponent /> */}
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Onboarding"
               options={{
                 headerShown: false,
@@ -111,7 +183,7 @@ export default function App() {
                 //   </View>
                 // ),
               }}
-            />
+            /> */}
             <Stack.Screen
               name="Photo"
               component={PfpView}

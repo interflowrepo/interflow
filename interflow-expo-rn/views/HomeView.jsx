@@ -69,8 +69,16 @@ const games = [
   },
 ];
 
-export default function HomeView() {
+export default function HomeView({ navigation }) {
   const { user } = useUser();
+
+  const handleNav = () => {
+    navigation.navigate("Reveal");
+  };
+
+  const handleGameNav = () => {
+    navigation.navigate("Metarace");
+  };
 
   const Divider = ({ height }) => <View style={{ height: height }} />;
 
@@ -79,9 +87,9 @@ export default function HomeView() {
       <Divider height={20} />
       <HomeHorizontalList items={events} type="events" />
       <Divider height={20} />
-      <HomeHorizontalList items={reveals} type="reveals" />
+      <HomeHorizontalList items={reveals} type="reveals" onPress={handleNav} />
       <Divider height={20} />
-      <HomeHorizontalList items={games} type="games" />
+      <HomeHorizontalList items={games} type="games" onPress={handleGameNav} />
       <Divider height={20} />
     </ScrollView>
   );

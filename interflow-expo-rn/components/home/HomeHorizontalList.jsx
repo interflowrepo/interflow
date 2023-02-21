@@ -4,7 +4,7 @@ import EventCardComponent from "./EventCardComponent";
 import GameCardComponent from "./GameCardComponent";
 import RevealComponent from "./RevealComponent";
 
-const HomeHorizontalList = ({ items, type }) => {
+const HomeHorizontalList = ({ items, type, onPress }) => {
   return (
     <View style={styles.container}>
       <View
@@ -18,6 +18,13 @@ const HomeHorizontalList = ({ items, type }) => {
       >
         <Text style={styles.title}>Next {type}</Text>
       </View>
+      {type == "games" && (
+        <ScrollView horizontal={true}>
+          {items.map((game) => (
+            <GameCardComponent key={game.id} game={game} onPress={onPress} />
+          ))} 
+        </ScrollView>
+      )}
       {type == "events" && (
         <ScrollView horizontal={true}>
           {items.map((event) => (
@@ -28,24 +35,18 @@ const HomeHorizontalList = ({ items, type }) => {
       {type == "reveals" && (
         <ScrollView horizontal={true}>
           {items.map((reveal) => (
-            <RevealComponent key={reveal.id} uri={reveal.uri} />
+            <RevealComponent key={reveal.id} uri={reveal.uri} onPress={onPress} />
           ))}
         </ScrollView>
       )}
-      {type == "games" && (
-        <ScrollView style={{ width: "100%" }} horizontal={true}>
-          {items.map((game) => (
-            <GameCardComponent key={game.id} game={game} />
-          ))}
-        </ScrollView>
-      )}
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+   flex: 1,
     // height: 100,
   },
   item: {

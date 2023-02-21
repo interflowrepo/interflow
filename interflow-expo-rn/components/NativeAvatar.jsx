@@ -6,6 +6,7 @@ import GlassesIcon from "./GlassesIcon";
 export default function NativeAvatar(props) {
   const { nodes } = useGLTF(require("../models/kira.glb"));
 
+
   const ref = useRef();
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();

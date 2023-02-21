@@ -1,21 +1,36 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 
-const GameCardComponent = ({ game }) => {
+
+const GameCardComponent = ({ game, onPress }) => {
   return (
     <View style={styles.cardContainer}>
-      <ImageBackground
-        source={{
-          uri: game.uri,
-        }}
+      <TouchableOpacity
+        onPress={onPress}
         style={{
           width: "100%",
           height: "100%",
-          resizeMode: "cover",
         }}
       >
-        <Text style={styles.title}>{game.title}</Text>
-      </ImageBackground>
+        <ImageBackground
+          source={{
+            uri: game.uri,
+          }}
+          style={{
+            width: "100%",
+            height: "100%",
+            resizeMode: "cover",
+          }}
+        >
+          <Text style={styles.title}>{game.title}</Text>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
   );
 };
