@@ -5,8 +5,8 @@ import UserController from "@controller/users/UserController";
 const userRoutes = Router();
 
 userRoutes.get("/getUser/:id", UserController.findOne);
-
 userRoutes.get("/getAllUsers", UserController.getAllUsers);
+
 
 userRoutes.post(
   "/auth/login",

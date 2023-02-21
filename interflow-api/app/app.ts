@@ -7,6 +7,7 @@ import strongErrorHandler from "strong-error-handler";
 import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import userRoutes from "./routes/users/user.routes";
+import walletRoutes from "@routes/wallets/wallet.routes";
 
 class App {
   public app: express.Application;
@@ -37,6 +38,7 @@ class App {
 
   private routes(): void {
     this.app.use(userRoutes);
+    this.app.use(walletRoutes);
 
     this.app.get("/healthz", (req, res) => {
       res.json({ interflowAuth: true });

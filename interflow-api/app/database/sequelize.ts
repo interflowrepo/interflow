@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import { Dialect } from "sequelize";
 
 import { User } from "@models/users/User";
+import { account } from "@models/Wallet/Account";
 
 const dbDialect = process.env.DB_DIALECT as Dialect;
 const db = process.env.DB as string;
@@ -14,7 +15,7 @@ export const sequelize = new Sequelize(db, dbUser, dbPassword, {
   dialect: dbDialect,
   host: dbHost,
   port: dbPort,
-  models: [User],
+  models: [User, account],
   repositoryMode: true,
   dialectOptions: {
     ssl: process.env.DB_ENABLE_SSL == 'true' && {
