@@ -13,8 +13,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/kms"
 	"github.com/aws/aws-sdk-go-v2/service/kms/types"
-	"github.com/flow-hydraulics/flow-wallet-api/configs"
-	"github.com/flow-hydraulics/flow-wallet-api/keys"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/configs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys"
 	"github.com/onflow/flow-go-sdk"
 	"github.com/onflow/flow-go-sdk/crypto"
 )
@@ -136,10 +136,10 @@ func Signer(ctx context.Context, key keys.Private) (crypto.Signer, error) {
 
 // Signer is a Google Cloud KMS implementation of crypto.Signer.
 type AWSSigner struct {
-	ctx    context.Context
-	client *kms.Client
-	keyId  string
-	hasher crypto.Hasher
+	ctx       context.Context
+	client    *kms.Client
+	keyId     string
+	hasher    crypto.Hasher
 	publicKey crypto.PublicKey
 }
 
@@ -189,10 +189,10 @@ func SignerForKey(
 	)
 
 	return &AWSSigner{
-		ctx:    ctx,
-		client: client,
-		keyId:  key.Value,
-		hasher: hasher,
+		ctx:       ctx,
+		client:    client,
+		keyId:     key.Value,
+		hasher:    hasher,
 		publicKey: decodedPublicKey,
 	}, nil
 }
@@ -242,11 +242,12 @@ func createKMSClient(ctx context.Context) *kms.Client {
 // or (x,y) identifying a public key. Component size is needed for encoding couples comprised of variable length
 // numbers to []byte encoding. They are not always the same length, so occasionally padding is required.
 // Here's how one calculates the required length of each component:
-// 		ECDSA_CurveBits = 256
-// 		ecCoupleComponentSize := ECDSA_CurveBits / 8
-// 		if ECDSA_CurveBits % 8 > 0 {
-//			ecCoupleComponentSize++
-// 		}
+//
+//	ECDSA_CurveBits = 256
+//	ecCoupleComponentSize := ECDSA_CurveBits / 8
+//	if ECDSA_CurveBits % 8 > 0 {
+//		ecCoupleComponentSize++
+//	}
 const ecCoupleComponentSize = 32
 
 func parseSignature(signature []byte) ([]byte, error) {

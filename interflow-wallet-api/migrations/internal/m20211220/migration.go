@@ -4,8 +4,8 @@ package m20211220
 import (
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/jobs"
 	"github.com/google/uuid"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/jobs"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )

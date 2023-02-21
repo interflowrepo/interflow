@@ -11,8 +11,8 @@ import (
 	gorilla "github.com/gorilla/handlers"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/flow-hydraulics/flow-wallet-api/errors"
-	"github.com/flow-hydraulics/flow-wallet-api/handlers/middleware"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/errors"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/handlers/middleware"
 )
 
 const SyncQueryParameter = "sync"

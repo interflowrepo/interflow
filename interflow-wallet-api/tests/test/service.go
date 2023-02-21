@@ -8,19 +8,19 @@ import (
 	"go.uber.org/goleak"
 	upstreamgorm "gorm.io/gorm"
 
-	"github.com/flow-hydraulics/flow-wallet-api/accounts"
-	"github.com/flow-hydraulics/flow-wallet-api/chain_events"
-	"github.com/flow-hydraulics/flow-wallet-api/configs"
-	"github.com/flow-hydraulics/flow-wallet-api/datastore/gorm"
-	"github.com/flow-hydraulics/flow-wallet-api/flow_helpers"
-	"github.com/flow-hydraulics/flow-wallet-api/jobs"
-	"github.com/flow-hydraulics/flow-wallet-api/keys"
-	"github.com/flow-hydraulics/flow-wallet-api/keys/basic"
-	"github.com/flow-hydraulics/flow-wallet-api/ops"
-	"github.com/flow-hydraulics/flow-wallet-api/system"
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
-	"github.com/flow-hydraulics/flow-wallet-api/tokens"
-	"github.com/flow-hydraulics/flow-wallet-api/transactions"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/accounts"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/chain_events"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/configs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore/gorm"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/flow_helpers"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/jobs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys/basic"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/ops"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/system"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/tokens"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/transactions"
 )
 
 type Services interface {
@@ -85,10 +85,10 @@ func GetServices(t *testing.T, cfg *configs.Config) Services {
 			goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"),
 			goleak.IgnoreTopFunction("google.golang.org/grpc.(*ccBalancerWrapper).watcher"),
 			goleak.IgnoreTopFunction("google.golang.org/grpc/internal/transport.(*controlBuffer).get"),
-			goleak.IgnoreTopFunction("github.com/flow-hydraulics/flow-wallet-api/jobs.(*WorkerPoolImpl).startWorkers.func1"),
-			goleak.IgnoreTopFunction("github.com/flow-hydraulics/flow-wallet-api/ops.(*workerPoolImpl).Start.func1"),
-			goleak.IgnoreTopFunction("github.com/flow-hydraulics/flow-wallet-api/jobs.(*WorkerPoolImpl).startDBJobScheduler.func1"),
-			goleak.IgnoreTopFunction("github.com/flow-hydraulics/flow-wallet-api/chain_events.(*ListenerImpl).Start.func1"),
+			goleak.IgnoreTopFunction("github.com/interflowrepo/interflow/interflow-wallet-api/jobs.(*WorkerPoolImpl).startWorkers.func1"),
+			goleak.IgnoreTopFunction("github.com/interflowrepo/interflow/interflow-wallet-api/ops.(*workerPoolImpl).Start.func1"),
+			goleak.IgnoreTopFunction("github.com/interflowrepo/interflow/interflow-wallet-api/jobs.(*WorkerPoolImpl).startDBJobScheduler.func1"),
+			goleak.IgnoreTopFunction("github.com/interflowrepo/interflow/interflow-wallet-api/chain_events.(*ListenerImpl).Start.func1"),
 		)
 	})
 

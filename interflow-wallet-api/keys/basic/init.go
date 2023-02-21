@@ -3,7 +3,7 @@ package basic
 import (
 	"context"
 
-	"github.com/flow-hydraulics/flow-wallet-api/keys"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys"
 	"github.com/onflow/flow-go-sdk"
 )
 

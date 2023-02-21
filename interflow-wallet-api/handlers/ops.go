@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/flow-hydraulics/flow-wallet-api/ops"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/ops"
 )
 
 // Ops is a HTTP server for admin (system) operations.

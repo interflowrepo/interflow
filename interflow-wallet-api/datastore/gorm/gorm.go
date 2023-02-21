@@ -3,9 +3,9 @@ package gorm
 import (
 	"fmt"
 
-	"github.com/flow-hydraulics/flow-wallet-api/configs"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations"
 	"github.com/go-gormigrate/gormigrate/v2"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/configs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"

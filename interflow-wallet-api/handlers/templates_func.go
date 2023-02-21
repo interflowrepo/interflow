@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
 )
 
 func (s *Templates) AddTokenFunc(rw http.ResponseWriter, r *http.Request) {

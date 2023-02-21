@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/flow-hydraulics/flow-wallet-api/transactions"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/transactions"
 )
 
 type Transactions struct {

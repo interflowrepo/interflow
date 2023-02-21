@@ -3,8 +3,8 @@ package jobs
 import (
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/datastore"
 	"github.com/google/uuid"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore"
 )
 
 // Store manages data regarding jobs.

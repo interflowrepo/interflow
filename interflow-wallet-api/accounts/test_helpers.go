@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/flow_helpers"
-	"github.com/flow-hydraulics/flow-wallet-api/keys"
-	"github.com/flow-hydraulics/flow-wallet-api/templates/template_strings"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/flow_helpers"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates/template_strings"
 	"github.com/onflow/cadence"
 	"github.com/onflow/flow-go-sdk"
 

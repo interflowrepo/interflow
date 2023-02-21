@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/flow-hydraulics/flow-wallet-api/errors"
-	"github.com/flow-hydraulics/flow-wallet-api/transactions"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/errors"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/transactions"
 )
 
 func (s *Transactions) ListFunc(rw http.ResponseWriter, r *http.Request) {

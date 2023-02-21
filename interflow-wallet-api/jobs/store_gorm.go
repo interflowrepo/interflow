@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/datastore"
-	"github.com/flow-hydraulics/flow-wallet-api/datastore/lib"
 	"github.com/google/uuid"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore/lib"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

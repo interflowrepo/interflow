@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/flow-hydraulics/flow-wallet-api/templates/template_strings"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates/template_strings"
 	"github.com/onflow/flow-go-sdk"
 	log "github.com/sirupsen/logrus"
 )

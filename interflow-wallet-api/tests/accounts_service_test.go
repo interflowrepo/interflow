@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/flow-hydraulics/flow-wallet-api/tests/test"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/tests/test"
 )
 
 func Test_Add_New_Non_Custodial_Account(t *testing.T) {

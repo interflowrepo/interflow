@@ -1,7 +1,7 @@
 package transactions
 
 import (
-	"github.com/flow-hydraulics/flow-wallet-api/datastore"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/datastore"
 	"gorm.io/gorm"
 )
 

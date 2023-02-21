@@ -1,9 +1,9 @@
 package ops
 
 import (
-	"github.com/flow-hydraulics/flow-wallet-api/accounts"
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
-	"github.com/flow-hydraulics/flow-wallet-api/tokens"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/accounts"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/tokens"
 	"gorm.io/gorm"
 )
 

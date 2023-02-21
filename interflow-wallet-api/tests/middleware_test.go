@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/handlers"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/handlers"
 )
 
 func Test_IdempotencyMiddleware(t *testing.T) {

@@ -1,6 +1,6 @@
 package tokens
 
-import "github.com/flow-hydraulics/flow-wallet-api/templates"
+import "github.com/interflowrepo/interflow/interflow-wallet-api/templates"
 
 // Store manages data regarding tokens.
 type Store interface {

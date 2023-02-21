@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/flow-hydraulics/flow-wallet-api/configs"
-	"github.com/flow-hydraulics/flow-wallet-api/keys"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/configs"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/keys"
 )
 
 // Needs to be run manually with proper env configuration

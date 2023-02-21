@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/system"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/system"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/datatypes"
 )

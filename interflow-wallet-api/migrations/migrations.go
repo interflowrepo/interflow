@@ -1,18 +1,19 @@
 package migrations
 
 import (
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20210922"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211005"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211015"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211118"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211130"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211202"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211220"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211221_1"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20211221_2"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20220212"
-	"github.com/flow-hydraulics/flow-wallet-api/migrations/internal/m20221001"
 	"github.com/go-gormigrate/gormigrate/v2"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20210922"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211005"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211015"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211118"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211130"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211202"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211220"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211221_1"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211221_2"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20220212"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20221001"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20221220"
 )
 
 func List() []*gormigrate.Migration {
@@ -71,6 +72,11 @@ func List() []*gormigrate.Migration {
 			ID:       m20221001.ID,
 			Migrate:  m20221001.Migrate,
 			Rollback: m20221001.Rollback,
+		},
+		{
+			ID:       m20221220.ID,
+			Migrate:  m20221220.Migrate,
+			Rollback: m20221220.Rollback,
 		},
 	}
 	return ms

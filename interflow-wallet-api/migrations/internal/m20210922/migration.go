@@ -3,8 +3,8 @@ package m20210922
 import (
 	"time"
 
-	"github.com/flow-hydraulics/flow-wallet-api/templates"
 	"github.com/google/uuid"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/templates"
 	"gorm.io/gorm"
 )
 

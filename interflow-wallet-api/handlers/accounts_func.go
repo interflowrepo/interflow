@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/flow-hydraulics/flow-wallet-api/accounts"
-	"github.com/flow-hydraulics/flow-wallet-api/errors"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/accounts"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/errors"
 )
 
 // List returns all accounts.

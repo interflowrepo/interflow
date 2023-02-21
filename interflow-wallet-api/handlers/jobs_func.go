@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/flow-hydraulics/flow-wallet-api/jobs"
 	"github.com/gorilla/mux"
+	"github.com/interflowrepo/interflow/interflow-wallet-api/jobs"
 )
 
 // List returns all jobs.
