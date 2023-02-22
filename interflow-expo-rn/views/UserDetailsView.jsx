@@ -1,9 +1,18 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import UserDetailsHeader from '../components/social/user/UserDetailsHeader'
-import UserCollectionCard from '../components/social/user/UserCollectionCard'
+import UserTabs from '../components/social/user/UserTabs';
+import UserPostCard from '../components/social/user/UserPostCard';
+import UserCollections from '../components/social/user/UserCollections';
+import UserPosts from '../components/social/user/UserPosts';
 
-export default function UserDetailsView({navigation}) {
+export default function UserDetailsView({ navigation }) {
+  const [activeTab, setActiveTab] = useState(1);
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+  };
+
 
   const handleNav = () => {
     navigation.navigate("UserCollection");
@@ -22,8 +31,9 @@ export default function UserDetailsView({navigation}) {
         bottomRightText2="10"
       />
 
-      <UserCollectionCard onPress={handleNav} />
-
+      <UserTabs activeTab={activeTab} onChangeTab={handleTabChange} />
+      {activeTab == 1 && <UserCollections onPress={handleNav} />}
+      {activeTab == 2 && <UserPosts onPress={handleNav} />}
     </View>
   )
 }

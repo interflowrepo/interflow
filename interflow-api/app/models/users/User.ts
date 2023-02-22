@@ -36,9 +36,9 @@ export class User extends Model {
   pfpImage!: string;
 
   @Column(DataType.ARRAY(DataType.STRING))
-  followers!: string;
+  followers!: string[];
 
   @Column(DataType.ARRAY(DataType.STRING))
-  following!: string;
+  following!: string[];
 
 }
