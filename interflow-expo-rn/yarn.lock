@@ -1118,7 +1118,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
-<<<<<<< HEAD
+"@expo/apple-utils@0.0.0-alpha.37":
+  version "0.0.0-alpha.37"
+  resolved "https://registry.yarnpkg.com/@expo/apple-utils/-/apple-utils-0.0.0-alpha.37.tgz#e85dea5c4ada8f1e8e26ce9670fb6d38c0092299"
+  integrity sha512-/v7adya/u6GDBj7py+HsnKmA11VwG34z4/7peJdMfu8M3LZ2G14dsaxEqdndrCAuEyJ6gQ88sggjcjPjzQXdmg==
+
 "@expo/browser-polyfill@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@expo/browser-polyfill/-/browser-polyfill-1.0.0.tgz#2d93ae0feb3ccc90b78a98f277f8f8ed8bcbd37d"
@@ -1129,12 +1133,6 @@
     text-encoding "^0.7.0"
     uuid "^8.3.2"
     xmldom-qsa "^1.0.3"
-=======
-"@expo/apple-utils@0.0.0-alpha.37":
-  version "0.0.0-alpha.37"
-  resolved "https://registry.yarnpkg.com/@expo/apple-utils/-/apple-utils-0.0.0-alpha.37.tgz#e85dea5c4ada8f1e8e26ce9670fb6d38c0092299"
-  integrity sha512-/v7adya/u6GDBj7py+HsnKmA11VwG34z4/7peJdMfu8M3LZ2G14dsaxEqdndrCAuEyJ6gQ88sggjcjPjzQXdmg==
->>>>>>> 4aae6559e6a288f6b37f3009e362bf74dea2f49d
 
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"
@@ -5675,12 +5673,11 @@ duplexify@^4.1.2:
     readable-stream "^3.1.1"
     stream-shift "^1.0.0"
 
-<<<<<<< HEAD
 earcut@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.1.1.tgz#157634e5f3ebb42224e475016e86a5b6ce556b45"
   integrity sha512-+BGT9Mffq3Oxf2nDOtzaJDd9P8g/z3WNYGO84Q23hDBot5VU8DNGY73Vc94eVDvHjMyhonnuEg+DNwEQ6iZn3w==
-=======
+
 eas-cli@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/eas-cli/-/eas-cli-3.6.1.tgz#770bfa7414fd33a0ce327a48211cacd3be376788"
@@ -5759,7 +5756,6 @@ eas-cli@^3.6.1:
     untildify "4.0.0"
     uuid "9.0.0"
     wrap-ansi "7.0.0"
->>>>>>> 4aae6559e6a288f6b37f3009e362bf74dea2f49d
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -6320,7 +6316,6 @@ expo-status-bar@~1.4.2:
   resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.4.2.tgz"
   integrity sha512-ZWjO6D4ARGYfAd3SWDD3STNudHDhyBZDZjhhseqoEmsf7bS9ykny8KKOhlzJW24qIQNPhkgdvHhaw9fQwMJy3Q==
 
-<<<<<<< HEAD
 expo-three@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-three/-/expo-three-7.0.0.tgz#283fa891b5e15bd0a4dc6ef304341deabccac145"
@@ -6328,7 +6323,7 @@ expo-three@^7.0.0:
   dependencies:
     "@expo/browser-polyfill" "^1.0.0"
     expo-asset-utils "~3.0.0"
-=======
+
 expo-updates-interface@~0.8.0:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.8.1.tgz#baeeeb01a77439682432be83ba78bc2e00547c4e"
@@ -6340,7 +6335,6 @@ expo-web-browser@~12.0.0:
   integrity sha512-7/RUuE0sv5kf+mTw5/SOnks0Am1ctoxvT1Xi53Nom2EuXTKBV+b2Kf5xAw3ItoW5W4MHJUX3FdNI6qc9sS9+Pw==
   dependencies:
     compare-urls "^2.0.0"
->>>>>>> 4aae6559e6a288f6b37f3009e362bf74dea2f49d
 
 expo@^47.0.13:
   version "47.0.13"
@@ -11801,11 +11795,7 @@ safe-stable-stringify@^2.1.0:
   resolved "https://registry.npmjs.org/safe-stable-stringify/-/safe-stable-stringify-2.4.2.tgz"
   integrity sha512-gMxvPJYhP0O9n2pvcfYfIuYgbledAOJFcqRThtPRmjscaipiwcwPPKLytpVzMkG2HAN87Qmo2d4PtGiri1dSLA==
 
-<<<<<<< HEAD
-"safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.1.0:
-=======
-"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.1.0, safer-buffer@~2.1.0:
->>>>>>> 4aae6559e6a288f6b37f3009e362bf74dea2f49d
+"safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==

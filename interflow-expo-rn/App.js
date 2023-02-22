@@ -18,7 +18,9 @@ import UserContext, { useUser } from "./contexts/UserContext.jsx";
 import FclContext from "./contexts/FclContext";
 import HeaderComponent from "./components/HeaderComponent.jsx";
 import UserDetailsView from "./views/UserDetailsView.jsx";
-import MetaraceView from "./views/games/MetaraceView.jsx";
+import MetaraceView from "./views/MetaraceView.jsx";
+import UserCollectionView from "./views/UserCollectionView.jsx";
+import NftDetailsView from "./views/NftDetailsView.jsx";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -65,6 +67,20 @@ function SocialStackNavigator() {
       <SocialStack.Screen
         name="UserDetails"
         component={UserDetailsView}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <SocialStack.Screen
+        name="UserCollection"
+        component={UserCollectionView}
+        options={{
+          headerShown: false,
+        }}
+      /> 
+      <SocialStack.Screen
+        name="NftDetails"
+        component={NftDetailsView}
         options={{
           headerShown: false,
         }}
@@ -130,12 +146,12 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <AuthContext>
-    <UserContext>
-      <FclContext>
-        {/* <LoginComponent /> */}
-        <NavigationContainer>
-          <Stack.Navigator>
-            {/* <Stack.Screen
+      <UserContext>
+        <FclContext>
+          {/* <LoginComponent /> */}
+          <NavigationContainer>
+            <Stack.Navigator>
+              {/* <Stack.Screen
               name="Onboarding"
               options={{
                 headerShown: false,
@@ -187,52 +203,52 @@ export default function App() {
                 // ),
               }}
             /> */}
-            <Stack.Screen
-              name="Photo"
-              component={PfpView}
-              options={{
-                // headerStyle: styles.navBar,
-                headerBackground: () => (
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: "transparent",
-                      // borderBottomWidth: 1,
-                      // borderBottomColor: '#f0f0f0',
-                    }}
-                  >
-                    <ImageBackground
-                      source={require("./assets/avatar/bg(1).png")}
+              <Stack.Screen
+                name="Photo"
+                component={PfpView}
+                options={{
+                  // headerStyle: styles.navBar,
+                  headerBackground: () => (
+                    <View
                       style={{
                         flex: 1,
-                        resizeMode: "cover",
-                        justifyContent: "center",
+                        backgroundColor: "transparent",
+                        // borderBottomWidth: 1,
+                        // borderBottomColor: '#f0f0f0',
                       }}
-                    ></ImageBackground>
-                  </View>
-                ),
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="App"
-              component={AppNavigator}
-              options={{
-                // headerStyle: styles.navBar,
-                headerBackground: () => <HeaderComponent />,
-                // headerTintColor: "#fff",
-                // headerTitleStyle: {
-                //   fontWeight: "bold",
-                // },
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </FclContext>
-    </UserContext>
+                    >
+                      <ImageBackground
+                        source={require("./assets/avatar/bg(1).png")}
+                        style={{
+                          flex: 1,
+                          resizeMode: "cover",
+                          justifyContent: "center",
+                        }}
+                      ></ImageBackground>
+                    </View>
+                  ),
+                  headerTintColor: "#fff",
+                  headerTitleStyle: {
+                    fontWeight: "bold",
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="App"
+                component={AppNavigator}
+                options={{
+                  // headerStyle: styles.navBar,
+                  headerBackground: () => <HeaderComponent />,
+                  // headerTintColor: "#fff",
+                  // headerTitleStyle: {
+                  //   fontWeight: "bold",
+                  // },
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FclContext>
+      </UserContext>
     </AuthContext>
   );
 }

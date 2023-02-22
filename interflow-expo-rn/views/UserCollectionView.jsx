@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import React from 'react'
+import UserNftCard from '../components/social/user/UserNftCard'
 import UserDetailsHeader from '../components/social/user/UserDetailsHeader'
-import UserCollectionCard from '../components/social/user/UserCollectionCard'
 
-export default function UserDetailsView({navigation}) {
+export default function UserCollectionView({navigation}) {
 
   const handleNav = () => {
-    navigation.navigate("UserCollection");
+    navigation.navigate("NftDetails");
   };
 
   return (
@@ -21,9 +21,8 @@ export default function UserDetailsView({navigation}) {
         bottomRightText1="Followers:"
         bottomRightText2="10"
       />
-
-      <UserCollectionCard onPress={handleNav} />
-
+      <Text>UserCollectionView</Text>
+      <UserNftCard onPress={handleNav} />
     </View>
   )
 }

@@ -4,7 +4,8 @@ import { PerspectiveCamera } from "@react-three/drei/native";
 import React from "react";
 // import SphereComponent from "../../components/SphereComponent";
 // import NativeAvatar from "../../components/NativeAvatar";
-import AvatarRunner from "../../components/AvatarRunner";
+import AvatarRunner from "../components/AvatarRunner";
+// import SneakersModel from "../../components/SneakersModel";
 
 const { width, height } = Dimensions.get("window");
 
@@ -88,24 +89,10 @@ export default function MetaraceView() {
   };
 
   return (
-    <View style={{ width: width, height: height }}>
-      <Canvas style={{ width: width, height: height }}>
-        <PerspectiveCamera
-          makeDefault
-          position={[0, 0, 5]}
-          rotation={[0, 0, 0]}
-        />
-        {/* <BluePlaneComponent />
-        <YellowPlaneComponent />
-        <GesturePlaneComponent /> */}
-        <mesh>
-          {/* <sphereGeometry args={[0.5, 32, 32]} /> */}
-           {/* <NativeAvatar position={[0, 0, 0]}/> */}
-           <AvatarRunner position={[0, 0.9, 0]}/>
-        </mesh>
-                   {/* <SneakersModel position={[0, 0, 0]} scale={1}/> */}
-
-      </Canvas>
+    <View style={{ width: width, height: height, position:"relative" }}>
+      <AvatarRunner position={[0, 0.9, 0]} height={height}/>
     </View>
   );
 }
+
+
