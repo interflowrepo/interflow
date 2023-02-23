@@ -5,9 +5,9 @@ import PostController from "@controller/posts/PostController";
 const postRoutes = Router();
 
 // ------------ GET REQUESTS
-postRoutes.get("/post/getAllPosts", PostController.getAllPosts);
+postRoutes.get("/posts/getAllPosts", PostController.getAllPosts);
 
 // ------------ POST REQUESTS
-postRoutes.post("/post/create/:id", PostController.createPost);
+postRoutes.post("/posts/create/:id", PostController.createPost);
 
 export default postRoutes;

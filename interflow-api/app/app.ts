@@ -23,7 +23,6 @@ class App {
   private middleware(): void {
     this.app.use(
       cors({
-        credentials: true,
         origin: [
           "*",
         ],
