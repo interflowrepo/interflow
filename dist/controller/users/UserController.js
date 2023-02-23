@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _UserService = _interopRequireDefault(require("app/services/users/UserService"));
+var _UserService = _interopRequireDefault(require("../../services/users/UserService"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 class UserController {
   async login(req, res) {

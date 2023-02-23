@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _WalletService = _interopRequireDefault(require("app/services/wallets/WalletService"));
+var _WalletService = _interopRequireDefault(require("../../services/wallets/WalletService"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 class WalletController {
   async getAllWallets(req, res) {

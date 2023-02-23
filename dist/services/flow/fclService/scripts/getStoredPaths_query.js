@@ -1,8 +1,13 @@
-import { outdatedPathsTestnet } from "./outdatedPathsTestnet";
+"use strict";
 
-export const getStoredPaths_query = `
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getStoredPaths_query = void 0;
+var _outdatedPathsTestnet = require("./outdatedPathsTestnet");
+const getStoredPaths_query = `
 pub fun main(addresses: [Address]): [StoragePath] {
-    ${outdatedPathsTestnet.storage} 
+    ${_outdatedPathsTestnet.outdatedPathsTestnet.storage} 
     let cleandPaths: [StoragePath] = []
     for address in addresses {
         let account = getAuthAccount(address)
@@ -16,4 +21,5 @@ pub fun main(addresses: [Address]): [StoragePath] {
     }
     return cleandPaths
   } 
-`
+`;
+exports.getStoredPaths_query = getStoredPaths_query;

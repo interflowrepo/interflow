@@ -1,4 +1,10 @@
-export const getCollectionsData_query = `
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getCollectionsData_query = void 0;
+const getCollectionsData_query = `
   import FungibleToken from 0x9a0766d93b6608b7
   import NonFungibleToken from 0x631e88ae7f1d7c20
   import MetadataViews from 0x631e88ae7f1d7c20
@@ -80,3 +86,4 @@ export const getCollectionsData_query = `
     return items
   }
 `;
+exports.getCollectionsData_query = getCollectionsData_query;

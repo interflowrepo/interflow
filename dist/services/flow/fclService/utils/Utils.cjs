@@ -1,10 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.splitList = void 0;
-const splitList = (list, chunkSize) => {
+export const splitList = (list, chunkSize) => {
   const groups = [];
   let currentGroup = [];
   for (let i = 0; i < list.length; i++) {
@@ -18,4 +12,3 @@ const splitList = (list, chunkSize) => {
   groups.push([...currentGroup]);
   return groups;
 };
-exports.splitList = splitList;

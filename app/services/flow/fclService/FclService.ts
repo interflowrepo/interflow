@@ -1,5 +1,5 @@
 import * as fcl from "@onflow/fcl";
-import { getCollectionsData_query } from "./scripts/getCollectionsData_query";
+import { getCollectionsData_query } from "./scripts/getCollectionsData_query.js";
 import { getNftsData_query } from "./scripts/getNftsData_query";
 import { getStoredPaths_query } from "./scripts/getStoredPaths_query";
 import { splitList } from "./utils/Utils";

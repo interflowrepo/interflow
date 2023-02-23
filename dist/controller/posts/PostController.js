@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _PostService = _interopRequireDefault(require("app/services/posts/PostService"));
+var _PostService = _interopRequireDefault(require("../../services/posts/PostService"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 class PostController {
   async createPost(req, res) {

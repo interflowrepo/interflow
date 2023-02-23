@@ -1,5 +1,11 @@
-export const outdatedPathsTestnet = {
-    storage: `
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.outdatedPathsTestnet = void 0;
+const outdatedPathsTestnet = {
+  storage: `
     let outdatedPaths: {StoragePath: Bool} = {
       /storage/kittyItemsCollectionV10: true,
       /storage/BasicBeastAdmin: true,
@@ -54,7 +60,7 @@ export const outdatedPathsTestnet = {
       /storage/EvolutionCollection: true
     }
     `,
-    public: `
+  public: `
     let outdatedPaths: {PublicPath: Bool} = {
       /public/BasicBeastsBlackMarketplace: true,
       /public/BasicBeastsCollection_1: true,
@@ -186,9 +192,10 @@ export const outdatedPathsTestnet = {
       /public/kittyItemsMarketCollection001: true
     }
     `,
-    private: `
+  private: `
     let outdatedPaths: {PrivatePath: Bool} = {
       /private/kittyItemsCollectionProviderV10: true,
       /private/FLOATEventsPrivatePath006: true
     }`
-  }
+};
+exports.outdatedPathsTestnet = outdatedPathsTestnet;

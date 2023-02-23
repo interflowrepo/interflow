@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var fcl = _interopRequireWildcard(require("@onflow/fcl"));
-var _getCollectionsData_query = require("./scripts/getCollectionsData_query");
+var _getCollectionsData_query = require("./scripts/getCollectionsData_query.js");
 var _getNftsData_query = require("./scripts/getNftsData_query");
 var _getStoredPaths_query = require("./scripts/getStoredPaths_query");
 var _Utils = require("./utils/Utils");
