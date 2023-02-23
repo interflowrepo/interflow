@@ -19,6 +19,7 @@ import FclContext from "./contexts/FclContext";
 import HeaderComponent from "./components/HeaderComponent.jsx";
 import UserDetailsView from "./views/UserDetailsView.jsx";
 import MetaraceView from "./views/games/MetaraceView.jsx";
+import RequestsComponent from "./components/RequestsComponent.jsx";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -132,9 +133,10 @@ export default function App() {
     <AuthContext>
     <UserContext>
       <FclContext>
+        <RequestsComponent />
         {/* <LoginComponent /> */}
-        <NavigationContainer>
-          <Stack.Navigator>
+        {/* <NavigationContainer>
+          <Stack.Navigator> */}
             {/* <Stack.Screen
               name="Onboarding"
               options={{
@@ -187,7 +189,7 @@ export default function App() {
                 // ),
               }}
             /> */}
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Photo"
               component={PfpView}
               options={{
@@ -230,7 +232,7 @@ export default function App() {
               }}
             />
           </Stack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer> */}
       </FclContext>
     </UserContext>
     </AuthContext>
