@@ -8,8 +8,8 @@ import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import userRoutes from "./routes/users/user.routes";
 import walletRoutes from "@routes/wallets/wallet.routes";
-import flowRoutes from "@routes/flow/flow.routes";
 import "./config"
+import postRoutes from "@routes/posts/posts.routes";
 
 class App {
   public app: express.Application;
@@ -41,7 +41,7 @@ class App {
   private routes(): void {
     this.app.use(userRoutes);
     this.app.use(walletRoutes);
-    this.app.use(flowRoutes);
+    this.app.use(postRoutes)
 
     this.app.get("/healthz", (req, res) => {
       res.json({ interflowAuth: true });

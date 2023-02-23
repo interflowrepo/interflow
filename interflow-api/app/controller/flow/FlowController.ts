@@ -1,5 +1,4 @@
 import FlowService from "app/services/flow/FlowService";
-import UserService from "app/services/users/UserService";
 import { Request, Response } from "express";
 
 class FlowController {
@@ -7,15 +6,7 @@ class FlowController {
     const { id } = req.params;
 
     try {
-      let user = await UserService.findUser(id);
-      let dapperAddress = user?.dapperAddress;
-      let bloctoAddress = user?.bloctoAddress;
-
-      const nfts = await FlowService.getNftCollectionFromAccount(
-        dapperAddress,
-        bloctoAddress
-      );
-
+      const nfts = await FlowService.getNftCollectionFromAccount(id);
       return res.json(nfts);
     } catch (error) {
       return res.status(500).json({ error: error.message });

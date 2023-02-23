@@ -57,6 +57,28 @@ class WalletController {
     }
   }
 
+  public async setWalletToUsersWithoutOne(req: Request, res: Response): Promise<Response> {
+    try {
+      await WalletService.setWalletToUsersWithoutOne();
+      return res.status(200).json({ message: "Wallets setted to users without one" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "A internal error setting wallets to users without one occurred" });
+    }
+  }
+
+  public async createWallet(req: Request, res: Response): Promise<Response> {
+    try {
+      const wallet = await WalletService.createWalletAccount();
+      return res.status(200).json(wallet);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "A internal error creating a wallet occurred" });
+    }
+  }
+
 }
 
 export default new WalletController();

@@ -5,4 +5,5 @@ export interface UserUpdate {
     nftLength?: number;
     bgImage: string;
     pfpImage: string;
+    nftCollections?: string[];
 }

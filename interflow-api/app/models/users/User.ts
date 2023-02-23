@@ -1,4 +1,5 @@
-import { DataType, Column, Default, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Post } from "@models/posts/Post";
+import { DataType, Column, Default, Model, PrimaryKey, Table, HasMany, ForeignKey } from "sequelize-typescript";
 
 @Table
 export class User extends Model {
@@ -40,5 +41,11 @@ export class User extends Model {
 
   @Column(DataType.ARRAY(DataType.STRING))
   following!: string[];
+
+  @Column(DataType.ARRAY(DataType.STRING))
+  nftCollections!: string[];
+
+  @HasMany(() => Post)
+  userPosts!: Post[];
 
 }

@@ -3,8 +3,6 @@ import UserService from "app/services/users/UserService";
 
 class UserController {
   public async login(req: Request, res: Response): Promise<Response> {
-    console.log("req body", req.body);
-
     try {
       let user = await UserService.login(req.body.authId, req.body.email);
       return res.status(200).json(user);
@@ -56,20 +54,32 @@ class UserController {
     }
   }
 
-  public async updateLength(req: Request, res: Response): Promise<Response> {
+  public async getUserCollectionData(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
     try {
-      let user = await UserService.updateNftLength(req.params.id);
+      let user = await UserService.getUserCollectionData(req.params.id);
       return res.status(200).json(user);
     } catch (err: any) {
       return res.status(400).json({ message: "Invalid ID" });
     }
   }
 
-  public async addFollower(req: Request, res: Response): Promise<Response> {
+  async getUserNFTs(req: Request, res: Response): Promise<Response> {
     try {
-      let user = await UserService.addFollower(
+      let user = await UserService.getUserNfts(req.params.id);
+      return res.status(200).json(user);
+    } catch (err: any) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+  }
+
+  public async followUser(req: Request, res: Response): Promise<Response> {
+    try {
+      let user = await UserService.followUser(
         req.params.id,
-        req.body.followerId
+        req.body.userToFollowId
       );
       return res.status(200).json(user);
     } catch (err: any) {
@@ -79,17 +89,50 @@ class UserController {
     }
   }
 
-  public async removeFollower(req: Request, res: Response): Promise<Response> {
+  public async getFollowersData(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
     try {
-      let user = await UserService.removeFollower(
+      let user = await UserService.getFollowersData(req.params.id);
+      return res.status(200).json(user);
+    } catch (err: any) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+  }
+
+  public async unfollowUser(req: Request, res: Response): Promise<Response> {
+    try {
+      let user = await UserService.unfollowUser(
         req.params.id,
-        req.body.followerId
+        req.body.userToUnfollowId
       );
       return res.status(200).json(user);
     } catch (err: any) {
       return res
         .status(400)
         .json({ message: "Invalid ID to user or follower" });
+    }
+  }
+
+  public async getFollowingData(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      let user = await UserService.getFollowingData(req.params.id);
+      return res.status(200).json(user);
+    } catch (err: any) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+  }
+
+  public async getExploreData(req: Request, res: Response): Promise<Response> {
+    try {
+      let user = await UserService.getExploreData(req.params.id);
+      return res.status(200).json(user);
+    } catch (err: any) {
+      return res.status(400).json({ message: "Invalid ID" });
     }
   }
 
@@ -97,6 +140,15 @@ class UserController {
     try {
       let response = await UserService.deleteUser(req.params.id);
       return res.status(200).json(response);
+    } catch (err: any) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+  }
+
+  public async getRanking(req: Request, res: Response): Promise<Response> {
+    try {
+      let user = await UserService.getRankingData();
+      return res.status(200).json(user);
     } catch (err: any) {
       return res.status(400).json({ message: "Invalid ID" });
     }

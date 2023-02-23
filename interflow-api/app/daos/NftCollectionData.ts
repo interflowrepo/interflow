@@ -3,7 +3,7 @@ import { NftData } from "./NftData";
 export interface NftCollectionData {
   address: string;
   display: NftCollectionDisplay;
-  tokenIds: string[];
+  tokenIDs: string[];
 }
 
 export interface NftCollectionDisplay {
