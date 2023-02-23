@@ -81,7 +81,7 @@ class UserService {
     const user = await userRepository.findByPk(id, {
       include: [
         {
-          association: "posts",
+          association: "userPosts",
         },
       ],
     });
@@ -190,8 +190,8 @@ class UserService {
       return null;
     }
 
-
-    if((user.dapperAddress === null || user.dapperAddress === "" ) && (user.bloctoAddress === null || user.bloctoAddress === "" )){
+    console.log("user", user)
+    if((user.dapperAddress == null || user.dapperAddress == "" ) && (user.bloctoAddress == null || user.bloctoAddress == "" )){
       let userCompleteData: UserCompleteData = {
         user,
         collections: [],
@@ -208,8 +208,6 @@ class UserService {
     
         return userCompleteData;
     }
-
-
   }
 
   async getUserSocialData(

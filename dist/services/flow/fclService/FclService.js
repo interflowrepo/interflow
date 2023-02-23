@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var fcl = _interopRequireWildcard(require("@onflow/fcl"));
-var _getCollectionsData_query = require("./scripts/getCollectionsData_query.js");
+var _getCollectionsData_query = require("./scripts/getCollectionsData_query");
 var _getNftsData_query = require("./scripts/getNftsData_query");
 var _getStoredPaths_query = require("./scripts/getStoredPaths_query");
 var _Utils = require("./utils/Utils");
@@ -15,6 +15,7 @@ class FclService {
   async getNfts(addresses) {
     const removedNullAddresses = addresses.filter(address => address != null && address != undefined && address != "");
     const paths = await this.getStorages(removedNullAddresses);
+    console.log("paths", paths);
     const promises = paths.map(group => {
       return this.getStoredNfts(removedNullAddresses, group);
     });

@@ -74,7 +74,7 @@ class UserController {
       return res.status(200).json(user);
     } catch (err) {
       return res.status(400).json({
-        message: "Invalid ID"
+        message: "Invalid ID or no NFT in the user inventory"
       });
     }
   }

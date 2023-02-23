@@ -76,7 +76,7 @@ class UserService {
   async findUser(id) {
     const user = await userRepository.findByPk(id, {
       include: [{
-        association: "posts"
+        association: "userPosts"
       }]
     });
     return user;
@@ -163,7 +163,8 @@ class UserService {
     if (!user) {
       return null;
     }
-    if ((user.dapperAddress === null || user.dapperAddress === "") && (user.bloctoAddress === null || user.bloctoAddress === "")) {
+    console.log("user", user);
+    if ((user.dapperAddress == null || user.dapperAddress == "") && (user.bloctoAddress == null || user.bloctoAddress == "")) {
       let userCompleteData = {
         user,
         collections: []

@@ -34,6 +34,9 @@ class FlowService {
     const user = await _UserService.default.findUser(userId);
     const dapperAddress = user?.dapperAddress;
     const bloctoAddress = user?.bloctoAddress;
+    if ((dapperAddress == null || dapperAddress == "") && (bloctoAddress == null || bloctoAddress == "")) return {
+      message: 'NO NFTS IN USER STORAGE'
+    };
     const nftCollectionDataArray = await _FclService.default.getNfts([bloctoAddress, dapperAddress]);
     const nftCollectionData = nftCollectionDataArray[0];
     return nftCollectionData;

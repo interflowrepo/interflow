@@ -1,5 +1,5 @@
 import * as fcl from "@onflow/fcl";
-import { getCollectionsData_query } from "./scripts/getCollectionsData_query.js";
+import { getCollectionsData_query } from "./scripts/getCollectionsData_query";
 import { getNftsData_query } from "./scripts/getNftsData_query";
 import { getStoredPaths_query } from "./scripts/getStoredPaths_query";
 import { splitList } from "./utils/Utils";
@@ -8,6 +8,8 @@ class FclService {
   async getNfts(addresses: string[]) {
     const removedNullAddresses = addresses.filter(address => address != null && address != undefined && address != "")
     const paths = await this.getStorages(removedNullAddresses);
+
+    console.log("paths", paths)
 
     const promises = paths.map((group) => {
       return this.getStoredNfts(removedNullAddresses, group);
