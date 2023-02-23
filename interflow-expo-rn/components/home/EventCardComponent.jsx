@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from "react-native";
 
-const EventCardComponent = ({ event }) => {
+const EventCardComponent = ({ event, onPress }) => {
   return (
-    <View style={styles.cardContainer}>
+    <TouchableOpacity style={styles.cardContainer} onPress={onPress}>
       <ImageBackground
         source={{
           uri: event.image,
@@ -25,7 +25,7 @@ const EventCardComponent = ({ event }) => {
           <Text>check icon</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

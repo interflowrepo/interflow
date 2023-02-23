@@ -28,7 +28,7 @@ const HomeHorizontalList = ({ items, type, onPress }) => {
       {type == "events" && (
         <ScrollView horizontal={true}>
           {items.map((event) => (
-            <EventCardComponent key={event.id} event={event} />
+            <EventCardComponent key={event.id} event={event} onPress={onPress} />
           ))}
         </ScrollView>
       )}

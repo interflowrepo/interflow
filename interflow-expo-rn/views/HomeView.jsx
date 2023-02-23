@@ -80,12 +80,16 @@ export default function HomeView({ navigation }) {
     navigation.navigate("Metarace");
   };
 
+  const handleEventNav = () => {
+    navigation.navigate("EventDetails");
+  };
+
   const Divider = ({ height }) => <View style={{ height: height }} />;
 
   return (
     <ScrollView>
       <Divider height={20} />
-      <HomeHorizontalList items={events} type="events" />
+      <HomeHorizontalList items={events} type="events" onPress={handleEventNav} />
       <Divider height={20} />
       <HomeHorizontalList items={reveals} type="reveals" onPress={handleNav} />
       <Divider height={20} />

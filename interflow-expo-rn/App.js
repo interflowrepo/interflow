@@ -21,6 +21,8 @@ import UserDetailsView from "./views/UserDetailsView.jsx";
 import MetaraceView from "./views/MetaraceView.jsx";
 import UserCollectionView from "./views/UserCollectionView.jsx";
 import NftDetailsView from "./views/NftDetailsView.jsx";
+import EventDetailsView from "./views/EventDetailsView.jsx";
+import InterspaceView from "./views/InterspaceView.jsx";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -47,6 +49,16 @@ function HomeStackNavigator() {
         options={{
           headerShown: false,
         }}
+      />
+      <HomeStack.Screen
+        name="EventDetails"
+        component={EventDetailsView}
+
+      /> 
+      <HomeStack.Screen
+        name="Interspace"
+        component={InterspaceView}
+
       />
     </HomeStack.Navigator>
   );
@@ -77,7 +89,7 @@ function SocialStackNavigator() {
         options={{
           headerShown: false,
         }}
-      /> 
+      />
       <SocialStack.Screen
         name="NftDetails"
         component={NftDetailsView}
