@@ -85,17 +85,6 @@ const AvatarScene = ({ pfp, handleImgSave }) => {
   };
 
   return (
-    <View style={{ height, width }}>
-      <View
-        style={{
-          alignItems: "center",
-          position: "absolute",
-          zIndex: 1,
-          top: 0,
-        }}
-      >
-        <View style={{ height: "100%", width: "100%" }}>
-          {/* <Suspense fallback={null}> */}
           <Canvas style={{ height, width }}>
             <Backdrop
               floor={0.6}
@@ -138,14 +127,6 @@ const AvatarScene = ({ pfp, handleImgSave }) => {
             )}
             {/* </Caustics> */}
           </Canvas>
-          {/* </Suspense> */}
-        </View>
-        {/* <SphereActionsComponent /> */}
-      </View>
-      <BottomSheetModal {...modalProps} />
-      {/* <View style={styles.circleContainer}> */}
-      {showWheelModal && <TestCircle {...modalWheelProps} />}
-    </View>
   );
 };
 
@@ -235,3 +216,10 @@ const styles = StyleSheet.create({
 });
 
 export default AvatarScene;
+
+
+  
+    //   {/* <BottomSheetModal {...modalProps} />
+    //   {/* <View style={styles.circleContainer}> */}
+    //   // {showWheelModal && <TestCircle {...modalWheelProps} />}
+    // </View> */}

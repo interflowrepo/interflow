@@ -4,6 +4,8 @@ import EventCardComponent from "./EventCardComponent";
 import GameCardComponent from "./GameCardComponent";
 import RevealComponent from "./RevealComponent";
 
+
+
 const HomeHorizontalList = ({ items, type, onPress }) => {
   return (
     <View style={styles.container}>
@@ -34,8 +36,8 @@ const HomeHorizontalList = ({ items, type, onPress }) => {
       )}
       {type == "reveals" && (
         <ScrollView horizontal={true}>
-          {items.map((reveal) => (
-            <RevealComponent key={reveal.id} uri={reveal.uri} onPress={onPress} />
+          {items.map((reveal, i) => (
+            <RevealComponent key={reveal.id} uri={reveal.uri} onPress={onPress} idx={i} />
           ))}
         </ScrollView>
       )}

@@ -37,7 +37,7 @@ const reveals = [
   {
     id: 1,
     title: "Genesis Box",
-    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676912495/genbox_eivvgz.gif",
+    uri: "https://cdn.discordapp.com/attachments/969311733451726949/1078715021716111472/-LOOT.gif",
   },
   {
     id: 2,
@@ -47,7 +47,7 @@ const reveals = [
   {
     id: 3,
     title: "Genesis Box",
-    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676912495/genbox_eivvgz.gif",
+    uri: "https://doodles.app/images/Dooplicator.gif",
   },
 ];
 
@@ -77,7 +77,7 @@ export default function HomeView({ navigation }) {
   };
 
   const handleGameNav = () => {
-    navigation.navigate("Metarace");
+    navigation.navigate("GameDetails");
   };
 
   const handleEventNav = () => {
