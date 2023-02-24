@@ -71,7 +71,7 @@ class UserController {
       let user = await UserService.getUserNfts(req.params.id);
       return res.status(200).json(user);
     } catch (err: any) {
-      return res.status(400).json({ message: "Invalid ID" });
+      return res.status(400).json({ message: "Invalid ID or no NFT in the user inventory" });
     }
   }
 

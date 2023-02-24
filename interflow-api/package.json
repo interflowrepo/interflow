@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "babel app --extensions \".ts\" --out-dir public --copy-files --no-copy-ignored",
+    "build": "babel app --extensions \".ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev": "ts-node-dev -r tsconfig-paths/register app/server.ts",
     "test": "NODE_ENV=test jest"
   },

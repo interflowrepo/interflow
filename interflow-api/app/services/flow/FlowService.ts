@@ -31,6 +31,8 @@ class FlowService {
         const dapperAddress = user?.dapperAddress;
         const bloctoAddress = user?.bloctoAddress;
 
+        if((dapperAddress == null || dapperAddress == "") && (bloctoAddress == null || bloctoAddress == "")) return {message: 'No nfts found on this account'};
+
         const nftCollectionDataArray: any = await FclService.getNfts([bloctoAddress, dapperAddress])
         const nftCollectionData = nftCollectionDataArray[0]
 

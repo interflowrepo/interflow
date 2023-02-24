@@ -20,6 +20,7 @@ module.exports = {
           "@models": "./app/models",
           "@routes": "./app/routes",
           "@middleware": "./app/middleware",
+          "app": "./app",
         },
       },
     ],

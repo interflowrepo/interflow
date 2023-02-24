@@ -81,7 +81,7 @@ class UserService {
     const user = await userRepository.findByPk(id, {
       include: [
         {
-          association: "posts",
+          association: "userPosts",
         },
       ],
     });
