@@ -310,7 +310,7 @@ export default function App() {
           {/* <LoginComponent />  */}
           <NavigationContainer>
             <Stack.Navigator>
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="Onboarding"
                 options={{
                   headerShown: false,
@@ -391,7 +391,7 @@ export default function App() {
                     fontWeight: "bold",
                   },
                 }}
-              />
+              /> */}
               <Stack.Screen
                 name="Home"
                 component={HomeTabs}
