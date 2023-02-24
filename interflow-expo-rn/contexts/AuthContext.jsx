@@ -9,12 +9,17 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as AuthSession from "expo-auth-session";
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID } from "@env";
+import UserService from "../services/UserService";
 
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [auth, setAuth] = useState();
   const [userAuthData, setUserAuthData] = useState();
+  const [userFullData, setUserFullData] = useState();
+
+  console.log("userAuthData from context", userAuthData);
+  console.log("auth from context", auth);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
@@ -22,73 +27,75 @@ export default function AuthProvider({ children }) {
     expoClientId: EXPO_CLIENT_ID,
   });
 
-  useEffect(() => {
-    console.log(response);
-    if (response?.type === "success") {
-      setAuth(response.authentication);
-
-      const persistAuth = async () => {
-        await AsyncStorage.setItem(
-          "auth",
-          JSON.stringify(response.authentication)
-        );
-      };
-    persistAuth();
-    getUserData();
-    }
-  }, [response]);
-
-  useEffect(async () => {
-    if (!userAuthData) {
-      let userAuthData = await AsyncStorage.getItem("userAuthData");
-      console.log("userAuthData from async storage", userAuthData);
-      setUserAuthData(JSON.parse(userAuthData));
-    }
-    const getPersistedAuth = async () => {
-      const jsonValue = await AsyncStorage.getItem("auth");
-      if (jsonValue != null) {
-        const authFromJson = JSON.parse(jsonValue);
-        setAuth(authFromJson);
-        console.log(authFromJson);
-
-        let tokenExpired = !AuthSession.TokenResponse.isTokenFresh({
-          expiresIn: authFromJson.expiresIn,
-          issuedAt: authFromJson.issuedAt,
-        });
-
-        if (tokenExpired && !userAuthData) {
-          console.log(
-            "token expired and no user data, logging out",
-            userAuthData
-          );
-          await logout();
-        }
+  const finishLogin = useCallback(async (token) => {
+    let userInfoResponse = await fetch(
+      "https://www.googleapis.com/userinfo/v2/me",
+      {
+        headers: { Authorization: `Bearer ${token}` },
       }
-    };
-    await getPersistedAuth();
+    )
+
+    userInfoResponse.json().then((data) => {
+      console.log("DATAAAAAAAA", data)
+      loginUser(data.id, data.email)
+    });
+
   }, []);
 
-  const getUserData = async () => {
-    console.log('was here inside getuser data')
-    console.log(auth)
-    if(auth){
-        let userInfoResponse = await fetch(
-          "https://www.googleapis.com/userinfo/v2/me",
-          {
-            headers: { Authorization: `Bearer ${auth.accessToken}` },
-          }
-        );
-        userInfoResponse.json().then((data) => {
-          console.log("data", data);
-          setUserAuthData({ id: data.id, email: data.email });
-          AsyncStorage.setItem("userAuthData", JSON.stringify({ id: data.id, email: data.email }));
-        });
-    } else {
-        logout()
+  useEffect(() => {
+    if (response?.type === "success") {
+      console.log(response);
+      setAuth(response.authentication);
+      AsyncStorage.setItem("auth", JSON.stringify(response.authentication));
+
+      finishLogin(response.authentication.accessToken)
+    }
+    
+    getPersistedAuth();
+  }, [response]);
+
+  const getPersistedAuth = async () => {
+    const authJsonValue = await AsyncStorage.getItem("auth");
+    if (authJsonValue != null) {
+      const authFromJson = JSON.parse(authJsonValue);
+      setAuth(authFromJson);
+      console.log(authFromJson);
+    }
+
+    const userAuthDataJsonValue = await AsyncStorage.getItem("userAuthData");
+    if (userAuthDataJsonValue != null) {
+      const userAuthDataFromJson = JSON.parse(userAuthDataJsonValue);
+      setUserAuthData(userAuthDataFromJson);
+    }
+
+    const userFullDataJsonValue = await AsyncStorage.getItem("userFullData");
+    if (userFullDataJsonValue != null) {
+      const userFullDataFromJson = JSON.parse(userFullDataJsonValue);
+      setUserFullData(userFullDataFromJson);
     }
   };
 
-  const login = async () => {
+  const loginUser = async (authId, email) => {
+    let data = {
+      email: email,
+      authId: authId,
+    };
+
+    console.log("DATA", data)
+
+    let result = await UserService.postLogin(data).then((res) => {
+      console.log("RES", res);
+      return res;
+    });
+  
+    AsyncStorage.setItem("userAuthData", JSON.stringify(data));
+    AsyncStorage.setItem("userFullData", JSON.stringify(result));
+    setUserFullData(result);
+    console.log("RES", result);
+    return result;
+  };
+
+  const login = () => {
     promptAsync({ useProxy: true, showInRecents: true });
   };
 
@@ -104,16 +111,18 @@ export default function AuthProvider({ children }) {
 
     setAuth(undefined);
     setUserAuthData(undefined);
+    setUserFullData(undefined);
     await AsyncStorage.removeItem("auth");
     await AsyncStorage.removeItem("userAuthData");
+    await AsyncStorage.removeItem("userFullData");
   };
 
   const value = {
     login,
     logout,
     auth,
-    getUserData,
     userAuthData,
+    userFullData
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

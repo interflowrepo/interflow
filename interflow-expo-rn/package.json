@@ -21,6 +21,7 @@
     "@react-three/fiber": "^8.11.1",
     "@tradle/react-native-http": "^2.0.0",
     "@walletconnect/react-native-dapp": "^1.8.0",
+    "axios": "^1.3.4",
     "browserify-zlib": "~0.1.4",
     "buffer": "^4.9.1",
     "crypto": "^1.0.1",
