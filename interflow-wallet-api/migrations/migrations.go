@@ -13,7 +13,6 @@ import (
 	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20211221_2"
 	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20220212"
 	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20221001"
-	"github.com/interflowrepo/interflow/interflow-wallet-api/migrations/internal/m20221220"
 )
 
 func List() []*gormigrate.Migration {
@@ -72,11 +71,6 @@ func List() []*gormigrate.Migration {
 			ID:       m20221001.ID,
 			Migrate:  m20221001.Migrate,
 			Rollback: m20221001.Rollback,
-		},
-		{
-			ID:       m20221220.ID,
-			Migrate:  m20221220.Migrate,
-			Rollback: m20221220.Rollback,
 		},
 	}
 	return ms
