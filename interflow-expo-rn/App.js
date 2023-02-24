@@ -29,6 +29,7 @@ import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Device from 'expo-device';
+import RequestsComponent from "./components/RequestsComponent.jsx";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -272,9 +273,10 @@ export default function App() {
     <AuthContext>
       <UserContext>
         <FclContext>
+          <RequestsComponent />
           {/* <LoginComponent /> */}
-          <NavigationContainer>
-            <Stack.Navigator>
+          {/* <NavigationContainer>
+            <Stack.Navigator> */}
               {/* <Stack.Screen
               name="Onboarding"
               options={{
@@ -357,7 +359,7 @@ export default function App() {
                   },
                 }}
               /> */}
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="App"
                 component={AppNavigator}
                 options={{
@@ -366,7 +368,7 @@ export default function App() {
 
               />
             </Stack.Navigator>
-          </NavigationContainer>
+          </NavigationContainer> */}
         </FclContext>
       </UserContext>
     </AuthContext>
