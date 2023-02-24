@@ -1,6 +1,6 @@
 import React from "react";
 import "./flow/config.js";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -23,6 +23,12 @@ import UserCollectionView from "./views/UserCollectionView.jsx";
 import NftDetailsView from "./views/NftDetailsView.jsx";
 import EventDetailsView from "./views/EventDetailsView.jsx";
 import InterspaceView from "./views/InterspaceView.jsx";
+import ProfileView from "./views/ProfileView.jsx";
+import PfpHeaderComponent from "./components/header/PfpHeaderComponent.jsx";
+import { BlurView } from "expo-blur";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as Device from 'expo-device';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -32,6 +38,22 @@ function HomeStackNavigator() {
       <HomeStack.Screen
         name="HomeView"
         component={HomeView}
+        options={({ navigation, route }) => ({
+          // headerStyle: styles.navBar,
+          headerLeft: () => <PfpHeaderComponent navigation={navigation} />,
+          headerBackground: () => <HeaderComponent />,
+          headerTitle: "",
+          headerBackVisible: false,
+          // headerTintColor: "#fff",
+          // headerTitleStyle: {
+          //   fontWeight: "bold",
+          // },
+
+        })}
+      />
+      <HomeStack.Screen
+        name="Profile"
+        component={ProfileView}
         options={{
           headerShown: false,
         }}
@@ -54,7 +76,7 @@ function HomeStackNavigator() {
         name="EventDetails"
         component={EventDetailsView}
 
-      /> 
+      />
       <HomeStack.Screen
         name="Interspace"
         component={InterspaceView}
@@ -120,12 +142,61 @@ function GamesStackNavigator() {
 const Tab = createBottomTabNavigator();
 
 function AppNavigator() {
+
+  const isIos = Device.osName === 'iOS';
+
+  const CustomTabBarButton = ({ children, onPress }) => (
+    <TouchableOpacity
+      style={{
+        top: -44,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // ...styles.shadow,
+      }}
+      onPress={onPress}
+    >
+      <View
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: 50,
+          backgroundColor: 'black',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 10,
+          borderColor: 'lightgrey',
+          borderWidth: 0.5,
+        }}
+      >
+        {children}
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: '#fff',
+        tabBarStyle: { position: 'absolute', height: isIos ? 120 : 90, bottom: -40, width: '100%' },
+        tabBarBackground: () => (
+          isIos ? <BlurView tint="dark" intensity={100} st yle={[StyleSheet.absoluteFill,
+          ]} /> : <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.8)" }} />
+        ),
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStackNavigator}
         options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
+          ),
+          tabBarIconStyle: {
+            marginBottom: isIos ? 0 : 16,
+          }, 
           headerShown: false,
         }}
       />
@@ -133,6 +204,26 @@ function AppNavigator() {
         name="Social"
         component={SocialStackNavigator}
         options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account-group" color={color} size={size} />
+          ),
+          tabBarIconStyle: {
+            marginBottom: isIos ? 0 : 16,
+          }, 
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Plus"
+        component={HomeStackNavigator}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="plus" color={"white"} size={size} />
+          ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
+
           headerShown: false,
         }}
       />
@@ -140,6 +231,27 @@ function AppNavigator() {
         name="Games"
         component={GamesStackNavigator}
         options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="gamepad-variant" color={color} size={size} />
+          ),
+          tabBarIconStyle: {
+            marginBottom: isIos ? 0 : 16,
+          }, 
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Game"
+        component={GamesStackNavigator}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="gamepad-variant" color={color} size={size} />
+          ),
+          tabBarIconStyle: {
+            marginBottom: isIos ? 0 : 16,
+          }, 
           headerShown: false,
         }}
       />
@@ -215,7 +327,7 @@ export default function App() {
                 // ),
               }}
             /> */}
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="Photo"
                 component={PfpView}
                 options={{
@@ -244,18 +356,14 @@ export default function App() {
                     fontWeight: "bold",
                   },
                 }}
-              />
+              /> */}
               <Stack.Screen
                 name="App"
                 component={AppNavigator}
                 options={{
-                  // headerStyle: styles.navBar,
-                  headerBackground: () => <HeaderComponent />,
-                  // headerTintColor: "#fff",
-                  // headerTitleStyle: {
-                  //   fontWeight: "bold",
-                  // },
+                  headerShown: false,
                 }}
+
               />
             </Stack.Navigator>
           </NavigationContainer>

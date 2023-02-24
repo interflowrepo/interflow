@@ -1,19 +1,13 @@
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import { useUser } from "../contexts/UserContext";
 import PfpComponent from "./header/PfpComponent";
 
 export default function HeaderComponent() {
-  const { user } = useUser();
+
+
+
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "transparent",
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#f0f0f0',
-      }}
-    >
+   
       <ImageBackground
         source={require("../assets/avatar/bg(1).png")}
         style={{
@@ -23,23 +17,34 @@ export default function HeaderComponent() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: "flex-start",
+          alignItems: "flex-end",
           height: 120,
         }}
       >
-        <PfpComponent pfpUrl={user.pfpUrl} />
-        <View style={styles.txtContainer}>
+        
+        {/* <View style={styles.txtContainer}>
           <Text style={styles.txt}> Search...</Text>
-        </View>
-        <View style={styles.txtContainer}>
-          <Text style={styles.txt}> Icon</Text>
-        </View>
+        </View> */}
+       
       </ImageBackground>
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  profileContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 34,
+    width:"33%",
+    position: "relative",
+    backgroundColor: "white",
+    borderRadius: 15,
+    margin: 10,
+  },
+
+
   txt: {
     color: "white",
     fontSize: 20,
@@ -49,8 +54,8 @@ const styles = StyleSheet.create({
 
   txtContainer: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "flex-end",
     alignItems: "center",
     height: 120,
     width:"33%"

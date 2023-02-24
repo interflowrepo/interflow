@@ -3,9 +3,9 @@ import React from "react";
 
 export default function PfpComponent({ pfpUrl }) {
   return (
-    <View style={styles.imgContainer}>
+    // <View style={styles.imgContainer}>
       <Image source={{ uri: pfpUrl }} style={styles.pfp} />
-    </View>
+    // </View>
   );
 }
 
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   pfp: {
     height: 40,
     width: 40,
-
     overflow: "hidden",
     borderRadius: 30,
   },
