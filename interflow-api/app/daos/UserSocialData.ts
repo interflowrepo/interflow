@@ -1,4 +1,5 @@
 export interface UserSocialData {
+  id: string;
   nickname: string;
   address: string;
   pfpImage: string;

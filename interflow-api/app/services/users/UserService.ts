@@ -29,6 +29,7 @@ class UserService {
         };
       }
     } catch (err: any) {
+      console.log('ERROR ---', err)
       return { message: "There was a problem logging in." };
     }
 
@@ -77,7 +78,7 @@ class UserService {
     return users;
   }
 
-  async findUser(id: string): Promise<User | null> {
+  async findUserDataValue(id: string): Promise<User | null> {
     const user = await userRepository.findByPk(id, {
       include: [
         {
@@ -85,16 +86,21 @@ class UserService {
         },
       ],
     });
+    return user.dataValues;
+  }
+
+  async getUser(id: string): Promise<User | null> {
+    const user = await userRepository.findByPk(id);
     return user;
   }
 
   async updateUser(id: string, userUpdates: UserUpdate): Promise<User | null> {
-    let user = await userRepository.findByPk(id);
+    let user = await this.getUser(id);
 
     let dapperAddress = userUpdates.dapperAddress;
     let bloctoAddress = userUpdates.bloctoAddress;
-    !dapperAddress && (dapperAddress = user?.dapperAddress);
-    !bloctoAddress && (bloctoAddress = user?.bloctoAddress);
+    !dapperAddress && (dapperAddress = user?.dataValues.dapperAddress);
+    !bloctoAddress && (bloctoAddress = user?.dataValues.bloctoAddress);
 
     const nftCollections = await FlowService.getNftsCollectionByAddresses([
       bloctoAddress,
@@ -116,106 +122,108 @@ class UserService {
     return user;
   }
 
-  async getUserNfts(id: string): Promise<any> {
-    const nfts = await FlowService.getAllNftsFromAccount(id);
-    return nfts;
-  }
+  async followUnfollowUser(
+    id: string,
+    userToFollowId: string
+  ): Promise<User | null> {
+    let user = await this.getUser(id);
+    let userToFollow = await this.getUser(userToFollowId);
 
-  async followUser(id: string, userToFollowId: string): Promise<User | null> {
-    let user = await userRepository.findByPk(id);
-    let userToFollow = await userRepository.findByPk(userToFollowId);
-
-    if (!userToFollow) {
+    if (!userToFollow || !user) {
       return null;
+    }
+
+    // Check if user is already following the userToFollow
+    // If so, unfollow the userToFollow
+    if (user?.dataValues.following.includes(userToFollowId)) {
+      let updatedFollowing = user?.dataValues.following.filter(
+        (followingId) => followingId !== userToFollowId
+      );
+      await user.update({ following: updatedFollowing });
+
+      // Update Followers from userToUnfollow
+      let updatedFollowers = userToFollow?.dataValues.followers.filter(
+        (follower) => follower !== id
+      );
+      await userToFollow.update({ followers: updatedFollowers });
+
+      return user;
     }
 
     //Update Following from User
     // User = user calling the action to follow someone
-    let currentFollowing = user?.following;
+    let currentFollowing = user?.dataValues.following;
     if (currentFollowing.includes(userToFollowId)) {
       return null;
     }
-    let followingIds = [...user?.following, userToFollowId];
+    let followingIds = [...user?.dataValues.following, userToFollowId];
     await user.update({ following: followingIds });
 
     // Update Followers from userToFollow
     // userToFollow = user that will receive the new follower(user calling the action)
-    let userToFollowFollowers = [...userToFollow?.followers, id];
+    let userToFollowFollowers = [...userToFollow?.dataValues.followers, id];
     console.log("user to follow", userToFollowFollowers);
     await userToFollow.update({ followers: userToFollowFollowers });
 
     return user;
   }
 
-  async unfollowUser(
-    id: string,
-    userToUnfollowId: string
-  ): Promise<User | null> {
-    let user = await userRepository.findByPk(id);
-    let userToUnfollow = await userRepository.findByPk(userToUnfollowId);
-
-    // Update Following from User
-    let updatedFollowing = user?.following.filter(
-      (followingId) => followingId !== userToUnfollowId
-    );
-
-    await user.update({ following: updatedFollowing });
-
-    // Update Followers from userToUnfollow
-    let updatedFollowers = userToUnfollow?.followers.filter(
-      (follower) => follower !== id
-    );
-    await userToUnfollow.update({ followers: updatedFollowers });
-
-    return user;
-  }
-
   async deleteUser(id: string): Promise<string | null> {
-    const user = await userRepository.findByPk(id);
+    const user = await this.getUser(id);
     if (user) {
       await user.destroy();
     }
     return "User removed with success!";
   }
 
+  async getUserNfts(id: string): Promise<any> {
+    const user = await this.findUserDataValue(id);
+    console.log("user", user);
+    if (
+      (user.dapperAddress === null || user.dapperAddress === "") &&
+      (user.bloctoAddress === null || user.bloctoAddress === "")
+    )
+      return { message: "User has no NFTs" };
+
+    const nfts = await FlowService.getAllNftsFromAccount(user);
+    return nfts;
+  }
+
+  //TODO: CHANGE TO GET USER AND GET USER DATA USING user.DataValues
   async getUserCollectionData(id: string): Promise<UserCompleteData> {
-    const user = await userRepository.findByPk(id, {
-      include: [
-        {
-          association: "userPosts",
-        },
-      ],
-    });
-    if (!user) {
+    const userData = await this.findUserDataValue(id);
+    if (!userData) {
       return null;
     }
 
-
-    if((user.dapperAddress === null || user.dapperAddress === "" ) && (user.bloctoAddress === null || user.bloctoAddress === "" )){
+    if (
+      (userData.dapperAddress === null || userData.dapperAddress === "") &&
+      (userData.bloctoAddress === null || userData.bloctoAddress === "")
+    ) {
       let userCompleteData: UserCompleteData = {
-        user,
+        user: userData,
         collections: [],
       };
       return userCompleteData;
     } else {
       let nftCollectionData: NftCollectionData[] =
-        await FlowService.getNftCollectionFromAccount(id);
-        let userCompleteData: UserCompleteData = {
-          user,
-          collections: nftCollectionData,
-        };
-    
-        return userCompleteData;
+        await FlowService.getNftCollectionFromAccount(userData);
+      let userCompleteData: UserCompleteData = {
+        user: userData,
+        collections: nftCollectionData,
+      };
+
+      console.log("userCompleteData", userCompleteData);
+
+      return userCompleteData;
     }
-
-
   }
 
   async getUserSocialData(
     id: string,
     compareCollection: string[]
   ): Promise<UserSocialData> {
-    const user = await userRepository.findByPk(id);
+    const user = await this.findUserDataValue(id);
     if (!user) {
       return null;
     }
@@ -225,6 +233,7 @@ class UserService {
     );
 
     let userSocialData: UserSocialData = {
+      id: user.id,
       nickname: user.nickname,
       address: user.interflowAddress,
       pfpImage: user.pfpImage,
@@ -238,7 +247,7 @@ class UserService {
   }
 
   async getFollowersData(id: string): Promise<UserSocialData[]> {
-    const user = await userRepository.findByPk(id);
+    const user = await this.findUserDataValue(id);
     if (!user) {
       return null;
     }
@@ -257,7 +266,7 @@ class UserService {
   }
 
   async getFollowingData(id: string): Promise<UserSocialData[]> {
-    const user = await userRepository.findByPk(id);
+    const user = await this.findUserDataValue(id);
     if (!user) {
       return null;
     }
@@ -287,23 +296,30 @@ class UserService {
 
     let user = await userRepository.findByPk(id);
 
-    let exploreIds = exploreUsers.map((user) => user.id);
-
+    let exploreIds = exploreUsers.map((user) => user.dataValues.id);
     let exploreUsersData: UserSocialData[] = [];
-    for (let exploreUser of exploreIds) {
-      let userfollowingData = await this.getUserSocialData(
-        exploreUser,
-        user.nftCollections
-      );
-      exploreUsersData.push(userfollowingData);
+
+    try {
+      for (let exploreUser of exploreIds) {
+        let userfollowingData = await this.getUserSocialData(
+          exploreUser,
+          user.dataValues.nftCollections
+        );
+        exploreUsersData.push(userfollowingData);
+      }
+      return UserUtils.sortSocialUsers(exploreUsersData);
+    } catch (error) {
+      console.log("error", error);
+      return null;
     }
-    return UserUtils.sortSocialUsers(exploreUsersData);
   }
 
   async getRankingData(): Promise<UserRakingData[]> {
-    const rankingUsers = await userRepository.findAll({
+    const sortedUsers = await userRepository.findAll({
       order: [["nftLength", "DESC"]],
     });
+
+    let rankingUsers = sortedUsers.map((user) => user.dataValues);
 
     let rankingUsersData: UserRakingData[] = [];
     for (let rankingUser of rankingUsers) {
@@ -321,7 +337,6 @@ class UserService {
 
     return rankingUsersData;
   }
-
 }
 
 export default new UserService();

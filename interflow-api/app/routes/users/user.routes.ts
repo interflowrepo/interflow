@@ -17,8 +17,7 @@ userRoutes.get("/users/social/ranking", UserController.getRanking);
 
 // ------------ POST REQUESTS
 userRoutes.post("/users/auth/login", UserController.login);
-userRoutes.post("/users/social/follow/:id", UserController.followUser);
-userRoutes.post("/users/social/unfollow/:id", UserController.unfollowUser);
+userRoutes.post("/users/social/followUnfollow/:id", UserController.followUnfollowUser);
 
 // ------------ PUT REQUESTS
 userRoutes.put("/users/update/:id", UserController.update);
