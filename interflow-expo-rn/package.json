@@ -1,11 +1,10 @@
 {
   "name": "my-app",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -31,7 +30,7 @@
     "dotenv": "^16.0.3",
     "eas-cli": "^3.6.1",
     "events": "^1.0.0",
-    "expo": "^47.0.13",
+    "expo": "~47.0.12",
     "expo-asset": "~8.7.0",
     "expo-auth-session": "~3.8.0",
     "expo-av": "~13.0.2",
@@ -42,9 +41,11 @@
     "expo-gl": "~12.0.1",
     "expo-image-manipulator": "~11.0.0",
     "expo-image-picker": "~14.0.2",
+    "expo-linear-gradient": "~12.0.1",
     "expo-linking": "~3.3.0",
     "expo-media-library": "~15.0.0",
     "expo-random": "~13.0.0",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "expo-three": "^7.0.0",
     "https-browserify": "~0.0.0",

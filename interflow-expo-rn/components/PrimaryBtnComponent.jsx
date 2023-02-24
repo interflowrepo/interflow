@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, ImageBackground, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
 export default function PrimaryBtnComponent({ label, onPress }) {
@@ -16,8 +16,11 @@ export default function PrimaryBtnComponent({ label, onPress }) {
           style={{
             width: 300,
             height: 60,
-            justifyContent: "center",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
             alignItems: "center",
+            paddingHorizontal: 20
           }}
         >
           {/* // linear gradient inverted */}
@@ -31,6 +34,36 @@ export default function PrimaryBtnComponent({ label, onPress }) {
           >
             {label}
           </Text>
+          {
+            label == "PURCHASE" &&
+            <View style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "27%",
+              height: "100%",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  color: "white",
+                }}
+
+              >33</Text>
+              <Image source={{
+                uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677272668/logo_kkdwhj.png"
+              }}
+                style={{
+                  height: 30,
+                  width: 30,
+                  resizeMode: "cover"
+                }}
+              />
+            </View>
+
+          }
         </ImageBackground>
       </View>
     </TouchableOpacity>

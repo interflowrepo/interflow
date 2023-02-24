@@ -31,71 +31,60 @@ import TestCircle from "./customize/wheel/TestCircle";
 const { width, height } = Dimensions.get("window");
 
 const AvatarScene = ({ pfp, handleImgSave }) => {
-  const [Zoom, setZoom] = useState(0.7);
-  const [showModal, setShowModal] = useState(false);
-  const [showWheelModal, setShowWheelModal] = useState(false);
-  const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
+    const [Zoom, setZoom] = useState(0.7);
+    const [showModal, setShowModal] = useState(false);
+    const [showWheelModal, setShowWheelModal] = useState(false);
+    const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
 
-  const toggleModal = (type) => {
-    if (showModal || showWheelModal) setZoom(0.7);
+    const toggleModal = (type) => {
+      if (showModal || showWheelModal) setZoom(0.7);
 
-    type == "accesories"
-      ? setShowModal(!showModal)
-      : setShowWheelModal(!showWheelModal);
+      type == "accesories"
+        ? setShowModal(!showModal)
+        : setShowWheelModal(!showWheelModal);
 
-    Animated.spring(bottomSheetAnimation, {
-      toValue: showModal || showWheelModal ? 0 : 1,
-      useNativeDriver: true,
-    }).start();
-  };
+      Animated.spring(bottomSheetAnimation, {
+        toValue: showModal || showWheelModal ? 0 : 1,
+        useNativeDriver: true,
+      }).start();
+    };
 
-  const overlayOpacity = bottomSheetAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 0.5],
-  });
+    const overlayOpacity = bottomSheetAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 0.5],
+    });
 
-  const contentTranslateY = bottomSheetAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [600, 0],
-  });
+    const contentTranslateY = bottomSheetAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [600, 0],
+    });
 
-  const screenHeight = Dimensions.get("window").height;
-  const bottomSheetHeight = screenHeight - 300;
+    const screenHeight = Dimensions.get("window").height;
+    const bottomSheetHeight = screenHeight - 300;
 
-  const handleSphereSelection = (type) => {
-    if (type == "camera") {
-      handleImgSave();
-    } else {
-      setZoom(0.5);
-      toggleModal(type);
-    }
-  };
+    const handleSphereSelection = (type) => {
+      if (type == "camera") {
+        handleImgSave();
+      } else {
+        setZoom(0.5);
+        toggleModal(type);
+      }
+    };
 
-  const modalProps = {
-    overlayOpacity,
-    contentTranslateY,
-    bottomSheetHeight,
-    toggleModal,
-    showModal,
-  };
+    const modalProps = {
+      overlayOpacity,
+      contentTranslateY,
+      bottomSheetHeight,
+      toggleModal,
+      showModal,
+    };
 
-  const modalWheelProps = {
-    contentTranslateY,
-    bottomSheetHeight,
-  };
+    const modalWheelProps = {
+      contentTranslateY,
+      bottomSheetHeight,
+    };
 
   return (
-    <View style={{ height, width }}>
-      <View
-        style={{
-          alignItems: "center",
-          position: "absolute",
-          zIndex: 1,
-          top: 0,
-        }}
-      >
-        <View style={{ height: "100%", width: "100%" }}>
-          {/* <Suspense fallback={null}> */}
           <Canvas style={{ height, width }}>
             <Backdrop
               floor={0.6}
@@ -138,14 +127,6 @@ const AvatarScene = ({ pfp, handleImgSave }) => {
             )}
             {/* </Caustics> */}
           </Canvas>
-          {/* </Suspense> */}
-        </View>
-        {/* <SphereActionsComponent /> */}
-      </View>
-      <BottomSheetModal {...modalProps} />
-      {/* <View style={styles.circleContainer}> */}
-      {showWheelModal && <TestCircle {...modalWheelProps} />}
-    </View>
   );
 };
 
@@ -235,3 +216,10 @@ const styles = StyleSheet.create({
 });
 
 export default AvatarScene;
+
+
+  
+    //   {/* <BottomSheetModal {...modalProps} />
+    //   {/* <View style={styles.circleContainer}> */}
+    //   // {showWheelModal && <TestCircle {...modalWheelProps} />}
+    // </View> */}

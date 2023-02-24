@@ -5,7 +5,7 @@ import BottomSheetModal from '../components/BottomSheetModal'
 
 export default function CustomizeView() {
   return (
-    <View style={{height:"100%", backgroundColor:"black"}}>
+    <View style={{flex:1, backgroundColor:"black"}}>
         <AvatarScene  />
         {/* <BottomSheetModal /> */}
     </View>
