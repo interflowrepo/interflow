@@ -4,7 +4,8 @@ class AxiosService {
   async get(url) {
     const config = {
       method: "get",
-      url: `http://localhost:3000/v1${url}`,
+      url: `${process.env.WALLET_URL}${url}`,
+      // url: `http://localhost:3000/v1${url}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -24,7 +25,8 @@ class AxiosService {
   async post(url, data?): Promise<any> {
     const config = {
       method: "post",
-      url: `http://localhost:3000/v1${url}`,
+      url: `${process.env.WALLET_URL}${url}`,
+      // url: `http://localhost:3000/v1${url}`,
       headers: {
         "Content-Type": "application/json",
       },

@@ -18,6 +18,15 @@ class WalletService {
     }
   }
 
+  async getHealth() {
+    try {
+      const health = await AxiosService.get("/health/ready");
+      return health;
+    } catch (error) {
+      console.log("CONNECTION PROBLEM WITH INTERFLOW WALLET API");
+    }
+  }
+
   // This method find a available account and set the user id to it
   // If there is 3 or less available account, it will create 3 new accounts
   // and then set the user id to one of them
@@ -29,15 +38,19 @@ class WalletService {
     //IF THERE IS LESS THAN 10 ACCOUNTS AVAILABLE, IT WILL CREATE 10 NEW ACCOUNTS
     try {
       if (availableWalletsLength <= 10) {
-        let x = 0;
-        while (x < 10) {
-          console.log("Creating wallet account" + x);
-          await this.createWalletAccount();
-          x++;
+        if ((await this.getHealth()) != undefined) {
+          let x = 0;
+          while (x < 10) {
+            console.log("Creating wallet account" + x);
+            await this.createWalletAccount();
+            x++;
+          }
+        } else {
+          console.log(" -------- CONNECTION PROBLEM WITH INTERFLOW WALLET API -------- ");
         }
       }
     } catch (error) {
-      console.log('ERROR ----',error);
+      console.log("ERROR ----", error);
     }
 
     let wallet: account | null = null;
@@ -48,6 +61,8 @@ class WalletService {
           interflow_user_id: null,
         },
       });
+
+      console.log("WALLET FOUND!? ----", wallet)
 
       let x = 0;
 
@@ -107,12 +122,18 @@ class WalletService {
 
     //create a for of getting the index of the array
     //and then use the index to get the wallet
-    for(let i = 0; i < usersWithoutWallet.length; i++){
-      if(wallets[i]){
-        await wallets[i].update({ interflow_user_id: usersWithoutWallet[i].id });
-        await usersWithoutWallet[i].update({ interflowAddress: wallets[i].address });
-        console.log(`WALLET ${wallets[i].address} ADDED TO USER! ${usersWithoutWallet[i].id}}`)
-      }else{
+    for (let i = 0; i < usersWithoutWallet.length; i++) {
+      if (wallets[i]) {
+        await wallets[i].update({
+          interflow_user_id: usersWithoutWallet[i].id,
+        });
+        await usersWithoutWallet[i].update({
+          interflowAddress: wallets[i].address,
+        });
+        console.log(
+          `WALLET ${wallets[i].address} ADDED TO USER! ${usersWithoutWallet[i].id}}`
+        );
+      } else {
         console.log("NO WALLET FOUND!");
       }
     }
