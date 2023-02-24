@@ -7,7 +7,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js"
+    "heroku-prebuild": "cd interflow-api && npm install && npm run build",
+    "start": "cd interflow-api && node dist/server.js"
   },
   "repository": {
     "type": "git",
