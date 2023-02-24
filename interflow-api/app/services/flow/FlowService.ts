@@ -28,6 +28,7 @@ class FlowService {
 
     async getAllNftsFromAccount(userId): Promise<any>{
         const user = await UserService.findUser(userId);
+        
         const dapperAddress = user?.dapperAddress;
         const bloctoAddress = user?.bloctoAddress;
 

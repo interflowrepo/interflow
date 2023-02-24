@@ -200,7 +200,6 @@ class UserService {
     } else {
       let nftCollectionData: NftCollectionData[] =
         await FlowService.getNftCollectionFromAccount(id);
-        console.log("nftCollectionData", nftCollectionData)
         let userCompleteData: UserCompleteData = {
           user,
           collections: nftCollectionData,
