@@ -51,19 +51,6 @@ class UserService {
         nftCollections: [],
       });
 
-      let userId = user?.id;
-      let interflowAddress;
-
-      //FIX THIS! IT'S BREAKING IF THE WALLET IT'S NOT FOUND
-      interflowAddress = await WalletService.setWalletAccountToUser(user);
-      if (!interflowAddress) {
-        interflowAddress = "ADDRESS-ERROR";
-      }
-
-      await user.update({
-        interflowAddress: interflowAddress,
-      });
-
       return {
         message: "User created with success!",
         user,

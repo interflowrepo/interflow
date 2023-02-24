@@ -34,6 +34,15 @@ class WalletService {
   async setWalletAccountToUser(user: User): Promise<string> {
     let availableWalletsLength = (await this.getAllAvailableAccounts()).length;
 
+
+    let wallet: account | null = null;
+
+    wallet = await walletRepository.findOne({
+      where: {
+        interflow_user_id: null,
+      },
+    });
+
     //OUR IDEA IT'S TO ALWAYS HAVE AT LEAST 10 ACCOUNTS AVAILABLE
     //IF THERE IS LESS THAN 10 ACCOUNTS AVAILABLE, IT WILL CREATE 10 NEW ACCOUNTS
     try {
@@ -53,14 +62,8 @@ class WalletService {
       console.log("ERROR ----", error);
     }
 
-    let wallet: account | null = null;
-
     try {
-      wallet = await walletRepository.findOne({
-        where: {
-          interflow_user_id: null,
-        },
-      });
+      
 
       console.log("WALLET FOUND!? ----", wallet)
 
@@ -79,10 +82,10 @@ class WalletService {
             });
             if (wallet) {
               console.log("WALLET FOUND!");
-              await wallet.update({ interflow_user_id: user.id });
-              await user.update({ interflowAddress: wallet.address });
-              console.log(`WALLET ADDED TO USER! ${user.id}`);
-              return `WALLET ADDED TO USER! ${user.id}`;
+              await wallet.update({ interflow_user_id: user.dataValues.id });
+              await user.update({ interflowAddress: wallet.dataValues.address });
+              console.log(`WALLET ADDED TO USER! ${user.dataValues.id}`);
+              return `WALLET ADDED TO USER! ${user.dataValues.id}`;
             } else {
               if (x < 5) {
                 console.log("NULL WALLET FOUND NOT FOUND!");
@@ -97,13 +100,14 @@ class WalletService {
           }, 5000);
         }
       } else {
-        await wallet.update({ interflow_user_id: user.id });
-        await user.update({ interflowAddress: wallet.address });
+        await wallet.update({ interflow_user_id: user.dataValues.id });
+        await user.update({ interflowAddress: wallet.dataValues.address });
+        console.log(`WALLET ADDED TO USER! ${user.dataValues.id}`);
         return wallet.address;
       }
     } catch (error) {
-      console.log(error);
-      return null;
+      await user.update({ interflowAddress: "NO-ADDRESS" });
+      console.log(`WALLET ADDED TO USER! ${user.dataValues.id}`);
     }
   }
 
