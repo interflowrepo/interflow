@@ -1,0 +1,23 @@
+{
+  "name": "interflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-prebuild": "cd interflow-api && npm install && npm run build",
+    "start": "cd interflow-api && node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/interflowrepo/interflow.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/interflowrepo/interflow/issues"
+  },
+  "homepage": "https://github.com/interflowrepo/interflow#readme"
+}
