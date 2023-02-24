@@ -1,7 +1,6 @@
 import { User } from "@models/users/User";
 import { sequelize } from "@database/sequelize";
 import { account } from "@models/Wallet/Account";
-import { AccountType } from "app/types/AccountType";
 import { Op } from "sequelize";
 import AxiosService from "../axios/AxiosService";
 
@@ -11,8 +10,12 @@ const userRespository = sequelize.getRepository(User);
 class WalletService {
   // This method calls the Interflow Wallet API to create a new account
   async createWalletAccount() {
-    const accountJob = await AxiosService.post("/accounts");
-    return accountJob;
+    try {
+      const accountJob = await AxiosService.post("/accounts");
+      return accountJob;
+    } catch (error) {
+      console.log("CONNECTION PROBLEM WITH INTERFLOW WALLET API");
+    }
   }
 
   // This method find a available account and set the user id to it
