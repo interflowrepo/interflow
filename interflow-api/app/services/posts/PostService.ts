@@ -7,7 +7,7 @@ const postRepository = sequelize.getRepository(Post);
 
 class PostService {
   async createPost(id: string, postData: CreatePost): Promise<Post> {
-    const user = await UserService.findUser(id);
+    const user = await UserService.findUserDataValue(id);
 
     postData.user = user;
     postData.userId = user.id;

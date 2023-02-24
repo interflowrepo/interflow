@@ -24,13 +24,17 @@ class WalletService {
 
     //OUR IDEA IT'S TO ALWAYS HAVE AT LEAST 10 ACCOUNTS AVAILABLE
     //IF THERE IS LESS THAN 10 ACCOUNTS AVAILABLE, IT WILL CREATE 10 NEW ACCOUNTS
-    if (availableWalletsLength <= 10) {
-      let x = 0;
-      while (x < 10) {
-        console.log("Creating wallet account" + x);
-        await this.createWalletAccount();
-        x++;
+    try {
+      if (availableWalletsLength <= 10) {
+        let x = 0;
+        while (x < 10) {
+          console.log("Creating wallet account" + x);
+          await this.createWalletAccount();
+          x++;
+        }
       }
+    } catch (error) {
+      console.log('ERROR ----',error);
     }
 
     let wallet: account | null = null;

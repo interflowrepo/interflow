@@ -51,6 +51,7 @@ class WalletController {
       const jobs = await WalletService.getAllJobs();
       return res.status(200).json(jobs);
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json({ message: "A internal error getting all jobs occurred" });
