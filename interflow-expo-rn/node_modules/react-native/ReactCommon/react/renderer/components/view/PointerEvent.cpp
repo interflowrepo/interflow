@@ -7,12 +7,11 @@
 
 #include "PointerEvent.h"
 
-namespace facebook {
-namespace react {
+namespace facebook::react {
 
 #if RN_DEBUG_STRING_CONVERTIBLE
 
-std::string getDebugName(PointerEvent const &pointerEvent) {
+std::string getDebugName(PointerEvent const & /*pointerEvent*/) {
   return "PointerEvent";
 }
 
@@ -35,10 +34,15 @@ std::vector<DebugStringConvertibleObject> getDebugProps(
       {"tangentialPressure",
        getDebugDescription(pointerEvent.tangentialPressure, options)},
       {"twist", getDebugDescription(pointerEvent.twist, options)},
+      {"ctrlKey", getDebugDescription(pointerEvent.ctrlKey, options)},
+      {"shiftKey", getDebugDescription(pointerEvent.shiftKey, options)},
+      {"altKey", getDebugDescription(pointerEvent.altKey, options)},
+      {"metaKey", getDebugDescription(pointerEvent.metaKey, options)},
+      {"isPrimary", getDebugDescription(pointerEvent.isPrimary, options)},
+      {"button", getDebugDescription(pointerEvent.button, options)},
   };
 }
 
 #endif
 
-} // namespace react
-} // namespace facebook
+} // namespace facebook::react

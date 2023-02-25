@@ -8,15 +8,16 @@
  * @flow strict
  */
 
-const Platform = require('../Utilities/Platform');
-
-import NativeDialogManagerAndroid from '../NativeModules/specs/NativeDialogManagerAndroid';
-import NativePermissionsAndroid from './NativePermissionsAndroid';
 import type {
   PermissionStatus,
   PermissionType,
 } from './NativePermissionsAndroid';
+
+import NativeDialogManagerAndroid from '../NativeModules/specs/NativeDialogManagerAndroid';
+import NativePermissionsAndroid from './NativePermissionsAndroid';
 import invariant from 'invariant';
+
+const Platform = require('../Utilities/Platform');
 
 export type Rationale = {
   title: string,
@@ -74,7 +75,8 @@ const PERMISSIONS = Object.freeze({
   ANSWER_PHONE_CALLS: 'android.permission.ANSWER_PHONE_CALLS',
   READ_PHONE_NUMBERS: 'android.permission.READ_PHONE_NUMBERS',
   UWB_RANGING: 'android.permission.UWB_RANGING',
-  POST_NOTIFICATION: 'android.permission.POST_NOTIFICATIONS',
+  POST_NOTIFICATION: 'android.permission.POST_NOTIFICATIONS', // Remove in 0.72
+  POST_NOTIFICATIONS: 'android.permission.POST_NOTIFICATIONS',
   NEARBY_WIFI_DEVICES: 'android.permission.NEARBY_WIFI_DEVICES',
 });
 
@@ -105,7 +107,8 @@ class PermissionsAndroid {
     CAMERA: string,
     GET_ACCOUNTS: string,
     NEARBY_WIFI_DEVICES: string,
-    POST_NOTIFICATION: string,
+    POST_NOTIFICATION: string, // Remove in 0.72
+    POST_NOTIFICATIONS: string,
     PROCESS_OUTGOING_CALLS: string,
     READ_CALENDAR: string,
     READ_CALL_LOG: string,

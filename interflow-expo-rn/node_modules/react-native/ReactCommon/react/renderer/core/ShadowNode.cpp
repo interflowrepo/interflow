@@ -19,8 +19,7 @@
 
 #include <utility>
 
-namespace facebook {
-namespace react {
+namespace facebook::react {
 
 ShadowNode::SharedListOfShared ShadowNode::emptySharedShadowNodeSharedList() {
   static const auto emptySharedShadowNodeSharedList =
@@ -119,6 +118,10 @@ ShadowNode::ShadowNode(
 ShadowNode::Unshared ShadowNode::clone(
     const ShadowNodeFragment &fragment) const {
   return family_->componentDescriptor_.cloneShadowNode(*this, fragment);
+}
+
+ContextContainer::Shared ShadowNode::getContextContainer() const {
+  return family_->componentDescriptor_.getContextContainer();
 }
 
 #pragma mark - Getters
@@ -326,5 +329,4 @@ SharedDebugStringConvertibleList ShadowNode::getDebugProps() const {
 }
 #endif
 
-} // namespace react
-} // namespace facebook
+} // namespace facebook::react

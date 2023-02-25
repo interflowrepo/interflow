@@ -4,29 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = findAndroidDir;
-
 function _fs() {
   const data = _interopRequireDefault(require("fs"));
-
   _fs = function () {
     return data;
   };
-
   return data;
 }
-
 function _path() {
   const data = _interopRequireDefault(require("path"));
-
   _path = function () {
     return data;
   };
-
   return data;
 }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -34,11 +26,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * LICENSE file in the root directory of this source tree.
  *
  */
+
 function findAndroidDir(root) {
   if (_fs().default.existsSync(_path().default.join(root, 'android'))) {
     return 'android';
   }
-
   return null;
 }
 

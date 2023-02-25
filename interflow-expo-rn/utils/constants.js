@@ -4,6 +4,8 @@ export const restRoutes = (id) => {
       login: "/users/auth/login",
       followUnfollow: `/users/social/followUnfollow/${id}`,
       createPost: `/posts/create/${id}`,
+      createPaymentIntent: `/payment/create/${id}`,
+      addTokens: `/payment/addTokens/${id}`,
   
       // ------ GETS
       getUserCollectionData: `/users/getUserCollectionData/${id}`,
