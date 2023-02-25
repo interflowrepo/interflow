@@ -22,7 +22,7 @@ import type {
 
 import type {AliasResolver} from './Utils';
 const {createAliasResolver, getModules} = require('./Utils');
-const {unwrapNullable} = require('../../parsers/flow/modules/utils');
+const {unwrapNullable} = require('../../parsers/parsers-commons');
 
 type FilesOutput = Map<string, string>;
 
@@ -154,6 +154,17 @@ function translateReturnTypeToKind(
       return 'StringKind';
     case 'BooleanTypeAnnotation':
       return 'BooleanKind';
+    case 'EnumDeclaration':
+      switch (typeAnnotation.memberType) {
+        case 'NumberTypeAnnotation':
+          return 'NumberKind';
+        case 'StringTypeAnnotation':
+          return 'StringKind';
+        default:
+          throw new Error(
+            `Unknown enum prop type for returning value, found: ${realTypeAnnotation.type}"`,
+          );
+      }
     case 'NumberTypeAnnotation':
       return 'NumberKind';
     case 'DoubleTypeAnnotation':
@@ -171,7 +182,10 @@ function translateReturnTypeToKind(
     case 'ArrayTypeAnnotation':
       return 'ArrayKind';
     default:
-      (realTypeAnnotation.type: 'MixedTypeAnnotation');
+      (realTypeAnnotation.type:
+        | 'EnumDeclaration'
+        | 'MixedTypeAnnotation'
+        | 'UnionTypeAnnotation');
       throw new Error(
         `Unknown prop type for returning value, found: ${realTypeAnnotation.type}"`,
       );
@@ -209,6 +223,17 @@ function translateParamTypeToJniType(
       return 'Ljava/lang/String;';
     case 'BooleanTypeAnnotation':
       return !isRequired ? 'Ljava/lang/Boolean;' : 'Z';
+    case 'EnumDeclaration':
+      switch (typeAnnotation.memberType) {
+        case 'NumberTypeAnnotation':
+          return !isRequired ? 'Ljava/lang/Double;' : 'D';
+        case 'StringTypeAnnotation':
+          return 'Ljava/lang/String;';
+        default:
+          throw new Error(
+            `Unknown enum prop type for method arg, found: ${realTypeAnnotation.type}"`,
+          );
+      }
     case 'NumberTypeAnnotation':
       return !isRequired ? 'Ljava/lang/Double;' : 'D';
     case 'DoubleTypeAnnotation':
@@ -226,7 +251,10 @@ function translateParamTypeToJniType(
     case 'FunctionTypeAnnotation':
       return 'Lcom/facebook/react/bridge/Callback;';
     default:
-      (realTypeAnnotation.type: 'MixedTypeAnnotation');
+      (realTypeAnnotation.type:
+        | 'EnumDeclaration'
+        | 'MixedTypeAnnotation'
+        | 'UnionTypeAnnotation');
       throw new Error(
         `Unknown prop type for method arg, found: ${realTypeAnnotation.type}"`,
       );
@@ -261,6 +289,17 @@ function translateReturnTypeToJniType(
       return 'Ljava/lang/String;';
     case 'BooleanTypeAnnotation':
       return nullable ? 'Ljava/lang/Boolean;' : 'Z';
+    case 'EnumDeclaration':
+      switch (typeAnnotation.memberType) {
+        case 'NumberTypeAnnotation':
+          return nullable ? 'Ljava/lang/Double;' : 'D';
+        case 'StringTypeAnnotation':
+          return 'Ljava/lang/String;';
+        default:
+          throw new Error(
+            `Unknown enum prop type for method return type, found: ${realTypeAnnotation.type}"`,
+          );
+      }
     case 'NumberTypeAnnotation':
       return nullable ? 'Ljava/lang/Double;' : 'D';
     case 'DoubleTypeAnnotation':
@@ -278,7 +317,10 @@ function translateReturnTypeToJniType(
     case 'ArrayTypeAnnotation':
       return 'Lcom/facebook/react/bridge/WritableArray;';
     default:
-      (realTypeAnnotation.type: 'MixedTypeAnnotation');
+      (realTypeAnnotation.type:
+        | 'EnumDeclaration'
+        | 'MixedTypeAnnotation'
+        | 'UnionTypeAnnotation');
       throw new Error(
         `Unknown prop type for method return type, found: ${realTypeAnnotation.type}"`,
       );

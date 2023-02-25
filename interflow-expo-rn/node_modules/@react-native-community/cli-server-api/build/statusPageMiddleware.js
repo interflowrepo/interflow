@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = statusPageMiddleware;
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

@@ -4,9 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _fetch = require("./fetch");
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -32,7 +30,6 @@ async function isPackagerRunning(packagerPort = process.env.RCT_METRO_PORT || '8
     return 'not_running';
   }
 }
-
 var _default = isPackagerRunning;
 exports.default = _default;
 

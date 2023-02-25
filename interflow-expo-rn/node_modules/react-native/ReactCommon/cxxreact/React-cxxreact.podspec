@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.homepage               = "https://reactnative.dev/"
   s.license                = package["license"]
   s.author                 = "Facebook, Inc. and its affiliates"
-  s.platforms              = { :ios => "12.4", :tvos => "12.4" }
+  s.platforms              = { :ios => "12.4" }
   s.source                 = source
   s.source_files           = "*.{cpp,h}"
   s.exclude_files          = "SampleCxxModule.*"
@@ -46,4 +46,8 @@ Pod::Spec.new do |s|
   s.dependency "React-perflogger", version
   s.dependency "React-jsi", version
   s.dependency "React-logger", version
+
+  if ENV['USE_HERMES'] == nil || ENV['USE_HERMES'] == "1"
+    s.dependency 'hermes-engine'
+  end
 end
