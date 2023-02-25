@@ -33,6 +33,7 @@ import * as Device from 'expo-device';
 import GameDetailsView from "./views/games/GameDetailsView.jsx";
 import AuthView from "./views/AuthView.jsx";
 import LoginView from "./views/LoginView.jsx";
+import { StripeProvider } from "@stripe/stripe-react-native";
 // import useNavigation hook 
 
 const HomeStack = createNativeStackNavigator();
@@ -302,12 +303,14 @@ const styles = StyleSheet.create({
   },
 });
 
+const publishableKey = "pk_test_51MfOe3EFbOKoDaT5L6wpjDT4tL5ptYILn9BZ1po4JLSstXHqrzXmvbB02KHVXL4Xem1M5zhaQ7W0TBG8a54Xb0JR001WpO85nL";
 export default function App() {
 
   return (
     <AuthContext>
       <UserContext>
         <FclContext>
+        <StripeProvider publishableKey={publishableKey}>
           {/* <LoginComponent /> 
           <RequestsComponent /> */}
           <NavigationContainer>
@@ -485,6 +488,7 @@ export default function App() {
 
             </Stack.Navigator>
           </NavigationContainer>
+          </StripeProvider>
         </FclContext>
       </UserContext>
     </AuthContext>
