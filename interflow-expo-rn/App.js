@@ -13,6 +13,7 @@ import RevealView from "./views/RevealView";
 import WalletsConnectionView from "./views/WalletsConnectionView";
 import PfpView from "./views/PfpView.jsx";
 import LoginComponent from "./components/LoginComponent.jsx";
+import RequestsComponent from "./components/RequestsComponent.jsx";
 import AuthContext from "./contexts/AuthContext.jsx";
 import UserContext, { useUser } from "./contexts/UserContext.jsx";
 import FclContext from "./contexts/FclContext";
@@ -30,6 +31,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Device from 'expo-device';
 import GameDetailsView from "./views/games/GameDetailsView.jsx";
+import AuthView from "./views/AuthView.jsx";
+import LoginView from "./views/LoginView.jsx";
 // import useNavigation hook 
 
 const HomeStack = createNativeStackNavigator();
@@ -216,8 +219,6 @@ function HomeTabs() {
           ),
         }
       }
-
-
       }
     >
       <Tab.Screen
@@ -307,10 +308,17 @@ export default function App() {
     <AuthContext>
       <UserContext>
         <FclContext>
-          {/* <LoginComponent />  */}
-          {/* <RequestsComponent /> */}
+          {/* <LoginComponent /> 
+          <RequestsComponent /> */}
           <NavigationContainer>
             <Stack.Navigator>
+              <Stack.Screen
+                name="auth"
+                component={LoginView}
+                options={{
+                  headerShown: false,
+                }}
+              />
               <Stack.Screen
                 name="Onboarding"
                 options={{
@@ -472,7 +480,7 @@ export default function App() {
               <Stack.Screen
                 name="NftDetails"
                 component={NftDetailsView}
-                
+
               />
 
             </Stack.Navigator>
