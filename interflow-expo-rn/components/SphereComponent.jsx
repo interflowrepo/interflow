@@ -22,7 +22,8 @@ export default function SphereComponent({ onPress, position, type }) {
       )}
 
       {type == "camera" && (
-        <CameraIconComponent scale={1} position={[0, 0, 0]} animated />
+        <group></group>
+        // <CameraIconComponent scale={1} position={[0, 0, 0]} animated />
       )}
 
       <mesh>
