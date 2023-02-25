@@ -1,7 +1,18 @@
 import React from "react";
 import "./flow/config.js";
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState, } from "@react-navigation/native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+  useNavigationContainerRef,
+  useNavigationState,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import OnboardingView from "./views/OnboardingView";
@@ -28,19 +39,18 @@ import PfpHeaderComponent from "./components/header/PfpHeaderComponent.jsx";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import * as Device from 'expo-device';
+import * as Device from "expo-device";
 import GameDetailsView from "./views/games/GameDetailsView.jsx";
-// import useNavigation hook 
+import { StripeProvider } from "@stripe/stripe-react-native";
+// import useNavigation hook
 
 const HomeStack = createNativeStackNavigator();
 
 function HomeStackNavigator() {
-  const navigationRef = useNavigationContainerRef()
+  const navigationRef = useNavigationContainerRef();
 
   return (
-    <HomeStack.Navigator
-      ref={navigationRef}
-    >
+    <HomeStack.Navigator ref={navigationRef}>
       <HomeStack.Screen
         name="HomeView"
         component={HomeView}
@@ -54,7 +64,6 @@ function HomeStackNavigator() {
           // headerTitleStyle: {
           //   fontWeight: "bold",
           // },
-
         })}
       />
       <HomeStack.Screen
@@ -64,29 +73,17 @@ function HomeStackNavigator() {
           headerShown: false,
         }}
       />
-      <HomeStack.Screen
-        name="Reveal"
-        component={RevealView}
-
-      />
+      <HomeStack.Screen name="Reveal" component={RevealView} />
       <HomeStack.Screen
         name="GameDetails"
         component={GameDetailsView}
         options={{
-          headerLargeTitle: true
+          headerLargeTitle: true,
         }}
-      /><HomeStack.Screen
-        name="Metarace"
-        component={MetaraceView}
       />
-      <HomeStack.Screen
-        name="EventDetails"
-        component={EventDetailsView}
-      />
-      <HomeStack.Screen
-        name="Interspace"
-        component={InterspaceView}
-      />
+      <HomeStack.Screen name="Metarace" component={MetaraceView} />
+      <HomeStack.Screen name="EventDetails" component={EventDetailsView} />
+      <HomeStack.Screen name="Interspace" component={InterspaceView} />
     </HomeStack.Navigator>
   );
 }
@@ -149,7 +146,6 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
   // const route = useRoute()
 
-
   // console.log("navigation", navigation)
 
   // const navState = navigation.getState();
@@ -158,46 +154,42 @@ function HomeTabs() {
   // )
   // const currentView = navState
 
-
-  const isIos = Device.osName === 'iOS';
+  const isIos = Device.osName === "iOS";
 
   const CustomTabBarButton = (props) => {
-
-
-
-
     // if (getFocusedRouteNameFromRoute(route) !== 'GameDetails') {
-    return <TouchableOpacity
-      style={{
-        top: -44,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        // ...styles.shadow,
-      }}
-      onPress={props.onPress}
-    >
-      <View
+    return (
+      <TouchableOpacity
         style={{
-          width: 56,
-          height: 56,
-          borderRadius: 50,
-          backgroundColor: 'black',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingTop: 10,
-          borderColor: 'lightgrey',
-          borderWidth: 0.5,
+          top: -44,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          // ...styles.shadow,
         }}
+        onPress={props.onPress}
       >
-        {props.children}
-      </View>
-    </TouchableOpacity>
-    // } 
+        <View
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: 50,
+            backgroundColor: "black",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 10,
+            borderColor: "lightgrey",
+            borderWidth: 0.5,
+          }}
+        >
+          {props.children}
+        </View>
+      </TouchableOpacity>
+    );
+    // }
     // return
-  }
-
+  };
 
   return (
     <Tab.Navigator
@@ -205,26 +197,29 @@ function HomeTabs() {
         // const state = useNavigationState(state => state)
         // console.log("tabs state", state.routes[0].state.routes[0])
         return {
-
-          tabBarActiveTintColor: '#fff',
+          tabBarActiveTintColor: "#fff",
           tabBarStyle: {
-            position: 'absolute', height: getFocusedRouteNameFromRoute(route) !== 'GameDetails' ? 120 : 0
-            , bottom: -40, width: '100%'
+            position: "absolute",
+            height:
+              getFocusedRouteNameFromRoute(route) !== "GameDetails" ? 120 : 0,
+            bottom: -40,
+            width: "100%",
           },
           tabBarBackground: () => (
-            <BlurView tint="dark" intensity={100} style={StyleSheet.absoluteFill} />
+            <BlurView
+              tint="dark"
+              intensity={100}
+              style={StyleSheet.absoluteFill}
+            />
           ),
-        }
-      }
-
-
-      }
+        };
+      }}
     >
       <Tab.Screen
         name="Home"
         component={HomeView}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
@@ -238,9 +233,13 @@ function HomeTabs() {
         name="Social"
         component={SocialView}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account-group" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="account-group"
+              color={color}
+              size={size}
+            />
           ),
           tabBarIconStyle: {
             marginBottom: isIos ? 0 : 16,
@@ -252,22 +251,27 @@ function HomeTabs() {
         name="Plus"
         component={HomeStackNavigator}
         options={({ navigation, route }) => ({
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="plus" color={"white"} size={size} />
           ),
-          tabBarButton: (props) => <CustomTabBarButton {...props} navigation={navigation} />,
+          tabBarButton: (props) => (
+            <CustomTabBarButton {...props} navigation={navigation} />
+          ),
           headerShown: false,
-        })
-        }
+        })}
       />
       <Tab.Screen
         name="Games"
         component={GamesStackNavigator}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="gamepad-variant" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="gamepad-variant"
+              color={color}
+              size={size}
+            />
           ),
           tabBarIconStyle: {
             marginBottom: isIos ? 0 : 16,
@@ -279,9 +283,13 @@ function HomeTabs() {
         name="Game"
         component={GamesStackNavigator}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="gamepad-variant" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="gamepad-variant"
+              color={color}
+              size={size}
+            />
           ),
           tabBarIconStyle: {
             marginBottom: isIos ? 0 : 16,
@@ -300,184 +308,168 @@ const styles = StyleSheet.create({
     height: 29,
   },
 });
-
+const publishableKey = "pk_test_51MfOe3EFbOKoDaT5L6wpjDT4tL5ptYILn9BZ1po4JLSstXHqrzXmvbB02KHVXL4Xem1M5zhaQ7W0TBG8a54Xb0JR001WpO85nL";
 export default function App() {
-
   return (
     <AuthContext>
       <UserContext>
-        <FclContext>
-          {/* <LoginComponent />  */}
-          {/* <RequestsComponent /> */}
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Onboarding"
-                options={{
-                  headerShown: false,
-                }}
-                component={OnboardingView}
-              />
-              <Stack.Screen
-                name="Wallets"
-
-                component={WalletsConnectionView}
-              />
-              <Stack.Screen
-                name="Customize"
-                component={CustomizeView}
-                options={({ navigation }) => ({
-                  // headerStyle: styles.navBar,
-                  headerRight: () => (
-                    <View style={{ flexDirection: "row" }}>
-                      <TouchableOpacity
+        <StripeProvider publishableKey={publishableKey}>
+          <FclContext>
+            <LoginComponent /> 
+            {/* <RequestsComponent /> */}
+            {/* <NavigationContainer>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="Onboarding"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={OnboardingView}
+                />
+                <Stack.Screen
+                  name="Wallets"
+                  component={WalletsConnectionView}
+                />
+                <Stack.Screen
+                  name="Customize"
+                  component={CustomizeView}
+                  options={({ navigation }) => ({
+                    // headerStyle: styles.navBar,
+                    headerRight: () => (
+                      <View style={{ flexDirection: "row" }}>
+                        <TouchableOpacity
+                          style={{
+                            marginRight: 10,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          onPress={() => {
+                            console.log("pressed");
+                            navigation.navigate("Onboarding");
+                          }}
+                        >
+                          <MaterialCommunityIcons
+                            name="check-outline"
+                            size={24}
+                            color="white"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    ),
+                    headerBackground: () => (
+                      <View
                         style={{
-                          marginRight: 10,
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                        onPress={() => {
-                          console.log("pressed");
-                          navigation.navigate("Onboarding");
+                          flex: 1,
+                          backgroundColor: "transparent",
+                          // borderBottomWidth: 1,
+                          // borderBottomColor: '#f0f0f0',
                         }}
                       >
-                        <MaterialCommunityIcons
-                          name="check-outline"
-                          size={24}
-                          color="white"
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  ),
-                  headerBackground: () => (
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: "transparent",
-                        // borderBottomWidth: 1,
-                        // borderBottomColor: '#f0f0f0',
-                      }}
-                    >
-                      <ImageBackground
-                        source={require("./assets/avatar/bg(1).png")}
+                        <ImageBackground
+                          source={require("./assets/avatar/bg(1).png")}
+                          style={{
+                            flex: 1,
+                            resizeMode: "cover",
+                            justifyContent: "center",
+                          }}
+                        ></ImageBackground>
+                      </View>
+                    ),
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                  })}
+                />
+                <Stack.Screen
+                  name="Photo"
+                  component={PfpView}
+                  options={{
+                    // headerStyle: styles.navBar,
+                    headerBackground: () => (
+                      <View
                         style={{
                           flex: 1,
-                          resizeMode: "cover",
-                          justifyContent: "center",
+                          backgroundColor: "transparent",
+                          // borderBottomWidth: 1,
+                          // borderBottomColor: '#f0f0f0',
                         }}
-                      ></ImageBackground>
-                    </View>
-                  ),
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                })
-                }
-
-              />
-              <Stack.Screen
-                name="Photo"
-                component={PfpView}
-                options={{
-                  // headerStyle: styles.navBar,
-                  headerBackground: () => (
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: "transparent",
-                        // borderBottomWidth: 1,
-                        // borderBottomColor: '#f0f0f0',
-                      }}
-                    >
-                      <ImageBackground
-                        source={require("./assets/avatar/bg(1).png")}
-                        style={{
-                          flex: 1,
-                          resizeMode: "cover",
-                          justifyContent: "center",
-                        }}
-                      ></ImageBackground>
-                    </View>
-                  ),
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                }}
-              />
-              <Stack.Screen
-                name="Home"
-                component={HomeTabs}
-                options={({ navigation, route }) => ({
-                  // headerStyle: styles.navBar,
-                  headerLeft: () => <PfpHeaderComponent navigation={navigation} />,
-                  headerBackground: () => <HeaderComponent />,
-                  headerTitle: "",
-                  headerBackVisible: false,
-                  // headerTintColor: "#fff",
-                  // headerTitleStyle: {
-                  //   fontWeight: "bold",
-                  // },
-                })}
-              />
-              <Stack.Screen
-                name="GameDetails"
-                component={GameDetailsView}
-                options={{
-                  headerLargeTitle: true,
-                  headerTitle: "Metarace"
-                }}
-              />
-              <Stack.Screen
-                name="Metarace"
-                component={MetaraceView}
-                options={{
-                  headerTitle: "Level 1"
-                }}
-              />
-              <Stack.Screen
-                name="EventDetails"
-                component={EventDetailsView}
-              // options={{
-              //   headerTitle: "Level 1"
-              // }}
-              />
-              <Stack.Screen
-                name="Interspace"
-                component={InterspaceView}
-              // options={{
-              //   headerTitle: "Level 1"
-              // }}
-              />
-              <Stack.Screen
-                name="Reveal"
-                component={RevealView}
-              />
-              <Stack.Screen
-                name="Profile"
-                component={ProfileView}
-              />
-              <Stack.Screen
-                name="UserDetails"
-                component={UserDetailsView}
-
-              />
-              <Stack.Screen
-                name="UserCollection"
-                component={UserCollectionView}
-
-              />
-              <Stack.Screen
-                name="NftDetails"
-                component={NftDetailsView}
-                
-              />
-
-            </Stack.Navigator>
-          </NavigationContainer>
-        </FclContext>
+                      >
+                        <ImageBackground
+                          source={require("./assets/avatar/bg(1).png")}
+                          style={{
+                            flex: 1,
+                            resizeMode: "cover",
+                            justifyContent: "center",
+                          }}
+                        ></ImageBackground>
+                      </View>
+                    ),
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Home"
+                  component={HomeTabs}
+                  options={({ navigation, route }) => ({
+                    // headerStyle: styles.navBar,
+                    headerLeft: () => (
+                      <PfpHeaderComponent navigation={navigation} />
+                    ),
+                    headerBackground: () => <HeaderComponent />,
+                    headerTitle: "",
+                    headerBackVisible: false,
+                    // headerTintColor: "#fff",
+                    // headerTitleStyle: {
+                    //   fontWeight: "bold",
+                    // },
+                  })}
+                />
+                <Stack.Screen
+                  name="GameDetails"
+                  component={GameDetailsView}
+                  options={{
+                    headerLargeTitle: true,
+                    headerTitle: "Metarace",
+                  }}
+                />
+                <Stack.Screen
+                  name="Metarace"
+                  component={MetaraceView}
+                  options={{
+                    headerTitle: "Level 1",
+                  }}
+                />
+                <Stack.Screen
+                  name="EventDetails"
+                  component={EventDetailsView}
+                  // options={{
+                  //   headerTitle: "Level 1"
+                  // }}
+                />
+                <Stack.Screen
+                  name="Interspace"
+                  component={InterspaceView}
+                  // options={{
+                  //   headerTitle: "Level 1"
+                  // }}
+                />
+                <Stack.Screen name="Reveal" component={RevealView} />
+                <Stack.Screen name="Profile" component={ProfileView} />
+                <Stack.Screen name="UserDetails" component={UserDetailsView} />
+                <Stack.Screen
+                  name="UserCollection"
+                  component={UserCollectionView}
+                />
+                <Stack.Screen name="NftDetails" component={NftDetailsView} />
+              </Stack.Navigator>
+            </NavigationContainer> */}
+          </FclContext>
+        </StripeProvider>
       </UserContext>
     </AuthContext>
   );

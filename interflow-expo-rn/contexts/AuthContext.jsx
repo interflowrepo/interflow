@@ -43,6 +43,7 @@ export default function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    console.log("response", request)
     if (response?.type === "success") {
       console.log(response);
       setAuth(response.authentication);
@@ -96,6 +97,7 @@ export default function AuthProvider({ children }) {
   };
 
   const login = () => {
+    console.log("was here!")
     promptAsync({ useProxy: true, showInRecents: true });
   };
 

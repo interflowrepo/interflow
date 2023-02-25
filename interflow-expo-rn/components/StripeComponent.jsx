@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { StripeProvider, usePaymentSheet } from "@stripe/stripe-react-native";
-import { CardField, useStripe } from "@stripe/stripe-react-native";
 import StripeService from "../services/StripeService";
 
 export default function StripeComponent() {
-  const { confirmPayment } = useStripe();
+
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
   const getAllStorageData = async () => {
@@ -28,8 +27,7 @@ export default function StripeComponent() {
     return data;
   };
 
-  async function buy(amount, tokensAmount) {
-    let userId = 'a3341f16-f912-4213-9dd4-fffa9ac567c5'
+  async function buy(userId, amount, tokensAmount) {
     const { paymentIntent, ephemeralKey, customer } = await fetchPaymentSheetParams(amount);
 
     const { error: errorInit } = await initPaymentSheet({
