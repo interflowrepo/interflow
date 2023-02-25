@@ -315,9 +315,9 @@ export default function App() {
       <UserContext>
         <StripeProvider publishableKey={publishableKey}>
           <FclContext>
-            <LoginComponent /> 
+            {/* <LoginComponent />  */}
             {/* <RequestsComponent /> */}
-            {/* <NavigationContainer>
+            <NavigationContainer>
               <Stack.Navigator>
                 <Stack.Screen
                   name="Onboarding"
@@ -467,7 +467,7 @@ export default function App() {
                 />
                 <Stack.Screen name="NftDetails" component={NftDetailsView} />
               </Stack.Navigator>
-            </NavigationContainer> */}
+            </NavigationContainer>
           </FclContext>
         </StripeProvider>
       </UserContext>
