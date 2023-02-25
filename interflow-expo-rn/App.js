@@ -1,7 +1,7 @@
 import React from "react";
 import "./flow/config.js";
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState,  } from "@react-navigation/native";
+import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState, } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import OnboardingView from "./views/OnboardingView";
@@ -236,7 +236,7 @@ function HomeTabs() {
       />
       <Tab.Screen
         name="Social"
-        component={SocialStackNavigator}
+        component={SocialView}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
@@ -320,7 +320,7 @@ export default function App() {
               />
               <Stack.Screen
                 name="Wallets"
-                
+
                 component={WalletsConnectionView}
               />
               <Stack.Screen
@@ -437,8 +437,46 @@ export default function App() {
                   headerTitle: "Level 1"
                 }}
               />
+              <Stack.Screen
+                name="EventDetails"
+                component={EventDetailsView}
+              // options={{
+              //   headerTitle: "Level 1"
+              // }}
+              />
+              <Stack.Screen
+                name="Interspace"
+                component={InterspaceView}
+              // options={{
+              //   headerTitle: "Level 1"
+              // }}
+              />
+              <Stack.Screen
+                name="Reveal"
+                component={RevealView}
+              />
+              <Stack.Screen
+                name="Profile"
+                component={ProfileView}
+              />
+              <Stack.Screen
+                name="UserDetails"
+                component={UserDetailsView}
+
+              />
+              <Stack.Screen
+                name="UserCollection"
+                component={UserCollectionView}
+
+              />
+              <Stack.Screen
+                name="NftDetails"
+                component={NftDetailsView}
+                
+              />
+
             </Stack.Navigator>
-          </NavigationContainer> 
+          </NavigationContainer>
         </FclContext>
       </UserContext>
     </AuthContext>
