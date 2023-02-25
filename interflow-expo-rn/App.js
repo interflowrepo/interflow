@@ -1,7 +1,7 @@
 import React from "react";
 import "./flow/config.js";
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState } from "@react-navigation/native";
+import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState, } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import OnboardingView from "./views/OnboardingView";
@@ -31,7 +31,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Device from 'expo-device';
 import GameDetailsView from "./views/games/GameDetailsView.jsx";
 // import useNavigation hook 
-import { useNavigation } from '@react-navigation/native';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -237,7 +236,7 @@ function HomeTabs() {
       />
       <Tab.Screen
         name="Social"
-        component={SocialStackNavigator}
+        component={SocialView}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
@@ -303,6 +302,7 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+
   return (
     <AuthContext>
       <UserContext>
@@ -311,7 +311,7 @@ export default function App() {
           {/* <RequestsComponent /> */}
           <NavigationContainer>
             <Stack.Navigator>
-              {/* <Stack.Screen
+              <Stack.Screen
                 name="Onboarding"
                 options={{
                   headerShown: false,
@@ -320,16 +320,36 @@ export default function App() {
               />
               <Stack.Screen
                 name="Wallets"
-                options={{
-                  headerShown: false,
-                }}
+
                 component={WalletsConnectionView}
               />
               <Stack.Screen
                 name="Customize"
                 component={CustomizeView}
-                options={{
+                options={({ navigation }) => ({
                   // headerStyle: styles.navBar,
+                  headerRight: () => (
+                    <View style={{ flexDirection: "row" }}>
+                      <TouchableOpacity
+                        style={{
+                          marginRight: 10,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        onPress={() => {
+                          console.log("pressed");
+                          navigation.navigate("Onboarding");
+                        }}
+                      >
+                        <MaterialCommunityIcons
+                          name="check-outline"
+                          size={24}
+                          color="white"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ),
                   headerBackground: () => (
                     <View
                       style={{
@@ -353,15 +373,9 @@ export default function App() {
                   headerTitleStyle: {
                     fontWeight: "bold",
                   },
-                  // headerTitleStyle: {
-                  //   color: "white",
-                  // },
-                  // headerTitle: (props) => (
-                  //   <View>
-                  //     <Text style={{ color: "white" }}>{props.children}</Text>
-                  //   </View>
-                  // ),
-                }}
+                })
+                }
+
               />
               <Stack.Screen
                 name="Photo"
@@ -392,7 +406,7 @@ export default function App() {
                     fontWeight: "bold",
                   },
                 }}
-              /> */}
+              />
               <Stack.Screen
                 name="Home"
                 component={HomeTabs}
@@ -423,8 +437,46 @@ export default function App() {
                   headerTitle: "Level 1"
                 }}
               />
+              <Stack.Screen
+                name="EventDetails"
+                component={EventDetailsView}
+              // options={{
+              //   headerTitle: "Level 1"
+              // }}
+              />
+              <Stack.Screen
+                name="Interspace"
+                component={InterspaceView}
+              // options={{
+              //   headerTitle: "Level 1"
+              // }}
+              />
+              <Stack.Screen
+                name="Reveal"
+                component={RevealView}
+              />
+              <Stack.Screen
+                name="Profile"
+                component={ProfileView}
+              />
+              <Stack.Screen
+                name="UserDetails"
+                component={UserDetailsView}
+
+              />
+              <Stack.Screen
+                name="UserCollection"
+                component={UserCollectionView}
+
+              />
+              <Stack.Screen
+                name="NftDetails"
+                component={NftDetailsView}
+                
+              />
+
             </Stack.Navigator>
-          </NavigationContainer> 
+          </NavigationContainer>
         </FclContext>
       </UserContext>
     </AuthContext>

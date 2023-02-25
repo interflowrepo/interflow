@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet, Text, PanResponder, Animated } from 'react-native';
 
-const Circle = ({ diameter, color }) => {
+const CircleComponent = ({ diameter, color }) => {
   const circleStyle = {
     width: diameter,
     height: diameter,
@@ -58,4 +58,4 @@ const Circle = ({ diameter, color }) => {
   );
 };
 
-export default Circle;
+export default CircleComponent;

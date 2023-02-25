@@ -1,3 +1,5 @@
+
+
 import React, { useState, useRef } from "react";
 import {
   View,
@@ -46,6 +48,11 @@ const BottomSheetModal = ({
     },
     overlay: {
       flex: 1,
+      position: "absolute",
+      zIndex:100,
+      top:0,
+      backgroundColor:"blue",
+      height:50
     },
     modalContent: {
       display: "flex",

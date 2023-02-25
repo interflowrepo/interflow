@@ -18,7 +18,7 @@ export default function PrimaryBtnComponent({ label, onPress }) {
             height: 60,
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: label !== "PURCHASE" ? "center" : "space-between",
             alignItems: "center",
             paddingHorizontal: 20
           }}

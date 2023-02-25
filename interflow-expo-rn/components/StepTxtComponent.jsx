@@ -1,7 +1,7 @@
 import { View, Text, Animated } from "react-native";
 import React, { useRef, useEffect } from "react";
 
-export default function StepTxtComponent({ txt }) {
+export default function StepTxtComponent({ txt, actualIdx }) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
@@ -28,7 +28,7 @@ export default function StepTxtComponent({ txt }) {
     setTimeout(() => {
         fadeOut();
     }, 3000);
-  }, []);
+  }, [actualIdx]);
 
   return (
     <Animated.View

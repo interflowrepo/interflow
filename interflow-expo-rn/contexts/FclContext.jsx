@@ -20,6 +20,19 @@ import AvailableWalletsView from "../components/AvailableWalletsView";
 
 export const FclContext = createContext();
 
+const availableWallets = [
+  {
+    walledName: "Dapper Wallet",
+    connected: false,
+    address: "",
+  },
+  {
+    walledName: "Blocto",
+    connected: false,
+    address: "",
+  },
+]
+
 export default function FclProvider({ children }) {
   const [services, setServices] = useState(undefined);
   const [linkUrl, setLinkUrl] = useState();
@@ -27,7 +40,7 @@ export default function FclProvider({ children }) {
   const [userAddr, setUserAddr] = useState();
   const [openAvailableWalletsView, setOpenAvailableWalletsView] =
     useState(false);
-  const [wallets, setWallets] = useState([]);
+  const [wallets, setWallets] = useState(availableWallets);
 
   useEffect(() => {
     fcl.discovery.authn.subscribe((res) => setServices(res.results));
@@ -38,8 +51,33 @@ export default function FclProvider({ children }) {
   }, [services, linkUrl]);
 
   const getWallets = async () => {
-    const wallets = await getAllStoredData();
-    setWallets(wallets);
+    const connectedWallets = await getAllStoredData();
+    console.log("connectedWallets", connectedWallets);
+
+    const newWallets = wallets.map((wallet) => {
+      const connectedWallet = connectedWallets.find(
+        (connectedWallet) => connectedWallet.walledName == wallet.walledName
+      );
+
+      console.log("the connectedWallet", connectedWallet)
+      if (connectedWallet) {
+        return {
+          ...wallet,
+          connected: true,
+          address: connectedWallet.address,
+        };
+      } else {
+        return {
+          ...wallet,
+          connected: false,
+          address: "",
+        };
+      }
+    });
+
+    console.log("newWallets", newWallets);
+
+    setWallets(newWallets);
   };
 
   const updateLink = useCallback(async (link) => {
@@ -193,12 +231,14 @@ export default function FclProvider({ children }) {
       {children}
       {openAvailableWalletsView && (
         <AvailableWalletsView
+          wallets={wallets}
           services={services}
           userAddr={userAddr}
           onPressActionFn={onPressActionFn}
           getStorageData={getStorageData}
           getAllStoredData={getAllStoredData}
           closeAvailableWalletsView={closeAvailableWalletsView}
+          removeWalletFn={removeWallet}
         />
       )}
       {openWalletWebView && linkUrl != "" && (

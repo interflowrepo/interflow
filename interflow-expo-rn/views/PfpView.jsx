@@ -36,9 +36,7 @@ export default function PfpView({ navigation }) {
       });
 
       setSelectedImage(localUri);
-      setTimeout(() => {
-        saveToLocalStorage();
-      }, 2000);
+      
     } catch (e) {
       console.log(e);
     }
@@ -49,7 +47,7 @@ export default function PfpView({ navigation }) {
     try {
       // const asset = await MediaLibrary.createAssetAsync(SelectedImage);
       // await MediaLibrary.createAlbumAsync("Flovaty", asset, false);
-      navigation.navigate("App");
+      navigation.navigate("Home");
     } catch (e) {
       console.log(e);
     }
@@ -90,7 +88,7 @@ export default function PfpView({ navigation }) {
     return (
       <View
         style={{
-          width: width,
+          flex: 1,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -106,14 +104,16 @@ export default function PfpView({ navigation }) {
 
   return (
     <View style={styles.imageContainer}>
-      <View ref={imageRef} collapsable={false}>
+      <View ref={imageRef} collapsable={false} style={{
+        flex: 1,
+      }}>
         {SelectedImage ? (
           <ImageViewer
             placeholderImageSource={PlaceholderImage}
             selectedImage={SelectedImage}
           />
         ) : (
-          <AvatarScene pfp handleImgSave={onSaveImageAsync} />
+          <AvatarScene pfp handleSphereSelection={onSaveImageAsync} />
         )}
       </View>
     </View>
@@ -123,8 +123,7 @@ export default function PfpView({ navigation }) {
 const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+   
   },
   image: {
     width: 200,

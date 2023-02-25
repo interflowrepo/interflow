@@ -8,7 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-const CircleComponent = ({
+const WheelMenuComponent = ({
   diameter,
   color,
   spinning,
@@ -91,4 +91,4 @@ const CircleComponent = ({
   );
 };
 
-export default CircleComponent;
+export default WheelMenuComponent;
