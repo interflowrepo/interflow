@@ -1,7 +1,7 @@
 import React from "react";
 import "./flow/config.js";
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState } from "@react-navigation/native";
+import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState,  } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import OnboardingView from "./views/OnboardingView";
@@ -31,7 +31,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Device from 'expo-device';
 import GameDetailsView from "./views/games/GameDetailsView.jsx";
 // import useNavigation hook 
-import { useNavigation } from '@react-navigation/native';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -303,14 +302,15 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+
   return (
     <AuthContext>
       <UserContext>
         <FclContext>
           {/* <LoginComponent />  */}
-          <NavigationContainer>
+          <NavigationContainer >
             <Stack.Navigator>
-              {/* <Stack.Screen
+              <Stack.Screen
                 name="Onboarding"
                 options={{
                   headerShown: false,
@@ -319,16 +319,36 @@ export default function App() {
               />
               <Stack.Screen
                 name="Wallets"
-                options={{
-                  headerShown: false,
-                }}
+                
                 component={WalletsConnectionView}
               />
               <Stack.Screen
                 name="Customize"
                 component={CustomizeView}
-                options={{
+                options={({ navigation }) => ({
                   // headerStyle: styles.navBar,
+                  headerRight: () => (
+                    <View style={{ flexDirection: "row" }}>
+                      <TouchableOpacity
+                        style={{
+                          marginRight: 10,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        onPress={() => {
+                          console.log("pressed");
+                          navigation.navigate("Onboarding");
+                        }}
+                      >
+                        <MaterialCommunityIcons
+                          name="check-outline"
+                          size={24}
+                          color="white"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ),
                   headerBackground: () => (
                     <View
                       style={{
@@ -352,15 +372,9 @@ export default function App() {
                   headerTitleStyle: {
                     fontWeight: "bold",
                   },
-                  // headerTitleStyle: {
-                  //   color: "white",
-                  // },
-                  // headerTitle: (props) => (
-                  //   <View>
-                  //     <Text style={{ color: "white" }}>{props.children}</Text>
-                  //   </View>
-                  // ),
-                }}
+                })
+                }
+
               />
               <Stack.Screen
                 name="Photo"
@@ -391,7 +405,7 @@ export default function App() {
                     fontWeight: "bold",
                   },
                 }}
-              /> */}
+              />
               <Stack.Screen
                 name="Home"
                 component={HomeTabs}

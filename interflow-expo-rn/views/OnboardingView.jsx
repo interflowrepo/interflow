@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, Dimensions } from "react-native";
 import PagerView from "react-native-pager-view";
 import AnimationComponent from "../components/AnimationComponent";
@@ -9,6 +9,7 @@ import SecondaryBtn from "../components/SecondaryBtn";
 import StepperComponent from "../components/StepperComponent";
 import StepTxtComponent from "../components/StepTxtComponent";
 import VideoPlayerComponent from "../components/VideoPlayerComponent";
+import { useFcl } from "../contexts/FclContext";
 
 const { width, height } = Dimensions.get("window");
 const dimensions = {
@@ -27,7 +28,7 @@ const steps = [
     id: "1",
     label: "Step 2",
     description: "This is the second step",
-    src: require("../assets/onboarding/avatarIcon.png"),
+    src: require("../assets/onboarding/AvatarIcon.png"),
   },
   {
     id: "2",
@@ -39,77 +40,90 @@ const steps = [
 
 const OnboardingView = ({ navigation }) => {
   const [ActualIdx, setActualIdx] = useState(0);
+  const { authenticate } = useFcl()
+  const pagerRef = React.useRef(null);
+
+  useEffect(() => {
+    if (pagerRef.current) {
+      console.log("pagerRef.current", pagerRef.current)
+      pagerRef.current.setPage(parseInt(ActualIdx));
+    }
+
+  }, [ActualIdx])
+
+  const handleSkip = () => {
+    if (ActualIdx <= 1) {
+      const newIdx = parseInt(ActualIdx) + 1
+      setActualIdx(newIdx.toString())
+    } else {
+      navigation.navigate("Home")
+    }
+  }
+
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <StepperComponent steps={steps} actualIdx={ActualIdx} />
+      <StepperComponent steps={steps} actualIdx={ActualIdx} setActualIdx={setActualIdx} />
       <PagerView
+        ref={pagerRef}
         style={styles.viewPager}
         initialPage={0}
         onPageSelected={(event) => {
           setActualIdx(event.nativeEvent.position.toString());
         }}
+
       >
         <View style={styles.page} key="1">
           <Image source={require("../assets/n1.png")} style={styles.img2} />
-          <View style={styles.txtContainer}>
-            <StepTxtComponent txt={steps[0].description} />
-          </View>
+          {/* <View style={styles.txtContainer}>
+            <StepTxtComponent txt={steps[0].description} actualIdx={ActualIdx} />
+          </View> */}
           <View style={styles.player}>
-            <AnimationComponent />
+            <AnimationComponent actualIdx={ActualIdx} />
           </View>
           <View style={styles.actionsContainer}>
             <PrimaryBtnComponent
               label={"CONNECT WALLETS"}
-              onPress={() => navigation.navigate("Wallets")}
+              onPress={() => authenticate()}
             />
             <View style={styles.secondaryBtnContainer}>
-              <SecondaryBtn label={"SKIP"} />
+              <SecondaryBtn label={"SKIP"} onPress={handleSkip} />
             </View>
           </View>
         </View>
         <View style={styles.page} key="2">
           <Image source={require("../assets/bg2.png")} style={styles.img2} />
-          <View style={styles.txtContainer}>
-            <Text
-              style={{
-                fontSize: 30,
-                textAlign: "center",
-                padding: 40,
-              }}
-            >
-              Customize your Avatar
-            </Text>
+
+          {/* <View style={styles.txtContainer}>
+            <StepTxtComponent txt={steps[1].description} actualIdx={ActualIdx} />
+          </View> */}
+          <View style={styles.player}>
+            <AnimationComponent actualIdx={ActualIdx} />
           </View>
           <View style={styles.actionsContainer}>
             <PrimaryBtnComponent
-              label={"CUSTOMIZE"}
+              label={"CREATE AVATAR"}
               onPress={() => navigation.navigate("Customize")}
             />
             <View style={styles.secondaryBtnContainer}>
-              <SecondaryBtn label={"SKIP"} />
+              <SecondaryBtn label={"SKIP"} onPress={handleSkip} />
             </View>
           </View>
         </View>
         <View style={styles.page} key="3">
           <Image source={require("../assets/bg3.png")} style={styles.img2} />
-          <View style={styles.txtContainer}>
-            <Text
-              style={{
-                fontSize: 30,
-                textAlign: "center",
-                padding: 40,
-              }}
-            >
-              Take a photo for the profile picture
-            </Text>
+          {/* <View style={styles.txtContainer}>
+            <StepTxtComponent txt={steps[1].description} actualIdx={ActualIdx} />
+          </View> */}
+          <View style={styles.player}>
+            <AnimationComponent actualIdx={ActualIdx} />
           </View>
           <View style={styles.actionsContainer}>
-            <PrimaryBtnComponent label="TAKE PHOTO" 
-            onPress={() => navigation.navigate("Photo")}
+            <PrimaryBtnComponent label="TAKE PROFILE PIC"
+              onPress={() => navigation.navigate("Photo")}
             />
             <View style={styles.secondaryBtnContainer}>
-              <SecondaryBtn label={"SKIP"} />
+              <SecondaryBtn label={"SKIP"} onPress={handleSkip} />
             </View>
           </View>
         </View>
@@ -149,6 +163,7 @@ const styles = StyleSheet.create({
   },
 
   secondaryBtnContainer: {
+    height: 50,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -170,7 +185,7 @@ const styles = StyleSheet.create({
   },
 
   img2: {
-    width: 300,
+    width: 330,
     resizeMode: "contain",
     position: "absolute",
     top: height / 5,

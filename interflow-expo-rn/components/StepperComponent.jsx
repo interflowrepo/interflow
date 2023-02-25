@@ -4,11 +4,11 @@ import StepComponent from "./StepComponent";
 
 
 
-export default function StepperComponent({steps, actualIdx}) {
+export default function StepperComponent({steps, actualIdx, setActualIdx}) {
   return (
     <View style={styles.container}>
       {steps.map((step, i) => (
-        <StepComponent key={i} step={step} idx={i} actualIdx={actualIdx} />
+        <StepComponent key={i} step={step} idx={i} actualIdx={actualIdx} setActualIdx={setActualIdx} />
       ))}
     </View>
   );
@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     position: "absolute",
-    marginTop:60
+    marginTop:60,
+    zIndex: 99,
+    backgroundColor: "transparent",
   },
 });

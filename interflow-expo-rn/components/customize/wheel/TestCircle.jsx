@@ -6,10 +6,13 @@ import {
   Animated,
   PanResponder,
   ImageBackground,
+  Dimensions,
 } from "react-native";
-import CircleComponent from "./CircleComponent";
+import WheelMenuComponent from "./WheelMenuComponent";
 
-const TestCircle = ({ contentTranslateY }) => {
+const { width, height } = Dimensions.get("window");
+
+const TestCircle = ({ wheelTranslateY }) => {
   const [spinning, setSpinning] = useState(false);
   const spinAnimation = useRef(new Animated.Value(0)).current;
 
@@ -49,7 +52,7 @@ const TestCircle = ({ contentTranslateY }) => {
     <Animated.View
       style={[
         styles.container,
-        { transform: [{ translateY: contentTranslateY }] },
+        { transform: [{ translateY: wheelTranslateY }] },
       ]}
       {...panResponder.panHandlers}
     >
@@ -60,7 +63,7 @@ const TestCircle = ({ contentTranslateY }) => {
         >
           {/* <View style={styles.circle}> */}
           {/* <Animated.View style={[styles.innerCircle, spinning && { transform: [{ rotateY: interpolatedRotation }] }]} /> */}
-          <CircleComponent
+          <WheelMenuComponent
             spinning={spinning}
             interpolatedRotation={interpolatedRotation}
             color="red"
@@ -75,12 +78,10 @@ const TestCircle = ({ contentTranslateY }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: "10%",
+    width,
     zIndex: 99,
-    justifyContent: "center",
-    alignItems: "center",
     position: "absolute",
+    left: 0,
     bottom: 300,
   },
   circle: {
@@ -91,11 +92,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   circleStyle: {
-    width: 400,
-    height: 400,
-    borderRadius: 400 / 2,
+    width ,
+    height: width,
+    borderRadius: width / 2,
     overflow: "hidden",
     // backgroundColor: "transparent",
     alignItems: "center",

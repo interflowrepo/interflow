@@ -1,8 +1,10 @@
 import { View, Text, Image, Animated } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export default function AnimationComponent() {
+export default function AnimationComponent({ actualIdx }) {
+  const [IsFadedIn, setIsFadedIn] = useState(false)
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
 
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
@@ -23,22 +25,53 @@ export default function AnimationComponent() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+
       fadeIn();
-    }, 3000);
-  }, []);
+      setIsFadedIn(true)
+
+
+  }, [actualIdx]);
+
+  const resolveUri = () => {
+    if (actualIdx === "0") {
+      return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305165/flota_juqmrm.gif";
+    } else if (actualIdx === "1") {
+      return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305657/Patada-3d-una-vez_wbrlag.gif";
+    } else if (actualIdx === "2") {
+      return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305165/flota_juqmrm.gif";
+    }
+  };
+
 
   return (
-    <Animated.Image
-      source={require("../assets/onboarding/avatar.png")}
-      style={{
-        width: 300,
-        height: 400,
-        position: "absolute",
-        zIndex: -1,
-        opacity: fadeAnim,
-      }}
-      resizeMode="contain"
-    />
+    <>
+      <Animated.Image
+        source={{
+          uri: resolveUri()
+        }}
+        style={{
+          width: 400,
+          height: 500,
+          position: "absolute",
+          zIndex: -1,
+          opacity: fadeAnim,
+        }}
+        resizeMode="contain"
+      />
+      <Animated.Image
+        source={{
+          uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677306884/base_soqfaa.png"
+        }}
+        style={{
+          width: 400,
+          height: 500,
+          position: "absolute",
+          zIndex: -2,
+          opacity: fadeAnim,
+          bottom: 50,
+        }}
+        resizeMode="contain"
+      />
+    </>
   );
 }
