@@ -308,7 +308,8 @@ export default function App() {
       <UserContext>
         <FclContext>
           {/* <LoginComponent />  */}
-          <NavigationContainer >
+          <RequestsComponent />
+          <NavigationContainer>
             <Stack.Navigator>
               <Stack.Screen
                 name="Onboarding"
@@ -437,7 +438,7 @@ export default function App() {
                 }}
               />
             </Stack.Navigator>
-          </NavigationContainer>
+          </NavigationContainer> 
         </FclContext>
       </UserContext>
     </AuthContext>

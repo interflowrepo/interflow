@@ -4,22 +4,37 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginComponent() {
-  const { login, logout, userAuthData, getUserData, auth } = useAuth();
+  const { login, logout, userAuthData, auth, userFullData } =
+    useAuth();
   console.log("getUserData inside login page: ", userAuthData);
+  console.log("userFullData inside login page: ", userFullData);
 
-  useEffect(() => {
-    getUserData();
-  }, [auth]);
+  const getAllStorageData = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const result = await AsyncStorage.multiGet(keys);
+      console.log("result", result);
+      return result;
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
 
   return (
     <View style={styles.container}>
       {auth && (
-        <View style={styles.userInfo}>
-          {userAuthData && <Text>Welcome {userAuthData.email}</Text>}
-        </View>
+        <>
+          <View style={styles.userInfo}>
+            {userAuthData && <Text>Welcome {userAuthData.email}</Text>}
+          </View>
+          <View style={styles.userInfo}>
+            {userFullData && <Text>Welcome {userFullData.userExists.nickname}</Text>}
+          </View>
+        </>
       )}
       {!auth && <Button title={"Login"} onPress={login} />}
       {auth && <Button title="Logout" onPress={logout} />}
+      <Button title="Get All" onPress={getAllStorageData} />
     </View>
   );
 }
