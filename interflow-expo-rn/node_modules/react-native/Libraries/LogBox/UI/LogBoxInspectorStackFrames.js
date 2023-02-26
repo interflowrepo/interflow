@@ -9,19 +9,19 @@
  */
 
 import type {StackFrame} from '../../Core/NativeExceptionsManager';
-import type LogBoxLog from '../Data/LogBoxLog';
 import type {Stack} from '../Data/LogBoxSymbolication';
+import type LogBoxLog from '../Data/LogBoxLog';
 
-import View from '../../Components/View/View';
-import openFileInEditor from '../../Core/Devtools/openFileInEditor';
+import * as React from 'react';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
+import View from '../../Components/View/View';
 import LogBoxButton from './LogBoxButton';
-import LogBoxInspectorSection from './LogBoxInspectorSection';
 import LogBoxInspectorSourceMapStatus from './LogBoxInspectorSourceMapStatus';
 import LogBoxInspectorStackFrame from './LogBoxInspectorStackFrame';
+import LogBoxInspectorSection from './LogBoxInspectorSection';
 import * as LogBoxStyle from './LogBoxStyle';
-import * as React from 'react';
+import openFileInEditor from '../../Core/Devtools/openFileInEditor';
 
 type Props = $ReadOnly<{|
   log: LogBoxLog,

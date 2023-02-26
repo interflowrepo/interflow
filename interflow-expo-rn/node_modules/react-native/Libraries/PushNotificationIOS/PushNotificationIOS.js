@@ -8,12 +8,10 @@
  * @flow
  */
 
-import type {EventSubscription} from '../vendor/emitter/EventEmitter';
-
 import NativeEventEmitter from '../EventEmitter/NativeEventEmitter';
-import Platform from '../Utilities/Platform';
 import NativePushNotificationManagerIOS from './NativePushNotificationManagerIOS';
 import invariant from 'invariant';
+import Platform from '../Utilities/Platform';
 
 type NativePushNotificationIOSEventDefinitions = {
   remoteNotificationReceived: [
@@ -46,7 +44,7 @@ const PushNotificationEmitter =
     Platform.OS !== 'ios' ? null : NativePushNotificationManagerIOS,
   );
 
-const _notifHandlers = new Map<string, void | EventSubscription>();
+const _notifHandlers = new Map();
 
 const DEVICE_NOTIF_EVENT = 'remoteNotificationReceived';
 const NOTIF_REGISTER_EVENT = 'remoteNotificationsRegistered';
@@ -120,7 +118,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#presentlocalnotification
    */
-  static presentLocalNotification(details: Object): void {
+  static presentLocalNotification(details: Object) {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -133,7 +131,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#schedulelocalnotification
    */
-  static scheduleLocalNotification(details: Object): void {
+  static scheduleLocalNotification(details: Object) {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -146,7 +144,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#cancelalllocalnotifications
    */
-  static cancelAllLocalNotifications(): void {
+  static cancelAllLocalNotifications() {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -200,7 +198,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#setapplicationiconbadgenumber
    */
-  static setApplicationIconBadgeNumber(number: number): void {
+  static setApplicationIconBadgeNumber(number: number) {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -213,7 +211,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#getapplicationiconbadgenumber
    */
-  static getApplicationIconBadgeNumber(callback: Function): void {
+  static getApplicationIconBadgeNumber(callback: Function) {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -226,7 +224,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#cancellocalnotification
    */
-  static cancelLocalNotifications(userInfo: Object): void {
+  static cancelLocalNotifications(userInfo: Object) {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -239,7 +237,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#getscheduledlocalnotifications
    */
-  static getScheduledLocalNotifications(callback: Function): void {
+  static getScheduledLocalNotifications(callback: Function) {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -253,10 +251,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#addeventlistener
    */
-  static addEventListener(
-    type: PushNotificationEventName,
-    handler: Function,
-  ): void {
+  static addEventListener(type: PushNotificationEventName, handler: Function) {
     invariant(
       type === 'notification' ||
         type === 'register' ||
@@ -306,7 +301,7 @@ class PushNotificationIOS {
   static removeEventListener(
     type: PushNotificationEventName,
     handler: Function,
-  ): void {
+  ) {
     invariant(
       type === 'notification' ||
         type === 'register' ||
@@ -367,7 +362,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#abandonpermissions
    */
-  static abandonPermissions(): void {
+  static abandonPermissions() {
     invariant(
       NativePushNotificationManagerIOS,
       'PushNotificationManager is not available.',
@@ -381,7 +376,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#checkpermissions
    */
-  static checkPermissions(callback: Function): void {
+  static checkPermissions(callback: Function) {
     invariant(typeof callback === 'function', 'Must provide a valid callback');
     invariant(
       NativePushNotificationManagerIOS,
@@ -468,7 +463,7 @@ class PushNotificationIOS {
    *
    * See https://reactnative.dev/docs/pushnotificationios#finish
    */
-  finish(fetchResult: string): void {
+  finish(fetchResult: string) {
     if (
       !this._isRemote ||
       !this._notificationId ||

@@ -8,17 +8,16 @@
  * @flow strict-local
  */
 
-import type {ExtendedError} from '../Core/ExtendedError';
-
-import getDevServer from '../Core/Devtools/getDevServer';
-import LogBox from '../LogBox/LogBox';
-import NativeRedBox from '../NativeModules/specs/NativeRedBox';
-
 const DevSettings = require('./DevSettings');
-const Platform = require('./Platform');
 const invariant = require('invariant');
 const MetroHMRClient = require('metro-runtime/src/modules/HMRClient');
+const Platform = require('./Platform');
 const prettyFormat = require('pretty-format');
+
+import getDevServer from '../Core/Devtools/getDevServer';
+import NativeRedBox from '../NativeModules/specs/NativeRedBox';
+import LogBox from '../LogBox/LogBox';
+import type {ExtendedError} from '../Core/ExtendedError';
 
 const pendingEntryPoints = [];
 let hmrClient = null;
@@ -241,23 +240,9 @@ Error: ${e.message}`;
       }
     });
 
-    client.on('close', closeEvent => {
+    client.on('close', data => {
       LoadingView.hide();
-
-      // https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
-      // https://www.rfc-editor.org/rfc/rfc6455.html#section-7.1.5
-      const isNormalOrUnsetCloseReason =
-        closeEvent.code === 1000 ||
-        closeEvent.code === 1005 ||
-        closeEvent.code == null;
-
-      if (isNormalOrUnsetCloseReason) {
-        setHMRUnavailableReason('Disconnected from Metro.');
-      } else {
-        setHMRUnavailableReason(
-          `Disconnected from Metro (${closeEvent.code}: "${closeEvent.reason}").`,
-        );
-      }
+      setHMRUnavailableReason('Disconnected from Metro.');
     });
 
     if (isEnabled) {

@@ -8,13 +8,14 @@
  * @format
  */
 
-import StyleSheet, {
-  type ColorValue,
-  type ViewStyleProp,
-} from '../../StyleSheet/StyleSheet';
-import Platform from '../../Utilities/Platform';
-import RCTInputAccessoryViewNativeComponent from './RCTInputAccessoryViewNativeComponent';
 import * as React from 'react';
+import Platform from '../../Utilities/Platform';
+import StyleSheet, {
+  type ViewStyleProp,
+  type ColorValue,
+} from '../../StyleSheet/StyleSheet';
+
+import RCTInputAccessoryViewNativeComponent from './RCTInputAccessoryViewNativeComponent';
 
 /**
  * Note: iOS only

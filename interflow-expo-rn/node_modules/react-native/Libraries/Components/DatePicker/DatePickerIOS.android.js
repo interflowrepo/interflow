@@ -8,12 +8,10 @@
  */
 
 'use strict';
-import type {DatePickerIOSType} from './DatePickerIOS.flow';
-
+import * as React from 'react';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
 import View from '../View/View';
-import * as React from 'react';
 
 class DummyDatePickerIOS extends React.Component {
   render() {
@@ -44,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = (DummyDatePickerIOS: DatePickerIOSType);
+module.exports = DummyDatePickerIOS;

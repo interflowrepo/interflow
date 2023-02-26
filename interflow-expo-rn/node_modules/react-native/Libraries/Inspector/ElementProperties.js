@@ -10,19 +10,20 @@
 
 'use strict';
 
-import type {ViewStyleProp} from '../StyleSheet/StyleSheet';
-
+const BoxInspector = require('./BoxInspector');
+const React = require('react');
+const StyleInspector = require('./StyleInspector');
+const StyleSheet = require('../StyleSheet/StyleSheet');
+const Text = require('../Text/Text');
 const TouchableHighlight = require('../Components/Touchable/TouchableHighlight');
 const TouchableWithoutFeedback = require('../Components/Touchable/TouchableWithoutFeedback');
 const View = require('../Components/View/View');
-const openFileInEditor = require('../Core/Devtools/openFileInEditor');
+
 const flattenStyle = require('../StyleSheet/flattenStyle');
-const StyleSheet = require('../StyleSheet/StyleSheet');
-const Text = require('../Text/Text');
 const mapWithSeparator = require('../Utilities/mapWithSeparator');
-const BoxInspector = require('./BoxInspector');
-const StyleInspector = require('./StyleInspector');
-const React = require('react');
+const openFileInEditor = require('../Core/Devtools/openFileInEditor');
+
+import type {ViewStyleProp} from '../StyleSheet/StyleSheet';
 
 type Props = $ReadOnly<{|
   hierarchy: Array<{|name: string|}>,
@@ -65,7 +66,7 @@ class ElementProperties extends React.Component<Props> {
           <View style={styles.breadcrumb}>
             {mapWithSeparator(
               this.props.hierarchy,
-              (hierarchyItem, i): React.MixedElement => (
+              (hierarchyItem, i) => (
                 <TouchableHighlight
                   key={'item-' + i}
                   style={[styles.breadItem, i === selection && styles.selected]}
@@ -74,7 +75,7 @@ class ElementProperties extends React.Component<Props> {
                   <Text style={styles.breadItemText}>{hierarchyItem.name}</Text>
                 </TouchableHighlight>
               ),
-              (i): React.MixedElement => (
+              i => (
                 <Text key={'sep-' + i} style={styles.breadSep}>
                   &#9656;
                 </Text>

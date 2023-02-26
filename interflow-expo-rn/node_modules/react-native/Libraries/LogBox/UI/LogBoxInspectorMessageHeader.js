@@ -8,15 +8,14 @@
  * @format
  */
 
-import type {LogLevel} from '../Data/LogBoxLog';
-import type {Message} from '../Data/parseLogBoxLog';
-
-import View from '../../Components/View/View';
+import * as React from 'react';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
-import LogBoxMessage from './LogBoxMessage';
+import View from '../../Components/View/View';
 import * as LogBoxStyle from './LogBoxStyle';
-import * as React from 'react';
+import LogBoxMessage from './LogBoxMessage';
+import type {LogLevel} from '../Data/LogBoxLog';
+import type {Message} from '../Data/parseLogBoxLog';
 
 type Props = $ReadOnly<{|
   collapsed: boolean,

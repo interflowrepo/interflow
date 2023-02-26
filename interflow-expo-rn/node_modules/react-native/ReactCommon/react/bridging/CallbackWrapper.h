@@ -8,7 +8,7 @@
 #pragma once
 
 #include <jsi/jsi.h>
-#include "LongLivedObject.h"
+#include <react/bridging/LongLivedObject.h>
 
 #include <memory>
 

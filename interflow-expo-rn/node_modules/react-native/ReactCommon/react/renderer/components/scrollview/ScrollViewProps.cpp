@@ -8,13 +8,13 @@
 #include "ScrollViewProps.h"
 
 #include <react/renderer/components/scrollview/conversions.h>
-#include <react/renderer/core/CoreFeatures.h>
 #include <react/renderer/debug/debugStringConvertibleUtils.h>
 #include <react/renderer/graphics/conversions.h>
 
 #include <react/renderer/core/propsConversions.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 ScrollViewProps::ScrollViewProps(
     const PropsParserContext &context,
@@ -22,7 +22,7 @@ ScrollViewProps::ScrollViewProps(
     RawProps const &rawProps)
     : ViewProps(context, sourceProps, rawProps),
       alwaysBounceHorizontal(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.alwaysBounceHorizontal
               : convertRawProp(
                     context,
@@ -31,7 +31,7 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.alwaysBounceHorizontal,
                     {})),
       alwaysBounceVertical(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.alwaysBounceVertical
               : convertRawProp(
                     context,
@@ -40,23 +40,23 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.alwaysBounceVertical,
                     {})),
       bounces(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.bounces
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "bounces",
-                                                       sourceProps.bounces,
-                                                       true)),
+          Props::enablePropIteratorSetter ? sourceProps.bounces
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "bounces",
+                                                sourceProps.bounces,
+                                                true)),
       bouncesZoom(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.bouncesZoom
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "bouncesZoom",
-                                                       sourceProps.bouncesZoom,
-                                                       true)),
+          Props::enablePropIteratorSetter ? sourceProps.bouncesZoom
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "bouncesZoom",
+                                                sourceProps.bouncesZoom,
+                                                true)),
       canCancelContentTouches(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.canCancelContentTouches
               : convertRawProp(
                     context,
@@ -65,16 +65,15 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.canCancelContentTouches,
                     true)),
       centerContent(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.centerContent
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "centerContent",
-                    sourceProps.centerContent,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.centerContent
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "centerContent",
+                                                sourceProps.centerContent,
+                                                {})),
       automaticallyAdjustContentInsets(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.automaticallyAdjustContentInsets
               : convertRawProp(
                     context,
@@ -83,7 +82,7 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.automaticallyAdjustContentInsets,
                     {})),
       automaticallyAdjustsScrollIndicatorInsets(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.automaticallyAdjustsScrollIndicatorInsets
               : convertRawProp(
                     context,
@@ -92,16 +91,15 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.automaticallyAdjustsScrollIndicatorInsets,
                     true)),
       decelerationRate(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.decelerationRate
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "decelerationRate",
-                    sourceProps.decelerationRate,
-                    (Float)0.998)),
+          Props::enablePropIteratorSetter ? sourceProps.decelerationRate
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "decelerationRate",
+                                                sourceProps.decelerationRate,
+                                                (Float)0.998)),
       directionalLockEnabled(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.directionalLockEnabled
               : convertRawProp(
                     context,
@@ -110,78 +108,71 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.directionalLockEnabled,
                     {})),
       indicatorStyle(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.indicatorStyle
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "indicatorStyle",
-                    sourceProps.indicatorStyle,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.indicatorStyle
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "indicatorStyle",
+                                                sourceProps.indicatorStyle,
+                                                {})),
       keyboardDismissMode(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.keyboardDismissMode
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "keyboardDismissMode",
-                    sourceProps.keyboardDismissMode,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.keyboardDismissMode
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "keyboardDismissMode",
+                                                sourceProps.keyboardDismissMode,
+                                                {})),
       maximumZoomScale(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.maximumZoomScale
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "maximumZoomScale",
-                    sourceProps.maximumZoomScale,
-                    (Float)1.0)),
+          Props::enablePropIteratorSetter ? sourceProps.maximumZoomScale
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "maximumZoomScale",
+                                                sourceProps.maximumZoomScale,
+                                                (Float)1.0)),
       minimumZoomScale(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.minimumZoomScale
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "minimumZoomScale",
-                    sourceProps.minimumZoomScale,
-                    (Float)1.0)),
+          Props::enablePropIteratorSetter ? sourceProps.minimumZoomScale
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "minimumZoomScale",
+                                                sourceProps.minimumZoomScale,
+                                                (Float)1.0)),
       scrollEnabled(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.scrollEnabled
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "scrollEnabled",
-                    sourceProps.scrollEnabled,
-                    true)),
+          Props::enablePropIteratorSetter ? sourceProps.scrollEnabled
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "scrollEnabled",
+                                                sourceProps.scrollEnabled,
+                                                true)),
       pagingEnabled(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.pagingEnabled
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "pagingEnabled",
-                    sourceProps.pagingEnabled,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.pagingEnabled
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "pagingEnabled",
+                                                sourceProps.pagingEnabled,
+                                                {})),
       pinchGestureEnabled(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.pinchGestureEnabled
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "pinchGestureEnabled",
-                    sourceProps.pinchGestureEnabled,
-                    true)),
+          Props::enablePropIteratorSetter ? sourceProps.pinchGestureEnabled
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "pinchGestureEnabled",
+                                                sourceProps.pinchGestureEnabled,
+                                                true)),
       scrollsToTop(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.scrollsToTop
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "scrollsToTop",
-                                                       sourceProps.scrollsToTop,
-                                                       true)),
+          Props::enablePropIteratorSetter ? sourceProps.scrollsToTop
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "scrollsToTop",
+                                                sourceProps.scrollsToTop,
+                                                true)),
       showsHorizontalScrollIndicator(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.showsHorizontalScrollIndicator
               : convertRawProp(
                     context,
@@ -190,7 +181,7 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.showsHorizontalScrollIndicator,
                     true)),
       showsVerticalScrollIndicator(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.showsVerticalScrollIndicator
               : convertRawProp(
                     context,
@@ -199,41 +190,39 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.showsVerticalScrollIndicator,
                     true)),
       scrollEventThrottle(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.scrollEventThrottle
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "scrollEventThrottle",
-                    sourceProps.scrollEventThrottle,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.scrollEventThrottle
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "scrollEventThrottle",
+                                                sourceProps.scrollEventThrottle,
+                                                {})),
       zoomScale(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.zoomScale
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "zoomScale",
-                                                       sourceProps.zoomScale,
-                                                       (Float)1.0)),
+          Props::enablePropIteratorSetter ? sourceProps.zoomScale
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "zoomScale",
+                                                sourceProps.zoomScale,
+                                                (Float)1.0)),
       contentInset(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.contentInset
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "contentInset",
-                                                       sourceProps.contentInset,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.contentInset
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "contentInset",
+                                                sourceProps.contentInset,
+                                                {})),
       contentOffset(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.contentOffset
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "contentOffset",
-                    sourceProps.contentOffset,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.contentOffset
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "contentOffset",
+                                                sourceProps.contentOffset,
+                                                {})),
       scrollIndicatorInsets(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.scrollIndicatorInsets
               : convertRawProp(
                     context,
@@ -242,25 +231,23 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.scrollIndicatorInsets,
                     {})),
       snapToInterval(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.snapToInterval
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "snapToInterval",
-                    sourceProps.snapToInterval,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.snapToInterval
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "snapToInterval",
+                                                sourceProps.snapToInterval,
+                                                {})),
       snapToAlignment(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.snapToAlignment
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "snapToAlignment",
-                    sourceProps.snapToAlignment,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.snapToAlignment
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "snapToAlignment",
+                                                sourceProps.snapToAlignment,
+                                                {})),
       disableIntervalMomentum(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.disableIntervalMomentum
               : convertRawProp(
                     context,
@@ -269,32 +256,31 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.disableIntervalMomentum,
                     {})),
       snapToOffsets(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.snapToOffsets
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "snapToOffsets",
-                    sourceProps.snapToOffsets,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.snapToOffsets
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "snapToOffsets",
+                                                sourceProps.snapToOffsets,
+                                                {})),
       snapToStart(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.snapToStart
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "snapToStart",
-                                                       sourceProps.snapToStart,
-                                                       true)),
+          Props::enablePropIteratorSetter ? sourceProps.snapToStart
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "snapToStart",
+                                                sourceProps.snapToStart,
+                                                true)),
       snapToEnd(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.snapToEnd
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "snapToEnd",
-                                                       sourceProps.snapToEnd,
-                                                       true)),
+          Props::enablePropIteratorSetter ? sourceProps.snapToEnd
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "snapToEnd",
+                                                sourceProps.snapToEnd,
+                                                true)),
       contentInsetAdjustmentBehavior(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.contentInsetAdjustmentBehavior
               : convertRawProp(
                     context,
@@ -303,7 +289,7 @@ ScrollViewProps::ScrollViewProps(
                     sourceProps.contentInsetAdjustmentBehavior,
                     {ContentInsetAdjustmentBehavior::Never})),
       scrollToOverflowEnabled(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.scrollToOverflowEnabled
               : convertRawProp(
                     context,
@@ -317,11 +303,7 @@ void ScrollViewProps::setProp(
     RawPropsPropNameHash hash,
     const char *propName,
     RawValue const &value) {
-  // All Props structs setProp methods must always, unconditionally,
-  // call all super::setProp methods, since multiple structs may
-  // reuse the same values.
   ViewProps::setProp(context, hash, propName, value);
-
   switch (hash) {
     RAW_SET_PROP_SWITCH_CASE_BASIC(alwaysBounceHorizontal, {});
     RAW_SET_PROP_SWITCH_CASE_BASIC(alwaysBounceVertical, {});
@@ -482,4 +464,5 @@ SharedDebugStringConvertibleList ScrollViewProps::getDebugProps() const {
 }
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

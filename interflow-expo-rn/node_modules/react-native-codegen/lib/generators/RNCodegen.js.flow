@@ -23,8 +23,6 @@ const generateEventEmitterCpp = require('./components/GenerateEventEmitterCpp.js
 const generateEventEmitterH = require('./components/GenerateEventEmitterH.js');
 const generatePropsCpp = require('./components/GeneratePropsCpp.js');
 const generatePropsH = require('./components/GeneratePropsH.js');
-const generateStateCpp = require('./components/GenerateStateCpp.js');
-const generateStateH = require('./components/GenerateStateH.js');
 const generateModuleH = require('./modules/GenerateModuleH.js');
 const generateModuleCpp = require('./modules/GenerateModuleCpp.js');
 const generateModuleObjCpp = require('./modules/GenerateModuleObjCpp');
@@ -63,7 +61,6 @@ type LibraryGenerators =
   | 'descriptors'
   | 'events'
   | 'props'
-  | 'states'
   | 'tests'
   | 'shadow-nodes'
   | 'modulesAndroid'
@@ -85,7 +82,6 @@ type SchemasConfig = $ReadOnly<{
 const LIBRARY_GENERATORS = {
   descriptors: [generateComponentDescriptorH.generate],
   events: [generateEventEmitterCpp.generate, generateEventEmitterH.generate],
-  states: [generateStateCpp.generate, generateStateH.generate],
   props: [
     generateComponentHObjCpp.generate,
     generatePropsCpp.generate,
@@ -101,8 +97,6 @@ const LIBRARY_GENERATORS = {
     generateEventEmitterH.generate,
     generatePropsCpp.generate,
     generatePropsH.generate,
-    generateStateCpp.generate,
-    generateStateH.generate,
     generateShadowNodeCpp.generate,
     generateShadowNodeH.generate,
     // Java files
@@ -116,8 +110,6 @@ const LIBRARY_GENERATORS = {
     generateComponentHObjCpp.generate,
     generatePropsCpp.generate,
     generatePropsH.generate,
-    generateStateCpp.generate,
-    generateStateH.generate,
     generateShadowNodeCpp.generate,
     generateShadowNodeH.generate,
   ],
@@ -219,7 +211,6 @@ module.exports = {
       descriptors: outputDirectory,
       events: outputDirectory,
       props: outputDirectory,
-      states: outputDirectory,
       componentsAndroid: outputDirectory,
       modulesAndroid: outputDirectory,
       modulesCxx: outputDirectory,

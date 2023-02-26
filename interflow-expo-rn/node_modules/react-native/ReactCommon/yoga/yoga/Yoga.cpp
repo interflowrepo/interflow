@@ -302,7 +302,7 @@ YOGA_EXPORT void YGNodeReset(YGNodeRef node) {
   node->reset();
 }
 
-YOGA_EXPORT int32_t YGConfigGetInstanceCount(void) {
+int32_t YGConfigGetInstanceCount(void) {
   return gConfigInstanceCount;
 }
 
@@ -795,27 +795,6 @@ YOGA_EXPORT float YGNodeStyleGetBorder(
   }
 
   return static_cast<YGValue>(border).value;
-}
-
-YOGA_EXPORT void YGNodeStyleSetGap(
-    const YGNodeRef node,
-    const YGGutter gutter,
-    const float gapLength) {
-  auto length = detail::CompactValue::ofMaybe<YGUnitPoint>(gapLength);
-  updateIndexedStyleProp<MSVC_HINT(gap)>(node, &YGStyle::gap, gutter, length);
-}
-
-YOGA_EXPORT float YGNodeStyleGetGap(
-    const YGNodeConstRef node,
-    const YGGutter gutter) {
-  auto gapLength = node->getStyle().gap()[gutter];
-  if (gapLength.isUndefined() || gapLength.isAuto()) {
-    // TODO(T26792433): Rather than returning YGUndefined, change the api to
-    // return YGFloatOptional.
-    return YGUndefined;
-  }
-
-  return static_cast<YGValue>(gapLength).value;
 }
 
 // Yoga specific properties, not compatible with flexbox specification
@@ -1993,7 +1972,6 @@ static YGCollectFlexItemsRowValues YGCalculateCollectFlexItemsRowValues(
   const YGFlexDirection mainAxis = YGResolveFlexDirection(
       node->getStyle().flexDirection(), node->resolveDirection(ownerDirection));
   const bool isNodeFlexWrap = node->getStyle().flexWrap() != YGWrapNoWrap;
-  const float gap = node->getGapForAxis(mainAxis, availableInnerWidth).unwrap();
 
   // Add items to the current line until it's full or we run out of items.
   uint32_t endOfLineIndex = startOfLineIndex;
@@ -2003,13 +1981,9 @@ static YGCollectFlexItemsRowValues YGCalculateCollectFlexItemsRowValues(
         child->getStyle().positionType() == YGPositionTypeAbsolute) {
       continue;
     }
-
-    const bool isFirstElementInLine = (endOfLineIndex - startOfLineIndex) == 0;
-
     child->setLineIndex(lineCount);
     const float childMarginMainAxis =
         child->getMarginForAxis(mainAxis, availableInnerWidth).unwrap();
-    const float childLeadingGapMainAxis = isFirstElementInLine ? 0.0f : gap;
     const float flexBasisWithMinAndMaxConstraints =
         YGNodeBoundAxisWithinMinAndMax(
             child,
@@ -2022,19 +1996,16 @@ static YGCollectFlexItemsRowValues YGCalculateCollectFlexItemsRowValues(
     // size, we've hit the end of the current line. Break out of the loop and
     // lay out the current line.
     if (sizeConsumedOnCurrentLineIncludingMinConstraint +
-                flexBasisWithMinAndMaxConstraints + childMarginMainAxis +
-                childLeadingGapMainAxis >
+                flexBasisWithMinAndMaxConstraints + childMarginMainAxis >
             availableInnerMainDim &&
         isNodeFlexWrap && flexAlgoRowMeasurement.itemsOnLine > 0) {
       break;
     }
 
     sizeConsumedOnCurrentLineIncludingMinConstraint +=
-        flexBasisWithMinAndMaxConstraints + childMarginMainAxis +
-        childLeadingGapMainAxis;
+        flexBasisWithMinAndMaxConstraints + childMarginMainAxis;
     flexAlgoRowMeasurement.sizeConsumedOnCurrentLine +=
-        flexBasisWithMinAndMaxConstraints + childMarginMainAxis +
-        childLeadingGapMainAxis;
+        flexBasisWithMinAndMaxConstraints + childMarginMainAxis;
     flexAlgoRowMeasurement.itemsOnLine++;
 
     if (child->isNodeFlexible()) {
@@ -2079,7 +2050,7 @@ static float YGDistributeFreeSpaceSecondPass(
     const float availableInnerCrossDim,
     const float availableInnerWidth,
     const float availableInnerHeight,
-    const bool mainAxisOverflows,
+    const bool flexBasisOverflows,
     const YGMeasureMode measureModeCrossDim,
     const bool performLayout,
     const YGConfigRef config,
@@ -2175,7 +2146,7 @@ static float YGDistributeFreeSpaceSecondPass(
         !YGNodeIsStyleDimDefined(
             currentRelativeChild, crossAxis, availableInnerCrossDim) &&
         measureModeCrossDim == YGMeasureModeExactly &&
-        !(isNodeFlexWrap && mainAxisOverflows) &&
+        !(isNodeFlexWrap && flexBasisOverflows) &&
         YGNodeAlignItem(node, currentRelativeChild) == YGAlignStretch &&
         currentRelativeChild->marginLeadingValue(crossAxis).unit !=
             YGUnitAuto &&
@@ -2383,7 +2354,7 @@ static void YGResolveFlexibleLength(
     const float availableInnerCrossDim,
     const float availableInnerWidth,
     const float availableInnerHeight,
-    const bool mainAxisOverflows,
+    const bool flexBasisOverflows,
     const YGMeasureMode measureModeCrossDim,
     const bool performLayout,
     const YGConfigRef config,
@@ -2411,7 +2382,7 @@ static void YGResolveFlexibleLength(
       availableInnerCrossDim,
       availableInnerWidth,
       availableInnerHeight,
-      mainAxisOverflows,
+      flexBasisOverflows,
       measureModeCrossDim,
       performLayout,
       config,
@@ -2444,7 +2415,6 @@ static void YGJustifyMainAxis(
       node->getLeadingPaddingAndBorder(mainAxis, ownerWidth).unwrap();
   const float trailingPaddingAndBorderMain =
       node->getTrailingPaddingAndBorder(mainAxis, ownerWidth).unwrap();
-  const float gap = node->getGapForAxis(mainAxis, ownerWidth).unwrap();
   // If we are using "at most" rules in the main axis, make sure that
   // remainingFreeSpace is 0 when min main dimension is not given
   if (measureModeMainDim == YGMeasureModeAtMost &&
@@ -2492,7 +2462,7 @@ static void YGJustifyMainAxis(
   // The space between the beginning and the first element and the space between
   // each two elements.
   float leadingMainDim = 0;
-  float betweenMainDim = gap;
+  float betweenMainDim = 0;
   const YGJustify justifyContent = node->getStyle().justifyContent();
 
   if (numberOfAutoMarginsOnCurrentLine == 0) {
@@ -2505,22 +2475,24 @@ static void YGJustifyMainAxis(
         break;
       case YGJustifySpaceBetween:
         if (collectedFlexItemsValues.itemsOnLine > 1) {
-          betweenMainDim +=
+          betweenMainDim =
               YGFloatMax(collectedFlexItemsValues.remainingFreeSpace, 0) /
               (collectedFlexItemsValues.itemsOnLine - 1);
+        } else {
+          betweenMainDim = 0;
         }
         break;
       case YGJustifySpaceEvenly:
         // Space is distributed evenly across all elements
-        leadingMainDim = collectedFlexItemsValues.remainingFreeSpace /
+        betweenMainDim = collectedFlexItemsValues.remainingFreeSpace /
             (collectedFlexItemsValues.itemsOnLine + 1);
-        betweenMainDim += leadingMainDim;
+        leadingMainDim = betweenMainDim;
         break;
       case YGJustifySpaceAround:
         // Space on the edges is half of the space between elements
-        leadingMainDim = 0.5f * collectedFlexItemsValues.remainingFreeSpace /
+        betweenMainDim = collectedFlexItemsValues.remainingFreeSpace /
             collectedFlexItemsValues.itemsOnLine;
-        betweenMainDim += leadingMainDim * 2;
+        leadingMainDim = betweenMainDim / 2;
         break;
       case YGJustifyFlexStart:
         break;
@@ -2540,11 +2512,6 @@ static void YGJustifyMainAxis(
     const YGNodeRef child = node->getChild(i);
     const YGStyle& childStyle = child->getStyle();
     const YGLayout childLayout = child->getLayout();
-    const bool isLastChild = i == collectedFlexItemsValues.endOfLineIndex - 1;
-    // remove the gap if it is the last element of the line
-    if (isLastChild) {
-      betweenMainDim -= gap;
-    }
     if (childStyle.display() == YGDisplayNone) {
       continue;
     }
@@ -2674,7 +2641,7 @@ static void YGJustifyMainAxis(
 //    but the algorithm below assumes a default of 'column'.
 //
 // Input parameters:
-//    - node: current node to be sized and laid out
+//    - node: current node to be sized and layed out
 //    - availableWidth & availableHeight: available size to be used for sizing
 //      the node or YGUndefined if the size is not available; interpretation
 //      depends on layout flags
@@ -2686,7 +2653,7 @@ static void YGJustifyMainAxis(
 //      for explanation)
 //    - performLayout: specifies whether the caller is interested in just the
 //      dimensions of the node or it requires the entire node and its subtree to
-//      be laid out (with final positions)
+//      be layed out (with final positions)
 //
 // Details:
 //    This routine is called recursively to lay out subtrees of flexbox
@@ -2889,9 +2856,7 @@ static void YGNodelayoutImpl(
 
   // STEP 3: DETERMINE FLEX BASIS FOR EACH ITEM
 
-  // Computed basis + margins + gap
-  float totalMainDim = 0;
-  totalMainDim += YGNodeComputeFlexBasisForChildren(
+  float totalOuterFlexBasis = YGNodeComputeFlexBasisForChildren(
       node,
       availableInnerWidth,
       availableInnerHeight,
@@ -2906,17 +2871,10 @@ static void YGNodelayoutImpl(
       depth,
       generationCount);
 
-  if (childCount > 1) {
-    totalMainDim +=
-        node->getGapForAxis(mainAxis, availableInnerCrossDim).unwrap() *
-        (childCount - 1);
-  }
-
-  const bool mainAxisOverflows =
-      (measureModeMainDim != YGMeasureModeUndefined) &&
-      totalMainDim > availableInnerMainDim;
-
-  if (isNodeFlexWrap && mainAxisOverflows &&
+  const bool flexBasisOverflows = measureModeMainDim == YGMeasureModeUndefined
+      ? false
+      : totalOuterFlexBasis > availableInnerMainDim;
+  if (isNodeFlexWrap && flexBasisOverflows &&
       measureModeMainDim == YGMeasureModeAtMost) {
     measureModeMainDim = YGMeasureModeExactly;
   }
@@ -2931,9 +2889,6 @@ static void YGNodelayoutImpl(
 
   // Accumulated cross dimensions of all lines so far.
   float totalLineCrossDim = 0;
-
-  const float crossAxisGap =
-      node->getGapForAxis(crossAxis, availableInnerCrossDim).unwrap();
 
   // Max main dimension of all the lines.
   float maxLineMainDim = 0;
@@ -2997,10 +2952,10 @@ static void YGNodelayoutImpl(
         availableInnerMainDim = maxInnerMainDim;
       } else {
         if (!node->getConfig()->useLegacyStretchBehaviour &&
-            ((!YGFloatIsUndefined(
+            ((YGFloatIsUndefined(
                   collectedFlexItemsValues.totalFlexGrowFactors) &&
               collectedFlexItemsValues.totalFlexGrowFactors == 0) ||
-             (!YGFloatIsUndefined(node->resolveFlexGrow()) &&
+             (YGFloatIsUndefined(node->resolveFlexGrow()) &&
               node->resolveFlexGrow() == 0))) {
           // If we don't have any children to flex or we can't flex the node
           // itself, space we've used is all space we need. Root node also
@@ -3039,7 +2994,7 @@ static void YGNodelayoutImpl(
           availableInnerCrossDim,
           availableInnerWidth,
           availableInnerHeight,
-          mainAxisOverflows,
+          flexBasisOverflows,
           measureModeCrossDim,
           performLayout,
           config,
@@ -3254,8 +3209,7 @@ static void YGNodelayoutImpl(
       }
     }
 
-    const float appliedCrossGap = lineCount != 0 ? crossAxisGap : 0.0f;
-    totalLineCrossDim += collectedFlexItemsValues.crossDim + appliedCrossGap;
+    totalLineCrossDim += collectedFlexItemsValues.crossDim;
     maxLineMainDim =
         YGFloatMax(maxLineMainDim, collectedFlexItemsValues.mainDim);
   }
@@ -3350,7 +3304,6 @@ static void YGNodelayoutImpl(
       }
       endIndex = ii;
       lineHeight += crossDimLead;
-      currentLead += i != 0 ? crossAxisGap : 0;
 
       if (performLayout) {
         for (ii = startIndex; ii < endIndex; ii++) {
@@ -3837,7 +3790,7 @@ bool YGLayoutNodeInternal(
   // Determine whether the results are already cached. We maintain a separate
   // cache for layouts and measurements. A layout operation modifies the
   // positions and dimensions for nodes in the subtree. The algorithm assumes
-  // that each node gets laid out a maximum of one time per tree layout, but
+  // that each node gets layed out a maximum of one time per tree layout, but
   // multiple measurements may be required to resolve all of the flex
   // dimensions. We handle nodes with measure functions specially here because
   // they are the most expensive to measure, so it's worth avoiding redundant
@@ -4371,7 +4324,7 @@ YOGA_EXPORT void YGConfigSetExperimentalFeatureEnabled(
   config->experimentalFeatures[feature] = enabled;
 }
 
-YOGA_EXPORT bool YGConfigIsExperimentalFeatureEnabled(
+inline bool YGConfigIsExperimentalFeatureEnabled(
     const YGConfigRef config,
     const YGExperimentalFeature feature) {
   return config->experimentalFeatures[feature];
@@ -4381,11 +4334,6 @@ YOGA_EXPORT void YGConfigSetUseWebDefaults(
     const YGConfigRef config,
     const bool enabled) {
   config->useWebDefaults = enabled;
-}
-
-YOGA_EXPORT bool YGConfigGetUseLegacyStretchBehaviour(
-    const YGConfigRef config) {
-  return config->useLegacyStretchBehaviour;
 }
 
 YOGA_EXPORT void YGConfigSetUseLegacyStretchBehaviour(

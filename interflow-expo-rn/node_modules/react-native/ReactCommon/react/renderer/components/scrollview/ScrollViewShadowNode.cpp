@@ -10,7 +10,8 @@
 #include <react/debug/react_native_assert.h>
 #include <react/renderer/core/LayoutMetrics.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 const char ScrollViewComponentName[] = "ScrollView";
 
@@ -62,4 +63,5 @@ Point ScrollViewShadowNode::getContentOriginOffset() const {
   return {-contentOffset.x, -contentOffset.y + stateData.scrollAwayPaddingTop};
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

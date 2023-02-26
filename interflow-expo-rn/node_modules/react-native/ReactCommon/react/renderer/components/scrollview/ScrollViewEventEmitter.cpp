@@ -7,7 +7,8 @@
 
 #include "ScrollViewEventEmitter.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static jsi::Value scrollViewMetricsPayload(
     jsi::Runtime &runtime,
@@ -96,4 +97,5 @@ void ScrollViewEventEmitter::dispatchScrollViewEvent(
       priority);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

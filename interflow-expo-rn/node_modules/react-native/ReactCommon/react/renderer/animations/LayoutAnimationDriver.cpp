@@ -12,7 +12,8 @@
 #include <react/renderer/animations/utils.h>
 #include <algorithm>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 void LayoutAnimationDriver::animationMutationsForFrame(
     SurfaceId surfaceId,
@@ -56,9 +57,9 @@ void LayoutAnimationDriver::animationMutationsForFrame(
 
       // Create the mutation instruction
       mutationsList.emplace_back(ShadowViewMutation::UpdateMutation(
-          keyframe.viewPrev, mutatedShadowView, keyframe.parentView));
+          keyframe.viewPrev, mutatedShadowView));
 
-      PrintMutationInstruction("Animation Progress:", mutationsList.back());
+      PrintMutationInstruction("Animation Progress:", updateMutation);
 
       keyframe.viewPrev = std::move(mutatedShadowView);
 
@@ -106,4 +107,5 @@ void LayoutAnimationDriver::animationMutationsForFrame(
       &shouldFirstComeBeforeSecondMutation);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

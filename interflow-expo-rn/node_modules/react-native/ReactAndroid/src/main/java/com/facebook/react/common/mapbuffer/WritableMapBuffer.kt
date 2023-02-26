@@ -106,8 +106,6 @@ class WritableMapBuffer : MapBuffer {
 
   override fun getMapBuffer(key: Int): MapBuffer = verifyValue(key, values.get(key))
 
-  override fun getMapBufferList(key: Int): List<MapBuffer> = verifyValue(key, values.get(key))
-
   /** Generalizes verification of the value types based on the requested type. */
   private inline fun <reified T> verifyValue(key: Int, value: Any?): T {
     require(value != null) { "Key not found: $key" }

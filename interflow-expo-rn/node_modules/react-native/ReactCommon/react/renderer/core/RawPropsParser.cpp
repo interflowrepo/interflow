@@ -7,14 +7,15 @@
 
 #include "RawPropsParser.h"
 
-#include <folly/Hash.h>
 #include <folly/Likely.h>
+#include <folly/hash/Hash.h>
 #include <react/debug/react_native_assert.h>
 #include <react/renderer/core/RawProps.h>
 
 #include <glog/logging.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 // During parser initialization, Props structs are used to parse
 // "fake"/empty objects, and `at` is called repeatedly which tells us
@@ -220,4 +221,5 @@ void RawPropsParser::iterateOverValues(
   }
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

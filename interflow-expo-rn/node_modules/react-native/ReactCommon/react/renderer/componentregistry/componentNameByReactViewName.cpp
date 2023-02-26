@@ -7,7 +7,8 @@
 
 #include "componentNameByReactViewName.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 std::string componentNameByReactViewName(std::string viewName) {
   // We need this function only for the transition period;
@@ -68,4 +69,5 @@ std::string componentNameByReactViewName(std::string viewName) {
   return viewName;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

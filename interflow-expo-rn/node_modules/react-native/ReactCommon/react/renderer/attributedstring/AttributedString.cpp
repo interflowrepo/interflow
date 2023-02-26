@@ -9,7 +9,8 @@
 
 #include <react/renderer/debug/DebugStringConvertibleItem.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 using Fragment = AttributedString::Fragment;
 using Fragments = AttributedString::Fragments;
@@ -35,11 +36,6 @@ bool Fragment::operator==(const Fragment &rhs) const {
              rhs.textAttributes,
              rhs.parentShadowView.tag,
              rhs.parentShadowView.layoutMetrics);
-}
-
-bool Fragment::isContentEqual(const Fragment &rhs) const {
-  return std::tie(string, textAttributes) ==
-      std::tie(rhs.string, rhs.textAttributes);
 }
 
 bool Fragment::operator!=(const Fragment &rhs) const {
@@ -112,7 +108,7 @@ bool AttributedString::compareTextAttributesWithoutFrame(
     return false;
   }
 
-  for (size_t i = 0; i < fragments_.size(); i++) {
+  for (unsigned i = 0; i < fragments_.size(); i++) {
     if (fragments_[i].textAttributes != rhs.fragments_[i].textAttributes ||
         fragments_[i].string != rhs.fragments_[i].string) {
       return false;
@@ -128,20 +124,6 @@ bool AttributedString::operator==(const AttributedString &rhs) const {
 
 bool AttributedString::operator!=(const AttributedString &rhs) const {
   return !(*this == rhs);
-}
-
-bool AttributedString::isContentEqual(const AttributedString &rhs) const {
-  if (fragments_.size() != rhs.fragments_.size()) {
-    return false;
-  }
-
-  for (size_t i = 0; i < fragments_.size(); i++) {
-    if (!fragments_[i].isContentEqual(rhs.fragments_[i])) {
-      return false;
-    }
-  }
-
-  return true;
 }
 
 #pragma mark - DebugStringConvertible
@@ -165,4 +147,5 @@ SharedDebugStringConvertibleList AttributedString::getDebugChildren() const {
 }
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

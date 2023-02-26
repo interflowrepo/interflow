@@ -9,7 +9,8 @@
 
 #include <algorithm>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 Size LayoutConstraints::clamp(const Size &size) const {
   return {
@@ -17,4 +18,5 @@ Size LayoutConstraints::clamp(const Size &size) const {
       std::max(minimumSize.height, std::min(maximumSize.height, size.height))};
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

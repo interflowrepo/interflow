@@ -7,7 +7,8 @@
 
 #include "TimelineFrame.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 TimelineFrame::TimelineFrame(int index, TelemetryTimePoint timePoint) noexcept
     : index_(index), timePoint_(timePoint) {}
@@ -20,4 +21,5 @@ TelemetryTimePoint TimelineFrame::getTimePoint() const noexcept {
   return timePoint_;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

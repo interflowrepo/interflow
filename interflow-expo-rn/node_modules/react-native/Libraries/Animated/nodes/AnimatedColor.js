@@ -10,16 +10,16 @@
 
 'use strict';
 
-import type {NativeColorValue} from '../../StyleSheet/PlatformColorValueTypes';
-import type {ProcessedColorValue} from '../../StyleSheet/processColor';
-import type {ColorValue} from '../../StyleSheet/StyleSheet';
-import type {PlatformConfig} from '../AnimatedPlatformConfig';
-
+import AnimatedValue from './AnimatedValue';
+import AnimatedWithChildren from './AnimatedWithChildren';
 import normalizeColor from '../../StyleSheet/normalizeColor';
 import {processColorObject} from '../../StyleSheet/PlatformColorValueTypes';
 import NativeAnimatedHelper from '../NativeAnimatedHelper';
-import AnimatedValue from './AnimatedValue';
-import AnimatedWithChildren from './AnimatedWithChildren';
+
+import type {PlatformConfig} from '../AnimatedPlatformConfig';
+import type {ColorValue} from '../../StyleSheet/StyleSheet';
+import type {NativeColorValue} from '../../StyleSheet/PlatformColorValueTypes';
+import type {ProcessedColorValue} from '../../StyleSheet/processColor';
 
 export type AnimatedColorConfig = $ReadOnly<{
   useNativeDriver: boolean,

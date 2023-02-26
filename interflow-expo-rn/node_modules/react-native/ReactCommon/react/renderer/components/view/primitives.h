@@ -56,9 +56,6 @@ struct ViewEvents {
     PointerMoveCapture = 25,
     PointerOver = 26,
     PointerOut = 27,
-    PointerOverCapture = 28,
-    PointerOutCapture = 29,
-
   };
 
   constexpr bool operator[](const Offset offset) const {
@@ -79,8 +76,6 @@ inline static bool operator!=(ViewEvents const &lhs, ViewEvents const &rhs) {
 }
 
 enum class BackfaceVisibility { Auto, Visible, Hidden };
-
-enum class BorderCurve { Circular, Continuous };
 
 enum class BorderStyle { Solid, Dotted, Dashed };
 
@@ -207,13 +202,11 @@ struct CascadedRectangleCorners {
 };
 
 using BorderWidths = RectangleEdges<Float>;
-using BorderCurves = RectangleCorners<BorderCurve>;
 using BorderStyles = RectangleEdges<BorderStyle>;
 using BorderColors = RectangleEdges<SharedColor>;
 using BorderRadii = RectangleCorners<Float>;
 
 using CascadedBorderWidths = CascadedRectangleEdges<Float>;
-using CascadedBorderCurves = CascadedRectangleCorners<BorderCurve>;
 using CascadedBorderStyles = CascadedRectangleEdges<BorderStyle>;
 using CascadedBorderColors = CascadedRectangleEdges<SharedColor>;
 using CascadedBorderRadii = CascadedRectangleCorners<Float>;
@@ -222,7 +215,6 @@ struct BorderMetrics {
   BorderColors borderColors{};
   BorderWidths borderWidths{};
   BorderRadii borderRadii{};
-  BorderCurves borderCurves{};
   BorderStyles borderStyles{};
 
   bool operator==(const BorderMetrics &rhs) const {
@@ -230,13 +222,11 @@ struct BorderMetrics {
                this->borderColors,
                this->borderWidths,
                this->borderRadii,
-               this->borderCurves,
                this->borderStyles) ==
         std::tie(
                rhs.borderColors,
                rhs.borderWidths,
                rhs.borderRadii,
-               rhs.borderCurves,
                rhs.borderStyles);
   }
 

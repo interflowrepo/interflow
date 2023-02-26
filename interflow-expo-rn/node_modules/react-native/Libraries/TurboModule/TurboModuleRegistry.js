@@ -8,11 +8,9 @@
  * @format
  */
 
-import type {TurboModule} from './RCTExport';
-
-import invariant from 'invariant';
-
 const NativeModules = require('../BatchedBridge/NativeModules');
+import type {TurboModule} from './RCTExport';
+import invariant from 'invariant';
 
 const turboModuleProxy = global.__turboModuleProxy;
 

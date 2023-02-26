@@ -9,7 +9,8 @@
 
 using namespace facebook::react;
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static inline int32_t bucketOffset(int32_t index) {
   return sizeof(MapBuffer::Header) + sizeof(MapBuffer::Bucket) * index;
@@ -89,7 +90,7 @@ std::string MapBuffer::getString(Key key) const {
   uint8_t const *stringPtr =
       bytes_.data() + dynamicDataOffset + offset + sizeof(int);
 
-  return {stringPtr, stringPtr + stringLength};
+  return std::string(stringPtr, stringPtr + stringLength);
 }
 
 MapBuffer MapBuffer::getMapBuffer(Key key) const {
@@ -111,31 +112,6 @@ MapBuffer MapBuffer::getMapBuffer(Key key) const {
   return MapBuffer(std::move(value));
 }
 
-std::vector<MapBuffer> MapBuffer::getMapBufferList(MapBuffer::Key key) const {
-  std::vector<MapBuffer> mapBufferList;
-
-  int32_t dynamicDataOffset = getDynamicDataOffset();
-  int32_t offset = getInt(key);
-  int32_t mapBufferListLength = *reinterpret_cast<int32_t const *>(
-      bytes_.data() + dynamicDataOffset + offset);
-  offset = offset + sizeof(uint32_t);
-
-  int32_t curLen = 0;
-  while (curLen < mapBufferListLength) {
-    int32_t mapBufferLength = *reinterpret_cast<int32_t const *>(
-        bytes_.data() + dynamicDataOffset + offset + curLen);
-    curLen = curLen + sizeof(uint32_t);
-    std::vector<uint8_t> value(mapBufferLength);
-    memcpy(
-        value.data(),
-        bytes_.data() + dynamicDataOffset + offset + curLen,
-        mapBufferLength);
-    mapBufferList.emplace_back(std::move(value));
-    curLen = curLen + mapBufferLength;
-  }
-  return mapBufferList;
-}
-
 size_t MapBuffer::size() const {
   return bytes_.size();
 }
@@ -148,4 +124,5 @@ uint16_t MapBuffer::count() const {
   return count_;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

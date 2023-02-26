@@ -8,10 +8,11 @@
 package com.facebook.react.fabric;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import com.facebook.react.bridge.JSIModuleProvider;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.UIManager;
+import com.facebook.react.common.mapbuffer.MapBufferSoLoader;
+import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.react.fabric.events.EventBeatManager;
 import com.facebook.react.uimanager.ViewManagerRegistry;
 import com.facebook.systrace.Systrace;
@@ -22,27 +23,16 @@ public class FabricJSIModuleProvider implements JSIModuleProvider<UIManager> {
   @NonNull private final ComponentFactory mComponentFactory;
   @NonNull private final ReactNativeConfig mConfig;
   @NonNull private final ViewManagerRegistry mViewManagerRegistry;
-  @Nullable private final CppComponentRegistry mCppComponentRegistry;
 
   public FabricJSIModuleProvider(
       @NonNull ReactApplicationContext reactApplicationContext,
       @NonNull ComponentFactory componentFactory,
       @NonNull ReactNativeConfig config,
       @NonNull ViewManagerRegistry viewManagerRegistry) {
-    this(reactApplicationContext, componentFactory, config, viewManagerRegistry, null);
-  }
-
-  public FabricJSIModuleProvider(
-      @NonNull ReactApplicationContext reactApplicationContext,
-      @NonNull ComponentFactory componentFactory,
-      @NonNull ReactNativeConfig config,
-      @NonNull ViewManagerRegistry viewManagerRegistry,
-      @Nullable CppComponentRegistry cppComponentRegistry) {
     mReactApplicationContext = reactApplicationContext;
     mComponentFactory = componentFactory;
     mConfig = config;
     mViewManagerRegistry = viewManagerRegistry;
-    mCppComponentRegistry = cppComponentRegistry;
   }
 
   @Override
@@ -55,14 +45,17 @@ public class FabricJSIModuleProvider implements JSIModuleProvider<UIManager> {
         Systrace.TRACE_TAG_REACT_JAVA_BRIDGE, "FabricJSIModuleProvider.registerBinding");
     final Binding binding = new Binding();
 
+    if (ReactFeatureFlags.mapBufferSerializationEnabled) {
+      MapBufferSoLoader.staticInit();
+    }
+
     binding.register(
         mReactApplicationContext.getCatalystInstance().getRuntimeExecutor(),
         mReactApplicationContext.getCatalystInstance().getRuntimeScheduler(),
         uiManager,
         eventBeatManager,
         mComponentFactory,
-        mConfig,
-        mCppComponentRegistry);
+        mConfig);
 
     Systrace.endSection(Systrace.TRACE_TAG_REACT_JAVA_BRIDGE);
     Systrace.endSection(Systrace.TRACE_TAG_REACT_JAVA_BRIDGE);

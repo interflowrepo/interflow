@@ -9,25 +9,25 @@
  * @generate-docs
  */
 
-import type {ColorValue} from '../../StyleSheet/StyleSheet';
-import type {SyntheticEvent} from '../../Types/CoreEventTypes';
-import type {ViewProps} from '../View/ViewPropTypes';
-
-import StyleSheet from '../../StyleSheet/StyleSheet';
 import Platform from '../../Utilities/Platform';
+import * as React from 'react';
+import StyleSheet from '../../StyleSheet/StyleSheet';
 import useMergeRefs from '../../Utilities/useMergeRefs';
+
 import AndroidSwitchNativeComponent, {
   Commands as AndroidSwitchCommands,
 } from './AndroidSwitchNativeComponent';
 import SwitchNativeComponent, {
   Commands as SwitchCommands,
 } from './SwitchNativeComponent';
-import * as React from 'react';
+
+import type {ColorValue} from '../../StyleSheet/StyleSheet';
+import type {SyntheticEvent} from '../../Types/CoreEventTypes';
+import type {ViewProps} from '../View/ViewPropTypes';
 
 type SwitchChangeEvent = SyntheticEvent<
   $ReadOnly<{|
     value: boolean,
-    target: number,
   |}>,
 >;
 

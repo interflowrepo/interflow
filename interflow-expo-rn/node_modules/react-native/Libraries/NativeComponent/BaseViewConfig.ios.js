@@ -8,13 +8,12 @@
  * @flow strict-local
  */
 
-import type {PartialViewConfigWithoutName} from './PlatformBaseViewConfig';
-
-import ReactNativeStyleAttributes from '../Components/View/ReactNativeStyleAttributes';
 import {
-  ConditionallyIgnoredEventHandlers,
   DynamicallyInjectedByGestureHandler,
+  ConditionallyIgnoredEventHandlers,
 } from './ViewConfigIgnore';
+import ReactNativeStyleAttributes from '../Components/View/ReactNativeStyleAttributes';
+import type {PartialViewConfigWithoutName} from './PlatformBaseViewConfig';
 
 const bubblingEventTypes = {
   // Generic Events
@@ -194,7 +193,6 @@ const validAttributesForNonEventProps = {
   removeClippedSubviews: true,
   borderRadius: true,
   borderColor: {process: require('../StyleSheet/processColor')},
-  borderCurve: true,
   borderWidth: true,
   borderStyle: true,
   hitSlop: {diff: require('../Utilities/differ/insetsDiffer')},
@@ -271,9 +269,6 @@ const validAttributesForNonEventProps = {
 
   flex: true,
   flexGrow: true,
-  rowGap: true,
-  columnGap: true,
-  gap: true,
   flexShrink: true,
   flexBasis: true,
   flexDirection: true,

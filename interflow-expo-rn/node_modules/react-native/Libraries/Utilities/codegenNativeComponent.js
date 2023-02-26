@@ -10,9 +10,8 @@
 
 // TODO: move this file to shims/ReactNative (requires React update and sync)
 
-import type {HostComponent} from '../../Libraries/Renderer/shims/ReactNativeTypes';
-
 import requireNativeComponent from '../../Libraries/ReactNative/requireNativeComponent';
+import type {HostComponent} from '../../Libraries/Renderer/shims/ReactNativeTypes';
 import UIManager from '../ReactNative/UIManager';
 
 // TODO: import from CodegenSchema once workspaces are enabled
@@ -55,7 +54,6 @@ function codegenNativeComponent<Props>(
       options.paperComponentNameDeprecated != null &&
       UIManager.hasViewManagerConfig(options.paperComponentNameDeprecated)
     ) {
-      // $FlowFixMe[incompatible-type]
       componentNameInUse = options.paperComponentNameDeprecated;
     } else {
       throw new Error(
@@ -67,7 +65,6 @@ function codegenNativeComponent<Props>(
   }
 
   return (requireNativeComponent<Props>(
-    // $FlowFixMe[incompatible-call]
     componentNameInUse,
   ): HostComponent<Props>);
 }

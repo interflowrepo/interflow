@@ -11,9 +11,7 @@ add_compile_options(
         -fexceptions
         -frtti
         -std=c++17
-        -Wall
-        -Wpedantic
-        -Wno-gnu-zero-variadic-macro-arguments)
+        -Wall)
 
 add_library(butter INTERFACE)
 

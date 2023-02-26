@@ -19,6 +19,9 @@ interface Agent {
 // Flow doesn't support static declarations in interface
 type AgentClass = Class<Agent> & {DOMAIN: string, ...};
 
+declare function __registerInspectorAgent(type: AgentClass): void;
+declare function __inspectorTimestamp(): number;
+
 const JSInspector = {
   registerAgent(type: AgentClass) {
     if (global.__registerInspectorAgent) {

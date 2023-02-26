@@ -9,11 +9,12 @@ package com.facebook.react.fabric;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
+import com.facebook.soloader.SoLoader;
 
 @DoNotStrip
 public class CoreComponentsRegistry {
   static {
-    FabricSoLoader.staticInit();
+    SoLoader.loadLibrary("fabricjni");
   }
 
   @DoNotStrip private final HybridData mHybridData;

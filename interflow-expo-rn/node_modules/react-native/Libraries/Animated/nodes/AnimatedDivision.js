@@ -10,15 +10,15 @@
 
 'use strict';
 
-import type {PlatformConfig} from '../AnimatedPlatformConfig';
+const AnimatedInterpolation = require('./AnimatedInterpolation');
+const AnimatedNode = require('./AnimatedNode');
+const AnimatedValue = require('./AnimatedValue');
+const AnimatedWithChildren = require('./AnimatedWithChildren');
+
 import type {InterpolationConfigType} from './AnimatedInterpolation';
+import type {PlatformConfig} from '../AnimatedPlatformConfig';
 
-import AnimatedInterpolation from './AnimatedInterpolation';
-import AnimatedNode from './AnimatedNode';
-import AnimatedValue from './AnimatedValue';
-import AnimatedWithChildren from './AnimatedWithChildren';
-
-export default class AnimatedDivision extends AnimatedWithChildren {
+class AnimatedDivision extends AnimatedWithChildren {
   _a: AnimatedNode;
   _b: AnimatedNode;
   _warnedAboutDivideByZero: boolean = false;
@@ -78,3 +78,5 @@ export default class AnimatedDivision extends AnimatedWithChildren {
     };
   }
 }
+
+module.exports = AnimatedDivision;

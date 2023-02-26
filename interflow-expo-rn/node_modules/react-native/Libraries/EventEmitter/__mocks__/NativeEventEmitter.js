@@ -12,7 +12,6 @@ import type {
   EventSubscription,
   IEventEmitter,
 } from '../../vendor/emitter/EventEmitter';
-
 import RCTDeviceEventEmitter from '../RCTDeviceEventEmitter';
 
 /**

@@ -1,5 +1,4 @@
-export declare const getEmulators: () => string[];
-export default function tryLaunchEmulator(adbPath: string, emulatorName?: string, port?: number): Promise<{
+export default function tryLaunchEmulator(adbPath: string): Promise<{
     success: boolean;
     error?: string;
 }>;

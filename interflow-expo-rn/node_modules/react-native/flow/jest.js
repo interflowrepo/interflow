@@ -810,7 +810,7 @@ type JestObjectType = {
    * Returns a new, unused mock function. Optionally takes a mock
    * implementation.
    */
-  fn<TArguments: $ReadOnlyArray<mixed> = $ReadOnlyArray<any>, TReturn = any>(
+  fn<TArguments: $ReadOnlyArray<mixed>, TReturn>(
     implementation?: (...args: TArguments) => TReturn,
   ): JestMockFn<TArguments, TReturn>,
   /**
@@ -900,7 +900,7 @@ type JestObjectType = {
    * (setTimeout, setInterval, clearTimeout, clearInterval, nextTick,
    * setImmediate and clearImmediate).
    */
-  useFakeTimers(type?: 'legacy' | 'modern'): JestObjectType,
+  useFakeTimers(): JestObjectType,
   /**
    * Instructs Jest to use the real versions of the standard timer functions.
    */

@@ -7,7 +7,8 @@
 
 #include "RawEvent.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 RawEvent::RawEvent(
     std::string type,
@@ -19,4 +20,5 @@ RawEvent::RawEvent(
       eventTarget(std::move(eventTarget)),
       category(category) {}
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

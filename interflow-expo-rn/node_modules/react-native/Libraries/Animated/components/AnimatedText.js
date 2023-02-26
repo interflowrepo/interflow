@@ -8,13 +8,14 @@
  * @format
  */
 
-import type {AnimatedComponentType} from '../createAnimatedComponent';
-
-import Text from '../../Text/Text';
-import createAnimatedComponent from '../createAnimatedComponent';
 import * as React from 'react';
 
-export default (createAnimatedComponent(
+const Text = require('../../Text/Text');
+const createAnimatedComponent = require('../createAnimatedComponent');
+
+import type {AnimatedComponentType} from '../createAnimatedComponent';
+
+module.exports = (createAnimatedComponent(
   (Text: $FlowFixMe),
 ): AnimatedComponentType<
   React.ElementConfig<typeof Text>,

@@ -8,8 +8,7 @@
  * @format
  */
 
-export type {CompositeAnimation, Numeric} from './AnimatedImplementation';
-
+import Platform from '../Utilities/Platform';
 import typeof AnimatedFlatList from './components/AnimatedFlatList';
 import typeof AnimatedImage from './components/AnimatedImage';
 import typeof AnimatedScrollView from './components/AnimatedScrollView';
@@ -17,32 +16,31 @@ import typeof AnimatedSectionList from './components/AnimatedSectionList';
 import typeof AnimatedText from './components/AnimatedText';
 import typeof AnimatedView from './components/AnimatedView';
 
-import Platform from '../Utilities/Platform';
-import AnimatedImplementation from './AnimatedImplementation';
-import AnimatedMock from './AnimatedMock';
+import * as AnimatedMock from './AnimatedMock';
+import * as AnimatedImplementation from './AnimatedImplementation';
 
 const Animated = ((Platform.isTesting
   ? AnimatedMock
-  : AnimatedImplementation): typeof AnimatedImplementation);
+  : AnimatedImplementation): typeof AnimatedMock);
 
-export default {
+module.exports = {
   get FlatList(): AnimatedFlatList {
-    return require('./components/AnimatedFlatList').default;
+    return require('./components/AnimatedFlatList');
   },
   get Image(): AnimatedImage {
-    return require('./components/AnimatedImage').default;
+    return require('./components/AnimatedImage');
   },
   get ScrollView(): AnimatedScrollView {
-    return require('./components/AnimatedScrollView').default;
+    return require('./components/AnimatedScrollView');
   },
   get SectionList(): AnimatedSectionList {
-    return require('./components/AnimatedSectionList').default;
+    return require('./components/AnimatedSectionList');
   },
   get Text(): AnimatedText {
-    return require('./components/AnimatedText').default;
+    return require('./components/AnimatedText');
   },
   get View(): AnimatedView {
-    return require('./components/AnimatedView').default;
+    return require('./components/AnimatedView');
   },
   ...Animated,
 };

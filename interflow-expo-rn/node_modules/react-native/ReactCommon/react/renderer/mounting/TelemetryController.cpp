@@ -9,7 +9,8 @@
 
 #include <react/renderer/mounting/MountingCoordinator.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 TelemetryController::TelemetryController(
     MountingCoordinator const &mountingCoordinator) noexcept
@@ -50,4 +51,5 @@ bool TelemetryController::pullTransaction(
   return true;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

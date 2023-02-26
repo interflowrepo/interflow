@@ -10,13 +10,13 @@
 
 import type {LogLevel} from '../Data/LogBoxLog';
 
-import View from '../../Components/View/View';
+import * as React from 'react';
+import DeviceInfo from '../../Utilities/DeviceInfo';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
-import DeviceInfo from '../../Utilities/DeviceInfo';
+import View from '../../Components/View/View';
 import LogBoxButton from './LogBoxButton';
 import * as LogBoxStyle from './LogBoxStyle';
-import * as React from 'react';
 
 type Props = $ReadOnly<{|
   onDismiss: () => void,

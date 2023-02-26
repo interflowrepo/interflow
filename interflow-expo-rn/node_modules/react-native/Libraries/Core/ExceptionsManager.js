@@ -22,11 +22,6 @@ type ExceptionDecorator = ExceptionData => ExceptionData;
 let userExceptionDecorator: ?ExceptionDecorator;
 let inUserExceptionDecorator = false;
 
-// This Symbol is used to decorate an ExtendedError with extra data in select usecases.
-// Note that data passed using this method should be strictly contained,
-// as data that's not serializable/too large may cause issues with passing the error to the native code.
-const decoratedExtraDataKey: symbol = Symbol('decoratedExtraDataKey');
-
 /**
  * Allows the app to add information to the exception report before it is sent
  * to native. This API is not final.
@@ -88,8 +83,6 @@ function reportException(
     id: currentExceptionID,
     isFatal,
     extraData: {
-      // $FlowFixMe[incompatible-use] we can't define a type with a Symbol-keyed field in flow
-      ...e[decoratedExtraDataKey],
       jsEngine: e.jsEngine,
       rawStack: e.stack,
     },
@@ -242,7 +235,6 @@ function installConsoleErrorReporter() {
 }
 
 module.exports = {
-  decoratedExtraDataKey,
   handleException,
   installConsoleErrorReporter,
   SyntheticError,

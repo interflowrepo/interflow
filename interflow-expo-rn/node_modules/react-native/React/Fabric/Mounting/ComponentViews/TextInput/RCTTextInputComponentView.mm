@@ -300,25 +300,20 @@ using namespace facebook::react;
   }
 }
 
-- (BOOL)textInputShouldSubmitOnReturn
+- (BOOL)textInputShouldReturn
 {
-  const SubmitBehavior submitBehavior = [self getSubmitBehavior];
-  const BOOL shouldSubmit = submitBehavior == SubmitBehavior::Submit || submitBehavior == SubmitBehavior::BlurAndSubmit;
-  // We send `submit` event here, in `textInputShouldSubmitOnReturn`
+  // We send `submit` event here, in `textInputShouldReturn`
   // (not in `textInputDidReturn)`, because of semantic of the event:
   // `onSubmitEditing` is called when "Submit" button
   // (the blue key on onscreen keyboard) did pressed
   // (no connection to any specific "submitting" process).
 
-  if (_eventEmitter && shouldSubmit) {
+  if (_eventEmitter) {
     std::static_pointer_cast<TextInputEventEmitter const>(_eventEmitter)->onSubmitEditing([self _textInputMetrics]);
   }
-  return shouldSubmit;
-}
 
-- (BOOL)textInputShouldReturn
-{
-  return [self getSubmitBehavior] == SubmitBehavior::BlurAndSubmit;
+  auto const &props = *std::static_pointer_cast<TextInputProps const>(_props);
+  return props.traits.blurOnSubmit;
 }
 
 - (void)textInputDidReturn
@@ -647,19 +642,6 @@ using namespace facebook::react;
   } else {
     return ([newText isEqualToAttributedString:oldText]);
   }
-}
-
-- (SubmitBehavior)getSubmitBehavior
-{
-  auto const &props = *std::static_pointer_cast<TextInputProps const>(_props);
-  const SubmitBehavior submitBehaviorDefaultable = props.traits.submitBehavior;
-
-  // We should always have a non-default `submitBehavior`, but in case we don't, set it based on multiline.
-  if (submitBehaviorDefaultable == SubmitBehavior::Default) {
-    return props.traits.multiline ? SubmitBehavior::Newline : SubmitBehavior::BlurAndSubmit;
-  }
-
-  return submitBehaviorDefaultable;
 }
 
 @end

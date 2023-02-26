@@ -7,7 +7,8 @@
 
 #include "ViewEventEmitter.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 #pragma mark - Accessibility
 
@@ -114,4 +115,5 @@ void ViewEventEmitter::onLayout(const LayoutMetrics &layoutMetrics) const {
       EventPriority::AsynchronousUnbatched);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

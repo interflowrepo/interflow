@@ -7,8 +7,8 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTBridgeModule.h>
-#import <React/RCTInitializing.h>
 #import <React/RCTURLRequestHandler.h>
+#import <React/RCTInitializing.h>
 
 @interface RCTBlobManager : NSObject <RCTBridgeModule, RCTURLRequestHandler, RCTInitializing>
 

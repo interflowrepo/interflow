@@ -266,28 +266,6 @@ static inline YGStyle convertRawProp(
       "",
       sourceValue.padding(),
       yogaStyle.padding());
-
-  yogaStyle.gap()[YGGutterRow] = convertRawProp(
-      context,
-      rawProps,
-      "rowGap",
-      sourceValue.gap()[YGGutterRow],
-      yogaStyle.gap()[YGGutterRow]);
-
-  yogaStyle.gap()[YGGutterColumn] = convertRawProp(
-      context,
-      rawProps,
-      "columnGap",
-      sourceValue.gap()[YGGutterColumn],
-      yogaStyle.gap()[YGGutterColumn]);
-
-  yogaStyle.gap()[YGGutterAll] = convertRawProp(
-      context,
-      rawProps,
-      "gap",
-      sourceValue.gap()[YGGutterAll],
-      yogaStyle.gap()[YGGutterAll]);
-
   yogaStyle.border() = convertRawProp(
       context,
       rawProps,
@@ -679,8 +657,8 @@ static inline void fromRawValue(
         attrIterator->second.hasType<std::string>());
 
     result = NativeDrawable{
-        NativeDrawable::Kind::ThemeAttr,
-        (std::string)attrIterator->second,
+        .kind = NativeDrawable::Kind::ThemeAttr,
+        .themeAttr = (std::string)attrIterator->second,
     };
   } else if (type == "RippleAndroid") {
     auto color = map.find("color");
@@ -688,19 +666,21 @@ static inline void fromRawValue(
     auto rippleRadius = map.find("rippleRadius");
 
     result = NativeDrawable{
-        NativeDrawable::Kind::Ripple,
-        std::string{},
-        NativeDrawable::Ripple{
-            color != map.end() && color->second.hasType<int32_t>()
-                ? (int32_t)color->second
-                : std::optional<int32_t>{},
-            borderless != map.end() && borderless->second.hasType<bool>()
-                ? (bool)borderless->second
-                : false,
-            rippleRadius != map.end() && rippleRadius->second.hasType<Float>()
-                ? (Float)rippleRadius->second
-                : std::optional<Float>{},
-        },
+        .kind = NativeDrawable::Kind::Ripple,
+        .ripple =
+            NativeDrawable::Ripple{
+                .color = color != map.end() && color->second.hasType<int32_t>()
+                    ? (int32_t)color->second
+                    : std::optional<int32_t>{},
+                .borderless = borderless != map.end() &&
+                        borderless->second.hasType<bool>()
+                    ? (bool)borderless->second
+                    : false,
+                .rippleRadius = rippleRadius != map.end() &&
+                        rippleRadius->second.hasType<Float>()
+                    ? (Float)rippleRadius->second
+                    : std::optional<Float>{},
+            },
     };
   } else {
     LOG(ERROR) << "Unknown native drawable type: " << type;

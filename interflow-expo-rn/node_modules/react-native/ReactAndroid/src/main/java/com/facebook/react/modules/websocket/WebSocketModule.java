@@ -58,18 +58,10 @@ public final class WebSocketModule extends NativeWebSocketModuleSpec {
     mCookieHandler = new ForwardingCookieHandler(context);
   }
 
-  @Override
-  public void invalidate() {
-    for (WebSocket socket : mWebSocketConnections.values()) {
-      socket.close(1001 /* endpoint is going away */, null);
-    }
-    mWebSocketConnections.clear();
-    mContentHandlers.clear();
-  }
-
   private void sendEvent(String eventName, WritableMap params) {
-    ReactApplicationContext reactApplicationContext = getReactApplicationContext();
-    if (reactApplicationContext.hasActiveReactInstance()) {
+    ReactApplicationContext reactApplicationContext = getReactApplicationContextIfActiveOrWarn();
+
+    if (reactApplicationContext != null) {
       reactApplicationContext
           .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
           .emit(eventName, params);

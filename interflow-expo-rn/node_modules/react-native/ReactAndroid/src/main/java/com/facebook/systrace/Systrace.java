@@ -7,7 +7,7 @@
 
 package com.facebook.systrace;
 
-import androidx.tracing.Trace;
+import android.os.Trace;
 
 /**
  * Systrace stub that mostly does nothing but delegates to Trace for beginning/ending sections. The
@@ -55,35 +55,21 @@ public class Systrace {
     Trace.endSection();
   }
 
-  public static void beginAsyncSection(long tag, final String sectionName, final int cookie) {
-    Trace.beginAsyncSection(sectionName, cookie);
-  }
+  public static void beginAsyncSection(long tag, final String sectionName, final int cookie) {}
 
   public static void beginAsyncSection(
-      long tag, final String sectionName, final int cookie, final long startNanos) {
-    beginAsyncSection(tag, sectionName, cookie);
-  }
+      long tag, final String sectionName, final int cookie, final long startNanos) {}
 
-  public static void endAsyncSection(long tag, final String sectionName, final int cookie) {
-    Trace.endAsyncSection(sectionName, cookie);
-  }
+  public static void endAsyncSection(long tag, final String sectionName, final int cookie) {}
 
   public static void endAsyncSection(
-      long tag, final String sectionName, final int cookie, final long endNanos) {
-    endAsyncSection(tag, sectionName, cookie);
-  }
+      long tag, final String sectionName, final int cookie, final long endNanos) {}
 
-  public static void traceCounter(long tag, final String counterName, final int counterValue) {
-    Trace.setCounter(counterName, counterValue);
-  }
+  public static void traceCounter(long tag, final String counterName, final int counterValue) {}
 
-  public static void startAsyncFlow(long tag, final String sectionName, final int cookie) {
-    beginAsyncSection(tag, sectionName, cookie);
-  }
+  public static void startAsyncFlow(long tag, final String sectionName, final int cookie) {}
 
   public static void stepAsyncFlow(long tag, final String sectionName, final int cookie) {}
 
-  public static void endAsyncFlow(long tag, final String sectionName, final int cookie) {
-    endAsyncSection(tag, sectionName, cookie);
-  }
+  public static void endAsyncFlow(long tag, final String sectionName, final int cookie) {}
 }

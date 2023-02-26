@@ -10,7 +10,8 @@
 #include <react/renderer/components/view/conversions.h>
 #include <react/renderer/debug/SystraceSection.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 const char RootComponentName[] = "RootView";
 
@@ -56,4 +57,5 @@ RootShadowNode::Unshared RootShadowNode::clone(
   return newRootShadowNode;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

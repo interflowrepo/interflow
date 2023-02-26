@@ -122,8 +122,6 @@ function getJavaValueForProp(
           return 'ColorPropConverter.getColor(value, view.getContext())';
         case 'ImageSourcePrimitive':
           return '(ReadableMap) value';
-        case 'ImageRequestPrimitive':
-          return '(ReadableMap) value';
         case 'PointPrimitive':
           return '(ReadableMap) value';
         case 'EdgeInsetsPrimitive':
@@ -296,7 +294,7 @@ module.exports = {
     const normalizedPackageName = 'com.facebook.react.viewmanagers';
     const outputDir = `java/${normalizedPackageName.replace(/\./g, '/')}`;
 
-    const files = new Map<string, string>();
+    const files = new Map();
     Object.keys(schema.modules).forEach(moduleName => {
       const module = schema.modules[moduleName];
       if (module.type !== 'Component') {

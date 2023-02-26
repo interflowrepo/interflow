@@ -14,7 +14,8 @@
 #include <memory>
 #include <utility>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 std::shared_ptr<RuntimeSchedulerBinding>
 RuntimeSchedulerBinding::createAndInstallIfNeeded(
@@ -115,7 +116,7 @@ jsi::Value RuntimeSchedulerBinding::get(
             jsi::Value const *,
             size_t) noexcept -> jsi::Value {
           auto shouldYield = runtimeScheduler_->getShouldYield();
-          return {shouldYield};
+          return jsi::Value(shouldYield);
         });
   }
 
@@ -147,7 +148,7 @@ jsi::Value RuntimeSchedulerBinding::get(
           auto asDouble =
               std::chrono::duration<double, std::milli>(now.time_since_epoch())
                   .count();
-          return {asDouble};
+          return jsi::Value(asDouble);
         });
   }
 
@@ -200,4 +201,5 @@ jsi::Value RuntimeSchedulerBinding::get(
 #endif
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

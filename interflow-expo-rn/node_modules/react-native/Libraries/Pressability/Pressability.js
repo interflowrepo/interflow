@@ -8,25 +8,24 @@
  * @format
  */
 
-import type {HostComponent} from '../Renderer/shims/ReactNativeTypes';
+import {isHoverEnabled} from './HoverState';
+import invariant from 'invariant';
+import SoundManager from '../Components/Sound/SoundManager';
+import {normalizeRect, type RectOrSize} from '../StyleSheet/Rect';
 import type {
   BlurEvent,
   FocusEvent,
-  MouseEvent,
   PressEvent,
+  MouseEvent,
 } from '../Types/CoreEventTypes';
-
-import SoundManager from '../Components/Sound/SoundManager';
-import ReactNativeFeatureFlags from '../ReactNative/ReactNativeFeatureFlags';
-import UIManager from '../ReactNative/UIManager';
-import {type RectOrSize, normalizeRect} from '../StyleSheet/Rect';
-import {type PointerEvent} from '../Types/CoreEventTypes';
-import Platform from '../Utilities/Platform';
-import {isHoverEnabled} from './HoverState';
 import PressabilityPerformanceEventEmitter from './PressabilityPerformanceEventEmitter.js';
 import {type PressabilityTouchSignal as TouchSignal} from './PressabilityTypes.js';
-import invariant from 'invariant';
+import Platform from '../Utilities/Platform';
+import UIManager from '../ReactNative/UIManager';
+import type {HostComponent} from '../Renderer/shims/ReactNativeTypes';
 import * as React from 'react';
+import ReactNativeFeatureFlags from '../ReactNative/ReactNativeFeatureFlags';
+import {type PointerEvent} from '../Types/CoreEventTypes';
 
 export type PressabilityConfig = $ReadOnly<{|
   /**
@@ -550,7 +549,6 @@ export default class Pressability {
 
     if (process.env.NODE_ENV === 'test') {
       // We are setting this in order to find this node in ReactNativeTestTools
-      // $FlowFixMe[prop-missing]
       responderEventHandlers.onStartShouldSetResponder.testOnly_pressabilityConfig =
         () => this._config;
     }

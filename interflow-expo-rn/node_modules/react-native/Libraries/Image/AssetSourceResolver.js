@@ -21,14 +21,16 @@ export type ResolvedAssetSource = {|
 import type {PackagerAsset} from '@react-native/assets/registry';
 
 const PixelRatio = require('../Utilities/PixelRatio');
-const Platform = require('../Utilities/Platform');
 const {pickScale} = require('./AssetUtils');
+const Platform = require('../Utilities/Platform');
+
+const invariant = require('invariant');
+
 const {
   getAndroidResourceFolderName,
   getAndroidResourceIdentifier,
   getBasePath,
 } = require('@react-native/assets/path-support');
-const invariant = require('invariant');
 
 /**
  * Returns a path like 'assets/AwesomeModule/icon@2x.png'
@@ -45,9 +47,9 @@ function getScaledAssetPath(asset: PackagerAsset): string {
  */
 function getAssetPathInDrawableFolder(asset: PackagerAsset): string {
   const scale = pickScale(asset.scales, PixelRatio.get());
-  const drawableFolder = getAndroidResourceFolderName(asset, scale);
+  const drawbleFolder = getAndroidResourceFolderName(asset, scale);
   const fileName = getAndroidResourceIdentifier(asset);
-  return drawableFolder + '/' + fileName + '.' + asset.type;
+  return drawbleFolder + '/' + fileName + '.' + asset.type;
 }
 
 class AssetSourceResolver {

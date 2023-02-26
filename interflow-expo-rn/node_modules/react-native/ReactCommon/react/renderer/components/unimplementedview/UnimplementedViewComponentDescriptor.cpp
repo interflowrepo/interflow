@@ -7,7 +7,8 @@
 
 #include "UnimplementedViewComponentDescriptor.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 ComponentHandle UnimplementedViewComponentDescriptor::getComponentHandle()
     const {
@@ -39,4 +40,5 @@ Props::Shared UnimplementedViewComponentDescriptor::cloneProps(
   return unimplementedViewProps;
 };
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

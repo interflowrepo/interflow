@@ -7,8 +7,10 @@
 
 #include "UnimplementedViewShadowNode.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 const char UnimplementedViewComponentName[] = "UnimplementedView";
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

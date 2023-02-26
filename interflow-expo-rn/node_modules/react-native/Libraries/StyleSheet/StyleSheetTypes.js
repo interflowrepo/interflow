@@ -10,18 +10,12 @@
 
 'use strict';
 
-import type AnimatedNode from '../Animated/nodes/AnimatedNode';
+const AnimatedNode = require('../Animated/nodes/AnimatedNode');
+
 import type {NativeColorValue} from './PlatformColorValueTypes';
-import type {
-  ____DangerouslyImpreciseStyle_InternalOverrides,
-  ____ImageStyle_InternalOverrides,
-  ____ShadowStyle_InternalOverrides,
-  ____TextStyle_InternalOverrides,
-  ____ViewStyle_InternalOverrides,
-} from './private/_StyleSheetTypesOverrides';
-import type {____TransformStyle_Internal} from './private/_TransformStyle';
 
 export type ____ColorValue_Internal = null | string | number | NativeColorValue;
+
 export type ColorArrayValue = null | $ReadOnlyArray<____ColorValue_Internal>;
 export type PointValue = {
   x: number,
@@ -34,6 +28,16 @@ export type EdgeInsetsValue = {
   bottom: number,
 };
 export type DimensionValue = null | number | string | AnimatedNode;
+
+import type {
+  ____DangerouslyImpreciseStyle_InternalOverrides,
+  ____ImageStyle_InternalOverrides,
+  ____ShadowStyle_InternalOverrides,
+  ____TextStyle_InternalOverrides,
+  ____ViewStyle_InternalOverrides,
+} from './private/_StyleSheetTypesOverrides';
+
+import type {____TransformStyle_Internal} from './private/_TransformStyle';
 
 /**
  * React Native's layout system is based on Flexbox and is powered both
@@ -442,7 +446,8 @@ type ____LayoutStyle_Internal = $ReadOnly<{
   flexBasis?: number | string,
 
   /**
-   * Aspect ratio control the size of the undefined dimension of a node.
+   * Aspect ratio control the size of the undefined dimension of a node. Aspect ratio is a
+   * non-standard property only available in react native and not CSS.
    *
    * - On a node with a set width/height aspect ratio control the size of the unset dimension
    * - On a node with a set flex basis aspect ratio controls the size of the node in the cross axis
@@ -452,13 +457,8 @@ type ____LayoutStyle_Internal = $ReadOnly<{
    * - On a node with flex grow/shrink aspect ratio controls the size of the node in the cross axis
    *   if unset
    * - Aspect ratio takes min/max dimensions into account
-   *
-   * Supports a number or a ratio, e.g.:
-   * - aspectRatio: '1 / 1'
-   * - aspectRatio: '1'
-   * - aspectRatio: '1'
    */
-  aspectRatio?: number | string,
+  aspectRatio?: number,
 
   /** `zIndex` controls which components display on top of others.
    *  Normally, you don't use `zIndex`. Components render according to
@@ -518,19 +518,6 @@ export type ____ShadowStyle_InternalCore = $ReadOnly<{
    * @platform ios
    */
   shadowRadius?: number,
-
-  /**
-   * In React Native, gap works the same way it does in CSS.
-   * If there are two or more children in a container, they will be separated from each other
-   * by the value of the gap - but the children will not be separated from the edges of their parent container.
-   * For horizontal gaps, use columnGap, for vertical gaps, use rowGap, and to apply both at the same time, it's gap.
-   * When align-content or justify-content are set to space-between or space-around, the separation
-   * between children may be larger than the gap value.
-   * See https://developer.mozilla.org/en-US/docs/Web/CSS/gap for more details.
-   */
-  rowGap?: number,
-  columnGap?: number,
-  gap?: number,
 }>;
 
 export type ____ShadowStyle_Internal = $ReadOnly<{
@@ -545,7 +532,6 @@ export type ____ViewStyle_InternalCore = $ReadOnly<{
   backfaceVisibility?: 'visible' | 'hidden',
   backgroundColor?: ____ColorValue_Internal,
   borderColor?: ____ColorValue_Internal,
-  borderCurve?: 'circular' | 'continuous',
   borderBottomColor?: ____ColorValue_Internal,
   borderEndColor?: ____ColorValue_Internal,
   borderLeftColor?: ____ColorValue_Internal,
@@ -571,30 +557,12 @@ export type ____ViewStyle_InternalCore = $ReadOnly<{
   borderTopWidth?: number | AnimatedNode,
   opacity?: number | AnimatedNode,
   elevation?: number,
-  pointerEvents?: 'auto' | 'none' | 'box-none' | 'box-only',
 }>;
 
 export type ____ViewStyle_Internal = $ReadOnly<{
   ...____ViewStyle_InternalCore,
   ...____ViewStyle_InternalOverrides,
 }>;
-
-export type FontStyleType = {
-  fontFamily: string,
-  fontWeight: ____FontWeight_Internal,
-};
-
-export type FontStyleMap = {
-  ultraLight: FontStyleType,
-  thin: FontStyleType,
-  light: FontStyleType,
-  regular: FontStyleType,
-  medium: FontStyleType,
-  semibold: FontStyleType,
-  bold: FontStyleType,
-  heavy: FontStyleType,
-  black: FontStyleType,
-};
 
 export type ____FontWeight_Internal =
   | 'normal'
@@ -607,54 +575,7 @@ export type ____FontWeight_Internal =
   | '600'
   | '700'
   | '800'
-  | '900'
-  | 100
-  | 200
-  | 300
-  | 400
-  | 500
-  | 600
-  | 700
-  | 800
-  | 900
-  | 'ultralight'
-  | 'thin'
-  | 'light'
-  | 'medium'
-  | 'regular'
-  | 'semibold'
-  | 'condensedBold'
-  | 'condensed'
-  | 'heavy'
-  | 'black';
-
-export type ____FontVariantArray_Internal = $ReadOnlyArray<
-  | 'small-caps'
-  | 'oldstyle-nums'
-  | 'lining-nums'
-  | 'tabular-nums'
-  | 'proportional-nums'
-  | 'stylistic-one'
-  | 'stylistic-two'
-  | 'stylistic-three'
-  | 'stylistic-four'
-  | 'stylistic-five'
-  | 'stylistic-six'
-  | 'stylistic-seven'
-  | 'stylistic-eight'
-  | 'stylistic-nine'
-  | 'stylistic-ten'
-  | 'stylistic-eleven'
-  | 'stylistic-twelve'
-  | 'stylistic-thirteen'
-  | 'stylistic-fourteen'
-  | 'stylistic-fifteen'
-  | 'stylistic-sixteen'
-  | 'stylistic-seventeen'
-  | 'stylistic-eighteen'
-  | 'stylistic-nineteen'
-  | 'stylistic-twenty',
->;
+  | '900';
 
 export type ____TextStyle_InternalCore = $ReadOnly<{
   ...$Exact<____ViewStyle_Internal>,
@@ -663,7 +584,13 @@ export type ____TextStyle_InternalCore = $ReadOnly<{
   fontSize?: number,
   fontStyle?: 'normal' | 'italic',
   fontWeight?: ____FontWeight_Internal,
-  fontVariant?: ____FontVariantArray_Internal | string,
+  fontVariant?: $ReadOnlyArray<
+    | 'small-caps'
+    | 'oldstyle-nums'
+    | 'lining-nums'
+    | 'tabular-nums'
+    | 'proportional-nums',
+  >,
   textShadowOffset?: $ReadOnly<{
     width: number,
     height: number,
@@ -683,8 +610,6 @@ export type ____TextStyle_InternalCore = $ReadOnly<{
   textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed',
   textDecorationColor?: ____ColorValue_Internal,
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
-  userSelect?: 'auto' | 'text' | 'none' | 'contain' | 'all',
-  verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle',
   writingDirection?: 'auto' | 'ltr' | 'rtl',
 }>;
 
@@ -696,7 +621,6 @@ export type ____TextStyle_Internal = $ReadOnly<{
 export type ____ImageStyle_InternalCore = $ReadOnly<{
   ...$Exact<____ViewStyle_Internal>,
   resizeMode?: 'contain' | 'cover' | 'stretch' | 'center' | 'repeat',
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down',
   tintColor?: ____ColorValue_Internal,
   overlayColor?: string,
 }>;
@@ -709,7 +633,6 @@ export type ____ImageStyle_Internal = $ReadOnly<{
 export type ____DangerouslyImpreciseStyle_InternalCore = $ReadOnly<{
   ...$Exact<____TextStyle_Internal>,
   resizeMode?: 'contain' | 'cover' | 'stretch' | 'center' | 'repeat',
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down',
   tintColor?: ____ColorValue_Internal,
   overlayColor?: string,
 }>;

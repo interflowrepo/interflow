@@ -7,24 +7,6 @@
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.internal.jvm.Jvm
-import org.gradle.internal.logging.text.StyledTextOutput
-import org.gradle.internal.logging.text.StyledTextOutputFactory
-import org.gradle.internal.logging.text.StyledTextOutput.Style
-
-def out = services.get(StyledTextOutputFactory).create("ouput")
-out.style(Style.Info)
-    .text('##############################')
-    .text('\n\n')
-    .text('Using react.gradle in your project is deprecated! You should move to "apply plugin: com.facebook.react"')
-    .text('\n')
-    .text('react.gradle is going to be removed in a future React Native project and your project will not build anymore.')
-    .text('\n')
-    .text('You can use the template as a reference:')
-    .text('\n')
-    .text('https://github.com/facebook/react-native/blob/main/template/android/app/build.gradle')
-    .text('\n\n')
-    .text('##############################')
-    .println('')
 
 def config = project.hasProperty("react") ? project.react : [:];
 
@@ -71,7 +53,7 @@ def detectCliPath(config, reactRoot) {
     }
 
     // 2. node module path
-    def cliJsFromNode = new File(["node", "--print", "require.resolve('react-native/cli')"].execute(null, rootDir).text.trim())
+    def cliJsFromNode = new File(["node", "--print", "require.resolve('react-native/cli').bin"].execute(null, rootDir).text.trim())
     if (cliJsFromNode.exists()) {
         return cliJsFromNode.getAbsolutePath()
     }
@@ -405,7 +387,7 @@ afterEvaluate {
                     into ("merged_assets/${variant.name}/out")
 
                     // Workaround for Android Gradle Plugin 7.1 asset directory
-                    into("$buildDir/intermediates/assets/${variant.name}")
+                    into("$buildDir/intermediates/assets/${variant.name}/merge${targetName}Assets")
                 }
             }
 
@@ -442,11 +424,11 @@ afterEvaluate {
 
                     if (cleanup) {
                         // Reduce size by deleting the debugger/inspector
-                        include '**/libhermes_executor_debug.so'
+                        include '**/libhermes-executor-debug.so'
                     } else {
                         // Release libs take precedence and must be removed
                         // to allow debugging
-                        include '**/libhermes_executor_release.so'
+                        include '**/libhermes-executor-release.so'
                     }
                 } else {
                     // For JSC, delete all the libhermes* files
@@ -481,6 +463,20 @@ afterEvaluate {
                 def mergedLibDir = "$buildDir/intermediates/merged_native_libs/${variant.name}/out/lib/"
                 mTask.doLast { vmSelectionAction(mergedLibDir) }
             }
+        }
+    }
+}
+
+// Patch needed for https://github.com/facebook/react-native/issues/35210
+// This is a patch to short-circuit the "+" dependencies inside the
+// users' app/build.gradle file and the various .gradle files of libraries.
+// As using plain "+" dependencies causes Gradle to always download the latest,
+// this logic forces Gradle to use latest release in the minor series.
+project.rootProject.allprojects {
+    configurations.all {
+        resolutionStrategy {
+            force "com.facebook.react:react-native:0.70.+"
+            force "com.facebook.react:hermes-engine:0.70.+"
         }
     }
 }

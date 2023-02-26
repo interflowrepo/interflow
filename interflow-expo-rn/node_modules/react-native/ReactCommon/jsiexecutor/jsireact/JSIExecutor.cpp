@@ -121,6 +121,7 @@ void JSIExecutor::initializeRuntime() {
               const jsi::Value *args,
               size_t count) { return nativeCallSyncHook(args, count); }));
 
+#if DEBUG
   runtime_->global().setProperty(
       *runtime_,
       "globalEvalWithSourceUrl",
@@ -133,6 +134,7 @@ void JSIExecutor::initializeRuntime() {
               const jsi::Value &,
               const jsi::Value *args,
               size_t count) { return globalEvalWithSourceUrl(args, count); }));
+#endif
 
   if (runtimeInstaller_) {
     runtimeInstaller_(*runtime_);
@@ -173,7 +175,7 @@ void JSIExecutor::setBundleRegistry(std::unique_ptr<RAMBundleRegistry> r) {
             PropNameID::forAscii(*runtime_, "nativeRequire"),
             2,
             [this](
-                [[maybe_unused]] Runtime &rt,
+                __unused Runtime &rt,
                 const facebook::jsi::Value &,
                 const facebook::jsi::Value *args,
                 size_t count) { return nativeRequire(args, count); }));
@@ -524,6 +526,7 @@ Value JSIExecutor::nativeCallSyncHook(const Value *args, size_t count) {
   return returnValue;
 }
 
+#if DEBUG
 Value JSIExecutor::globalEvalWithSourceUrl(const Value *args, size_t count) {
   if (count != 1 && count != 2) {
     throw std::invalid_argument(
@@ -539,6 +542,7 @@ Value JSIExecutor::globalEvalWithSourceUrl(const Value *args, size_t count) {
   return runtime_->evaluateJavaScript(
       std::make_unique<StringBuffer>(std::move(code)), url);
 }
+#endif
 
 void bindNativeLogger(Runtime &runtime, Logger logger) {
   runtime.global().setProperty(

@@ -11,12 +11,12 @@
 
 #include <react/renderer/components/view/conversions.h>
 #include <react/renderer/components/view/propsConversions.h>
-#include <react/renderer/core/CoreFeatures.h>
 #include <react/renderer/core/propsConversions.h>
 #include <react/renderer/debug/debugStringConvertibleUtils.h>
 #include <react/renderer/graphics/conversions.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 ViewProps::ViewProps(
     const PropsParserContext &context,
@@ -26,173 +26,158 @@ ViewProps::ViewProps(
     : YogaStylableProps(context, sourceProps, rawProps, shouldSetRawProps),
       AccessibilityProps(context, sourceProps, rawProps),
       opacity(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.opacity
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "opacity",
-                                                       sourceProps.opacity,
-                                                       (Float)1.0)),
+          Props::enablePropIteratorSetter ? sourceProps.opacity
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "opacity",
+                                                sourceProps.opacity,
+                                                (Float)1.0)),
       foregroundColor(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.foregroundColor
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "foregroundColor",
-                    sourceProps.foregroundColor,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.foregroundColor
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "foregroundColor",
+                                                sourceProps.foregroundColor,
+                                                {})),
       backgroundColor(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.backgroundColor
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "backgroundColor",
-                    sourceProps.backgroundColor,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.backgroundColor
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "backgroundColor",
+                                                sourceProps.backgroundColor,
+                                                {})),
       borderRadii(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.borderRadii
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "border",
-                                                       "Radius",
-                                                       sourceProps.borderRadii,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.borderRadii
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "border",
+                                                "Radius",
+                                                sourceProps.borderRadii,
+                                                {})),
       borderColors(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.borderColors
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "border",
-                                                       "Color",
-                                                       sourceProps.borderColors,
-                                                       {})),
-      borderCurves(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.borderCurves
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "border",
-                                                       "Curve",
-                                                       sourceProps.borderCurves,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.borderColors
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "border",
+                                                "Color",
+                                                sourceProps.borderColors,
+                                                {})),
       borderStyles(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.borderStyles
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "border",
-                                                       "Style",
-                                                       sourceProps.borderStyles,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.borderStyles
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "border",
+                                                "Style",
+                                                sourceProps.borderStyles,
+                                                {})),
       shadowColor(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.shadowColor
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "shadowColor",
-                                                       sourceProps.shadowColor,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.shadowColor
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "shadowColor",
+                                                sourceProps.shadowColor,
+                                                {})),
       shadowOffset(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.shadowOffset
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "shadowOffset",
-                                                       sourceProps.shadowOffset,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.shadowOffset
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "shadowOffset",
+                                                sourceProps.shadowOffset,
+                                                {})),
       shadowOpacity(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.shadowOpacity
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "shadowOpacity",
-                    sourceProps.shadowOpacity,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.shadowOpacity
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "shadowOpacity",
+                                                sourceProps.shadowOpacity,
+                                                {})),
       shadowRadius(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.shadowRadius
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "shadowRadius",
-                                                       sourceProps.shadowRadius,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.shadowRadius
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "shadowRadius",
+                                                sourceProps.shadowRadius,
+                                                {})),
       transform(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.transform
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "transform",
-                                                       sourceProps.transform,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.transform
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "transform",
+                                                sourceProps.transform,
+                                                {})),
       backfaceVisibility(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.backfaceVisibility
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "backfaceVisibility",
-                    sourceProps.backfaceVisibility,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.backfaceVisibility
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "backfaceVisibility",
+                                                sourceProps.backfaceVisibility,
+                                                {})),
       shouldRasterize(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.shouldRasterize
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "shouldRasterize",
-                    sourceProps.shouldRasterize,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.shouldRasterize
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "shouldRasterize",
+                                                sourceProps.shouldRasterize,
+                                                {})),
       zIndex(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.zIndex
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "zIndex",
-                                                       sourceProps.zIndex,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.zIndex
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "zIndex",
+                                                sourceProps.zIndex,
+                                                {})),
       pointerEvents(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.pointerEvents
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "pointerEvents",
-                    sourceProps.pointerEvents,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.pointerEvents
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "pointerEvents",
+                                                sourceProps.pointerEvents,
+                                                {})),
       hitSlop(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.hitSlop
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "hitSlop",
-                                                       sourceProps.hitSlop,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.hitSlop
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "hitSlop",
+                                                sourceProps.hitSlop,
+                                                {})),
       onLayout(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.onLayout
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "onLayout",
-                                                       sourceProps.onLayout,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.onLayout
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "onLayout",
+                                                sourceProps.onLayout,
+                                                {})),
       events(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.events
               : convertRawProp(context, rawProps, sourceProps.events, {})),
       collapsable(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.collapsable
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "collapsable",
-                                                       sourceProps.collapsable,
-                                                       true)),
+          Props::enablePropIteratorSetter ? sourceProps.collapsable
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "collapsable",
+                                                sourceProps.collapsable,
+                                                true)),
       removeClippedSubviews(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.removeClippedSubviews
               : convertRawProp(
                     context,
@@ -203,50 +188,47 @@ ViewProps::ViewProps(
 #ifdef ANDROID
       ,
       elevation(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.elevation
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "elevation",
-                                                       sourceProps.elevation,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.elevation
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "elevation",
+                                                sourceProps.elevation,
+                                                {})),
       nativeBackground(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.nativeBackground
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "nativeBackgroundAndroid",
-                    sourceProps.nativeBackground,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.nativeBackground
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "nativeBackgroundAndroid",
+                                                sourceProps.nativeBackground,
+                                                {})),
       nativeForeground(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.nativeForeground
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "nativeForegroundAndroid",
-                    sourceProps.nativeForeground,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.nativeForeground
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "nativeForegroundAndroid",
+                                                sourceProps.nativeForeground,
+                                                {})),
       focusable(
-          CoreFeatures::enablePropIteratorSetter ? sourceProps.focusable
-                                                 : convertRawProp(
-                                                       context,
-                                                       rawProps,
-                                                       "focusable",
-                                                       sourceProps.focusable,
-                                                       {})),
+          Props::enablePropIteratorSetter ? sourceProps.focusable
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "focusable",
+                                                sourceProps.focusable,
+                                                {})),
       hasTVPreferredFocus(
-          CoreFeatures::enablePropIteratorSetter
-              ? sourceProps.hasTVPreferredFocus
-              : convertRawProp(
-                    context,
-                    rawProps,
-                    "hasTVPreferredFocus",
-                    sourceProps.hasTVPreferredFocus,
-                    {})),
+          Props::enablePropIteratorSetter ? sourceProps.hasTVPreferredFocus
+                                          : convertRawProp(
+                                                context,
+                                                rawProps,
+                                                "hasTVPreferredFocus",
+                                                sourceProps.hasTVPreferredFocus,
+                                                {})),
       needsOffscreenAlphaCompositing(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.needsOffscreenAlphaCompositing
               : convertRawProp(
                     context,
@@ -255,7 +237,7 @@ ViewProps::ViewProps(
                     sourceProps.needsOffscreenAlphaCompositing,
                     {})),
       renderToHardwareTextureAndroid(
-          CoreFeatures::enablePropIteratorSetter
+          Props::enablePropIteratorSetter
               ? sourceProps.renderToHardwareTextureAndroid
               : convertRawProp(
                     context,
@@ -270,11 +252,13 @@ ViewProps::ViewProps(
 #define VIEW_EVENT_CASE(eventType, eventString)     \
   case CONSTEXPR_RAW_PROPS_KEY_HASH(eventString): { \
     ViewEvents defaultViewEvents{};                 \
-    bool res = defaultViewEvents[eventType];        \
-    if (value.hasValue()) {                         \
-      fromRawValue(context, value, res);            \
-    }                                               \
-    events[eventType] = res;                        \
+    events[eventType] = ({                          \
+      bool res = defaultViewEvents[eventType];      \
+      if (value.hasValue()) {                       \
+        fromRawValue(context, value, res);          \
+      }                                             \
+      res;                                          \
+    });                                             \
     return;                                         \
   }
 
@@ -428,7 +412,6 @@ BorderMetrics ViewProps::resolveBorderMetrics(
       /* .borderWidths = */ borderWidths.resolve(isRTL, 0),
       /* .borderRadii = */
       ensureNoOverlap(borderRadii.resolve(isRTL, 0), layoutMetrics.frame.size),
-      /* .borderCurves = */ borderCurves.resolve(isRTL, BorderCurve::Circular),
       /* .borderStyles = */ borderStyles.resolve(isRTL, BorderStyle::Solid),
   };
 }
@@ -468,4 +451,5 @@ SharedDebugStringConvertibleList ViewProps::getDebugProps() const {
 }
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

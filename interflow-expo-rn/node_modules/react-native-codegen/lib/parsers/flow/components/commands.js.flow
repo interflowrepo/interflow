@@ -14,7 +14,7 @@ import type {
   NamedShape,
   CommandTypeAnnotation,
 } from '../../../CodegenSchema.js';
-import type {TypeDeclarationMap} from '../../utils';
+import type {TypeDeclarationMap} from '../utils.js';
 
 const {getValueFromTypes} = require('../utils.js');
 

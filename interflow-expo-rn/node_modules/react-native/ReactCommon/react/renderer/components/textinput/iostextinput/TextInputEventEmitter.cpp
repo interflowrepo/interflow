@@ -7,7 +7,8 @@
 
 #include "TextInputEventEmitter.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static jsi::Value textInputMetricsPayload(
     jsi::Runtime &runtime,
@@ -137,4 +138,5 @@ void TextInputEventEmitter::dispatchTextInputEvent(
       priority);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

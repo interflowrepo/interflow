@@ -7,7 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import <React/RCTBorderCurve.h>
 #import <React/RCTBorderStyle.h>
 #import <React/RCTComponent.h>
 #import <React/RCTPointerEvents.h>
@@ -93,11 +92,6 @@ extern const UIAccessibilityTraits SwitchAccessibilityTrait;
 @property (nonatomic, assign) CGFloat borderStartWidth;
 @property (nonatomic, assign) CGFloat borderEndWidth;
 @property (nonatomic, assign) CGFloat borderWidth;
-
-/**
- * Border curve.
- */
-@property (nonatomic, assign) RCTBorderCurve borderCurve;
 
 /**
  * Border styles.

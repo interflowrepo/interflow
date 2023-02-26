@@ -93,6 +93,14 @@ public class SurfaceMountingManager {
   // This is null *until* StopSurface is called.
   private Set<Integer> mTagSetForStoppedSurface;
 
+  // C++ layer checks for prop revision and doesn't
+  // dispatch createView mount item if view pre-allocation mount item was dispatched.
+  // This leads to missing createView and pre-mature deletion of ViewState.
+  // To work around this issue, ViewState deletion is delayed until subsequent commit.
+  // If the subsequent commit accesses ViewState, it won't be deleted.
+  private Set<Integer> mSoftDeletedViewStateTags;
+  private Set<Integer> mScheduledForDeletionViewStateTags;
+
   private final int mSurfaceId;
 
   public SurfaceMountingManager(
@@ -109,6 +117,11 @@ public class SurfaceMountingManager {
     mRootViewManager = rootViewManager;
     mMountItemExecutor = mountItemExecutor;
     mThemedReactContext = reactContext;
+
+    if (ReactFeatureFlags.enableDelayedViewStateDeletion) {
+      mSoftDeletedViewStateTags = new HashSet();
+      mScheduledForDeletionViewStateTags = new HashSet();
+    }
   }
 
   public boolean isStopped() {
@@ -283,9 +296,11 @@ public class SurfaceMountingManager {
         viewState.mStateWrapper.destroyState();
         viewState.mStateWrapper = null;
       }
-      if (viewState.mEventEmitter != null) {
-        viewState.mEventEmitter.destroy();
-        viewState.mEventEmitter = null;
+      if (ReactFeatureFlags.enableAggressiveEventEmitterCleanup) {
+        if (viewState.mEventEmitter != null) {
+          viewState.mEventEmitter.destroy();
+          viewState.mEventEmitter = null;
+        }
       }
     }
 
@@ -952,8 +967,7 @@ public class SurfaceMountingManager {
   }
 
   @UiThread
-  public void updateLayout(
-      int reactTag, int parentTag, int x, int y, int width, int height, int displayType) {
+  public void updateLayout(int reactTag, int x, int y, int width, int height, int displayType) {
     if (isStopped()) {
       return;
     }
@@ -978,14 +992,9 @@ public class SurfaceMountingManager {
       parent.requestLayout();
     }
 
-    ViewState parentViewState = getViewState(parentTag);
-    ViewGroupManager<?> parentViewManager = null;
-    if (parentViewState.mViewManager != null) {
-      parentViewManager = parentViewState.mViewManager.getViewGroupManager();
-    }
-    if (parentViewManager == null || !parentViewManager.needsCustomLayoutForChildren()) {
-      viewToUpdate.layout(x, y, x + width, y + height);
-    }
+    // TODO: T31905686 Check if the parent of the view has to layout the view, or the child has
+    // to lay itself out. see NativeViewHierarchyManager.updateLayout
+    viewToUpdate.layout(x, y, x + width, y + height);
 
     // displayType: 0 represents display: 'none'
     int visibility = displayType == 0 ? View.INVISIBLE : View.VISIBLE;
@@ -1174,6 +1183,23 @@ public class SurfaceMountingManager {
   }
 
   @UiThread
+  public void didUpdateViews() {
+    if (ReactFeatureFlags.enableDelayedViewStateDeletion) {
+      for (Integer reactTag : mScheduledForDeletionViewStateTags) {
+        // To delete we simply remove the tag from the registry.
+        // We want to rely on the correct set of MountInstructions being sent to the platform,
+        // or StopSurface being called, so we do not handle deleting descendents of the View.
+        ViewState viewState = mTagToViewState.remove(reactTag);
+        if (viewState != null) {
+          onViewStateDeleted(viewState);
+        }
+      }
+      mScheduledForDeletionViewStateTags = mSoftDeletedViewStateTags;
+      mSoftDeletedViewStateTags = new HashSet();
+    }
+  }
+
+  @UiThread
   public void deleteView(int reactTag) {
     UiThreadUtil.assertOnUiThread();
     if (isStopped()) {
@@ -1190,12 +1216,16 @@ public class SurfaceMountingManager {
       return;
     }
 
-    // To delete we simply remove the tag from the registry.
-    // We want to rely on the correct set of MountInstructions being sent to the platform,
-    // or StopSurface being called, so we do not handle deleting descendents of the View.
-    mTagToViewState.remove(reactTag);
+    if (ReactFeatureFlags.enableDelayedViewStateDeletion) {
+      mSoftDeletedViewStateTags.add(reactTag);
+    } else {
+      // To delete we simply remove the tag from the registry.
+      // We want to rely on the correct set of MountInstructions being sent to the platform,
+      // or StopSurface being called, so we do not handle deleting descendents of the View.
+      mTagToViewState.remove(reactTag);
 
-    onViewStateDeleted(viewState);
+      onViewStateDeleted(viewState);
+    }
   }
 
   @UiThread
@@ -1245,6 +1275,9 @@ public class SurfaceMountingManager {
       throw new RetryableMountingLayerException(
           "Unable to find viewState for tag " + tag + ". Surface stopped: " + isStopped());
     }
+    if (ReactFeatureFlags.enableDelayedViewStateDeletion) {
+      mScheduledForDeletionViewStateTags.remove(tag);
+    }
     return viewState;
   }
 
@@ -1252,6 +1285,9 @@ public class SurfaceMountingManager {
     ConcurrentHashMap<Integer, ViewState> viewStates = mTagToViewState;
     if (viewStates == null) {
       return null;
+    }
+    if (ReactFeatureFlags.enableDelayedViewStateDeletion) {
+      mScheduledForDeletionViewStateTags.remove(tag);
     }
     return viewStates.get(tag);
   }

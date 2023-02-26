@@ -86,9 +86,7 @@ RCT_EXPORT_MODULE()
   }];
 
   if (text) {
-    // We copy the string here because if it's a mutable string it may get released before we dispatch the event on a
-    // different thread, causing a crash.
-    body[@"text"] = [text copy];
+    body[@"text"] = text;
   }
 
   if (key) {
@@ -105,9 +103,7 @@ RCT_EXPORT_MODULE()
           break;
       }
     }
-    // We copy the string here because if it's a mutable string it may get released before we dispatch the event on a
-    // different thread, causing a crash.
-    body[@"key"] = [key copy];
+    body[@"key"] = key;
   }
 
   RCTComponentEvent *event = [[RCTComponentEvent alloc] initWithName:events[type] viewTag:reactTag body:body];

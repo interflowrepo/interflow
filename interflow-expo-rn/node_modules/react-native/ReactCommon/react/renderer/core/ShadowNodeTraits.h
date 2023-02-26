@@ -59,47 +59,42 @@ class ShadowNodeTraits {
     // Yoga styles in the constructor (or later) *after* the `ShadowNode`
     // is cloned must set this trait.
     // Any Yoga node (not only Leaf ones) can have this trait.
-    DirtyYogaNode = 1 << 7,
+    DirtyYogaNode = 1 << 9,
 
     // Inherits `YogaLayoutableShadowNode` and enforces that the `YGNode` is a
     // leaf.
-    LeafYogaNode = 1 << 8,
+    LeafYogaNode = 1 << 10,
 
     // Inherits `YogaLayoutableShadowNode` and has a custom measure function.
     // Only Leaf nodes can have this trait.
-    MeasurableYogaNode = 1 << 9,
+    MeasurableYogaNode = 1 << 11,
 
     // Indicates that the `ShadowNode` must form a stacking context.
     // A Stacking Context forms a level of a `ShadowView` hierarchy (in contrast
     // with a level of a `ShadowNode` hierarchy).
     // See W3C standard for more details: https://www.w3.org/TR/CSS2/zindex.html
-    FormsStackingContext = 1 << 10,
+    FormsStackingContext = 1 << 13,
 
     // Indicates that the node must form a `ShadowView`.
-    FormsView = 1 << 11,
+    FormsView = 1 << 14,
 
     // Internal to `ShadowNode`; do not use it outside.
     // Indicates that `children` list is shared between nodes and need
     // to be cloned before the first mutation.
-    ChildrenAreShared = 1 << 12,
+    ChildrenAreShared = 1 << 15,
 
     // Inherits 'RawTextShadowNode'
-    RawText = 1 << 13,
+    RawText = 1 << 16,
 
     // Inherits 'TextShadowNode'
-    Text = 1 << 14,
-
-    // Temporary (?) to indicate MapBuffer support on Android
-    AndroidMapBufferPropsSupported = 1 << 15,
+    Text = 1 << 17,
 
     // Reserved
-    ReservedTrait0 = 1 << 16,
-    ReservedTrait1 = 1 << 17,
-    ReservedTrait2 = 1 << 18,
-    ReservedTrait3 = 1 << 19,
-    ReservedTrait4 = 1 << 20,
-    ReservedTrait5 = 1 << 21,
-    ReservedTrait6 = 1 << 22,
+    ReservedTrait1 = 1 << 18,
+    ReservedTrait2 = 1 << 19,
+    ReservedTrait3 = 1 << 20,
+    ReservedTrait4 = 1 << 21,
+    ReservedTrait5 = 1 << 22,
 
     // Unserved - alias these for local usage
     UnreservedTrait1 = 1 << 23

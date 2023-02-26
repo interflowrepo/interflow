@@ -93,12 +93,12 @@ static TextInputTraits convertRawProp(
       "secureTextEntry",
       sourceTraits.secureTextEntry,
       defaultTraits.secureTextEntry);
-  traits.submitBehavior = convertRawProp(
+  traits.blurOnSubmit = convertRawProp(
       context,
       rawProps,
-      "submitBehavior",
-      sourceTraits.submitBehavior,
-      defaultTraits.submitBehavior);
+      "blurOnSubmit",
+      sourceTraits.blurOnSubmit,
+      defaultTraits.blurOnSubmit);
   traits.clearTextOnFocus = convertRawProp(
       context,
       rawProps,

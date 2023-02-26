@@ -17,16 +17,16 @@ const RNCodegen = utils.getCodegen();
 
 const GENERATORS = {
   all: {
-    android: ['componentsAndroid', 'modulesAndroid', 'modulesCxx'],
-    ios: ['componentsIOS', 'modulesIOS', 'modulesCxx'],
+    android: ['componentsAndroid', 'modulesAndroid'],
+    ios: ['componentsIOS', 'modulesIOS'],
   },
   components: {
     android: ['componentsAndroid'],
     ios: ['componentsIOS'],
   },
   modules: {
-    android: ['modulesAndroid', 'modulesCxx'],
-    ios: ['modulesIOS', 'modulesCxx'],
+    android: ['modulesAndroid'],
+    ios: ['modulesIOS'],
   },
 };
 

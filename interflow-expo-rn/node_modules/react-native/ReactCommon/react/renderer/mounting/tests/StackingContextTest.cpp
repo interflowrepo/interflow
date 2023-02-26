@@ -21,7 +21,8 @@
 #include <react/renderer/mounting/ShadowViewMutation.h>
 #include <react/renderer/mounting/stubs.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 class StackingContextTest : public ::testing::Test {
  protected:
@@ -782,4 +783,5 @@ TEST_F(StackingContextTest, zIndexAndFlattenedNodes) {
   });
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

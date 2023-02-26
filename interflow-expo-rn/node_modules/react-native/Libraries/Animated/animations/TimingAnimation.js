@@ -10,16 +10,18 @@
 
 'use strict';
 
-import type {PlatformConfig} from '../AnimatedPlatformConfig';
-import type {RgbaValue} from '../nodes/AnimatedColor';
-import type AnimatedInterpolation from '../nodes/AnimatedInterpolation';
-import type AnimatedValue from '../nodes/AnimatedValue';
-import type AnimatedValueXY from '../nodes/AnimatedValueXY';
-import type {AnimationConfig, EndCallback} from './Animation';
+const AnimatedValue = require('../nodes/AnimatedValue');
+const AnimatedValueXY = require('../nodes/AnimatedValueXY');
+const AnimatedInterpolation = require('../nodes/AnimatedInterpolation');
+const Animation = require('./Animation');
 
-import NativeAnimatedHelper from '../NativeAnimatedHelper';
+const {shouldUseNativeDriver} = require('../NativeAnimatedHelper');
+
+import type {PlatformConfig} from '../AnimatedPlatformConfig';
+import type {AnimationConfig, EndCallback} from './Animation';
+import type {RgbaValue} from '../nodes/AnimatedColor';
+
 import AnimatedColor from '../nodes/AnimatedColor';
-import Animation from './Animation';
 
 export type TimingAnimationConfig = $ReadOnly<{
   ...AnimationConfig,
@@ -51,13 +53,13 @@ export type TimingAnimationConfigSingle = $ReadOnly<{
 let _easeInOut;
 function easeInOut() {
   if (!_easeInOut) {
-    const Easing = require('../Easing').default;
+    const Easing = require('../Easing');
     _easeInOut = Easing.inOut(Easing.ease);
   }
   return _easeInOut;
 }
 
-export default class TimingAnimation extends Animation {
+class TimingAnimation extends Animation {
   _startTime: number;
   _fromValue: number;
   _toValue: number;
@@ -77,7 +79,7 @@ export default class TimingAnimation extends Animation {
     this._duration = config.duration ?? 500;
     this._delay = config.delay ?? 0;
     this.__iterations = config.iterations ?? 1;
-    this._useNativeDriver = NativeAnimatedHelper.shouldUseNativeDriver(config);
+    this._useNativeDriver = shouldUseNativeDriver(config);
     this._platformConfig = config.platformConfig;
     this.__isInteraction = config.isInteraction ?? !this._useNativeDriver;
   }
@@ -170,3 +172,5 @@ export default class TimingAnimation extends Animation {
     this.__debouncedOnEnd({finished: false});
   }
 }
+
+module.exports = TimingAnimation;

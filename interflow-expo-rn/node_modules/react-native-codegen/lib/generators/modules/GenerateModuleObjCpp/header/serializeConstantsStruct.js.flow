@@ -17,7 +17,7 @@ import type {Nullable} from '../../../../CodegenSchema';
 import type {StructTypeAnnotation, ConstantsStruct} from '../StructCollector';
 import type {StructSerilizationOutput} from './serializeStruct';
 
-const {unwrapNullable} = require('../../../../parsers/parsers-commons');
+const {unwrapNullable} = require('../../../../parsers/flow/modules/utils');
 
 const StructTemplate = ({
   hasteModuleName,
@@ -104,17 +104,6 @@ function toObjCType(
       return wrapOptional('double');
     case 'BooleanTypeAnnotation':
       return wrapOptional('bool');
-    case 'EnumDeclaration':
-      switch (typeAnnotation.memberType) {
-        case 'NumberTypeAnnotation':
-          return wrapOptional('double');
-        case 'StringTypeAnnotation':
-          return 'NSString *';
-        default:
-          throw new Error(
-            `Couldn't convert enum into ObjC type: ${typeAnnotation.type}"`,
-          );
-      }
     case 'GenericObjectTypeAnnotation':
       return isRequired ? 'id<NSObject> ' : 'id<NSObject> _Nullable ';
     case 'ArrayTypeAnnotation':
@@ -182,17 +171,6 @@ function toObjCValue(
       return wrapPrimitive('double');
     case 'BooleanTypeAnnotation':
       return wrapPrimitive('BOOL');
-    case 'EnumDeclaration':
-      switch (typeAnnotation.memberType) {
-        case 'NumberTypeAnnotation':
-          return wrapPrimitive('double');
-        case 'StringTypeAnnotation':
-          return value;
-        default:
-          throw new Error(
-            `Couldn't convert enum into ObjC value: ${typeAnnotation.type}"`,
-          );
-      }
     case 'GenericObjectTypeAnnotation':
       return value;
     case 'ArrayTypeAnnotation':

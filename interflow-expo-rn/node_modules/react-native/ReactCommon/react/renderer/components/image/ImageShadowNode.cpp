@@ -12,7 +12,8 @@
 #include <react/renderer/core/LayoutContext.h>
 #include "ImageState.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 const char ImageComponentName[] = "Image";
 
@@ -93,4 +94,5 @@ void ImageShadowNode::layout(LayoutContext layoutContext) {
   ConcreteViewShadowNode::layout(layoutContext);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

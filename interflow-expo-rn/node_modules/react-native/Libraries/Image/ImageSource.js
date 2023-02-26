@@ -11,6 +11,8 @@
 'use strict';
 
 /**
+ * Keep this in sync with `DeprecatedImageSourcePropType.js`.
+ *
  * This type is intentionally inexact in order to permit call sites that supply
  * extra properties.
  */

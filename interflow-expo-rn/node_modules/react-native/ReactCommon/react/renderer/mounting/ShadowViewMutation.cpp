@@ -9,7 +9,8 @@
 
 #include <utility>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 /**
  * Initialize static feature flags for this module.
@@ -83,11 +84,10 @@ ShadowViewMutation ShadowViewMutation::RemoveDeleteTreeMutation(
 
 ShadowViewMutation ShadowViewMutation::UpdateMutation(
     ShadowView oldChildShadowView,
-    ShadowView newChildShadowView,
-    ShadowView parentShadowView) {
+    ShadowView newChildShadowView) {
   return {
       /* .type = */ Update,
-      /* .parentShadowView = */ std::move(parentShadowView),
+      /* .parentShadowView = */ {},
       /* .oldChildShadowView = */ std::move(oldChildShadowView),
       /* .newChildShadowView = */ std::move(newChildShadowView),
       /* .index = */ -1,
@@ -147,19 +147,19 @@ std::vector<DebugStringConvertibleObject> getDebugProps(
     ShadowViewMutation const &mutation,
     DebugStringConvertibleOptions options) {
   return {
-      mutation.oldChildShadowView.componentHandle != 0
+      mutation.oldChildShadowView.componentHandle
           ? DebugStringConvertibleObject{"oldChild",
                                          getDebugDescription(
                                              mutation.oldChildShadowView,
                                              options)}
           : DebugStringConvertibleObject{},
-      mutation.newChildShadowView.componentHandle != 0
+      mutation.newChildShadowView.componentHandle
           ? DebugStringConvertibleObject{"newChild",
                                          getDebugDescription(
                                              mutation.newChildShadowView,
                                              options)}
           : DebugStringConvertibleObject{},
-      mutation.parentShadowView.componentHandle != 0
+      mutation.parentShadowView.componentHandle
           ? DebugStringConvertibleObject{"parent",
                                          getDebugDescription(
                                              mutation.parentShadowView,
@@ -175,4 +175,5 @@ std::vector<DebugStringConvertibleObject> getDebugProps(
 
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

@@ -11,7 +11,8 @@
 
 #include <react/debug/react_native_assert.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 void ImageResponseObserverCoordinator::addObserver(
     ImageResponseObserver const &observer) const {
@@ -87,4 +88,5 @@ void ImageResponseObserverCoordinator::nativeImageResponseFailed() const {
   }
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

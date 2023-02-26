@@ -17,19 +17,20 @@ const {
   configureMakeForPrebuiltHermesC,
   copyBuildScripts,
   copyPodSpec,
-  downloadHermesSourceTarball,
-  expandHermesSourceTarball,
+  downloadHermesTarball,
+  expandHermesTarball,
   shouldUsePrebuiltHermesC,
   shouldBuildHermesFromSource,
 } = require('./hermes-utils');
 
-async function main(isInCI) {
-  if (!shouldBuildHermesFromSource(isInCI)) {
+async function main() {
+  if (!shouldBuildHermesFromSource()) {
     copyPodSpec();
     return;
   }
-  downloadHermesSourceTarball();
-  expandHermesSourceTarball();
+
+  downloadHermesTarball();
+  expandHermesTarball();
   copyPodSpec();
   copyBuildScripts();
 
@@ -39,8 +40,6 @@ async function main(isInCI) {
   }
 }
 
-const isInCI = process.env.REACT_NATIVE_CI === 'true';
-
-main(isInCI).then(() => {
+main().then(() => {
   process.exit(0);
 });

@@ -22,7 +22,6 @@ export type AlertButtonStyle = 'default' | 'cancel' | 'destructive';
 export type Buttons = Array<{
   text?: string,
   onPress?: ?Function,
-  isPreferred?: boolean,
   style?: AlertButtonStyle,
   ...
 }>;
@@ -123,11 +122,10 @@ class Alert {
     options?: Options,
   ): void {
     if (Platform.OS === 'ios') {
-      let callbacks: Array<?any> = [];
+      let callbacks = [];
       const buttons = [];
       let cancelButtonKey;
       let destructiveButtonKey;
-      let preferredButtonKey;
       if (typeof callbackOrButtons === 'function') {
         callbacks = [callbackOrButtons];
       } else if (Array.isArray(callbackOrButtons)) {
@@ -137,9 +135,6 @@ class Alert {
             cancelButtonKey = String(index);
           } else if (btn.style === 'destructive') {
             destructiveButtonKey = String(index);
-          }
-          if (btn.isPreferred) {
-            preferredButtonKey = String(index);
           }
           if (btn.text || index < (callbackOrButtons || []).length - 1) {
             const btnDef: {[number]: string} = {};
@@ -158,7 +153,6 @@ class Alert {
           defaultValue,
           cancelButtonKey,
           destructiveButtonKey,
-          preferredButtonKey,
           keyboardType,
           userInterfaceStyle: options?.userInterfaceStyle || undefined,
         },

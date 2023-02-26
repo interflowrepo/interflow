@@ -11,8 +11,6 @@ add_compile_options(
         -frtti
         -std=c++17
         -Wall
-        -Wpedantic
-        -Wno-gnu-zero-variadic-macro-arguments
         -DLOG_TAG=\"Fabric\")
 
 

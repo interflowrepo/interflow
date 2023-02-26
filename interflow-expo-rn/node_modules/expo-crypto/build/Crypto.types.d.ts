@@ -42,11 +42,11 @@ export declare enum CryptoEncoding {
      */
     BASE64 = "base64"
 }
-export type CryptoDigestOptions = {
+export declare type CryptoDigestOptions = {
     /**
      * Format the digest is returned in.
      */
     encoding: CryptoEncoding;
 };
-export type Digest = string;
+export declare type Digest = string;
 //# sourceMappingURL=Crypto.types.d.ts.map

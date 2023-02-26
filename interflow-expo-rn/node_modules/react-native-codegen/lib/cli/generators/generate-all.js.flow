@@ -55,7 +55,6 @@ RNCodegen.generate(
       'descriptors',
       'events',
       'props',
-      'states',
       'tests',
       'shadow-nodes',
       'modulesAndroid',

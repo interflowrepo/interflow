@@ -20,7 +20,8 @@
 #include <react/renderer/element/Element.h>
 #include <react/renderer/element/testUtils.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 class YogaDirtyFlagTest : public ::testing::Test {
  protected:
@@ -226,4 +227,5 @@ TEST_F(YogaDirtyFlagTest, updatingStateForScrollViewMistNotDirtyYogaNode) {
       static_cast<RootShadowNode &>(*newRootShadowNode).layoutIfNeeded());
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

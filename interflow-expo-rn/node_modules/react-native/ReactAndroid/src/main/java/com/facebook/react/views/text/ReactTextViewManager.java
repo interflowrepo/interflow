@@ -17,6 +17,7 @@ import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.common.annotations.VisibleForTesting;
 import com.facebook.react.common.mapbuffer.MapBuffer;
+import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.IViewManagerWithChildren;
 import com.facebook.react.uimanager.ReactAccessibilityDelegate;
@@ -131,10 +132,13 @@ public class ReactTextViewManager
   @Override
   public Object updateState(
       ReactTextView view, ReactStylesDiffMap props, StateWrapper stateWrapper) {
-    MapBuffer stateMapBuffer = stateWrapper.getStateDataMapBuffer();
-    if (stateMapBuffer != null) {
-      return getReactTextUpdate(view, props, stateMapBuffer);
+    if (ReactFeatureFlags.mapBufferSerializationEnabled) {
+      MapBuffer stateMapBuffer = stateWrapper.getStateDataMapBuffer();
+      if (stateMapBuffer != null) {
+        return getReactTextUpdate(view, props, stateMapBuffer);
+      }
     }
+
     ReadableNativeMap state = stateWrapper.getStateData();
     if (state == null) {
       return null;

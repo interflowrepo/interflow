@@ -13,7 +13,8 @@
 #include "RawEvent.h"
 #include "UnbatchedEventQueue.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 EventDispatcher::EventDispatcher(
     EventQueueProcessor const &eventProcessor,
@@ -82,4 +83,5 @@ void EventDispatcher::removeListener(
   eventListeners_.removeListener(listener);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

@@ -8,13 +8,12 @@
  * @format
  */
 
-import type {ProcessedColorValue} from '../StyleSheet/processColor';
-import type {ColorValue} from '../StyleSheet/StyleSheet';
-
 import RCTActionSheetManager from './NativeActionSheetManager';
 
-const processColor = require('../StyleSheet/processColor');
 const invariant = require('invariant');
+const processColor = require('../StyleSheet/processColor');
+import type {ColorValue} from '../StyleSheet/StyleSheet';
+import type {ProcessedColorValue} from '../StyleSheet/processColor';
 
 /**
  * Display action sheets and share sheets on iOS.

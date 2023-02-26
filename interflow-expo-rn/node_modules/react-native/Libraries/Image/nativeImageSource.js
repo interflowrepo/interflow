@@ -8,9 +8,9 @@
  * @format
  */
 
-import type {ImageURISource} from './ImageSource';
-
 import Platform from '../Utilities/Platform';
+
+import type {ImageURISource} from './ImageSource';
 
 type NativeImageSourceSpec = $ReadOnly<{|
   android?: string,

@@ -12,7 +12,6 @@ import type {
   PartialViewConfig,
   ViewConfig,
 } from '../Renderer/shims/ReactNativeTypes';
-
 import PlatformBaseViewConfig from './PlatformBaseViewConfig';
 
 /**

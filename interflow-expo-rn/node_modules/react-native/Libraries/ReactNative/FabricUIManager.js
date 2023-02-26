@@ -11,12 +11,12 @@
 'use strict';
 
 import type {
-  LayoutAnimationConfig,
+  MeasureOnSuccessCallback,
   MeasureInWindowOnSuccessCallback,
   MeasureLayoutOnSuccessCallback,
-  MeasureOnSuccessCallback,
+  LayoutAnimationConfig,
 } from '../Renderer/shims/ReactNativeTypes';
-import type {RootTag} from '../Types/RootTagTypes';
+import type {RootTag} from 'react-native/Libraries/Types/RootTagTypes';
 
 // TODO: type these properly.
 type Node = {...};

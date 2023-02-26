@@ -88,8 +88,9 @@ class TextLayoutManager {
       ParagraphAttributes const &paragraphAttributes,
       Size size) const;
 
-  void *self_{};
+  void *self_;
   ContextContainer::Shared contextContainer_;
+  bool mapBufferSerializationEnabled_;
   TextMeasureCache measureCache_;
 };
 

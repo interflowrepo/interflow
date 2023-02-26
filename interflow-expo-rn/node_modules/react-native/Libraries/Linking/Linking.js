@@ -9,12 +9,11 @@
  */
 
 import type {EventSubscription} from '../vendor/emitter/EventEmitter';
-
 import NativeEventEmitter from '../EventEmitter/NativeEventEmitter';
 import InteractionManager from '../Interaction/InteractionManager';
 import Platform from '../Utilities/Platform';
-import NativeIntentAndroid from './NativeIntentAndroid';
 import NativeLinkingManager from './NativeLinkingManager';
+import NativeIntentAndroid from './NativeIntentAndroid';
 import invariant from 'invariant';
 import nullthrows from 'nullthrows';
 
@@ -124,7 +123,7 @@ class Linking extends NativeEventEmitter<LinkingEventDefinitions> {
     }
   }
 
-  _validateURL(url: string): void {
+  _validateURL(url: string) {
     invariant(
       typeof url === 'string',
       'Invalid URL: should be a string. Was: ' + url,

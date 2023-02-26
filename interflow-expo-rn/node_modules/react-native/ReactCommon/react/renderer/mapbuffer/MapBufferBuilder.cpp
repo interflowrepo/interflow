@@ -10,7 +10,8 @@
 
 using namespace facebook::react;
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 constexpr uint32_t INT_SIZE = sizeof(uint32_t);
 constexpr uint32_t DOUBLE_SIZE = sizeof(double);
@@ -113,39 +114,6 @@ void MapBufferBuilder::putMapBuffer(MapBuffer::Key key, MapBuffer const &map) {
       INT_SIZE);
 }
 
-void MapBufferBuilder::putMapBufferList(
-    MapBuffer::Key key,
-    const std::vector<MapBuffer> &mapBufferList) {
-  int32_t offset = dynamicData_.size();
-  int32_t dataSize = 0;
-  for (const MapBuffer &mapBuffer : mapBufferList) {
-    dataSize = dataSize + INT_SIZE + mapBuffer.size();
-  }
-
-  dynamicData_.resize(offset + INT_SIZE, 0);
-  memcpy(dynamicData_.data() + offset, &dataSize, INT_SIZE);
-
-  for (const MapBuffer &mapBuffer : mapBufferList) {
-    int32_t mapBufferSize = mapBuffer.size();
-    int32_t dynamicDataSize = dynamicData_.size();
-    dynamicData_.resize(dynamicDataSize + INT_SIZE + mapBufferSize, 0);
-    // format [length of buffer (int)] + [bytes of MapBuffer]
-    memcpy(dynamicData_.data() + dynamicDataSize, &mapBufferSize, INT_SIZE);
-    // Copy the content of the map into dynamicData_
-    memcpy(
-        dynamicData_.data() + dynamicDataSize + INT_SIZE,
-        mapBuffer.data(),
-        mapBufferSize);
-  }
-
-  // Store Key and pointer to the string
-  storeKeyValue(
-      key,
-      MapBuffer::DataType::Map,
-      reinterpret_cast<uint8_t const *>(&offset),
-      INT_SIZE);
-}
-
 static inline bool compareBuckets(
     MapBuffer::Bucket const &a,
     MapBuffer::Bucket const &b) {
@@ -177,4 +145,5 @@ MapBuffer MapBufferBuilder::build() {
   return MapBuffer(std::move(buffer));
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

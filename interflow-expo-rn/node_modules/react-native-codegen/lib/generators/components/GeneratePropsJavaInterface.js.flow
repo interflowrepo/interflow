@@ -97,9 +97,6 @@ function getJavaValueForProp(
         case 'ImageSourcePrimitive':
           addNullable(imports);
           return '@Nullable ReadableMap value';
-        case 'ImageRequestPrimitive':
-          addNullable(imports);
-          return '@Nullable ReadableMap value';
         case 'PointPrimitive':
           addNullable(imports);
           return '@Nullable ReadableMap value';
@@ -235,7 +232,7 @@ module.exports = {
     const normalizedPackageName = 'com.facebook.react.viewmanagers';
     const outputDir = `java/${normalizedPackageName.replace(/\./g, '/')}`;
 
-    const files = new Map<string, string>();
+    const files = new Map();
     Object.keys(schema.modules).forEach(moduleName => {
       const module = schema.modules[moduleName];
       if (module.type !== 'Component') {
