@@ -17,7 +17,6 @@
 
 #import <React/RCTBridge+Private.h>
 #import <React/RCTBridgeModule.h>
-#import <React/RCTConstants.h>
 #import <React/RCTCxxModule.h>
 #import <React/RCTInitializing.h>
 #import <React/RCTLog.h>

@@ -10,7 +10,8 @@
 #include <react/renderer/mounting/ShadowTree.h>
 #include <react/renderer/uimanager/UIManager.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 TimelineHandler TimelineController::enable(SurfaceId surfaceId) const {
   assert(uiManager_);
@@ -48,7 +49,7 @@ void TimelineController::commitHookWasRegistered(
 }
 
 void TimelineController::commitHookWasUnregistered(
-    UIManager const & /*uiManager*/) const noexcept {
+    UIManager const &uiManager) const noexcept {
   uiManager_ = nullptr;
 }
 
@@ -72,4 +73,5 @@ RootShadowNode::Unshared TimelineController::shadowTreeWillCommit(
       shadowTree, oldRootShadowNode, newRootShadowNode);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

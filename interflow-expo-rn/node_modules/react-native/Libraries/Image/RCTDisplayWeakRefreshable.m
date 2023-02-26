@@ -9,8 +9,7 @@
 
 @implementation RCTDisplayWeakRefreshable
 
-+ (CADisplayLink *)displayLinkWithWeakRefreshable:(id<RCTDisplayRefreshable>)refreshable
-{
++ (CADisplayLink *)displayLinkWithWeakRefreshable:(id<RCTDisplayRefreshable>)refreshable {
   RCTDisplayWeakRefreshable *target = [[RCTDisplayWeakRefreshable alloc] initWithRefreshable:refreshable];
   return [CADisplayLink displayLinkWithTarget:target selector:@selector(displayDidRefresh:)];
 }
@@ -23,8 +22,7 @@
   return self;
 }
 
-- (void)displayDidRefresh:(CADisplayLink *)displayLink
-{
+- (void)displayDidRefresh:(CADisplayLink *)displayLink {
   [_refreshable displayDidRefresh:displayLink];
 }
 

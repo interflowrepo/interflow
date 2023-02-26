@@ -76,8 +76,7 @@ struct ShadowViewMutation final {
    */
   static ShadowViewMutation UpdateMutation(
       ShadowView oldChildShadowView,
-      ShadowView newChildShadowView,
-      ShadowView parentShadowView);
+      ShadowView newChildShadowView);
 
 #pragma mark - Type
 
@@ -125,9 +124,9 @@ using ShadowViewMutationList = std::vector<ShadowViewMutation>;
 
 #if RN_DEBUG_STRING_CONVERTIBLE
 
-std::string getDebugName(ShadowViewMutation const &mutation);
+std::string getDebugName(ShadowViewMutation const &object);
 std::vector<DebugStringConvertibleObject> getDebugProps(
-    ShadowViewMutation const &mutation,
+    ShadowViewMutation const &object,
     DebugStringConvertibleOptions options);
 
 #endif

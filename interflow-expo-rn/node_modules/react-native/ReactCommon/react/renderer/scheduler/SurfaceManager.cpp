@@ -9,7 +9,8 @@
 
 #include <react/renderer/scheduler/Scheduler.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 SurfaceManager::SurfaceManager(Scheduler const &scheduler) noexcept
     : scheduler_(scheduler) {}
@@ -99,4 +100,5 @@ void SurfaceManager::visit(
   callback(iterator->second);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

@@ -94,7 +94,8 @@ template <typename T, std::enable_if_t<is_jsi_v<T>, int> = 0>
 auto toJs(
     jsi::Runtime &rt,
     T &&value,
-    const std::shared_ptr<CallInvoker> & = nullptr) -> remove_cvref_t<T> {
+    const std::shared_ptr<CallInvoker> & = nullptr)
+    -> decltype(convert(rt, std::forward<T>(value))) {
   return convert(rt, std::forward<T>(value));
 }
 

@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -120,9 +119,7 @@ public class ReactModalHostView extends ViewGroup
 
   @Override
   public int getChildCount() {
-    // This method may be called by the parent constructor
-    // before mHostView is initialized.
-    return mHostView == null ? 0 : mHostView.getChildCount();
+    return mHostView.getChildCount();
   }
 
   @Override
@@ -329,17 +326,11 @@ public class ReactModalHostView extends ViewGroup
     if (currentActivity != null && !currentActivity.isFinishing()) {
       mDialog.show();
       if (context instanceof Activity) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
-          int appearance =
-              ((Activity) context).getWindow().getInsetsController().getSystemBarsAppearance();
-          mDialog.getWindow().getInsetsController().setSystemBarsAppearance(appearance, appearance);
-        } else {
-          mDialog
-              .getWindow()
-              .getDecorView()
-              .setSystemUiVisibility(
-                  ((Activity) context).getWindow().getDecorView().getSystemUiVisibility());
-        }
+        mDialog
+            .getWindow()
+            .getDecorView()
+            .setSystemUiVisibility(
+                ((Activity) context).getWindow().getDecorView().getSystemUiVisibility());
       }
       mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }

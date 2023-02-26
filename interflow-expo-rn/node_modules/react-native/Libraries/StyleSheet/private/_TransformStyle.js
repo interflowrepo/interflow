@@ -8,7 +8,7 @@
  * @format
  */
 
-import type AnimatedNode from '../../Animated/nodes/AnimatedNode';
+const AnimatedNode = require('../../Animated/nodes/AnimatedNode');
 
 export type ____TransformStyle_Internal = $ReadOnly<{|
   /**
@@ -27,29 +27,27 @@ export type ____TransformStyle_Internal = $ReadOnly<{|
    *
    * `transform([{ skewX: '45deg' }])`
    */
-  transform?:
-    | $ReadOnlyArray<
-        | {|+perspective: number | AnimatedNode|}
-        | {|+rotate: string | AnimatedNode|}
-        | {|+rotateX: string | AnimatedNode|}
-        | {|+rotateY: string | AnimatedNode|}
-        | {|+rotateZ: string | AnimatedNode|}
-        | {|+scale: number | AnimatedNode|}
-        | {|+scaleX: number | AnimatedNode|}
-        | {|+scaleY: number | AnimatedNode|}
-        | {|+translateX: number | AnimatedNode|}
-        | {|+translateY: number | AnimatedNode|}
-        | {|
-            +translate:
-              | [number | AnimatedNode, number | AnimatedNode]
-              | AnimatedNode,
-          |}
-        | {|+skewX: string|}
-        | {|+skewY: string|}
-        // TODO: what is the actual type it expects?
-        | {|
-            +matrix: $ReadOnlyArray<number | AnimatedNode> | AnimatedNode,
-          |},
-      >
-    | string,
+  transform?: $ReadOnlyArray<
+    | {|+perspective: number | AnimatedNode|}
+    | {|+rotate: string | AnimatedNode|}
+    | {|+rotateX: string | AnimatedNode|}
+    | {|+rotateY: string | AnimatedNode|}
+    | {|+rotateZ: string | AnimatedNode|}
+    | {|+scale: number | AnimatedNode|}
+    | {|+scaleX: number | AnimatedNode|}
+    | {|+scaleY: number | AnimatedNode|}
+    | {|+translateX: number | AnimatedNode|}
+    | {|+translateY: number | AnimatedNode|}
+    | {|
+        +translate:
+          | [number | AnimatedNode, number | AnimatedNode]
+          | AnimatedNode,
+      |}
+    | {|+skewX: string|}
+    | {|+skewY: string|}
+    // TODO: what is the actual type it expects?
+    | {|
+        +matrix: $ReadOnlyArray<number | AnimatedNode> | AnimatedNode,
+      |},
+  >,
 |}>;

@@ -8,13 +8,11 @@
  * @format
  */
 
-import type LogBoxLog from './Data/LogBoxLog';
-
-import View from '../Components/View/View';
-import StyleSheet from '../StyleSheet/StyleSheet';
+import * as React from 'react';
+import {View, StyleSheet} from 'react-native';
 import * as LogBoxData from './Data/LogBoxData';
 import LogBoxInspector from './UI/LogBoxInspector';
-import * as React from 'react';
+import type LogBoxLog from './Data/LogBoxLog';
 
 type Props = $ReadOnly<{|
   logs: $ReadOnlyArray<LogBoxLog>,

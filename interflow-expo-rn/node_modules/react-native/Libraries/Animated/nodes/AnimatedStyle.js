@@ -12,13 +12,13 @@
 
 import type {PlatformConfig} from '../AnimatedPlatformConfig';
 
-import flattenStyle from '../../StyleSheet/flattenStyle';
-import NativeAnimatedHelper from '../NativeAnimatedHelper';
-import AnimatedNode from './AnimatedNode';
-import AnimatedTransform from './AnimatedTransform';
-import AnimatedWithChildren from './AnimatedWithChildren';
+const flattenStyle = require('../../StyleSheet/flattenStyle');
+const NativeAnimatedHelper = require('../NativeAnimatedHelper');
+const AnimatedNode = require('./AnimatedNode');
+const AnimatedTransform = require('./AnimatedTransform');
+const AnimatedWithChildren = require('./AnimatedWithChildren');
 
-export default class AnimatedStyle extends AnimatedWithChildren {
+class AnimatedStyle extends AnimatedWithChildren {
   _style: Object;
 
   constructor(style: any) {
@@ -34,15 +34,23 @@ export default class AnimatedStyle extends AnimatedWithChildren {
   }
 
   // Recursively get values for nested styles (like iOS's shadowOffset)
-  _walkStyleAndGetValues(style: any): {[string]: any | {...}} {
+  _walkStyleAndGetValues(style: any, initialStyle: ?Object) {
     const updatedStyle: {[string]: any | {...}} = {};
     for (const key in style) {
       const value = style[key];
       if (value instanceof AnimatedNode) {
-        updatedStyle[key] = value.__getValue();
+        // During initial render we want to use the initial value of both natively and non-natively
+        // driven nodes. On subsequent renders, we cannot use the value of natively driven nodes
+        // as they may not be up to date, so we use the initial value to ensure that values of
+        // native animated nodes do not impact rerenders.
+        if (!initialStyle || !value.__isNative) {
+          updatedStyle[key] = value.__getValue();
+        } else if (initialStyle.hasOwnProperty(key)) {
+          updatedStyle[key] = initialStyle[key];
+        }
       } else if (value && !Array.isArray(value) && typeof value === 'object') {
         // Support animating nested values (for example: shadowOffset.height)
-        updatedStyle[key] = this._walkStyleAndGetValues(value);
+        updatedStyle[key] = this._walkStyleAndGetValues(value, initialStyle);
       } else {
         updatedStyle[key] = value;
       }
@@ -50,12 +58,12 @@ export default class AnimatedStyle extends AnimatedWithChildren {
     return updatedStyle;
   }
 
-  __getValue(): Object {
-    return this._walkStyleAndGetValues(this._style);
+  __getValue(initialStyle: ?Object): Object {
+    return this._walkStyleAndGetValues(this._style, initialStyle);
   }
 
   // Recursively get animated values for nested styles (like iOS's shadowOffset)
-  _walkStyleAndGetAnimatedValues(style: any): {[string]: any | {...}} {
+  _walkStyleAndGetAnimatedValues(style: any) {
     const updatedStyle: {[string]: any | {...}} = {};
     for (const key in style) {
       const value = style[key];
@@ -120,3 +128,5 @@ export default class AnimatedStyle extends AnimatedWithChildren {
     };
   }
 }
+
+module.exports = AnimatedStyle;

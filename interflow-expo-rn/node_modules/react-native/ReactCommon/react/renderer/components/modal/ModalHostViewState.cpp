@@ -7,7 +7,8 @@
 
 #include "ModalHostViewState.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 #ifdef ANDROID
 folly::dynamic ModalHostViewState::getDynamic() const {
@@ -16,4 +17,5 @@ folly::dynamic ModalHostViewState::getDynamic() const {
 }
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

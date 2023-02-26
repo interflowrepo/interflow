@@ -9,9 +9,9 @@
 
 #import <memory>
 
-#import <React/RCTTurboModuleRegistry.h>
-#import <ReactCommon/RuntimeExecutor.h>
 #import "RCTTurboModule.h"
+
+#import <ReactCommon/RuntimeExecutor.h>
 
 @protocol RCTTurboModuleManagerDelegate <NSObject>
 

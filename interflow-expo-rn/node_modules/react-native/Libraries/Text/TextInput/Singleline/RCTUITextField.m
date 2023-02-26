@@ -7,10 +7,10 @@
 
 #import <React/RCTUITextField.h>
 
-#import <React/RCTBackedTextInputDelegateAdapter.h>
-#import <React/RCTTextAttributes.h>
 #import <React/RCTUtils.h>
 #import <React/UIView+React.h>
+#import <React/RCTBackedTextInputDelegateAdapter.h>
+#import <React/RCTTextAttributes.h>
 
 @implementation RCTUITextField {
   RCTBackedTextFieldDelegateAdapter *_textInputDelegateAdapter;
@@ -43,8 +43,7 @@
 {
   // UITextField is accessible by default (some nested views are) and disabling that is not supported.
   // On iOS accessible elements cannot be nested, therefore enabling accessibility for some container view
-  // (even in a case where this view is a part of public API of TextInput on iOS) shadows some features implemented
-  // inside the component.
+  // (even in a case where this view is a part of public API of TextInput on iOS) shadows some features implemented inside the component.
 }
 
 #pragma mark - Properties
@@ -119,8 +118,7 @@
 
 - (NSDictionary<NSAttributedStringKey, id> *)_placeholderTextAttributes
 {
-  NSMutableDictionary<NSAttributedStringKey, id> *textAttributes =
-      [_defaultTextAttributes mutableCopy] ?: [NSMutableDictionary new];
+  NSMutableDictionary<NSAttributedStringKey, id> *textAttributes = [_defaultTextAttributes mutableCopy] ?: [NSMutableDictionary new];
 
   if (self.placeholderColor) {
     [textAttributes setValue:self.placeholderColor forKey:NSForegroundColorAttributeName];
@@ -190,8 +188,8 @@
 
 - (void)paste:(id)sender
 {
-  _textWasPasted = YES;
   [super paste:sender];
+  _textWasPasted = YES;
 }
 
 #pragma mark - Layout

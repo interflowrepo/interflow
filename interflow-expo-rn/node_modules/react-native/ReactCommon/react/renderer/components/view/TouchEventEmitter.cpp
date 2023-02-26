@@ -7,7 +7,8 @@
 
 #include "TouchEventEmitter.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 #pragma mark - Touches
 
@@ -86,12 +87,6 @@ static jsi::Value pointerEventPayload(
   object.setProperty(runtime, "buttons", event.buttons);
   object.setProperty(runtime, "tangentialPressure", event.tangentialPressure);
   object.setProperty(runtime, "twist", event.twist);
-  object.setProperty(runtime, "ctrlKey", event.ctrlKey);
-  object.setProperty(runtime, "shiftKey", event.shiftKey);
-  object.setProperty(runtime, "altKey", event.altKey);
-  object.setProperty(runtime, "metaKey", event.metaKey);
-  object.setProperty(runtime, "isPrimary", event.isPrimary);
-  object.setProperty(runtime, "button", event.button);
   return object;
 }
 
@@ -215,4 +210,5 @@ void TouchEventEmitter::onPointerOut(const PointerEvent &event) const {
       RawEvent::Category::ContinuousStart);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

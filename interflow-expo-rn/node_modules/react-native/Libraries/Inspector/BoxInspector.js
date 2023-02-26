@@ -10,11 +10,12 @@
 
 'use strict';
 
-const View = require('../Components/View/View');
+const React = require('react');
 const StyleSheet = require('../StyleSheet/StyleSheet');
 const Text = require('../Text/Text');
+const View = require('../Components/View/View');
+
 const resolveBoxStyle = require('./resolveBoxStyle');
-const React = require('react');
 
 const blank = {
   top: 0,
@@ -48,7 +49,7 @@ class BoxInspector extends React.Component<$FlowFixMeProps> {
 }
 
 class BoxContainer extends React.Component<$FlowFixMeProps> {
-  render(): React.Node {
+  render() {
     const box = this.props.box;
     return (
       <View style={styles.box}>

@@ -46,12 +46,6 @@ class AttributedString : public Sealable, public DebugStringConvertible {
      */
     bool isAttachment() const;
 
-    /*
-     * Returns whether the underlying text and attributes are equal,
-     * disregarding layout or other information.
-     */
-    bool isContentEqual(const Fragment &rhs) const;
-
     bool operator==(const Fragment &rhs) const;
     bool operator!=(const Fragment &rhs) const;
   };
@@ -102,8 +96,6 @@ class AttributedString : public Sealable, public DebugStringConvertible {
    */
   bool compareTextAttributesWithoutFrame(const AttributedString &rhs) const;
 
-  bool isContentEqual(const AttributedString &rhs) const;
-
   bool operator==(const AttributedString &rhs) const;
   bool operator!=(const AttributedString &rhs) const;
 
@@ -126,11 +118,7 @@ struct hash<facebook::react::AttributedString::Fragment> {
   size_t operator()(
       const facebook::react::AttributedString::Fragment &fragment) const {
     return folly::hash::hash_combine(
-        0,
-        fragment.string,
-        fragment.textAttributes,
-        fragment.parentShadowView,
-        fragment.parentShadowView.layoutMetrics);
+        0, fragment.string, fragment.textAttributes, fragment.parentShadowView);
   }
 };
 

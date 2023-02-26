@@ -10,14 +10,14 @@
 #include <react/renderer/core/LayoutMetrics.h>
 #include <react/renderer/core/LayoutableShadowNode.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static LayoutMetrics layoutMetricsFromShadowNode(ShadowNode const &shadowNode) {
   auto layoutableShadowNode =
       traitCast<LayoutableShadowNode const *>(&shadowNode);
-  return layoutableShadowNode != nullptr
-      ? layoutableShadowNode->getLayoutMetrics()
-      : EmptyLayoutMetrics;
+  return layoutableShadowNode ? layoutableShadowNode->getLayoutMetrics()
+                              : EmptyLayoutMetrics;
 }
 
 ShadowView::ShadowView(const ShadowNode &shadowNode)
@@ -95,4 +95,5 @@ bool ShadowViewNodePairLegacy::operator!=(
   return !(*this == rhs);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

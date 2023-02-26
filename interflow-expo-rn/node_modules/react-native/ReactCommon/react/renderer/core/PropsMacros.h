@@ -19,12 +19,14 @@
 
 // Get hash at compile-time. sizeof(str) - 1 == strlen
 #define CONSTEXPR_RAW_PROPS_KEY_HASH(s)                   \
-  ([]() constexpr->RawPropsPropNameHash {                 \
+  ({                                                      \
     CLANG_PRAGMA("clang diagnostic push")                 \
     CLANG_PRAGMA("clang diagnostic ignored \"-Wshadow\"") \
-    return folly::hash::fnv32_buf(s, sizeof(s) - 1);      \
+    constexpr RawPropsPropNameHash propNameHash =         \
+        folly::hash::fnv32_buf(s, sizeof(s) - 1);         \
+    propNameHash;                                         \
     CLANG_PRAGMA("clang diagnostic pop")                  \
-  }())
+  })
 
 #define RAW_PROPS_KEY_HASH(s) folly::hash::fnv32_buf(s, std::strlen(s))
 
@@ -69,9 +71,7 @@
   CASE_STATEMENT_SET_FIELD_VALUE_INDEXED(                                \
       struct, bottomStart, prefix "BottomStart" suffix, rawValue)        \
   CASE_STATEMENT_SET_FIELD_VALUE_INDEXED(                                \
-      struct, bottomEnd, prefix "BottomEnd" suffix, rawValue)            \
-  CASE_STATEMENT_SET_FIELD_VALUE_INDEXED(                                \
-      struct, all, prefix "" suffix, rawValue)
+      struct, bottomEnd, prefix "BottomEnd" suffix, rawValue)
 
 #define SET_CASCADED_RECTANGLE_EDGES(struct, prefix, suffix, rawValue) \
   CASE_STATEMENT_SET_FIELD_VALUE_INDEXED(                              \
@@ -92,17 +92,3 @@
       struct, vertical, prefix "Vertical" suffix, rawValue)            \
   CASE_STATEMENT_SET_FIELD_VALUE_INDEXED(                              \
       struct, all, prefix "" suffix, rawValue)
-
-// Rebuild a type that contains multiple fields from a single field value
-#define REBUILD_FIELD_SWITCH_CASE(                  \
-    defaults, rawValue, property, field, fieldName) \
-  case CONSTEXPR_RAW_PROPS_KEY_HASH(fieldName): {   \
-    if ((rawValue).hasValue()) {                    \
-      decltype((defaults).field) res;               \
-      fromRawValue(context, rawValue, res);         \
-      (property).field = res;                       \
-    } else {                                        \
-      (property).field = (defaults).field;          \
-    }                                               \
-    return;                                         \
-  }

@@ -10,9 +10,9 @@
 
 'use strict';
 
-import AnimatedImplementation from './AnimatedImplementation';
+const AnimatedImplementation = require('./AnimatedImplementation');
 
-export default {
+module.exports = {
   ...AnimatedImplementation,
   /* $FlowFixMe[incompatible-call] createAnimatedComponent expects to receive
    * types. Plain intrinsic components can't be typed like this */

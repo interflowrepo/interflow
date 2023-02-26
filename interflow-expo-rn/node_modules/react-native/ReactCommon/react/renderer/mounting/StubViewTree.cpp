@@ -16,7 +16,8 @@
 #define STUB_VIEW_LOG(code)
 #endif
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 StubViewTree::StubViewTree(ShadowView const &shadowView) {
   auto view = std::make_shared<StubView>();
@@ -310,4 +311,5 @@ bool operator!=(StubViewTree const &lhs, StubViewTree const &rhs) {
   return !(lhs == rhs);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

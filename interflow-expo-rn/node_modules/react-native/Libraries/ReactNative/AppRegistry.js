@@ -8,20 +8,21 @@
  * @format
  */
 
-import type {RootTag} from '../Types/RootTagTypes';
+const BatchedBridge = require('../BatchedBridge/BatchedBridge');
+const BugReporting = require('../BugReporting/BugReporting');
+const ReactNative = require('../Renderer/shims/ReactNative');
+const SceneTracker = require('../Utilities/SceneTracker');
+
+const infoLog = require('../Utilities/infoLog');
+const invariant = require('invariant');
+const renderApplication = require('./renderApplication');
 import type {IPerformanceLogger} from '../Utilities/createPerformanceLogger';
 
-import BatchedBridge from '../BatchedBridge/BatchedBridge';
-import BugReporting from '../BugReporting/BugReporting';
-import createPerformanceLogger from '../Utilities/createPerformanceLogger';
-import infoLog from '../Utilities/infoLog';
-import SceneTracker from '../Utilities/SceneTracker';
 import {coerceDisplayMode} from './DisplayMode';
-import HeadlessJsTaskError from './HeadlessJsTaskError';
+import createPerformanceLogger from '../Utilities/createPerformanceLogger';
 import NativeHeadlessJsTaskSupport from './NativeHeadlessJsTaskSupport';
-import renderApplication from './renderApplication';
-import {unmountComponentAtNodeAndRemoveContainer} from './RendererProxy';
-import invariant from 'invariant';
+import HeadlessJsTaskError from './HeadlessJsTaskError';
+import type {RootTag} from 'react-native/Libraries/Types/RootTagTypes';
 
 type Task = (taskData: any) => Promise<void>;
 export type TaskProvider = () => Task;
@@ -51,9 +52,7 @@ export type Registry = {
   runnables: Runnables,
   ...
 };
-export type WrapperComponentProvider = (
-  appParameters: any,
-) => React$ComponentType<any>;
+export type WrapperComponentProvider = any => React$ComponentType<any>;
 
 const runnables: Runnables = {};
 let runCount = 1;
@@ -251,7 +250,9 @@ const AppRegistry = {
    * See https://reactnative.dev/docs/appregistry#unmountapplicationcomponentatroottag
    */
   unmountApplicationComponentAtRootTag(rootTag: RootTag): void {
-    unmountComponentAtNodeAndRemoveContainer(rootTag);
+    // NOTE: RootTag type
+    // $FlowFixMe[incompatible-call] RootTag: RootTag is incompatible with number, needs an updated synced version of the ReactNativeTypes.js file
+    ReactNative.unmountComponentAtNodeAndRemoveContainer(rootTag);
   },
 
   /**

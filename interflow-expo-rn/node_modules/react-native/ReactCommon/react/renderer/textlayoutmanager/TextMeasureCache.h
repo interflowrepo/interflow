@@ -71,7 +71,7 @@ class TextMeasureCacheKey final {
  * The number was empirically chosen based on approximation of an average amount
  * of meaningful measures per surface.
  */
-constexpr auto kSimpleThreadSafeCacheSizeCap = size_t{1024};
+constexpr auto kSimpleThreadSafeCacheSizeCap = size_t{256};
 
 /*
  * Thread-safe, evicting hash table designed to store text measurement
@@ -94,7 +94,6 @@ inline bool areTextAttributesEquivalentLayoutWise(
              lhs.fontStyle,
              lhs.fontVariant,
              lhs.allowFontScaling,
-             lhs.dynamicTypeRamp,
              lhs.alignment) ==
       std::tie(
              rhs.fontFamily,
@@ -102,7 +101,6 @@ inline bool areTextAttributesEquivalentLayoutWise(
              rhs.fontStyle,
              rhs.fontVariant,
              rhs.allowFontScaling,
-             rhs.dynamicTypeRamp,
              rhs.alignment) &&
       floatEquality(lhs.fontSize, rhs.fontSize) &&
       floatEquality(lhs.fontSizeMultiplier, rhs.fontSizeMultiplier) &&
@@ -123,7 +121,6 @@ inline size_t textAttributesHashLayoutWise(
       textAttributes.fontStyle,
       textAttributes.fontVariant,
       textAttributes.allowFontScaling,
-      textAttributes.dynamicTypeRamp,
       textAttributes.letterSpacing,
       textAttributes.lineHeight,
       textAttributes.alignment);

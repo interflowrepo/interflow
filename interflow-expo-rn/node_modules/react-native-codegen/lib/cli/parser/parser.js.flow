@@ -11,7 +11,6 @@
 'use strict';
 
 const path = require('path');
-const {parseFile} = require('../../parsers/utils');
 const FlowParser = require('../../parsers/flow');
 const TypeScriptParser = require('../../parsers/typescript');
 
@@ -23,10 +22,9 @@ function parseFiles(files: Array<string>) {
     console.log(
       filename,
       JSON.stringify(
-        parseFile(
-          filename,
-          isTypeScript ? TypeScriptParser.buildSchema : FlowParser.buildSchema,
-        ),
+        isTypeScript
+          ? TypeScriptParser.parseFile(filename)
+          : FlowParser.parseFile(filename),
         null,
         2,
       ),

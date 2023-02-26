@@ -16,10 +16,6 @@
 #include <react/renderer/core/Sealable.h>
 #include <react/renderer/debug/DebugStringConvertible.h>
 
-#ifdef ANDROID
-#include <react/renderer/mapbuffer/MapBufferBuilder.h>
-#endif
-
 namespace facebook {
 namespace react {
 
@@ -37,6 +33,8 @@ class Props : public virtual Sealable, public virtual DebugStringConvertible {
       RawProps const &rawProps,
       bool shouldSetRawProps = true);
   virtual ~Props() = default;
+
+  static bool enablePropIteratorSetter;
 
   /**
    * Set a prop value via iteration (see enableIterator above).
@@ -56,12 +54,17 @@ class Props : public virtual Sealable, public virtual DebugStringConvertible {
 
   std::string nativeId;
 
+  /*
+   * Special value that represents generation number of `Props` object, which
+   * increases when the object was constructed with some source `Props` object.
+   * Default props objects (that was constructed using default constructor) have
+   * revision equals `0`.
+   * The value might be used for optimization purposes.
+   */
+  int const revision{0};
+
 #ifdef ANDROID
   folly::dynamic rawProps = folly::dynamic::object();
-
-  virtual void propsDiffMapBuffer(
-      Props const *oldProps,
-      MapBufferBuilder &builder) const;
 #endif
 };
 

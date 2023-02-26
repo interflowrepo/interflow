@@ -182,8 +182,7 @@ export type ReservedPropTypeAnnotation = $ReadOnly<{
     | 'ColorPrimitive'
     | 'ImageSourcePrimitive'
     | 'PointPrimitive'
-    | 'EdgeInsetsPrimitive'
-    | 'ImageRequestPrimitive',
+    | 'EdgeInsetsPrimitive',
 }>;
 
 export type CommandTypeAnnotation = FunctionTypeAnnotation<
@@ -283,11 +282,6 @@ export type NativeModuleBooleanTypeAnnotation = $ReadOnly<{
   type: 'BooleanTypeAnnotation',
 }>;
 
-export type NativeModuleEnumDeclaration = $ReadOnly<{
-  type: 'EnumDeclaration',
-  memberType: 'NumberTypeAnnotation' | 'StringTypeAnnotation',
-}>;
-
 export type NativeModuleGenericObjectTypeAnnotation = $ReadOnly<{
   type: 'GenericObjectTypeAnnotation',
 }>;
@@ -301,16 +295,6 @@ export type NativeModulePromiseTypeAnnotation = $ReadOnly<{
   type: 'PromiseTypeAnnotation',
 }>;
 
-export type UnionTypeAnnotationMemberType =
-  | 'NumberTypeAnnotation'
-  | 'ObjectTypeAnnotation'
-  | 'StringTypeAnnotation';
-
-export type NativeModuleUnionTypeAnnotation = $ReadOnly<{
-  type: 'UnionTypeAnnotation',
-  memberType: UnionTypeAnnotationMemberType,
-}>;
-
 export type NativeModuleMixedTypeAnnotation = $ReadOnly<{
   type: 'MixedTypeAnnotation',
 }>;
@@ -322,13 +306,11 @@ export type NativeModuleBaseTypeAnnotation =
   | NativeModuleDoubleTypeAnnotation
   | NativeModuleFloatTypeAnnotation
   | NativeModuleBooleanTypeAnnotation
-  | NativeModuleEnumDeclaration
   | NativeModuleGenericObjectTypeAnnotation
   | ReservedTypeAnnotation
   | NativeModuleTypeAliasTypeAnnotation
   | NativeModuleArrayTypeAnnotation<Nullable<NativeModuleBaseTypeAnnotation>>
   | NativeModuleObjectTypeAnnotation
-  | NativeModuleUnionTypeAnnotation
   | NativeModuleMixedTypeAnnotation;
 
 export type NativeModuleParamTypeAnnotation =

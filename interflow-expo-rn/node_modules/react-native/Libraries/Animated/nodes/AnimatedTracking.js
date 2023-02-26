@@ -10,14 +10,17 @@
 
 'use strict';
 
+const AnimatedValue = require('./AnimatedValue');
+const AnimatedNode = require('./AnimatedNode');
+const {
+  generateNewAnimationId,
+  shouldUseNativeDriver,
+} = require('../NativeAnimatedHelper');
+
 import type {PlatformConfig} from '../AnimatedPlatformConfig';
 import type {EndCallback} from '../animations/Animation';
-import type AnimatedValue from './AnimatedValue';
 
-import NativeAnimatedHelper from '../NativeAnimatedHelper';
-import AnimatedNode from './AnimatedNode';
-
-export default class AnimatedTracking extends AnimatedNode {
+class AnimatedTracking extends AnimatedNode {
   _value: AnimatedValue;
   _parent: AnimatedNode;
   _callback: ?EndCallback;
@@ -37,8 +40,7 @@ export default class AnimatedTracking extends AnimatedNode {
     this._parent = parent;
     this._animationClass = animationClass;
     this._animationConfig = animationConfig;
-    this._useNativeDriver =
-      NativeAnimatedHelper.shouldUseNativeDriver(animationConfig);
+    this._useNativeDriver = shouldUseNativeDriver(animationConfig);
     this._callback = callback;
     this.__attach();
   }
@@ -91,10 +93,12 @@ export default class AnimatedTracking extends AnimatedNode {
     const animationConfig = animation.__getNativeAnimationConfig();
     return {
       type: 'tracking',
-      animationId: NativeAnimatedHelper.generateNewAnimationId(),
+      animationId: generateNewAnimationId(),
       animationConfig,
       toValue: this._parent.__getNativeTag(),
       value: this._value.__getNativeTag(),
     };
   }
 }
+
+module.exports = AnimatedTracking;

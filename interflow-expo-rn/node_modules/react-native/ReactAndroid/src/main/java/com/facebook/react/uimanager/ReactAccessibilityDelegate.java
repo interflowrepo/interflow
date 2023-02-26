@@ -225,13 +225,8 @@ public class ReactAccessibilityDelegate extends ExploreByTouchHelper {
     super.onInitializeAccessibilityNodeInfo(host, info);
     final AccessibilityRole accessibilityRole =
         (AccessibilityRole) host.getTag(R.id.accessibility_role);
-    final String accessibilityHint = (String) host.getTag(R.id.accessibility_hint);
     if (accessibilityRole != null) {
       setRole(info, accessibilityRole, host.getContext());
-    }
-
-    if (accessibilityHint != null) {
-      info.setTooltipText(accessibilityHint);
     }
 
     final Object accessibilityLabelledBy = host.getTag(R.id.labelled_by);
@@ -448,7 +443,9 @@ public class ReactAccessibilityDelegate extends ExploreByTouchHelper {
     } else if (role.equals(AccessibilityRole.SUMMARY)) {
       nodeInfo.setRoleDescription(context.getString(R.string.summary_description));
     } else if (role.equals(AccessibilityRole.HEADER)) {
-      nodeInfo.setHeading(true);
+      final AccessibilityNodeInfoCompat.CollectionItemInfoCompat itemInfo =
+          AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(0, 1, 0, 1, true);
+      nodeInfo.setCollectionItemInfo(itemInfo);
     } else if (role.equals(AccessibilityRole.ALERT)) {
       nodeInfo.setRoleDescription(context.getString(R.string.alert_description));
     } else if (role.equals(AccessibilityRole.COMBOBOX)) {

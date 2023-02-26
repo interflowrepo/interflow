@@ -39,7 +39,6 @@
 
 #import <objc/runtime.h>
 
-using namespace facebook;
 using namespace facebook::react;
 
 // Allow JS runtime to register native components as needed. For static view configs.
@@ -72,7 +71,12 @@ static Class<RCTComponentViewProtocol> RCTComponentViewClassWithName(const char 
   dispatch_once(&onceToken, ^{
     componentViewFactory = [RCTComponentViewFactory new];
     [componentViewFactory registerComponentViewClass:[RCTRootComponentView class]];
+    [componentViewFactory registerComponentViewClass:[RCTViewComponentView class]];
     [componentViewFactory registerComponentViewClass:[RCTParagraphComponentView class]];
+    [componentViewFactory registerComponentViewClass:[RCTTextInputComponentView class]];
+
+    Class<RCTComponentViewProtocol> imageClass = RCTComponentViewClassWithName("Image");
+    [componentViewFactory registerComponentViewClass:imageClass];
 
     componentViewFactory->_providerRegistry.setComponentDescriptorProviderRequest(
         [](ComponentName requestedComponentName) {

@@ -10,7 +10,8 @@
 #include <react/renderer/core/propsConversions.h>
 #include <react/renderer/debug/debugStringConvertibleUtils.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 RawTextProps::RawTextProps(
     const PropsParserContext &context,
@@ -28,4 +29,5 @@ SharedDebugStringConvertibleList RawTextProps::getDebugProps() const {
 }
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

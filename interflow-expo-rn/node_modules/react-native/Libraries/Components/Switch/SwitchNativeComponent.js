@@ -8,22 +8,17 @@
  * @format
  */
 
-import type {HostComponent} from '../../Renderer/shims/ReactNativeTypes';
+import type {BubblingEventHandler, WithDefault} from '../../Types/CodegenTypes';
 import type {ColorValue} from '../../StyleSheet/StyleSheet';
-import type {
-  BubblingEventHandler,
-  Int32,
-  WithDefault,
-} from '../../Types/CodegenTypes';
 import type {ViewProps} from '../View/ViewPropTypes';
-
-import codegenNativeCommands from '../../Utilities/codegenNativeCommands';
-import codegenNativeComponent from '../../Utilities/codegenNativeComponent';
 import * as React from 'react';
+
+import codegenNativeComponent from '../../Utilities/codegenNativeComponent';
+import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import type {HostComponent} from '../../Renderer/shims/ReactNativeTypes';
 
 type SwitchChangeEvent = $ReadOnly<{|
   value: boolean,
-  target: Int32,
 |}>;
 
 type NativeProps = $ReadOnly<{|

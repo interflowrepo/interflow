@@ -19,7 +19,8 @@
 
 #include "ShadowTreeDelegate.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 using CommitStatus = ShadowTree::CommitStatus;
 using CommitMode = ShadowTree::CommitMode;
@@ -295,8 +296,8 @@ MountingCoordinator::Shared ShadowTree::getMountingCoordinator() const {
 }
 
 CommitStatus ShadowTree::commit(
-    const ShadowTreeCommitTransaction &transaction,
-    const CommitOptions &commitOptions) const {
+    ShadowTreeCommitTransaction transaction,
+    CommitOptions commitOptions) const {
   SystraceSection s("ShadowTree::commit");
 
   int attempts = 0;
@@ -316,8 +317,8 @@ CommitStatus ShadowTree::commit(
 }
 
 CommitStatus ShadowTree::tryCommit(
-    const ShadowTreeCommitTransaction &transaction,
-    const CommitOptions &commitOptions) const {
+    ShadowTreeCommitTransaction transaction,
+    CommitOptions commitOptions) const {
   SystraceSection s("ShadowTree::tryCommit");
 
   auto telemetry = TransactionTelemetry{};
@@ -460,4 +461,5 @@ void ShadowTree::notifyDelegatesOfUpdates() const {
   delegate_.shadowTreeDidFinishTransaction(*this, mountingCoordinator_);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

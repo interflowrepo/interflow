@@ -10,11 +10,12 @@
 
 'use strict';
 
-import type {NativeColorValue} from './PlatformColorValueTypes';
-import type {ColorValue} from './StyleSheet';
-
 const Platform = require('../Utilities/Platform');
+
 const normalizeColor = require('./normalizeColor');
+
+import type {ColorValue} from './StyleSheet';
+import type {NativeColorValue} from './PlatformColorValueTypes';
 
 export type ProcessedColorValue = number | NativeColorValue;
 

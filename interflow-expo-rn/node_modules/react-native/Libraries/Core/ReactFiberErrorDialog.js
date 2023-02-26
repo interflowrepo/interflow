@@ -8,9 +8,9 @@
  * @flow strict-local
  */
 
-import type {ExtendedError} from './ExtendedError';
+import {handleException, SyntheticError} from './ExceptionsManager';
 
-import {SyntheticError, handleException} from './ExceptionsManager';
+import type {ExtendedError} from './ExtendedError';
 
 export type CapturedError = {
   +componentStack: string,

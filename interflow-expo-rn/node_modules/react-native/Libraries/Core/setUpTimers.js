@@ -10,8 +10,8 @@
 
 'use strict';
 
-const {isNativeFunction} = require('../Utilities/FeatureDetection');
 const {polyfillGlobal} = require('../Utilities/PolyfillFunctions');
+const {isNativeFunction} = require('../Utilities/FeatureDetection');
 
 if (__DEV__) {
   if (typeof global.Promise !== 'function') {

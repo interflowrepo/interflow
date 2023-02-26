@@ -7,7 +7,8 @@
 
 #include "RuntimeScheduler.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 Task::Task(
     SchedulerPriority priority,
@@ -17,14 +18,14 @@ Task::Task(
       callback(std::move(callback)),
       expirationTime(expirationTime) {}
 
-jsi::Value Task::execute(jsi::Runtime &runtime, bool didUserCallbackTimeout) {
+jsi::Value Task::execute(jsi::Runtime &runtime) {
   auto result = jsi::Value::undefined();
   // Cancelled task doesn't have a callback.
   if (callback) {
     // Callback in JavaScript is expecting a single bool parameter.
-    // React team plans to remove it in the future when a scheduler bug on web
-    // is resolved.
-    result = callback.value().call(runtime, {didUserCallbackTimeout});
+    // React team plans to remove it and it is safe to pass in
+    // hardcoded false value.
+    result = callback.value().call(runtime, {false});
 
     // Destroying callback to prevent calling it twice.
     callback.reset();
@@ -32,4 +33,5 @@ jsi::Value Task::execute(jsi::Runtime &runtime, bool didUserCallbackTimeout) {
   return result;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

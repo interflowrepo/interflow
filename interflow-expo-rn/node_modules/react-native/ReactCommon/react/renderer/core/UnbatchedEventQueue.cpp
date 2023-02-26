@@ -7,11 +7,13 @@
 
 #include "UnbatchedEventQueue.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 void UnbatchedEventQueue::onEnqueue() const {
   eventBeat_->request();
   eventBeat_->induce();
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

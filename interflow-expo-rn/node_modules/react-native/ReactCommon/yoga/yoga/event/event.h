@@ -91,9 +91,6 @@ struct YOGA_EXPORT Event {
   static void publish(const YGNode& node, const TypedData<E>& eventData = {}) {
 #ifdef YG_ENABLE_EVENTS
     publish(node, E, Data{eventData});
-#else
-    (void) node;
-    (void) eventData;
 #endif
   }
 

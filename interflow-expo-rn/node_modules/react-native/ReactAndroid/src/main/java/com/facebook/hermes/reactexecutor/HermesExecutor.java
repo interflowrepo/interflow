@@ -9,7 +9,6 @@ package com.facebook.hermes.reactexecutor;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.bridge.JavaScriptExecutor;
-import com.facebook.react.common.build.ReactBuildConfig;
 import com.facebook.soloader.SoLoader;
 import javax.annotation.Nullable;
 
@@ -24,11 +23,11 @@ public class HermesExecutor extends JavaScriptExecutor {
     if (mode_ == null) {
       // libhermes must be loaded explicitly to invoke its JNI_OnLoad.
       SoLoader.loadLibrary("hermes");
-      SoLoader.loadLibrary("hermes_executor");
-      // libhermes_executor is built differently for Debug & Release so we load the proper mode.
-      if (ReactBuildConfig.DEBUG == true) {
+      try {
+        SoLoader.loadLibrary("hermes-executor-debug");
         mode_ = "Debug";
-      } else {
+      } catch (UnsatisfiedLinkError e) {
+        SoLoader.loadLibrary("hermes-executor-release");
         mode_ = "Release";
       }
     }

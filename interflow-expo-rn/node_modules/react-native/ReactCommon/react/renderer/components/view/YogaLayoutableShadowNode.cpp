@@ -20,11 +20,12 @@
 #include <limits>
 #include <memory>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static int FabricDefaultYogaLog(
-    const YGConfigRef /*unused*/,
-    const YGNodeRef /*unused*/,
+    const YGConfigRef,
+    const YGNodeRef,
     YGLogLevel level,
     const char *format,
     va_list args) {
@@ -249,7 +250,7 @@ void YogaLayoutableShadowNode::appendChild(
   // (e.g. RCTRawText). This used to throw an error, but we are ignoring it
   // because we want core library components to be fault-tolerant and degrade
   // gracefully. A soft error will be emitted from JavaScript.
-  if (traitCast<YogaLayoutableShadowNode const *>(childNode.get()) != nullptr) {
+  if (traitCast<YogaLayoutableShadowNode const *>(childNode.get())) {
     // Appending the Yoga node.
     appendYogaChild(*childNode);
 
@@ -506,7 +507,7 @@ void YogaLayoutableShadowNode::layout(LayoutContext layoutContext) {
       // `newLayoutMetrics.frame` with `childNode.getLayoutMetrics().frame` to
       // detect if layout has not changed is not advised, please refer to
       // D22999891 for details.
-      if (layoutContext.affectedNodes != nullptr) {
+      if (layoutContext.affectedNodes) {
         layoutContext.affectedNodes->push_back(&childNode);
       }
 
@@ -645,8 +646,7 @@ void YogaLayoutableShadowNode::swapLeftAndRightInTree(
   for (auto &child : shadowNode.getChildren()) {
     auto const yogaLayoutableChild =
         traitCast<YogaLayoutableShadowNode const *>(child.get());
-    if ((yogaLayoutableChild != nullptr) &&
-        !yogaLayoutableChild->doesOwn(shadowNode)) {
+    if (yogaLayoutableChild && !yogaLayoutableChild->doesOwn(shadowNode)) {
       swapLeftAndRightInTree(*yogaLayoutableChild);
     }
   }
@@ -822,4 +822,5 @@ void YogaLayoutableShadowNode::ensureYogaChildrenAlighment() const {
 #endif
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

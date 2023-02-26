@@ -99,7 +99,7 @@ export default function AuthProvider({ children }) {
 
   const login = () => {
     console.log("was here!")
-    promptAsync({ showInRecents: true });
+    promptAsync({ useProxy: true, showInRecents: true });
   };
 
   const logout = async () => {

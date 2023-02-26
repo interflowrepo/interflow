@@ -52,7 +52,7 @@ class JsToNativeBridge : public react::ExecutorDelegate {
   }
 
   void callNativeModules(
-      [[maybe_unused]] JSExecutor &executor,
+      __attribute__((unused)) JSExecutor &executor,
       folly::dynamic &&calls,
       bool isEndOfBatch) override {
     CHECK(m_registry || calls.empty())
@@ -85,7 +85,7 @@ class JsToNativeBridge : public react::ExecutorDelegate {
   }
 
   MethodCallResult callSerializableNativeHook(
-      [[maybe_unused]] JSExecutor &executor,
+      __attribute__((unused)) JSExecutor &executor,
       unsigned int moduleId,
       unsigned int methodId,
       folly::dynamic &&args) override {

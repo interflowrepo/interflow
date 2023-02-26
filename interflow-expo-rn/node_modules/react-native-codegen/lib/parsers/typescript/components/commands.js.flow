@@ -14,19 +14,20 @@ import type {
   NamedShape,
   CommandTypeAnnotation,
 } from '../../../CodegenSchema.js';
-import type {TypeDeclarationMap} from '../../utils';
-const {parseTopLevelType} = require('../parseTopLevelType');
+import type {TypeDeclarationMap} from '../utils.js';
+
+const {getValueFromTypes} = require('../utils.js');
 
 type EventTypeAST = Object;
 
 function buildCommandSchema(property: EventTypeAST, types: TypeDeclarationMap) {
-  const topLevelType = parseTopLevelType(
+  const name = property.key.name;
+  const optional = property.optional || false;
+  const value = getValueFromTypes(
     property.typeAnnotation.typeAnnotation,
     types,
   );
-  const name = property.key.name;
-  const optional = property.optional || topLevelType.optional;
-  const value = topLevelType.type;
+
   const firstParam = value.parameters[0].typeAnnotation;
 
   if (
@@ -44,10 +45,10 @@ function buildCommandSchema(property: EventTypeAST, types: TypeDeclarationMap) {
 
   const params = value.parameters.slice(1).map(param => {
     const paramName = param.name;
-    const paramValue = parseTopLevelType(
+    const paramValue = getValueFromTypes(
       param.typeAnnotation.typeAnnotation,
       types,
-    ).type;
+    );
 
     const type =
       paramValue.type === 'TSTypeReference'

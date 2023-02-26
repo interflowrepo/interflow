@@ -8,18 +8,17 @@
  * @format
  */
 
-import type {ImageSource} from '../../Image/ImageSource';
-import type {LogLevel} from '../Data/LogBoxLog';
-
-import StatusBar from '../../Components/StatusBar/StatusBar';
-import View from '../../Components/View/View';
 import Image from '../../Image/Image';
+import Platform from '../../Utilities/Platform';
+import * as React from 'react';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
-import Platform from '../../Utilities/Platform';
+import View from '../../Components/View/View';
+import StatusBar from '../../Components/StatusBar/StatusBar';
 import LogBoxButton from './LogBoxButton';
 import * as LogBoxStyle from './LogBoxStyle';
-import * as React from 'react';
+import type {LogLevel} from '../Data/LogBoxLog';
+import type {ImageSource} from '../../Image/ImageSource';
 type Props = $ReadOnly<{|
   onSelectIndex: (selectedIndex: number) => void,
   selectedIndex: number,

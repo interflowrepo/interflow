@@ -24,6 +24,7 @@ using namespace facebook::react;
   if (self = [super initWithFrame:frame]) {
     static auto const defaultProps = std::make_shared<SafeAreaViewProps const>();
     _props = defaultProps;
+    self.clipsToBounds = YES;
   }
 
   return self;

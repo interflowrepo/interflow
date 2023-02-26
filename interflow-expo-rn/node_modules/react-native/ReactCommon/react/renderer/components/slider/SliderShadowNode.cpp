@@ -9,7 +9,8 @@
 
 #include <react/renderer/core/LayoutContext.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 extern const char SliderComponentName[] = "Slider";
 
@@ -83,7 +84,7 @@ ImageSource SliderShadowNode::getThumbImageSource() const {
 #pragma mark - LayoutableShadowNode
 
 Size SliderShadowNode::measureContent(
-    LayoutContext const & /*layoutContext*/,
+    LayoutContext const &layoutContext,
     LayoutConstraints const &layoutConstraints) const {
   if (SliderMeasurementsManager::shouldMeasureSlider()) {
     return measurementsManager_->measure(getSurfaceId(), layoutConstraints);
@@ -97,4 +98,5 @@ void SliderShadowNode::layout(LayoutContext layoutContext) {
   ConcreteViewShadowNode::layout(layoutContext);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

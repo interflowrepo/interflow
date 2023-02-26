@@ -8,9 +8,8 @@
  * @format
  */
 
-import type {HostComponent} from '../Renderer/shims/ReactNativeTypes';
-
 import * as React from 'react';
+import type {HostComponent} from '../Renderer/shims/ReactNativeTypes';
 
 export type SyntheticEvent<+T> = $ReadOnly<{|
   bubbles: ?boolean,

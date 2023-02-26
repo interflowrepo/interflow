@@ -4,9 +4,9 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
+ * @emails oncall+react_native
  * @flow strict-local
  * @format
- * @oncall react_native
  */
 
 'use strict';
@@ -14,9 +14,24 @@
 const combine = require('./combine-js-to-schema');
 const fs = require('fs');
 const glob = require('glob');
-const {parseArgs, filterJSFile} = require('./combine-utils');
+const path = require('path');
 
-const {platform, outfile, fileList} = parseArgs(process.argv);
+const [outfile, ...fileList] = process.argv.slice(2);
+
+function filterJSFile(file: string) {
+  return (
+    /^(Native.+|.+NativeComponent)/.test(path.basename(file)) &&
+    // NativeUIManager will be deprecated by Fabric UIManager.
+    // For now, ignore this spec completely because the types are not fully supported.
+    !file.endsWith('NativeUIManager.js') &&
+    // NativeSampleTurboModule is for demo purpose. It should be added manually to the
+    // app for now.
+    !file.endsWith('NativeSampleTurboModule.js') &&
+    !file.includes('__tests') &&
+    // Ignore TypeScript type declaration files.
+    !file.endsWith('.d.ts')
+  );
+}
 
 const allFiles = [];
 fileList.forEach(file => {
@@ -25,7 +40,7 @@ fileList.forEach(file => {
       .sync(`${file}/**/*.{js,ts,tsx}`, {
         nodir: true,
       })
-      .filter(element => filterJSFile(element, platform));
+      .filter(filterJSFile);
     allFiles.push(...dirFiles);
   } else if (filterJSFile(file)) {
     allFiles.push(file);

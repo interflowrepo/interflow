@@ -33,6 +33,7 @@ import com.facebook.react.bridge.ReactNoCrashSoftException;
 import com.facebook.react.bridge.ReactSoftExceptionLogger;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.annotations.VisibleForTesting;
+import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import com.facebook.react.touch.OnInterceptTouchEventListener;
 import com.facebook.react.touch.ReactHitSlopView;
@@ -827,7 +828,8 @@ public class ReactViewGroup extends ViewGroup
 
   @Override
   protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
-    boolean drawWithZ = child.getElevation() > 0;
+    boolean drawWithZ =
+        child.getElevation() > 0 && ReactFeatureFlags.insertZReorderBarriersOnViewGroupChildren;
 
     if (drawWithZ) {
       CanvasUtil.enableZ(canvas, true);

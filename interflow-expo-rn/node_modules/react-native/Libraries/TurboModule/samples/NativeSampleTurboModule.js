@@ -10,7 +10,6 @@
 
 import type {UnsafeObject} from '../../Types/CodegenTypes';
 import type {RootTag, TurboModule} from '../RCTExport';
-
 import * as TurboModuleRegistry from '../TurboModuleRegistry';
 
 export interface Spec extends TurboModule {

@@ -4,8 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
 var _launchDefaultBrowser = _interopRequireDefault(require("./launchDefaultBrowser"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -14,10 +17,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * @format
  */
-
 async function launchDebugger(url) {
   return (0, _launchDefaultBrowser.default)(url);
 }
+
 var _default = launchDebugger;
 exports.default = _default;
 

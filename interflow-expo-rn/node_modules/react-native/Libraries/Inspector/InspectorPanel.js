@@ -10,19 +10,17 @@
 
 'use strict';
 
-import type {ViewStyleProp} from '../StyleSheet/StyleSheet';
-
-import SafeAreaView from '../Components/SafeAreaView/SafeAreaView';
-
-const ScrollView = require('../Components/ScrollView/ScrollView');
-const TouchableHighlight = require('../Components/Touchable/TouchableHighlight');
-const View = require('../Components/View/View');
-const StyleSheet = require('../StyleSheet/StyleSheet');
-const Text = require('../Text/Text');
 const ElementProperties = require('./ElementProperties');
 const NetworkOverlay = require('./NetworkOverlay');
 const PerformanceOverlay = require('./PerformanceOverlay');
 const React = require('react');
+const ScrollView = require('../Components/ScrollView/ScrollView');
+const StyleSheet = require('../StyleSheet/StyleSheet');
+const Text = require('../Text/Text');
+const TouchableHighlight = require('../Components/Touchable/TouchableHighlight');
+const View = require('../Components/View/View');
+
+import type {ViewStyleProp} from '../StyleSheet/StyleSheet';
 
 type Props = $ReadOnly<{|
   devtoolsIsOpen: boolean,
@@ -86,7 +84,7 @@ class InspectorPanel extends React.Component<Props> {
       contents = <View style={styles.waiting}>{this.renderWaiting()}</View>;
     }
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         {!this.props.devtoolsIsOpen && contents}
         <View style={styles.buttonRow}>
           <InspectorPanelButton
@@ -110,7 +108,7 @@ class InspectorPanel extends React.Component<Props> {
             onClick={this.props.setTouchTargeting}
           />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -122,7 +120,7 @@ type InspectorPanelButtonProps = $ReadOnly<{|
 |}>;
 
 class InspectorPanelButton extends React.Component<InspectorPanelButtonProps> {
-  render(): React.Node {
+  render() {
     return (
       <TouchableHighlight
         onPress={() => this.props.onClick(!this.props.pressed)}

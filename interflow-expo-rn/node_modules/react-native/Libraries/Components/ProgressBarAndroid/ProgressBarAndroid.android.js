@@ -8,12 +8,12 @@
  * @format
  */
 
-import type {ColorValue} from '../../StyleSheet/StyleSheet';
-import type {ViewProps} from '../View/ViewPropTypes';
+const React = require('react');
 
 import ProgressBarAndroidNativeComponent from './ProgressBarAndroidNativeComponent';
 
-const React = require('react');
+import type {ViewProps} from '../View/ViewPropTypes';
+import type {ColorValue} from '../../StyleSheet/StyleSheet';
 
 export type ProgressBarAndroidProps = $ReadOnly<{|
   ...ViewProps,

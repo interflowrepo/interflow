@@ -9,7 +9,8 @@
 
 #include <utility>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 EventBeat::EventBeat(SharedOwnerBox ownerBox)
     : ownerBox_(std::move(ownerBox)) {}
@@ -38,4 +39,5 @@ void EventBeat::setBeatCallback(BeatCallback beatCallback) {
   beatCallback_ = std::move(beatCallback);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

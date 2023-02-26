@@ -12,7 +12,8 @@
 #include <react/renderer/core/propsConversions.h>
 #include <react/renderer/graphics/conversions.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 TextInputProps::TextInputProps(
     const PropsParserContext &context,
@@ -141,4 +142,5 @@ ParagraphAttributes TextInputProps::getEffectiveParagraphAttributes() const {
   return result;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

@@ -41,11 +41,6 @@ class ViewProps : public YogaStylableProps, public AccessibilityProps {
       const char *propName,
       RawValue const &value);
 
-#ifdef ANDROID
-  void propsDiffMapBuffer(Props const *oldProps, MapBufferBuilder &builder)
-      const override;
-#endif
-
 #pragma mark - Props
 
   // Color
@@ -56,7 +51,6 @@ class ViewProps : public YogaStylableProps, public AccessibilityProps {
   // Borders
   CascadedBorderRadii borderRadii{};
   CascadedBorderColors borderColors{};
-  CascadedBorderCurves borderCurves{}; // iOS only?
   CascadedBorderStyles borderStyles{};
 
   // Shadow

@@ -8,14 +8,10 @@
  * @format
  */
 
-import type {Node} from 'react';
-
-import View from '../../Components/View/View';
-import StyleSheet from '../../StyleSheet/StyleSheet';
-import Text from '../../Text/Text';
-import useColorScheme from '../../Utilities/useColorScheme';
-import Colors from './Colors';
 import React from 'react';
+import type {Node} from 'react';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import Colors from './Colors';
 
 const HermesBadge = (): Node => {
   const isDarkMode = useColorScheme() === 'dark';

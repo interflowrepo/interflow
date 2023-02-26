@@ -11,13 +11,17 @@
 
 #import <React/RCTUITextView.h>
 
-@implementation RCTMultilineTextInputView {
+@implementation RCTMultilineTextInputView
+{
   RCTUITextView *_backedTextInputView;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
 {
   if (self = [super initWithBridge:bridge]) {
+    // `blurOnSubmit` defaults to `false` for <TextInput multiline={true}> by design.
+    self.blurOnSubmit = NO;
+
     _backedTextInputView = [[RCTUITextView alloc] initWithFrame:self.bounds];
     _backedTextInputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _backedTextInputView.textInputDelegate = self;
@@ -46,16 +50,25 @@
     UIEdgeInsets contentInset = scrollView.contentInset;
 
     onScroll(@{
-      @"contentOffset" : @{@"x" : @(contentOffset.x), @"y" : @(contentOffset.y)},
-      @"contentInset" : @{
-        @"top" : @(contentInset.top),
-        @"left" : @(contentInset.left),
-        @"bottom" : @(contentInset.bottom),
-        @"right" : @(contentInset.right)
+      @"contentOffset": @{
+        @"x": @(contentOffset.x),
+        @"y": @(contentOffset.y)
       },
-      @"contentSize" : @{@"width" : @(contentSize.width), @"height" : @(contentSize.height)},
-      @"layoutMeasurement" : @{@"width" : @(size.width), @"height" : @(size.height)},
-      @"zoomScale" : @(scrollView.zoomScale ?: 1),
+      @"contentInset": @{
+        @"top": @(contentInset.top),
+        @"left": @(contentInset.left),
+        @"bottom": @(contentInset.bottom),
+        @"right": @(contentInset.right)
+      },
+      @"contentSize": @{
+        @"width": @(contentSize.width),
+        @"height": @(contentSize.height)
+      },
+      @"layoutMeasurement": @{
+        @"width": @(size.width),
+        @"height": @(size.height)
+      },
+      @"zoomScale": @(scrollView.zoomScale ?: 1),
     });
   }
 }

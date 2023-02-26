@@ -21,13 +21,8 @@ import java.util.List;
 /* package */ class EventAnimationDriver implements RCTEventEmitter {
   private List<String> mEventPath;
   /* package */ ValueAnimatedNode mValueNode;
-  /* package */ String mEventName;
-  /* package */ int mViewTag;
 
-  public EventAnimationDriver(
-      String eventName, int viewTag, List<String> eventPath, ValueAnimatedNode valueNode) {
-    mEventName = eventName;
-    mViewTag = viewTag;
+  public EventAnimationDriver(List<String> eventPath, ValueAnimatedNode valueNode) {
     mEventPath = eventPath;
     mValueNode = valueNode;
   }

@@ -16,10 +16,6 @@
 // TODO T69437152 @petetheheat - Delete this fork when Fabric ships to 100%.
 // NOTE: This module is temporarily forked (see RCTNativeAnimatedModule).
 // When making any changes, be sure to apply them to the fork as well.
-@interface RCTNativeAnimatedTurboModule : RCTEventEmitter <
-                                              RCTBridgeModule,
-                                              RCTValueAnimatedNodeObserver,
-                                              RCTEventDispatcherObserver,
-                                              RCTSurfacePresenterObserver>
+@interface RCTNativeAnimatedTurboModule: RCTEventEmitter <RCTBridgeModule, RCTValueAnimatedNodeObserver, RCTEventDispatcherObserver, RCTSurfacePresenterObserver>
 
 @end

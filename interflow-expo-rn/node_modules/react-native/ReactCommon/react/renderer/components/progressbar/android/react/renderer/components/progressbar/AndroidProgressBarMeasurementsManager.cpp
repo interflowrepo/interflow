@@ -13,7 +13,8 @@
 
 using namespace facebook::jni;
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 Size AndroidProgressBarMeasurementsManager::measure(
     SurfaceId surfaceId,
@@ -70,4 +71,5 @@ Size AndroidProgressBarMeasurementsManager::measure(
   return measurement;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

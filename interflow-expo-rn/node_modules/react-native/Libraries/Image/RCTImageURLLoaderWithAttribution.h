@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTImageLoaderLoggable.h>
-#import <React/RCTImageLoaderProtocol.h>
 #import <React/RCTImageURLLoader.h>
+#import <React/RCTImageLoaderProtocol.h>
+#import <React/RCTImageLoaderLoggable.h>
 
 // TODO (T61325135): Remove C++ checks
 #ifdef __cplusplus
@@ -31,9 +31,7 @@ struct ImageURLLoaderAttribution {
 @property (nonatomic, strong, readonly) NSURL *imageURL;
 @property (nonatomic, copy, readonly) RCTImageLoaderCancellationBlock cancellationBlock;
 
-- (instancetype)initWithRequestId:(NSString *)requestId
-                         imageURL:(NSURL *)imageURL
-                cancellationBlock:(RCTImageLoaderCancellationBlock)cancellationBlock;
+- (instancetype)initWithRequestId:(NSString *)requestId imageURL:(NSURL *)imageURL cancellationBlock:(RCTImageLoaderCancellationBlock)cancellationBlock;
 - (void)cancel;
 
 @end
@@ -55,7 +53,7 @@ struct ImageURLLoaderAttribution {
                                         scale:(CGFloat)scale
                                    resizeMode:(RCTResizeMode)resizeMode
                                     requestId:(NSString *)requestId
-                                     priority:(RCTImageLoaderPriority)priority
+                                    priority: (RCTImageLoaderPriority)priority
                                   attribution:(const facebook::react::ImageURLLoaderAttribution &)attribution
                               progressHandler:(RCTImageLoaderProgressBlock)progressHandler
                            partialLoadHandler:(RCTImageLoaderPartialLoadBlock)partialLoadHandler

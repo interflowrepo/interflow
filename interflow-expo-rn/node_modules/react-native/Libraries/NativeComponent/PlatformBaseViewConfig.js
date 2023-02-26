@@ -9,7 +9,6 @@
  */
 
 import type {PartialViewConfig} from '../Renderer/shims/ReactNativeTypes';
-
 import BaseViewConfig from './BaseViewConfig';
 
 export type PartialViewConfigWithoutName = $Rest<

@@ -81,6 +81,7 @@ import com.facebook.react.uimanager.ViewManagerRegistry;
 import com.facebook.react.uimanager.events.EventCategoryDef;
 import com.facebook.react.uimanager.events.EventDispatcher;
 import com.facebook.react.uimanager.events.EventDispatcherImpl;
+import com.facebook.react.uimanager.events.LockFreeEventDispatcherImpl;
 import com.facebook.react.views.text.TextLayoutManager;
 import com.facebook.react.views.text.TextLayoutManagerMapBuffer;
 import java.util.HashMap;
@@ -240,7 +241,10 @@ public class FabricUIManager implements UIManager, LifecycleEventListener {
     mMountingManager = new MountingManager(viewManagerRegistry, mMountItemExecutor);
     mMountItemDispatcher =
         new MountItemDispatcher(mMountingManager, new MountItemDispatchListener());
-    mEventDispatcher = new EventDispatcherImpl(reactContext);
+    mEventDispatcher =
+        ReactFeatureFlags.enableLockFreeEventDispatcher
+            ? new LockFreeEventDispatcherImpl(reactContext)
+            : new EventDispatcherImpl(reactContext);
     mShouldDeallocateEventDispatcher = true;
     mEventBeatManager = eventBeatManager;
     mReactApplicationContext.addLifecycleEventListener(this);
@@ -261,8 +265,8 @@ public class FabricUIManager implements UIManager, LifecycleEventListener {
         new IllegalViewOperationException(
             "Do not call addRootView in Fabric; it is unsupported. Call startSurface instead."));
 
+    final int rootTag = ReactRootViewTagGenerator.getNextRootViewTag();
     ReactRoot reactRootView = (ReactRoot) rootView;
-    final int rootTag = reactRootView.getRootViewTag();
 
     ThemedReactContext reactContext =
         new ThemedReactContext(
@@ -290,7 +294,7 @@ public class FabricUIManager implements UIManager, LifecycleEventListener {
    * @return a {@link ReadableMap} that contains metadata associated to the React Component that
    *     rendered the Android View received as a parameter. For more details about the keys stored
    *     in the {@link ReadableMap} refer to the "getInspectorDataForInstance" method from
-   *     jni/react/fabric/Binding.cpp file.
+   *     com/facebook/react/fabric/jni/Binding.cpp file.
    */
   @UiThread
   @ThreadConfined(UI)
@@ -318,7 +322,7 @@ public class FabricUIManager implements UIManager, LifecycleEventListener {
       final WritableMap initialProps,
       int widthMeasureSpec,
       int heightMeasureSpec) {
-    final int rootTag = ((ReactRoot) rootView).getRootViewTag();
+    final int rootTag = ReactRootViewTagGenerator.getNextRootViewTag();
     Context context = rootView.getContext();
     ThemedReactContext reactContext =
         new ThemedReactContext(mReactApplicationContext, context, moduleName, rootTag);

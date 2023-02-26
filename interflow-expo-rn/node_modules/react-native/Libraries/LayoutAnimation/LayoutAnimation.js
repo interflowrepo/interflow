@@ -10,17 +10,16 @@
 
 'use strict';
 
+const UIManager = require('../ReactNative/UIManager');
 import type {Spec as FabricUIManagerSpec} from '../ReactNative/FabricUIManager';
 import type {
   LayoutAnimationConfig as LayoutAnimationConfig_,
-  LayoutAnimationProperty,
   LayoutAnimationType,
+  LayoutAnimationProperty,
 } from '../Renderer/shims/ReactNativeTypes';
 
-import ReactNativeFeatureFlags from '../ReactNative/ReactNativeFeatureFlags';
 import Platform from '../Utilities/Platform';
-
-const UIManager = require('../ReactNative/UIManager');
+import ReactNativeFeatureFlags from '../ReactNative/ReactNativeFeatureFlags';
 
 // Reexport type
 export type LayoutAnimationConfig = LayoutAnimationConfig_;

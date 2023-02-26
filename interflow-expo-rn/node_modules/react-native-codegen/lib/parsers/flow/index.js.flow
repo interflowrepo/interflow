@@ -11,39 +11,61 @@
 'use strict';
 
 import type {SchemaType} from '../../CodegenSchema.js';
-
 // $FlowFixMe[untyped-import] there's no flowtype flow-parser
 const flowParser = require('flow-parser');
 const fs = require('fs');
-const {
-  buildSchemaFromConfigType,
-  getConfigType,
-  isModuleRegistryCall,
-} = require('../utils');
+const path = require('path');
 const {buildComponentSchema} = require('./components');
 const {wrapComponentSchema} = require('./components/schema');
 const {buildModuleSchema} = require('./modules');
+const {wrapModuleSchema} = require('./modules/schema');
+const {
+  createParserErrorCapturer,
+  visit,
+  isModuleRegistryCall,
+} = require('./utils');
+const invariant = require('invariant');
 
-function Visitor(infoMap: {isComponent: boolean, isModule: boolean}) {
-  return {
-    CallExpression(node: $FlowFixMe) {
+function getConfigType(
+  // TODO(T71778680): Flow-type this node.
+  ast: $FlowFixMe,
+): 'module' | 'component' | 'none' {
+  let isComponent = false;
+  let isModule = false;
+
+  visit(ast, {
+    CallExpression(node) {
       if (
         node.callee.type === 'Identifier' &&
         node.callee.name === 'codegenNativeComponent'
       ) {
-        infoMap.isComponent = true;
+        isComponent = true;
       }
 
       if (isModuleRegistryCall(node)) {
-        infoMap.isModule = true;
+        isModule = true;
       }
     },
-    InterfaceExtends(node: $FlowFixMe) {
+    InterfaceExtends(node) {
       if (node.id.name === 'TurboModule') {
-        infoMap.isModule = true;
+        isModule = true;
       }
     },
-  };
+  });
+
+  if (isModule && isComponent) {
+    throw new Error(
+      'Found type extending "TurboModule" and exported "codegenNativeComponent" declaration in one file. Split them into separated files.',
+    );
+  }
+
+  if (isModule) {
+    return 'module';
+  } else if (isComponent) {
+    return 'component';
+  } else {
+    return 'none';
+  }
 }
 
 function buildSchema(contents: string, filename: ?string): SchemaType {
@@ -55,17 +77,52 @@ function buildSchema(contents: string, filename: ?string): SchemaType {
     return {modules: {}};
   }
 
-  const ast = flowParser.parse(contents, {enums: true});
-  const configType = getConfigType(ast, Visitor);
+  const ast = flowParser.parse(contents);
+  const configType = getConfigType(ast);
 
-  return buildSchemaFromConfigType(
-    configType,
-    filename,
-    ast,
-    wrapComponentSchema,
-    buildComponentSchema,
-    buildModuleSchema,
-  );
+  switch (configType) {
+    case 'component': {
+      return wrapComponentSchema(buildComponentSchema(ast));
+    }
+    case 'module': {
+      if (filename === undefined || filename === null) {
+        throw new Error('Filepath expected while parasing a module');
+      }
+      const hasteModuleName = path.basename(filename).replace(/\.js$/, '');
+
+      const [parsingErrors, tryParse] = createParserErrorCapturer();
+      const schema = tryParse(() =>
+        buildModuleSchema(hasteModuleName, ast, tryParse),
+      );
+
+      if (parsingErrors.length > 0) {
+        /**
+         * TODO(T77968131): We have two options:
+         *  - Throw the first error, but indicate there are more then one errors.
+         *  - Display all errors, nicely formatted.
+         *
+         * For the time being, we're just throw the first error.
+         **/
+
+        throw parsingErrors[0];
+      }
+
+      invariant(
+        schema != null,
+        'When there are no parsing errors, the schema should not be null',
+      );
+
+      return wrapModuleSchema(schema, hasteModuleName);
+    }
+    default:
+      return {modules: {}};
+  }
+}
+
+function parseFile(filename: string): SchemaType {
+  const contents = fs.readFileSync(filename, 'utf8');
+
+  return buildSchema(contents, filename);
 }
 
 function parseModuleFixture(filename: string): SchemaType {
@@ -79,7 +136,7 @@ function parseString(contents: string, filename: ?string): SchemaType {
 }
 
 module.exports = {
-  buildSchema,
+  parseFile,
   parseModuleFixture,
   parseString,
 };

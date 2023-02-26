@@ -8,22 +8,21 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 file(GLOB_RECURSE hermes_executor_SRC CONFIGURE_DEPENDS *.cpp)
 add_library(
-        hermes_executor_common
+        hermes-executor-common
         STATIC
         ${hermes_executor_SRC}
 )
-target_include_directories(hermes_executor_common PUBLIC .)
-target_link_libraries(hermes_executor_common
+target_include_directories(hermes-executor-common PUBLIC .)
+target_link_libraries(hermes-executor-common
         jsireact
         hermes-engine::libhermes
         jsi
-        debug
-        hermes_inspector
+        debug hermes-inspector
 )
 
 if(${CMAKE_BUILD_TYPE} MATCHES Debug)
         target_compile_options(
-                hermes_executor_common
+                hermes-executor-common
                 PRIVATE
                 -DHERMES_ENABLE_DEBUGGER=1
         )

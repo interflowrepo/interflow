@@ -11,7 +11,8 @@
 
 #include <react/renderer/timeline/Timeline.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 TimelineHandler::TimelineHandler(Timeline const &timeline) noexcept
     : timeline_(&timeline) {}
@@ -87,9 +88,10 @@ void TimelineHandler::release() noexcept {
 }
 
 void TimelineHandler::ensureNotEmpty() const noexcept {
-  if (timeline_ == nullptr) {
+  if (!timeline_) {
     abort();
   }
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

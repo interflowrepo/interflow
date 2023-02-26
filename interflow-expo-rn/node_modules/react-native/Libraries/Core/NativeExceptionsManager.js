@@ -9,10 +9,7 @@
  */
 
 import type {TurboModule} from '../TurboModule/RCTExport';
-
 import * as TurboModuleRegistry from '../TurboModule/TurboModuleRegistry';
-
-const Platform = require('../Utilities/Platform');
 
 export type StackFrame = {|
   column: ?number,
@@ -21,6 +18,7 @@ export type StackFrame = {|
   methodName: string,
   collapse?: boolean,
 |};
+
 export type ExceptionData = {
   message: string,
   originalMessage: ?string,
@@ -33,6 +31,7 @@ export type ExceptionData = {
   extraData?: Object,
   ...
 };
+
 export interface Spec extends TurboModule {
   // Deprecated: Use `reportException`
   +reportFatalException: (
@@ -55,6 +54,8 @@ export interface Spec extends TurboModule {
   // TODO(T53311281): This is a noop on iOS now. Implement it.
   +dismissRedbox?: () => void;
 }
+
+const Platform = require('../Utilities/Platform');
 
 const NativeModule =
   TurboModuleRegistry.getEnforcing<Spec>('ExceptionsManager');

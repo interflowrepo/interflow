@@ -10,7 +10,8 @@
 #include <gtest/gtest.h>
 #include <react/renderer/attributedstring/AttributedStringBox.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 TEST(AttributedStringBoxTest, testDefaultConstructor) {
   auto attributedStringBox = AttributedStringBox{};
@@ -100,4 +101,5 @@ TEST(AttributedStringBoxTest, testMoveAssignment) {
   }
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

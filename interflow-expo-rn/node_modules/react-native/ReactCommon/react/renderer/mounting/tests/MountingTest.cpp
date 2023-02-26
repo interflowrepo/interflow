@@ -18,7 +18,8 @@
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static SharedViewProps nonFlattenedDefaultProps(
     ComponentDescriptor const &componentDescriptor) {
@@ -704,4 +705,5 @@ TEST(MountingTest, testViewReparentingInstructionGeneration) {
   EXPECT_EQ(mutations4[8].newChildShadowView.tag, 2000);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

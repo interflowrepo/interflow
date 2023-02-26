@@ -44,14 +44,14 @@ class ParagraphProps : public ViewProps, public BaseTextProps {
    * Contains all prop values that affect visual representation of the
    * paragraph.
    */
-  ParagraphAttributes paragraphAttributes{};
+  ParagraphAttributes const paragraphAttributes{};
 
   /*
    * Defines can the text be selected (and copied) or not.
    */
-  bool isSelectable{};
+  bool const isSelectable{};
 
-  bool onTextLayout{};
+  bool const onTextLayout{};
 
 #pragma mark - DebugStringConvertible
 

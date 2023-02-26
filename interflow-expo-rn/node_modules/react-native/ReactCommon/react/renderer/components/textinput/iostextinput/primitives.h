@@ -48,14 +48,6 @@ enum class ReturnKeyType {
   Continue,
 };
 
-// iOS & Android.
-enum class SubmitBehavior {
-  Default,
-  Submit,
-  BlurAndSubmit,
-  Newline,
-};
-
 // iOS-only
 enum class TextInputAccessoryVisibilityMode {
   Never,
@@ -178,9 +170,9 @@ class TextInputTraits final {
 
   /*
    * iOS & Android
-   * Default value: `Default`.
+   * Default value: `false`.
    */
-  SubmitBehavior submitBehavior{SubmitBehavior::Default};
+  bool blurOnSubmit{false};
 
   /*
    * iOS-only (implemented only on iOS for now)

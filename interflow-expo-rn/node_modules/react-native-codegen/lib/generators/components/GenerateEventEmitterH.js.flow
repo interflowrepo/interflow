@@ -285,7 +285,9 @@ module.exports = {
       .filter(Boolean)
       .reduce((acc, components) => Object.assign(acc, components), {});
 
-    const moduleComponentsWithEvents = Object.keys(moduleComponents);
+    const moduleComponentsWithEvents = Object.keys(moduleComponents).filter(
+      componentName => moduleComponents[componentName].events.length > 0,
+    );
 
     const fileName = 'EventEmitters.h';
 

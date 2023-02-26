@@ -14,7 +14,8 @@
 
 #include <utility>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 State::State(StateData::Shared data, State const &state)
     : family_(state.family_),
@@ -48,4 +49,5 @@ size_t State::getRevision() const {
   return revision_;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

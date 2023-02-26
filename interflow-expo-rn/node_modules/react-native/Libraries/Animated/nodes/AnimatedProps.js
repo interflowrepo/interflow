@@ -12,14 +12,14 @@
 
 import type {PlatformConfig} from '../AnimatedPlatformConfig';
 
-import {findNodeHandle} from '../../ReactNative/RendererProxy';
-import {AnimatedEvent} from '../AnimatedEvent';
-import NativeAnimatedHelper from '../NativeAnimatedHelper';
-import AnimatedNode from './AnimatedNode';
-import AnimatedStyle from './AnimatedStyle';
-import invariant from 'invariant';
+const ReactNative = require('../../Renderer/shims/ReactNative');
+const {AnimatedEvent} = require('../AnimatedEvent');
+const NativeAnimatedHelper = require('../NativeAnimatedHelper');
+const AnimatedNode = require('./AnimatedNode');
+const AnimatedStyle = require('./AnimatedStyle');
+const invariant = require('invariant');
 
-export default class AnimatedProps extends AnimatedNode {
+class AnimatedProps extends AnimatedNode {
   _props: Object;
   _animatedView: any;
   _callback: () => void;
@@ -36,12 +36,22 @@ export default class AnimatedProps extends AnimatedNode {
     this._callback = callback;
   }
 
-  __getValue(): Object {
+  __getValue(initialProps: ?Object): Object {
     const props: {[string]: any | ((...args: any) => void)} = {};
     for (const key in this._props) {
       const value = this._props[key];
       if (value instanceof AnimatedNode) {
-        props[key] = value.__getValue();
+        // During initial render we want to use the initial value of both natively and non-natively
+        // driven nodes. On subsequent renders, we cannot use the value of natively driven nodes
+        // as they may not be up to date, so we use the initial value to ensure that values of
+        // native animated nodes do not impact rerenders.
+        if (value instanceof AnimatedStyle) {
+          props[key] = value.__getValue(initialProps?.style);
+        } else if (!initialProps || !value.__isNative) {
+          props[key] = value.__getValue();
+        } else if (initialProps.hasOwnProperty(key)) {
+          props[key] = initialProps[key];
+        }
       } else if (value instanceof AnimatedEvent) {
         props[key] = value.__getHandler();
       } else {
@@ -122,7 +132,9 @@ export default class AnimatedProps extends AnimatedNode {
 
   __connectAnimatedView(): void {
     invariant(this.__isNative, 'Expected node to be marked as "native"');
-    const nativeViewTag: ?number = findNodeHandle(this._animatedView);
+    const nativeViewTag: ?number = ReactNative.findNodeHandle(
+      this._animatedView,
+    );
     invariant(
       nativeViewTag != null,
       'Unable to locate attached view in the native tree',
@@ -135,7 +147,9 @@ export default class AnimatedProps extends AnimatedNode {
 
   __disconnectAnimatedView(): void {
     invariant(this.__isNative, 'Expected node to be marked as "native"');
-    const nativeViewTag: ?number = findNodeHandle(this._animatedView);
+    const nativeViewTag: ?number = ReactNative.findNodeHandle(
+      this._animatedView,
+    );
     invariant(
       nativeViewTag != null,
       'Unable to locate attached view in the native tree',
@@ -171,3 +185,5 @@ export default class AnimatedProps extends AnimatedNode {
     };
   }
 }
+
+module.exports = AnimatedProps;

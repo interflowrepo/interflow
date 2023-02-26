@@ -9,7 +9,8 @@
 
 #include <react/renderer/core/ShadowNodeFamily.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 ShadowNodeFamilyFragment ShadowNodeFamilyFragment::build(
     ShadowNodeFamily const &family) {
@@ -31,4 +32,5 @@ Value::operator ShadowNodeFamilyFragment() const {
   return ShadowNodeFamilyFragment{tag, surfaceId, eventEmitter};
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

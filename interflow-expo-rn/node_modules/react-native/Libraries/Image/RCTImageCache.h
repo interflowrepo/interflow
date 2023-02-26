@@ -5,16 +5,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #import <React/RCTResizeMode.h>
 
 @interface UIImage (React)
 
 /**
- * Memory bytes of the image with the default calculation of static image or GIF. Custom calculations of decoded bytes
- * can be assigned manually.
+ * Memory bytes of the image with the default calculation of static image or GIF. Custom calculations of decoded bytes can be assigned manually.
  */
 @property (nonatomic, assign) NSInteger reactDecodedImageBytes;
 
@@ -25,7 +24,10 @@
  */
 @protocol RCTImageCache <NSObject>
 
-- (UIImage *)imageForUrl:(NSString *)url size:(CGSize)size scale:(CGFloat)scale resizeMode:(RCTResizeMode)resizeMode;
+- (UIImage *)imageForUrl:(NSString *)url
+                    size:(CGSize)size
+                   scale:(CGFloat)scale
+              resizeMode:(RCTResizeMode)resizeMode;
 
 - (void)addImageToCache:(UIImage *)image
                     URL:(NSString *)url
@@ -38,8 +40,6 @@
 
 @interface RCTImageCache : NSObject <RCTImageCache>
 
-RCT_EXTERN void RCTSetImageCacheLimits(
-    NSUInteger maxCachableDecodedImageSizeInBytes,
-    NSUInteger imageCacheTotalCostLimit);
+RCT_EXTERN void RCTSetImageCacheLimits(NSUInteger maxCachableDecodedImageSizeInBytes, NSUInteger imageCacheTotalCostLimit);
 
 @end

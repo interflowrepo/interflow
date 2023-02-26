@@ -28,7 +28,7 @@
 
 function groupByEveryN<T>(array: Array<T>, n: number): Array<Array<?T>> {
   const result = [];
-  let temp: Array<?T> = [];
+  let temp = [];
 
   for (let i = 0; i < array.length; ++i) {
     if (i > 0 && i % n === 0) {

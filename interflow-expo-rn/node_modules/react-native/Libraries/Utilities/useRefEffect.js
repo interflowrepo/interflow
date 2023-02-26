@@ -31,7 +31,7 @@ export default function useRefEffect<TInstance>(
 ): CallbackRef<TInstance | null> {
   const cleanupRef = useRef<(() => void) | void>(undefined);
   return useCallback(
-    (instance: null | TInstance) => {
+    instance => {
       if (cleanupRef.current) {
         cleanupRef.current();
         cleanupRef.current = undefined;

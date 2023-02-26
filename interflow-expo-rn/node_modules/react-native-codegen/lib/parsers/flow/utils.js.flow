@@ -10,7 +10,7 @@
 
 'use strict';
 
-import type {TypeAliasResolutionStatus, TypeDeclarationMap} from '../utils';
+const {ParserError} = require('./errors');
 
 /**
  * This FlowFixMe is supposed to refer to an InterfaceDeclaration or TypeAlias
@@ -20,28 +20,20 @@ import type {TypeAliasResolutionStatus, TypeDeclarationMap} from '../utils';
  *
  * TODO(T71778680): Flow type AST Nodes
  */
+export type TypeDeclarationMap = {[declarationName: string]: $FlowFixMe};
 
 function getTypes(ast: $FlowFixMe): TypeDeclarationMap {
   return ast.body.reduce((types, node) => {
     if (node.type === 'ExportNamedDeclaration' && node.exportKind === 'type') {
       if (
-        node.declaration != null &&
-        (node.declaration.type === 'TypeAlias' ||
-          node.declaration.type === 'InterfaceDeclaration')
+        node.declaration.type === 'TypeAlias' ||
+        node.declaration.type === 'InterfaceDeclaration'
       ) {
         types[node.declaration.id.name] = node.declaration;
       }
     } else if (
-      node.type === 'ExportNamedDeclaration' &&
-      node.exportKind === 'value' &&
-      node.declaration &&
-      node.declaration.type === 'EnumDeclaration'
-    ) {
-      types[node.declaration.id.name] = node.declaration;
-    } else if (
       node.type === 'TypeAlias' ||
-      node.type === 'InterfaceDeclaration' ||
-      node.type === 'EnumDeclaration'
+      node.type === 'InterfaceDeclaration'
     ) {
       types[node.id.name] = node;
     }
@@ -53,6 +45,15 @@ function getTypes(ast: $FlowFixMe): TypeDeclarationMap {
 export type ASTNode = Object;
 
 const invariant = require('invariant');
+
+type TypeAliasResolutionStatus =
+  | $ReadOnly<{
+      successful: true,
+      aliasName: string,
+    }>
+  | $ReadOnly<{
+      successful: false,
+    }>;
 
 function resolveTypeAnnotation(
   // TODO(T71778680): This is an Flow TypeAnnotation. Flow-type this
@@ -84,10 +85,7 @@ function resolveTypeAnnotation(
         aliasName: node.id.name,
       };
       const resolvedTypeAnnotation = types[node.id.name];
-      if (
-        resolvedTypeAnnotation == null ||
-        resolvedTypeAnnotation.type === 'EnumDeclaration'
-      ) {
+      if (resolvedTypeAnnotation == null) {
         break;
       }
 
@@ -116,8 +114,102 @@ function getValueFromTypes(value: ASTNode, types: TypeDeclarationMap): ASTNode {
   return value;
 }
 
+export type ParserErrorCapturer = <T>(fn: () => T) => ?T;
+
+function createParserErrorCapturer(): [
+  Array<ParserError>,
+  ParserErrorCapturer,
+] {
+  const errors = [];
+  function guard<T>(fn: () => T): ?T {
+    try {
+      return fn();
+    } catch (error) {
+      if (!(error instanceof ParserError)) {
+        throw error;
+      }
+      errors.push(error);
+
+      return null;
+    }
+  }
+
+  return [errors, guard];
+}
+
+// TODO(T71778680): Flow-type ASTNodes.
+function visit(
+  astNode: $FlowFixMe,
+  visitor: {
+    [type: string]: (node: $FlowFixMe) => void,
+  },
+) {
+  const queue = [astNode];
+  while (queue.length !== 0) {
+    let item = queue.shift();
+
+    if (!(typeof item === 'object' && item != null)) {
+      continue;
+    }
+
+    if (
+      typeof item.type === 'string' &&
+      typeof visitor[item.type] === 'function'
+    ) {
+      // Don't visit any children
+      visitor[item.type](item);
+    } else if (Array.isArray(item)) {
+      queue.push(...item);
+    } else {
+      queue.push(...Object.values(item));
+    }
+  }
+}
+
+// TODO(T71778680): Flow-type ASTNodes.
+function isModuleRegistryCall(node: $FlowFixMe): boolean {
+  if (node.type !== 'CallExpression') {
+    return false;
+  }
+
+  const callExpression = node;
+
+  if (callExpression.callee.type !== 'MemberExpression') {
+    return false;
+  }
+
+  const memberExpression = callExpression.callee;
+  if (
+    !(
+      memberExpression.object.type === 'Identifier' &&
+      memberExpression.object.name === 'TurboModuleRegistry'
+    )
+  ) {
+    return false;
+  }
+
+  if (
+    !(
+      memberExpression.property.type === 'Identifier' &&
+      (memberExpression.property.name === 'get' ||
+        memberExpression.property.name === 'getEnforcing')
+    )
+  ) {
+    return false;
+  }
+
+  if (memberExpression.computed) {
+    return false;
+  }
+
+  return true;
+}
+
 module.exports = {
   getValueFromTypes,
   resolveTypeAnnotation,
+  createParserErrorCapturer,
   getTypes,
+  visit,
+  isModuleRegistryCall,
 };

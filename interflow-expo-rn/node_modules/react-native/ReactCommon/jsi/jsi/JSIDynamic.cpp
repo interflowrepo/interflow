@@ -129,7 +129,8 @@ void dynamicFromValueShallow(
     output = value.getNumber();
   } else if (value.isString()) {
     output = value.getString(runtime).utf8(runtime);
-  } else if (value.isObject()) {
+  } else {
+    CHECK(value.isObject());
     Object obj = value.getObject(runtime);
     if (obj.isArray(runtime)) {
       output = folly::dynamic::array();
@@ -139,12 +140,6 @@ void dynamicFromValueShallow(
       output = folly::dynamic::object();
     }
     stack.emplace_back(&output, std::move(obj));
-  } else if (value.isBigInt()) {
-    throw JSError(runtime, "JS BigInts are not convertible to dynamic");
-  } else if (value.isSymbol()) {
-    throw JSError(runtime, "JS Symbols are not convertible to dynamic");
-  } else {
-    throw JSError(runtime, "Value is not convertible to dynamic");
   }
 }
 

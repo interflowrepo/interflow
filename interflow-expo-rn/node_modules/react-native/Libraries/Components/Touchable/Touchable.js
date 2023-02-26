@@ -8,18 +8,18 @@
  * @format
  */
 
-import type {EdgeInsetsProp} from '../../StyleSheet/EdgeInsetsPropType';
-import type {ColorValue} from '../../StyleSheet/StyleSheet';
-import type {PressEvent} from '../../Types/CoreEventTypes';
-import type {TouchableType} from './Touchable.flow';
+import * as React from 'react';
+import BoundingDimensions from './BoundingDimensions';
+import Platform from '../../Utilities/Platform';
+import Position from './Position';
+import UIManager from '../../ReactNative/UIManager';
+import SoundManager from '../Sound/SoundManager';
 
 import {PressabilityDebugView} from '../../Pressability/PressabilityDebug';
-import UIManager from '../../ReactNative/UIManager';
-import Platform from '../../Utilities/Platform';
-import SoundManager from '../Sound/SoundManager';
-import BoundingDimensions from './BoundingDimensions';
-import Position from './Position';
-import * as React from 'react';
+
+import type {ColorValue} from '../../StyleSheet/StyleSheet';
+import type {EdgeInsetsProp} from '../../StyleSheet/EdgeInsetsPropType';
+import type {PressEvent} from '../../Types/CoreEventTypes';
 
 const extractSingleTouch = (nativeEvent: {
   +changedTouches: $ReadOnlyArray<PressEvent['nativeEvent']>,
@@ -927,7 +927,7 @@ const TouchableMixin = {
     }
   },
 
-  withoutDefaultFocusAndBlur: ({}: {...}),
+  withoutDefaultFocusAndBlur: ({}: $TEMPORARY$object<{||}>),
 };
 
 /**
@@ -944,7 +944,7 @@ const {
 TouchableMixin.withoutDefaultFocusAndBlur =
   TouchableMixinWithoutDefaultFocusAndBlur;
 
-const Touchable: TouchableType = {
+const Touchable = {
   Mixin: TouchableMixin,
   /**
    * Renders a debugging overlay to visualize touch target with hitSlop (might not work on Android).

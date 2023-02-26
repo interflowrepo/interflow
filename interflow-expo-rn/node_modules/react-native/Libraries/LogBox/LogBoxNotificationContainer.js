@@ -8,12 +8,12 @@
  * @format
  */
 
-import View from '../Components/View/View';
+import * as React from 'react';
 import StyleSheet from '../StyleSheet/StyleSheet';
+import View from '../Components/View/View';
 import * as LogBoxData from './Data/LogBoxData';
 import LogBoxLog from './Data/LogBoxLog';
 import LogBoxLogNotification from './UI/LogBoxNotification';
-import * as React from 'react';
 
 type Props = $ReadOnly<{|
   logs: $ReadOnlyArray<LogBoxLog>,

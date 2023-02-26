@@ -8,14 +8,11 @@
  * @format
  */
 
-export type ExtendedError = Error &
-  interface {
-    jsEngine?: string,
-    preventSymbolication?: boolean,
-    componentStack?: string,
-    isComponentError?: boolean,
-    type?: string,
-    // Note: A field keyed by the Symbol ExceptionsManager.decoratedExtraDataKey is also read from ExtendedErrors.
-    // This field isn't documented in the types as Flow does not support this usecase, but it's effectively:
-    // [decoratedExtraDataKey]?: {[string]: mixed},
-  };
+export type ExtendedError = Error & {
+  jsEngine?: string,
+  preventSymbolication?: boolean,
+  componentStack?: string,
+  isComponentError?: boolean,
+  type?: string,
+  ...
+};

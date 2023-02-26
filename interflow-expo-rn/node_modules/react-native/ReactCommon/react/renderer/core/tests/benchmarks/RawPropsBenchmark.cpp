@@ -15,7 +15,8 @@
 #include <exception>
 #include <string>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 auto contextContainer = std::make_shared<ContextContainer const>();
 auto eventDispatcher = std::shared_ptr<EventDispatcher>{nullptr};
@@ -82,6 +83,7 @@ static void propParsingRegularRawPropsWithNoSourceProps(
 }
 BENCHMARK(propParsingRegularRawPropsWithNoSourceProps);
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook
 
 BENCHMARK_MAIN();

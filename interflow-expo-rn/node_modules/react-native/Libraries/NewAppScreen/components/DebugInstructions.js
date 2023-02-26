@@ -9,10 +9,7 @@
  */
 
 import type {Node} from 'react';
-
-import StyleSheet from '../../StyleSheet/StyleSheet';
-import Text from '../../Text/Text';
-import Platform from '../../Utilities/Platform';
+import {Platform, StyleSheet, Text} from 'react-native';
 import React from 'react';
 
 const styles = StyleSheet.create({

@@ -8,20 +8,19 @@
  * @format
  */
 
-import type {CodeFrame} from '../Data/parseLogBoxLog';
-
+import * as React from 'react';
+import Platform from '../../Utilities/Platform';
 import ScrollView from '../../Components/ScrollView/ScrollView';
-import View from '../../Components/View/View';
-import openFileInEditor from '../../Core/Devtools/openFileInEditor';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
-import Platform from '../../Utilities/Platform';
-import * as LogBoxData from '../Data/LogBoxData';
-import AnsiHighlight from './AnsiHighlight';
-import LogBoxButton from './LogBoxButton';
-import LogBoxInspectorSection from './LogBoxInspectorSection';
+import View from '../../Components/View/View';
 import * as LogBoxStyle from './LogBoxStyle';
-import * as React from 'react';
+import type {CodeFrame} from '../Data/parseLogBoxLog';
+import LogBoxButton from './LogBoxButton';
+import openFileInEditor from '../../Core/Devtools/openFileInEditor';
+import AnsiHighlight from './AnsiHighlight';
+import LogBoxInspectorSection from './LogBoxInspectorSection';
+import * as LogBoxData from '../Data/LogBoxData';
 type Props = $ReadOnly<{|
   codeFrame: ?CodeFrame,
 |}>;

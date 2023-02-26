@@ -12,7 +12,8 @@
 #include <react/renderer/scheduler/Scheduler.h>
 #include <react/renderer/uimanager/UIManager.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 using Status = SurfaceHandler::Status;
 
@@ -282,12 +283,10 @@ void SurfaceHandler::applyDisplayMode(DisplayMode displayMode) const noexcept {
       link_.shadowTree->setCommitMode(ShadowTree::CommitMode::Suspended);
       // Committing the current revision back. It will be mounted only when
       // `DisplayMode` is changed back to `Normal`.
-      link_.shadowTree->commit(
-          [&](RootShadowNode const & /*oldRootShadowNode*/) {
-            return std::static_pointer_cast<RootShadowNode>(
-                revision.rootShadowNode->ShadowNode::clone(
-                    ShadowNodeFragment{}));
-          });
+      link_.shadowTree->commit([&](RootShadowNode const &oldRootShadowNode) {
+        return std::static_pointer_cast<RootShadowNode>(
+            revision.rootShadowNode->ShadowNode::clone(ShadowNodeFragment{}));
+      });
       break;
   }
 }
@@ -303,8 +302,7 @@ void SurfaceHandler::setUIManager(UIManager const *uiManager) const noexcept {
   }
 
   link_.uiManager = uiManager;
-  link_.status =
-      uiManager != nullptr ? Status::Registered : Status::Unregistered;
+  link_.status = uiManager ? Status::Registered : Status::Unregistered;
 }
 
 SurfaceHandler::~SurfaceHandler() noexcept {
@@ -315,4 +313,5 @@ SurfaceHandler::~SurfaceHandler() noexcept {
   //      deallocation.");
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

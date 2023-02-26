@@ -10,7 +10,8 @@
 #include <react/debug/flags.h>
 #include <react/debug/react_native_assert.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 /*
  * Note:
@@ -28,7 +29,7 @@ namespace facebook::react {
 
 Sealable::Sealable() : sealed_(false) {}
 
-Sealable::Sealable(const Sealable & /*other*/) : sealed_(false){};
+Sealable::Sealable(const Sealable &other) : sealed_(false){};
 
 Sealable::Sealable(Sealable &&other) noexcept : sealed_(false) {
   other.ensureUnsealed();
@@ -36,7 +37,7 @@ Sealable::Sealable(Sealable &&other) noexcept : sealed_(false) {
 
 Sealable::~Sealable() noexcept = default;
 
-Sealable &Sealable::operator=(const Sealable & /*other*/) {
+Sealable &Sealable::operator=(const Sealable &other) {
   ensureUnsealed();
   return *this;
 }
@@ -61,4 +62,5 @@ void Sealable::ensureUnsealed() const {
 
 #endif
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

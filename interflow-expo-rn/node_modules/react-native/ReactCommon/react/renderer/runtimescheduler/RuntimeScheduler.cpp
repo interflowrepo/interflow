@@ -10,7 +10,8 @@
 #include <utility>
 #include "ErrorUtils.h"
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 #pragma mark - Public
 
@@ -22,7 +23,6 @@ RuntimeScheduler::RuntimeScheduler(
 void RuntimeScheduler::scheduleWork(
     std::function<void(jsi::Runtime &)> callback) const {
   runtimeAccessRequests_ += 1;
-
   runtimeExecutor_(
       [this, callback = std::move(callback)](jsi::Runtime &runtime) {
         runtimeAccessRequests_ -= 1;
@@ -95,7 +95,7 @@ void RuntimeScheduler::callExpiredTasks(jsi::Runtime &runtime) {
       }
 
       currentPriority_ = topPriorityTask->priority;
-      auto result = topPriorityTask->execute(runtime, didUserCallbackTimeout);
+      auto result = topPriorityTask->execute(runtime);
 
       if (result.isObject() && result.getObject(runtime).isFunction(runtime)) {
         topPriorityTask->callback =
@@ -140,7 +140,7 @@ void RuntimeScheduler::startWorkLoop(jsi::Runtime &runtime) const {
       }
 
       currentPriority_ = topPriorityTask->priority;
-      auto result = topPriorityTask->execute(runtime, didUserCallbackTimeout);
+      auto result = topPriorityTask->execute(runtime);
 
       if (result.isObject() && result.getObject(runtime).isFunction(runtime)) {
         topPriorityTask->callback =
@@ -159,4 +159,5 @@ void RuntimeScheduler::startWorkLoop(jsi::Runtime &runtime) const {
   isPerformingWork_ = false;
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

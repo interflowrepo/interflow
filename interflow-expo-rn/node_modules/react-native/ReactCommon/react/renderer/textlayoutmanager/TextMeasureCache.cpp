@@ -9,7 +9,8 @@
 
 #include <utility>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 static Rect rectFromDynamic(folly::dynamic const &data) {
   Point origin;
@@ -65,4 +66,5 @@ bool LineMeasurement::operator==(LineMeasurement const &rhs) const {
              rhs.xHeight);
 }
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

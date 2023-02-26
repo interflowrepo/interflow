@@ -11,7 +11,8 @@
 
 @interface RCTAnimatedNode : NSObject
 
-- (instancetype)initWithTag:(NSNumber *)tag config:(NSDictionary<NSString *, id> *)config NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTag:(NSNumber *)tag
+                     config:(NSDictionary<NSString *, id> *)config NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly) NSNumber *nodeTag;
 @property (nonatomic, weak) RCTNativeAnimatedNodesManager *manager;
@@ -22,7 +23,7 @@
 
 @property (nonatomic, readonly) BOOL needsUpdate;
 
-- (BOOL)isManagedByFabric;
+-(BOOL)isManagedByFabric;
 
 /**
  * Marks a node and its children as needing update.

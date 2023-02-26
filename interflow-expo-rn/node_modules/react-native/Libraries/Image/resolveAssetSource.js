@@ -12,11 +12,11 @@
 
 'use strict';
 
-import type {ResolvedAssetSource} from './AssetSourceResolver';
-
+const AssetRegistry = require('@react-native/assets/registry');
 const AssetSourceResolver = require('./AssetSourceResolver');
 const {pickScale} = require('./AssetUtils');
-const AssetRegistry = require('@react-native/assets/registry');
+
+import type {ResolvedAssetSource} from './AssetSourceResolver';
 
 let _customSourceTransformer, _serverURL, _scriptURL;
 
@@ -105,6 +105,6 @@ function resolveAssetSource(source: any): ?ResolvedAssetSource {
   return resolver.defaultAsset();
 }
 
-resolveAssetSource.pickScale = pickScale;
-resolveAssetSource.setCustomSourceTransformer = setCustomSourceTransformer;
 module.exports = resolveAssetSource;
+module.exports.pickScale = pickScale;
+module.exports.setCustomSourceTransformer = setCustomSourceTransformer;

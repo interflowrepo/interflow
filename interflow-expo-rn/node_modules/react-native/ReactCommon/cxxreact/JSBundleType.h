@@ -36,19 +36,16 @@ enum struct ScriptTag {
  * bytes from a bundle in a way that gives access to that information.
  */
 FOLLY_PACK_PUSH
-
-struct FOLLY_PACK_ATTR Magic32 {
-  uint32_t value;
-  uint32_t reserved_;
-};
-
 struct FOLLY_PACK_ATTR BundleHeader {
   BundleHeader() {
     std::memset(this, 0, sizeof(BundleHeader));
   }
 
   union {
-    Magic32 magic32;
+    struct {
+      uint32_t value;
+      uint32_t reserved_;
+    } magic32;
     uint64_t magic64;
   };
   uint32_t version;

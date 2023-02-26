@@ -37,7 +37,8 @@ class INSPECTOR_EXPORT RuntimeAdapter {
   virtual ~RuntimeAdapter() = 0;
 
   /// getRuntime should return the runtime encapsulated by this adapter.
-  virtual HermesRuntime &getRuntime() = 0;
+  virtual jsi::Runtime &getRuntime() = 0;
+  virtual debugger::Debugger &getDebugger() = 0;
 
   /// tickleJs is a method that subclasses can choose to override to make the
   /// inspector more responsive. If overridden, it should call the "__tickleJs"
@@ -62,13 +63,17 @@ class INSPECTOR_EXPORT RuntimeAdapter {
  */
 class INSPECTOR_EXPORT SharedRuntimeAdapter : public RuntimeAdapter {
  public:
-  SharedRuntimeAdapter(std::shared_ptr<HermesRuntime> runtime);
+  SharedRuntimeAdapter(
+      std::shared_ptr<jsi::Runtime> runtime,
+      debugger::Debugger &debugger);
   ~SharedRuntimeAdapter() override;
 
-  HermesRuntime &getRuntime() override;
+  jsi::Runtime &getRuntime() override;
+  debugger::Debugger &getDebugger() override;
 
  private:
-  std::shared_ptr<HermesRuntime> runtime_;
+  std::shared_ptr<jsi::Runtime> runtime_;
+  debugger::Debugger &debugger_;
 };
 
 } // namespace inspector

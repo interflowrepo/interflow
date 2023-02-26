@@ -8,7 +8,7 @@
  * @flow
  */
 
-import type Blob from './Blob';
+const Blob = require('./Blob');
 
 import NativeBlobModule from './NativeBlobModule';
 
@@ -54,7 +54,7 @@ if (
 // Small subset from whatwg-url: https://github.com/jsdom/whatwg-url/tree/master/src
 // The reference code bloat comes from Unicode issues with URLs, so those won't work here.
 export class URLSearchParams {
-  _searchParams: Array<Array<string>> = [];
+  _searchParams = [];
 
   constructor(params: any) {
     if (typeof params === 'object') {
@@ -62,36 +62,35 @@ export class URLSearchParams {
     }
   }
 
-  append(key: string, value: string): void {
+  append(key: string, value: string) {
     this._searchParams.push([key, value]);
   }
 
-  delete(name: string): void {
+  delete(name: string) {
     throw new Error('URLSearchParams.delete is not implemented');
   }
 
-  get(name: string): void {
+  get(name: string) {
     throw new Error('URLSearchParams.get is not implemented');
   }
 
-  getAll(name: string): void {
+  getAll(name: string) {
     throw new Error('URLSearchParams.getAll is not implemented');
   }
 
-  has(name: string): void {
+  has(name: string) {
     throw new Error('URLSearchParams.has is not implemented');
   }
 
-  set(name: string, value: string): void {
+  set(name: string, value: string) {
     throw new Error('URLSearchParams.set is not implemented');
   }
 
-  sort(): void {
+  sort() {
     throw new Error('URLSearchParams.sort is not implemented');
   }
 
   // $FlowFixMe[unsupported-syntax]
-  // $FlowFixMe[missing-local-annot]
   [Symbol.iterator]() {
     return this._searchParams[Symbol.iterator]();
   }
@@ -135,7 +134,6 @@ export class URL {
     // Do nothing.
   }
 
-  // $FlowFixMe[missing-local-annot]
   constructor(url: string, base: string | URL) {
     let baseUrl = null;
     if (!base || validateBaseUrl(url)) {

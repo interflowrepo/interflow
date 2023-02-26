@@ -10,14 +10,16 @@
 
 'use strict';
 
-import View from '../Components/View/View';
-import setAndForwardRef from '../Utilities/setAndForwardRef';
-import {AnimatedEvent} from './AnimatedEvent';
 import * as createAnimatedComponentInjection from './createAnimatedComponentInjection';
-import NativeAnimatedHelper from './NativeAnimatedHelper';
-import AnimatedProps from './nodes/AnimatedProps';
-import invariant from 'invariant';
-import * as React from 'react';
+
+const View = require('../Components/View/View');
+const {AnimatedEvent} = require('./AnimatedEvent');
+const AnimatedProps = require('./nodes/AnimatedProps');
+const React = require('react');
+const NativeAnimatedHelper = require('./NativeAnimatedHelper');
+
+const invariant = require('invariant');
+const setAndForwardRef = require('../Utilities/setAndForwardRef');
 
 let animatedComponentNextId = 1;
 
@@ -53,6 +55,7 @@ function createAnimatedComponent<Props: {+[string]: mixed, ...}, Instance>(
     _prevComponent: any;
     _propsAnimated: AnimatedProps;
     _eventDetachers: Array<Function> = [];
+    _initialAnimatedProps: Object;
 
     // Only to be used in this file, and only in Fabric.
     _animatedComponentId: string = `${animatedComponentNextId++}:animatedComponent`;
@@ -137,7 +140,7 @@ function createAnimatedComponent<Props: {+[string]: mixed, ...}, Instance>(
     // components. If you want to animate a composite component, you need to
     // re-render it. In this case, we have a fallback that uses forceUpdate.
     // This fallback is also called in Fabric.
-    _animatedPropsCallback = (): void => {
+    _animatedPropsCallback = () => {
       if (this._component == null) {
         // AnimatedProps is created in will-mount because it's used in render.
         // But this callback may be invoked before mount in async mode,
@@ -189,7 +192,7 @@ function createAnimatedComponent<Props: {+[string]: mixed, ...}, Instance>(
       }
     }
 
-    _setComponentRef: (ref: React.ElementRef<any>) => void = setAndForwardRef({
+    _setComponentRef = setAndForwardRef({
       getForwardedRef: () => this.props.forwardedRef,
       setLocalRef: ref => {
         this._prevComponent = this._component;
@@ -198,7 +201,18 @@ function createAnimatedComponent<Props: {+[string]: mixed, ...}, Instance>(
     });
 
     render(): React.Node {
-      const animatedProps = this._propsAnimated.__getValue() || {};
+      // When rendering in Fabric and an AnimatedValue is used, we keep track of
+      // the initial value of that Value, to avoid additional prop updates when
+      // this component re-renders
+      const initialPropsIfFabric = this._isFabric()
+        ? this._initialAnimatedProps
+        : null;
+
+      const animatedProps =
+        this._propsAnimated.__getValue(initialPropsIfFabric) || {};
+      if (!this._initialAnimatedProps) {
+        this._initialAnimatedProps = animatedProps;
+      }
 
       const {style = {}, ...props} = animatedProps;
       const {style: passthruStyle = {}, ...passthruProps} =
@@ -270,5 +284,5 @@ function createAnimatedComponent<Props: {+[string]: mixed, ...}, Instance>(
 }
 
 // $FlowIgnore[incompatible-cast] - Will be compatible after refactors.
-export default (createAnimatedComponentInjection.recordAndRetrieve() ??
+module.exports = (createAnimatedComponentInjection.recordAndRetrieve() ??
   createAnimatedComponent: typeof createAnimatedComponent);

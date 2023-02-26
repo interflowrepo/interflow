@@ -8,11 +8,11 @@
  * @format
  */
 
-import View from '../../Components/View/View';
+import * as React from 'react';
 import StyleSheet from '../../StyleSheet/StyleSheet';
 import Text from '../../Text/Text';
+import View from '../../Components/View/View';
 import * as LogBoxStyle from './LogBoxStyle';
-import * as React from 'react';
 
 type Props = $ReadOnly<{|
   heading: string,

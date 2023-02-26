@@ -8,23 +8,22 @@
  * @format
  */
 
-import type {EventSubscription} from '../vendor/emitter/EventEmitter';
-import type {EventConfig} from './AnimatedEvent';
-import type {AnimationConfig, EndCallback} from './animations/Animation';
-import type {
-  AnimatedNodeConfig,
-  AnimatingNodeConfig,
-  EventMapping,
-} from './NativeAnimatedModule';
-import type {InterpolationConfigType} from './nodes/AnimatedInterpolation';
-
-import NativeEventEmitter from '../EventEmitter/NativeEventEmitter';
-import RCTDeviceEventEmitter from '../EventEmitter/RCTDeviceEventEmitter';
-import ReactNativeFeatureFlags from '../ReactNative/ReactNativeFeatureFlags';
-import Platform from '../Utilities/Platform';
 import NativeAnimatedNonTurboModule from './NativeAnimatedModule';
 import NativeAnimatedTurboModule from './NativeAnimatedTurboModule';
+import NativeEventEmitter from '../EventEmitter/NativeEventEmitter';
+import Platform from '../Utilities/Platform';
+import type {EventConfig} from './AnimatedEvent';
+import type {
+  EventMapping,
+  AnimatedNodeConfig,
+  AnimatingNodeConfig,
+} from './NativeAnimatedModule';
+import type {AnimationConfig, EndCallback} from './animations/Animation';
+import type {InterpolationConfigType} from './nodes/AnimatedInterpolation';
+import ReactNativeFeatureFlags from '../ReactNative/ReactNativeFeatureFlags';
 import invariant from 'invariant';
+import RCTDeviceEventEmitter from '../EventEmitter/RCTDeviceEventEmitter';
+import type {EventSubscription} from '../vendor/emitter/EventEmitter';
 
 // TODO T69437152 @petetheheat - Delete this fork when Fabric ships to 100%.
 const NativeAnimatedModule =
@@ -37,7 +36,7 @@ let __nativeAnimationIdCount = 1; /* used for started animations */
 
 let nativeEventEmitter;
 
-let waitingForQueuedOperations = new Set<string>();
+let waitingForQueuedOperations = new Set();
 let queueOperations = false;
 let queue: Array<() => void> = [];
 // $FlowFixMe
@@ -49,12 +48,8 @@ const useSingleOpBatching =
   ReactNativeFeatureFlags.animatedShouldUseSingleOp();
 let flushQueueTimeout = null;
 
-const eventListenerGetValueCallbacks: {
-  [$FlowFixMe | number]: ((value: number) => void) | void,
-} = {};
-const eventListenerAnimationFinishedCallbacks: {
-  [$FlowFixMe | number]: EndCallback | void,
-} = {};
+const eventListenerGetValueCallbacks = {};
+const eventListenerAnimationFinishedCallbacks = {};
 let globalEventEmitterGetValueListener: ?EventSubscription = null;
 let globalEventEmitterAnimationFinishedListener: ?EventSubscription = null;
 
@@ -83,7 +78,7 @@ const nativeOps: ?typeof NativeAnimatedModule = useSingleOpBatching
         'addListener', // 20
         'removeListener', // 21
       ];
-      return apis.reduce<{[string]: number}>((acc, functionName, i) => {
+      return apis.reduce((acc, functionName, i) => {
         // These indices need to be kept in sync with the indices in native (see NativeAnimatedModule in Java, or the equivalent for any other native platform).
         // $FlowFixMe[prop-missing]
         acc[functionName] = i + 1;
@@ -425,17 +420,14 @@ const SUPPORTED_INTERPOLATION_PARAMS = {
 };
 
 function addWhitelistedStyleProp(prop: string): void {
-  // $FlowFixMe[prop-missing]
   SUPPORTED_STYLES[prop] = true;
 }
 
 function addWhitelistedTransformProp(prop: string): void {
-  // $FlowFixMe[prop-missing]
   SUPPORTED_TRANSFORMS[prop] = true;
 }
 
 function addWhitelistedInterpolationParam(param: string): void {
-  // $FlowFixMe[prop-missing]
   SUPPORTED_INTERPOLATION_PARAMS[param] = true;
 }
 
@@ -527,17 +519,15 @@ function shouldUseNativeDriver(
   }
 
   if (config.useNativeDriver === true && !NativeAnimatedModule) {
-    if (process.env.NODE_ENV !== 'test') {
-      if (!_warnedMissingNativeAnimated) {
-        console.warn(
-          'Animated: `useNativeDriver` is not supported because the native ' +
-            'animated module is missing. Falling back to JS-based animation. To ' +
-            'resolve this, add `RCTAnimation` module to this app, or remove ' +
-            '`useNativeDriver`. ' +
-            'Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md',
-        );
-        _warnedMissingNativeAnimated = true;
-      }
+    if (!_warnedMissingNativeAnimated) {
+      console.warn(
+        'Animated: `useNativeDriver` is not supported because the native ' +
+          'animated module is missing. Falling back to JS-based animation. To ' +
+          'resolve this, add `RCTAnimation` module to this app, or remove ' +
+          '`useNativeDriver`. ' +
+          'Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md',
+      );
+      _warnedMissingNativeAnimated = true;
     }
     return false;
   }
@@ -560,7 +550,7 @@ function transformDataType(value: number | string): number | string {
   }
 }
 
-export default {
+module.exports = {
   API,
   isSupportedColorStyleProp,
   isSupportedStyleProp,

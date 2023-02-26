@@ -12,7 +12,6 @@
 #import "RCTBridge.h"
 #import "RCTBridgeModule.h"
 #import "RCTComponentEvent.h"
-#import "RCTConstants.h"
 #import "RCTConvert.h"
 #import "RCTEventDispatcherProtocol.h"
 #import "RCTParserUtils.h"

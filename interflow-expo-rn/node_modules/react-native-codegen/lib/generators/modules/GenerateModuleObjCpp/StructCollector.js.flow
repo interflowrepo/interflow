@@ -19,7 +19,6 @@ import type {
   NativeModuleDoubleTypeAnnotation,
   NativeModuleFloatTypeAnnotation,
   NativeModuleBooleanTypeAnnotation,
-  NativeModuleEnumDeclaration,
   NativeModuleGenericObjectTypeAnnotation,
   ReservedTypeAnnotation,
   NativeModuleTypeAliasTypeAnnotation,
@@ -33,7 +32,7 @@ const {capitalize} = require('../../Utils');
 const {
   unwrapNullable,
   wrapNullable,
-} = require('../../../parsers/parsers-commons');
+} = require('../../../parsers/flow/modules/utils');
 
 type StructContext = 'CONSTANTS' | 'REGULAR';
 
@@ -64,7 +63,6 @@ export type StructTypeAnnotation =
   | NativeModuleDoubleTypeAnnotation
   | NativeModuleFloatTypeAnnotation
   | NativeModuleBooleanTypeAnnotation
-  | NativeModuleEnumDeclaration
   | NativeModuleGenericObjectTypeAnnotation
   | ReservedTypeAnnotation
   | NativeModuleTypeAliasTypeAnnotation
@@ -114,12 +112,8 @@ class StructCollector {
         this._insertAlias(typeAnnotation.name, structContext, resolveAlias);
         return wrapNullable(nullable, typeAnnotation);
       }
-      case 'EnumDeclaration':
-        return wrapNullable(nullable, typeAnnotation);
       case 'MixedTypeAnnotation':
         throw new Error('Mixed types are unsupported in structs');
-      case 'UnionTypeAnnotation':
-        throw new Error('Union types are unsupported in structs');
       default: {
         return wrapNullable(nullable, typeAnnotation);
       }

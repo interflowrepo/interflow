@@ -8,12 +8,13 @@
  * @flow strict-local
  */
 
+const Platform = require('../Utilities/Platform');
+
+const invariant = require('invariant');
+const processColor = require('../StyleSheet/processColor');
+
 import NativeActionSheetManager from '../ActionSheetIOS/NativeActionSheetManager';
 import NativeShareModule from './NativeShareModule';
-
-const processColor = require('../StyleSheet/processColor');
-const Platform = require('../Utilities/Platform');
-const invariant = require('invariant');
 
 type Content =
   | {
@@ -31,7 +32,6 @@ type Options = {
   excludedActivityTypes?: Array<string>,
   tintColor?: string,
   subject?: string,
-  anchor?: number,
   ...
 };
 
@@ -132,8 +132,6 @@ class Share {
             url: typeof content.url === 'string' ? content.url : undefined,
             subject: options.subject,
             tintColor: typeof tintColor === 'number' ? tintColor : undefined,
-            anchor:
-              typeof options.anchor === 'number' ? options.anchor : undefined,
             excludedActivityTypes: options.excludedActivityTypes,
           },
           error => reject(error),

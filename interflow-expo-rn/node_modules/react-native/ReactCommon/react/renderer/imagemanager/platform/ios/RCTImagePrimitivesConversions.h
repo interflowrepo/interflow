@@ -10,41 +10,43 @@
 #import <React/RCTImageLoader.h>
 #import <react/renderer/imagemanager/primitives.h>
 
-inline static UIViewContentMode RCTContentModeFromImageResizeMode(facebook::react::ImageResizeMode imageResizeMode)
+using namespace facebook::react;
+
+inline static UIViewContentMode RCTContentModeFromImageResizeMode(ImageResizeMode imageResizeMode)
 {
   switch (imageResizeMode) {
-    case facebook::react::ImageResizeMode::Cover:
+    case ImageResizeMode::Cover:
       return UIViewContentModeScaleAspectFill;
-    case facebook::react::ImageResizeMode::Contain:
+    case ImageResizeMode::Contain:
       return UIViewContentModeScaleAspectFit;
-    case facebook::react::ImageResizeMode::Stretch:
+    case ImageResizeMode::Stretch:
       return UIViewContentModeScaleToFill;
-    case facebook::react::ImageResizeMode::Center:
+    case ImageResizeMode::Center:
       return UIViewContentModeCenter;
-    case facebook::react::ImageResizeMode::Repeat:
+    case ImageResizeMode::Repeat:
       // Repeat resize mode is handled by the UIImage. Use scale to fill
       // so the repeated image fills the UIImageView.
       return UIViewContentModeScaleToFill;
   }
 }
 
-inline std::string toString(const facebook::react::ImageResizeMode &value)
+inline std::string toString(const ImageResizeMode &value)
 {
   switch (value) {
-    case facebook::react::ImageResizeMode::Cover:
+    case ImageResizeMode::Cover:
       return "cover";
-    case facebook::react::ImageResizeMode::Contain:
+    case ImageResizeMode::Contain:
       return "contain";
-    case facebook::react::ImageResizeMode::Stretch:
+    case ImageResizeMode::Stretch:
       return "stretch";
-    case facebook::react::ImageResizeMode::Center:
+    case ImageResizeMode::Center:
       return "center";
-    case facebook::react::ImageResizeMode::Repeat:
+    case ImageResizeMode::Repeat:
       return "repeat";
   }
 }
 
-inline static NSURL *NSURLFromImageSource(const facebook::react::ImageSource &imageSource)
+inline static NSURL *NSURLFromImageSource(const ImageSource &imageSource)
 {
   // `NSURL` has a history of crashing with bad input, so let's be safe.
   @try {
@@ -90,7 +92,7 @@ inline static NSURL *NSURLFromImageSource(const facebook::react::ImageSource &im
   }
 }
 
-inline static NSURLRequest *NSURLRequestFromImageSource(const facebook::react::ImageSource &imageSource)
+inline static NSURLRequest *NSURLRequestFromImageSource(const ImageSource &imageSource)
 {
   NSURL *url = NSURLFromImageSource(imageSource);
 

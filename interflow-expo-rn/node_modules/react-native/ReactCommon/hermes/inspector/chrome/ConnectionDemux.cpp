@@ -6,6 +6,7 @@
  */
 
 #include "ConnectionDemux.h"
+#include "AutoAttachUtils.h"
 #include "Connection.h"
 
 #include <jsinspector/InspectorInterfaces.h>
@@ -62,7 +63,7 @@ ConnectionDemux::ConnectionDemux(facebook::react::IInspector &inspector)
 
 ConnectionDemux::~ConnectionDemux() = default;
 
-DebugSessionToken ConnectionDemux::enableDebugging(
+int ConnectionDemux::enableDebugging(
     std::unique_ptr<RuntimeAdapter> adapter,
     const std::string &title) {
   std::lock_guard<std::mutex> lock(mutex_);
@@ -84,18 +85,30 @@ DebugSessionToken ConnectionDemux::enableDebugging(
     removePage(pageId);
   }
 
+  // TODO(hypuk): Provide real app and device names.
   auto waitForDebugger =
-      (inspectedContexts_->find(title) != inspectedContexts_->end());
+      (inspectedContexts_->find(title) != inspectedContexts_->end()) ||
+      isNetworkInspected(title, "app_name", "device_name");
+
   return addPage(
       std::make_shared<Connection>(std::move(adapter), title, waitForDebugger));
 }
 
-void ConnectionDemux::disableDebugging(DebugSessionToken session) {
+void ConnectionDemux::disableDebugging(jsi::Runtime &runtime) {
   std::lock_guard<std::mutex> lock(mutex_);
-  if (conns_.find(session) == conns_.end()) {
-    return;
+
+  for (auto &it : conns_) {
+    int pageId = it.first;
+    auto &conn = it.second;
+
+    if (&(conn->getRuntime()) == &runtime) {
+      removePage(pageId);
+
+      // must break here. removePage mutates conns_, so range-for iterator is
+      // now invalid.
+      break;
+    }
   }
-  removePage(session);
 }
 
 int ConnectionDemux::addPage(std::shared_ptr<Connection> conn) {
@@ -119,8 +132,6 @@ void ConnectionDemux::removePage(int pageId) {
   globalInspector_.removePage(pageId);
 
   auto conn = conns_.at(pageId);
-  std::string title = conn->getTitle();
-  inspectedContexts_->erase(title);
   conn->disconnect();
   conns_.erase(pageId);
 }

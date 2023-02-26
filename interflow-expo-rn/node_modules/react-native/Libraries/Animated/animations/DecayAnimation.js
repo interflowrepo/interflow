@@ -10,12 +10,13 @@
 
 'use strict';
 
+const Animation = require('./Animation');
+
+const {shouldUseNativeDriver} = require('../NativeAnimatedHelper');
+
 import type {PlatformConfig} from '../AnimatedPlatformConfig';
 import type AnimatedValue from '../nodes/AnimatedValue';
 import type {AnimationConfig, EndCallback} from './Animation';
-
-import NativeAnimatedHelper from '../NativeAnimatedHelper';
-import Animation from './Animation';
 
 export type DecayAnimationConfig = {
   ...AnimationConfig,
@@ -35,7 +36,7 @@ export type DecayAnimationConfigSingle = {
   deceleration?: number,
 };
 
-export default class DecayAnimation extends Animation {
+class DecayAnimation extends Animation {
   _startTime: number;
   _lastValue: number;
   _fromValue: number;
@@ -50,7 +51,7 @@ export default class DecayAnimation extends Animation {
     super();
     this._deceleration = config.deceleration ?? 0.998;
     this._velocity = config.velocity;
-    this._useNativeDriver = NativeAnimatedHelper.shouldUseNativeDriver(config);
+    this._useNativeDriver = shouldUseNativeDriver(config);
     this._platformConfig = config.platformConfig;
     this.__isInteraction = config.isInteraction ?? !this._useNativeDriver;
     this.__iterations = config.iterations ?? 1;
@@ -122,3 +123,5 @@ export default class DecayAnimation extends Animation {
     this.__debouncedOnEnd({finished: false});
   }
 }
+
+module.exports = DecayAnimation;
