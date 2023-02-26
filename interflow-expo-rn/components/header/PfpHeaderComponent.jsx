@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import PfpComponent from './PfpComponent';
 import { useUser } from '../../contexts/UserContext';
 
-export default function PfpHeaderComponent({navigation}) {
+export default function PfpHeaderComponent({ navigation }) {
   const { user } = useUser()
 
   const UserBalanceComponent = () => {
@@ -19,16 +19,19 @@ export default function PfpHeaderComponent({navigation}) {
           position: "relative",
           backgroundColor: "white",
           borderRadius: 15,
-          margin: 10,
-          
+          flexDirection: "row",
+
           position: "absolute",
           right: 0,
-          
+
         }}
         onPress={() => navigation.navigate("Profile")}
       >
-        <Text style={{ fontSize: 12, fontWeight: "bold" }}>0.00</Text>
-      </TouchableOpacity>
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>0</Text>
+        <Image source={{
+          uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677272668/logo_kkdwhj.png"
+        }} style={styles.image} />   
+           </TouchableOpacity>
     );
   };
 
@@ -41,13 +44,20 @@ export default function PfpHeaderComponent({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+
+
   profileContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     height: 34,
-    width: 100,
+    width: 120,
     position: "relative",
     backgroundColor: "white",
     borderRadius: 15,
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
-    height: 120,
+    height: 110,
     width: "33%"
   },
 });

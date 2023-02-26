@@ -24,7 +24,7 @@ export default function GameDetailsView({navigation}) {
   return (
     <View style={styles.container}>
       {/* Video header that plays a preview */}
-      <VideoHeaderComponent />
+      <VideoHeaderComponent uri="https://res.cloudinary.com/ddbgaessi/video/upload/v1677256193/demo_hefion.mov" />
 
       <View
         style={{

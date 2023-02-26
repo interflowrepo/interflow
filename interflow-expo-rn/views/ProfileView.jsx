@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import StripeService from "../services/StripeService";
 import { usePaymentSheet } from "@stripe/stripe-react-native";
+import PurchaseBtnComponent from "../components/PurchaseBtnComponent";
+import GridListComponent from "../components/GridListComponent";
 
 const ProfileView = () => {
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
@@ -59,23 +61,37 @@ const ProfileView = () => {
 
   let userId = "a3341f16-f912-4213-9dd4-fffa9ac567c5";
 
+  const data = [
+    { id: 1, title: "Item 1" },
+    { id: 2, title: "Item 2" },
+    { id: 3, title: "Item 3" },
+    { id: 4, title: "Item 4" },
+    { id: 5, title: "Item 5" },
+    { id: 6, title: "Item 6" },
+    { id: 7, title: "Item 7" },
+    { id: 8, title: "Item 8" },
+    { id: 9, title: "Item 9" },
+    { id: 10, title: "Item 10" },
+  ];
+
+  const onPress = () => {
+    // console.log("item", item);
+  };
+
+
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{ flex: 1, paddingHorizontal: 30, paddingTop: 40 }}>
       <View>
-        <Text style={{ fontSize: 24, fontWeight: "bold", marginVertical: 20 }}>
+        <Text style={{ fontSize: 24, fontWeight: "900", marginBottom: 4 }}>
           Buy Tokens
         </Text>
-        <TouchableOpacity onPress={() => handleBuyTokens(userId, 299, 10)}>
-          <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style={{ fontSize: 16, marginVertical: 10 }}>
-              10 Tokens
-            </Text>
-            <Text style={{ fontSize: 16, marginVertical: 10 }}>
-              $2.99
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleBuyTokens(userId, 999, 20)}>
+        <PurchaseBtnComponent quantity={10} price={2.99} color="lightgrey" width={220} />
+        <PurchaseBtnComponent quantity={20} price={9.99} color="white" width={280} />
+        <PurchaseBtnComponent quantity={50} price={59.99} color="gold" width={320} />
+        {/* <TouchableOpacity onPress={() => handleBuyTokens(userId, 299, 10)}>
+          
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={() => handleBuyTokens(userId, 999, 20)}>
         <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
             <Text style={{ fontSize: 16, marginVertical: 10 }}>
               20 Tokens
@@ -94,7 +110,38 @@ const ProfileView = () => {
               $59.99
             </Text>
           </View>
+        </TouchableOpacity> */}
+      </View>
+      <View style={{height:30}} />
+       <View>
+        <Text style={{ fontSize: 24, fontWeight: "900", marginBottom: 4 }}>
+          Your Collections
+        </Text>
+        <GridListComponent data={data} numColumns={2} onPress={onPress} />
+
+        {/* <TouchableOpacity onPress={() => handleBuyTokens(userId, 299, 10)}>
+          
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={() => handleBuyTokens(userId, 999, 20)}>
+        <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+            <Text style={{ fontSize: 16, marginVertical: 10 }}>
+              20 Tokens
+            </Text>
+            <Text style={{ fontSize: 16, marginVertical: 10 }}>
+              $9.99
+            </Text>
+          </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleBuyTokens(userId, 5999, 50)}>
+        <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+            <Text style={{ fontSize: 16, marginVertical: 10 }}>
+              50 Tokens
+            </Text>
+            <Text style={{ fontSize: 16, marginVertical: 10 }}>
+              $59.99
+            </Text>
+          </View>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

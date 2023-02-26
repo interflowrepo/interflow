@@ -10,7 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function WalletsConnectionView() {
   const { authenticate, removeWallet, wallets, onPressActionFn } = useFcl();
-  
+
 
 
   console.log("wallet na", wallets[0]?.walledName)
@@ -141,6 +141,11 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     backgroundColor: 'white',
+  },
+  divider: {
+    height: '100%',
+    width: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   status: {
     position: 'absolute',

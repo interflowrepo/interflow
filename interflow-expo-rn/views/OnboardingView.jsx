@@ -28,7 +28,7 @@ const steps = [
     id: "1",
     label: "Step 2",
     description: "This is the second step",
-    src: require("../assets/onboarding/avatarIcon.png"),
+    src: require("../assets/onboarding/AvatarIcon.png"),
   },
   {
     id: "2",
