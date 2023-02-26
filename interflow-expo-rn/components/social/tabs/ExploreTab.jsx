@@ -15,15 +15,13 @@ const data = [
   { id: 10, title: "Item 10" },
 ];
 
-const ExploreTab = ({onPress}) => {
+const ExploreTab = ({ onPress }) => {
   return (
     <View
       style={{
-        flex: 1,
-        
+        flex: 1
       }}
     >
-
       <GridListComponent data={data} numColumns={2} onPress={onPress} />
     </View>
   );

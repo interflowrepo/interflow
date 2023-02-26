@@ -9,5 +9,5 @@ export default function InterspaceView() {
                 source={{ uri: 'https://interflow-metaspace.vercel.app/' }}
             />
         </View>
-    )
+    ) 
 }

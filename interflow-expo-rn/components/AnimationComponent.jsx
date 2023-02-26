@@ -34,11 +34,11 @@ export default function AnimationComponent({ actualIdx }) {
 
   const resolveUri = () => {
     if (actualIdx === "0") {
-      return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305165/flota_juqmrm.gif";
+      return "https://cdn.discordapp.com/attachments/953339977083797504/1079124317008310342/Walletsvprueba.gif";
     } else if (actualIdx === "1") {
-      return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305657/Patada-3d-una-vez_wbrlag.gif";
-    } else if (actualIdx === "2") {
       return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305165/flota_juqmrm.gif";
+    } else if (actualIdx === "2") {
+      return "https://cdn.discordapp.com/attachments/953339977083797504/1079124317008310342/Walletsvprueba.gif";
     }
   };
 

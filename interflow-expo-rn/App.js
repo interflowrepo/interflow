@@ -86,6 +86,7 @@ function HomeStackNavigator() {
       <HomeStack.Screen
         name="EventDetails"
         component={EventDetailsView}
+        
       />
       <HomeStack.Screen
         name="Interspace"
@@ -310,187 +311,194 @@ export default function App() {
     <AuthContext>
       <UserContext>
         <FclContext>
-        <StripeProvider publishableKey={publishableKey}>
-          {/* <LoginComponent /> 
+          <StripeProvider publishableKey={publishableKey}>
+            {/* <LoginComponent /> 
           <RequestsComponent /> */}
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
+            <NavigationContainer>
+              <Stack.Navigator>
+                {/* <Stack.Screen
                 name="auth"
                 component={LoginView}
                 options={{
                   headerShown: false,
                 }}
-              />
-              <Stack.Screen
-                name="Onboarding"
-                options={{
-                  headerShown: false,
-                }}
-                component={OnboardingView}
-              />
-              <Stack.Screen
-                name="Wallets"
+              /> */}
+                <Stack.Screen
+                  name="Onboarding"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={OnboardingView}
+                />
+                <Stack.Screen
+                  name="Wallets"
 
-                component={WalletsConnectionView}
-              />
-              <Stack.Screen
-                name="Customize"
-                component={CustomizeView}
-                options={({ navigation }) => ({
-                  // headerStyle: styles.navBar,
-                  headerRight: () => (
-                    <View style={{ flexDirection: "row" }}>
-                      <TouchableOpacity
+                  component={WalletsConnectionView}
+                />
+                <Stack.Screen
+                  name="Customize"
+                  component={CustomizeView}
+                  options={({ navigation }) => ({
+                    // headerStyle: styles.navBar,
+                    headerRight: () => (
+                      <View style={{ flexDirection: "row" }}>
+                        <TouchableOpacity
+                          style={{
+                            marginRight: 10,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          onPress={() => {
+                            console.log("pressed");
+                            navigation.navigate("Onboarding");
+                          }}
+                        >
+                          <MaterialCommunityIcons
+                            name="check-outline"
+                            size={24}
+                            color="white"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    ),
+                    headerBackground: () => (
+                      <View
                         style={{
-                          marginRight: 10,
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                        onPress={() => {
-                          console.log("pressed");
-                          navigation.navigate("Onboarding");
+                          flex: 1,
+                          backgroundColor: "transparent",
+                          // borderBottomWidth: 1,
+                          // borderBottomColor: '#f0f0f0',
                         }}
                       >
-                        <MaterialCommunityIcons
-                          name="check-outline"
-                          size={24}
-                          color="white"
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  ),
-                  headerBackground: () => (
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: "transparent",
-                        // borderBottomWidth: 1,
-                        // borderBottomColor: '#f0f0f0',
-                      }}
-                    >
-                      <ImageBackground
-                        source={require("./assets/avatar/bg(1).png")}
-                        style={{
-                          flex: 1,
-                          resizeMode: "cover",
-                          justifyContent: "center",
-                        }}
-                      ></ImageBackground>
-                    </View>
-                  ),
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                })
-                }
+                        <ImageBackground
+                          source={require("./assets/avatar/bg(1).png")}
+                          style={{
+                            flex: 1,
+                            resizeMode: "cover",
+                            justifyContent: "center",
+                          }}
+                        ></ImageBackground>
+                      </View>
+                    ),
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                  })
+                  }
 
-              />
-              <Stack.Screen
-                name="Photo"
-                component={PfpView}
-                options={{
-                  // headerStyle: styles.navBar,
-                  headerBackground: () => (
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: "transparent",
-                        // borderBottomWidth: 1,
-                        // borderBottomColor: '#f0f0f0',
-                      }}
-                    >
-                      <ImageBackground
-                        source={require("./assets/avatar/bg(1).png")}
+                />
+                <Stack.Screen
+                  name="Photo"
+                  component={PfpView}
+                  options={{
+                    // headerStyle: styles.navBar,
+                    headerBackground: () => (
+                      <View
                         style={{
                           flex: 1,
-                          resizeMode: "cover",
-                          justifyContent: "center",
+                          backgroundColor: "transparent",
+                          // borderBottomWidth: 1,
+                          // borderBottomColor: '#f0f0f0',
                         }}
-                      ></ImageBackground>
-                    </View>
-                  ),
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                }}
-              />
-              <Stack.Screen
-                name="Home"
-                component={HomeTabs}
-                options={({ navigation, route }) => ({
-                  // headerStyle: styles.navBar,
-                  headerLeft: () => <PfpHeaderComponent navigation={navigation} />,
-                  headerBackground: () => <HeaderComponent />,
-                  headerTitle: "",
-                  headerBackVisible: false,
-                  // headerTintColor: "#fff",
-                  // headerTitleStyle: {
-                  //   fontWeight: "bold",
-                  // },
-                })}
-              />
-              <Stack.Screen
-                name="GameDetails"
-                component={GameDetailsView}
+                      >
+                        <ImageBackground
+                          source={require("./assets/avatar/bg(1).png")}
+                          style={{
+                            flex: 1,
+                            resizeMode: "cover",
+                            justifyContent: "center",
+                          }}
+                        ></ImageBackground>
+                      </View>
+                    ),
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Home"
+                  component={HomeTabs}
+                  options={({ navigation, route }) => ({
+                    // headerStyle: styles.navBar,
+                    headerLeft: () => <PfpHeaderComponent navigation={navigation} />,
+                    headerBackground: () => <HeaderComponent />,
+                    headerTitle: "",
+                    headerBackVisible: false,
+                    // headerTintColor: "#fff",
+                    // headerTitleStyle: {
+                    //   fontWeight: "bold",
+                    // },
+                  })}
+                />
+                <Stack.Screen
+                  name="GameDetails"
+                  component={GameDetailsView}
+                  options={{
+                    headerLargeTitle: true,
+                    headerTitle: "Metarace"
+                  }}
+                />
+                <Stack.Screen
+                  name="Metarace"
+                  component={MetaraceView}
+                  options={{
+                    headerTitle: "Level 1"
+                  }}
+                />
+                <Stack.Screen
+                  name="EventDetails"
+                  component={EventDetailsView}
                 options={{
                   headerLargeTitle: true,
-                  headerTitle: "Metarace"
                 }}
-              />
-              <Stack.Screen
-                name="Metarace"
-                component={MetaraceView}
-                options={{
-                  headerTitle: "Level 1"
-                }}
-              />
-              <Stack.Screen
-                name="EventDetails"
-                component={EventDetailsView}
-              // options={{
-              //   headerTitle: "Level 1"
-              // }}
-              />
-              <Stack.Screen
-                name="Interspace"
-                component={InterspaceView}
-              // options={{
-              //   headerTitle: "Level 1"
-              // }}
-              />
-              <Stack.Screen
-                name="Reveal"
-                component={RevealView}
-              />
-              <Stack.Screen
-                name="Profile"
-                component={ProfileView}
-              />
-              <Stack.Screen
-                name="UserDetails"
-                component={UserDetailsView}
+                />
+                <Stack.Screen
+                  name="Interspace"
+                  component={InterspaceView}
+                // options={{
+                //   headerTitle: "Level 1"
+                // }}
+                />
+                <Stack.Screen
+                  name="Reveal"
+                  component={RevealView}
+                />
+                <Stack.Screen
+                  name="Profile"
+                  component={ProfileView}
+                  options={({ navigation, route }) => ({
+                    // headerStyle: styles.navBar,
+                    headerTitle: () => <PfpHeaderComponent navigation={navigation} />,
+                    headerBackground: () => <HeaderComponent />,
+                    
+                  })}
 
-              />
-              <Stack.Screen
-                name="UserCollection"
-                component={UserCollectionView}
+                />
+                <Stack.Screen
+                  name="UserDetails"
+                  component={UserDetailsView}
 
-              />
-              <Stack.Screen
-                name="NftDetails"
-                component={NftDetailsView}
+                />
+                <Stack.Screen
+                  name="UserCollection"
+                  component={UserCollectionView}
 
-              />
+                />
+                <Stack.Screen
+                  name="NftDetails"
+                  component={NftDetailsView}
 
-            </Stack.Navigator>
-          </NavigationContainer>
+                />
+
+              </Stack.Navigator>
+            </NavigationContainer>
           </StripeProvider>
         </FclContext>
       </UserContext>
     </AuthContext>
   );
-}
+} 

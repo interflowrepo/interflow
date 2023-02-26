@@ -6,7 +6,7 @@ import PrimaryBtnComponent from './PrimaryBtnComponent';
 
 const { width } = Dimensions.get('window');
 
-export default function VideoHeaderComponent() {
+export default function VideoHeaderComponent({uri}) {
   const [isPlaying, setIsPlaying] = useState(true);
 
   const togglePlaying = () => {
@@ -16,7 +16,7 @@ export default function VideoHeaderComponent() {
   return (
     <View style={styles.container}>
       <Video
-        source={{ uri: 'https://res.cloudinary.com/ddbgaessi/video/upload/v1677256193/demo_hefion.mov' }}
+        source={{ uri }}
         shouldPlay={isPlaying}
         style={styles.video}
       />
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     width,
-    height: 280
+    height: 320
   },
   video: {
     flex: 1,

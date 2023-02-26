@@ -11,8 +11,8 @@ export default function PfpComponent({ pfpUrl }) {
 
 const styles = StyleSheet.create({
   imgContainer: {
-    height: 120,
-    width: 120,
+    height: 110,
+    width: 110,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
