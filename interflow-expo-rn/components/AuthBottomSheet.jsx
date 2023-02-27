@@ -1,10 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { StyleSheet, View, Pressable, Text, Image } from "react-native";
+import { StyleSheet, View, Pressable, Text, Image, Button } from "react-native";
 import { BlurView } from "expo-blur";
 import PrimaryBtnComponent from "./PrimaryBtnComponent";
 import { display } from "@onflow/fcl";
 
-export default function AuthBottomSheet({ setIsOpen }) {
+export default function AuthBottomSheet({ setIsOpen, onPress }) {
     return (
         <BlurView
             tint="dark"
@@ -70,7 +70,7 @@ export default function AuthBottomSheet({ setIsOpen }) {
                     alignItems: "center",
                     height: "30%",
                 }}>
-                    <PrimaryBtnComponent label={"LOGIN / SIGN UP"} onPressAction={() => { }} />
+                    <PrimaryBtnComponent label={"LOGIN / SIGN UP"} onPress={onPress} />
                 </View>
             </View>
             </Pressable>

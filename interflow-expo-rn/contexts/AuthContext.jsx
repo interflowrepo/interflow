@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -44,9 +45,16 @@ export default function AuthProvider({ children }) {
 
   }, []);
 
+  const updateUserData = useCallback(async () => {
+    let result = await UserService.getUserCollectionData(userId).then((res) => {
+      return res;
+    });
+
+    AsyncStorage.setItem("userFullData", JSON.stringify(result));
+    setUserFullData(result);
+  }, [])
+
   useEffect(() => {
-    console.log("request REQUEST", request)
-    console.log("request RESPONSE", response)
     if (response?.type === "success") {
       console.log(response);
       setAuth(response.authentication);
@@ -85,8 +93,6 @@ export default function AuthProvider({ children }) {
       authId: authId,
     };
 
-    console.log("DATA", data)
-
     let result = await UserService.postLogin(data).then((res) => {
       console.log("RES", res);
       return res;
@@ -122,6 +128,10 @@ export default function AuthProvider({ children }) {
     await AsyncStorage.removeItem("userFullData");
   };
 
+  const userId = useMemo(() => {
+    return userFullData?.userExists.id;
+  }, [userFullData]);
+
   const value = {
     login,
     logout,
@@ -129,10 +139,11 @@ export default function AuthProvider({ children }) {
     userAuthData,
     userFullData,
     setIsOpen,
+    userId
   };
 
   return <AuthContext.Provider value={value}>
-    {IsOpen && <AuthBottomSheet setIsOpen={setIsOpen} />}
+    {IsOpen && <AuthBottomSheet setIsOpen={setIsOpen} onPress={login} />}
     {children}
   </AuthContext.Provider>;
 }

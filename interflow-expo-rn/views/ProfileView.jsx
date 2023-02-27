@@ -8,11 +8,11 @@ import GridListComponent from "../components/GridListComponent";
 import { useAuth } from "../contexts/AuthContext";
 
 const ProfileView = ({ navigation }) => {
-  const { auth, setIsOpen } = useAuth()
+  const { auth, setIsOpen, userId } = useAuth()
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
   const fetchPaymentSheetParams = async (amount) => {
-    let userId = "a3341f16-f912-4213-9dd4-fffa9ac567c5";
+    // let userId = "a3341f16-f912-4213-9dd4-fffa9ac567c5";
     const data = await StripeService.createPaymentIntent(userId, amount);
     console.log("data", data);
     return data;
@@ -61,7 +61,7 @@ const ProfileView = ({ navigation }) => {
     }
   };
 
-  let userId = "a3341f16-f912-4213-9dd4-fffa9ac567c5";
+  // let userId = "a3341f16-f912-4213-9dd4-fffa9ac567c5";
 
   const data = [
     { id: 1, title: "Item 1" },
