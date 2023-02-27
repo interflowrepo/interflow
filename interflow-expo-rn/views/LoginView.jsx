@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Button, Dimensions, TouchableOpacity } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { Video } from "expo-av"
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,7 +9,7 @@ import PrimaryBtnComponent from '../components/PrimaryBtnComponent';
 const { width, height } = Dimensions.get('window');
 
 
-export default function LoginView({navigation}) {
+export default function LoginView({ navigation }) {
   const [isPlaying, setIsPlaying] = useState(true);
 
   const { login, logout, userAuthData, auth, userFullData } =
@@ -29,30 +29,37 @@ export default function LoginView({navigation}) {
   };
 
   useEffect(() => {
-    if(auth) {
+    if (auth) {
       navigation.navigate("Onboarding")
     }
-    
+
   }, [auth]);
 
 
   return (
     <View style={styles.container}>
       {/* {auth && ( */}
-        <>
-          <Video
-            source={{ uri: 'https://cdn.discordapp.com/attachments/950238425192206388/1074856644359499826/Color.mov' }}
-            shouldPlay={isPlaying}
-            style={styles.video}
-          />
-          <LinearGradient
-            colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,1.)']}
-            style={styles.overlay}
-          />
-          <View style={styles.actionContainer}>
-            <PrimaryBtnComponent label={"Login / Sign up"} onPress={login} />
-          </View>
-        </>
+      <>
+        <Video
+          source={{ uri: 'https://cdn.discordapp.com/attachments/950238425192206388/1074856644359499826/Color.mov' }}
+          shouldPlay={isPlaying}
+          style={styles.video}
+        />
+        <LinearGradient
+          colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.9)']}
+          style={styles.overlay}
+        />
+        <View style={styles.actionContainer}>
+          <PrimaryBtnComponent label={"Login / Sign up"} onPress={login} />
+          <TouchableOpacity style={{
+            margin: 14
+          }}
+            onPress={() => navigation.navigate("Onboarding")}
+          >
+            <Text style={{ color: "white", marginTop: 10, fontWeight: "700" }}>EXPLORE APP</Text>
+          </TouchableOpacity>
+        </View>
+      </>
       {/* )} */}
       {/* {!auth && <Button title={"Login"} onPress={login} />}
       {auth && <Button title="Logout" onPress={logout} />} */}
@@ -65,9 +72,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width,
     height: "100%"
-},
+  },
 
-actionContainer: {
+  actionContainer: {
     position: "absolute",
     bottom: 90,
     width: "100%",
@@ -77,21 +84,21 @@ actionContainer: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent"
-},
+  },
 
 
-video: {
+  video: {
     flex: 1,
     // width,
     height: "100%"
-},
-overlay: {
+  },
+  overlay: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-},
+  },
   // container: {
   //   flex: 1,
   //   backgroundColor: "#fff",

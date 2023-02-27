@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, ImageBackground, Text, Image, StyleSheet, View } from 'react-native';
 
-const PurchaseBtnComponent = ({ quantity, price, color, width }) => {
+const PurchaseBtnComponent = ({ quantity, price, color, width , onPress}) => {
 
     const styles = StyleSheet.create({
         container: {
@@ -51,7 +51,9 @@ const PurchaseBtnComponent = ({ quantity, price, color, width }) => {
         
     });
     return (
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity activeOpacity={0.8}
+        onPress={onPress}>
+        
             <ImageBackground source={require("../assets/avatar/bg(1).png")}
                 style={styles.container}>
                 <View style={[styles.imageContainer, { borderColor: color }]}>

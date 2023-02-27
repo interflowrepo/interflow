@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./flow/config.js";
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigationContainerRef, useNavigationState, } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -34,7 +34,67 @@ import GameDetailsView from "./views/games/GameDetailsView.jsx";
 import AuthView from "./views/AuthView.jsx";
 import LoginView from "./views/LoginView.jsx";
 import { StripeProvider } from "@stripe/stripe-react-native";
-// import useNavigation hook 
+import * as Notifications from 'expo-notifications';
+import AiTransformView from "./views/NFT/AiTransformView.jsx";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+async function sendPushNotification(expoPushToken) {
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: 'Original Title',
+    body: 'And here is the body!',
+    data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
+}
 
 const HomeStack = createNativeStackNavigator();
 
@@ -86,7 +146,7 @@ function HomeStackNavigator() {
       <HomeStack.Screen
         name="EventDetails"
         component={EventDetailsView}
-        
+
       />
       <HomeStack.Screen
         name="Interspace"
@@ -306,9 +366,42 @@ const styles = StyleSheet.create({
 
 const publishableKey = "pk_test_51MfOe3EFbOKoDaT5L6wpjDT4tL5ptYILn9BZ1po4JLSstXHqrzXmvbB02KHVXL4Xem1M5zhaQ7W0TBG8a54Xb0JR001WpO85nL";
 export default function App() {
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   return (
     <AuthContext>
+      {/* <Text>Your expo push token: {expoPushToken}</Text>
+      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Title: {notification && notification.request.content.title} </Text>
+        <Text>Body: {notification && notification.request.content.body}</Text>
+        <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
+      </View>
+      <Button
+        title="Press to Send Notification"
+        onPress={async () => {
+          await sendPushNotification(expoPushToken);
+        }}
+      /> */}
       <UserContext>
         <FclContext>
           <StripeProvider publishableKey={publishableKey}>
@@ -323,6 +416,21 @@ export default function App() {
                   headerShown: false,
                 }}
               /> */}
+                <Stack.Screen
+                  name="Home"
+                  component={HomeTabs}
+                  options={({ navigation, route }) => ({
+                    // headerStyle: styles.navBar,
+                    headerLeft: () => <PfpHeaderComponent navigation={navigation} />,
+                    headerBackground: () => <HeaderComponent />,
+                    headerTitle: "",
+                    headerBackVisible: false,
+                    // headerTintColor: "#fff",
+                    // headerTitleStyle: {
+                    //   fontWeight: "bold",
+                    // },
+                  })}
+                />
                 <Stack.Screen
                   name="Onboarding"
                   options={{
@@ -419,21 +527,7 @@ export default function App() {
                     },
                   }}
                 />
-                <Stack.Screen
-                  name="Home"
-                  component={HomeTabs}
-                  options={({ navigation, route }) => ({
-                    // headerStyle: styles.navBar,
-                    headerLeft: () => <PfpHeaderComponent navigation={navigation} />,
-                    headerBackground: () => <HeaderComponent />,
-                    headerTitle: "",
-                    headerBackVisible: false,
-                    // headerTintColor: "#fff",
-                    // headerTitleStyle: {
-                    //   fontWeight: "bold",
-                    // },
-                  })}
-                />
+
                 <Stack.Screen
                   name="GameDetails"
                   component={GameDetailsView}
@@ -452,9 +546,9 @@ export default function App() {
                 <Stack.Screen
                   name="EventDetails"
                   component={EventDetailsView}
-                options={{
-                  headerLargeTitle: true,
-                }}
+                  options={{
+                    headerLargeTitle: true,
+                  }}
                 />
                 <Stack.Screen
                   name="Interspace"
@@ -474,7 +568,7 @@ export default function App() {
                     // headerStyle: styles.navBar,
                     headerTitle: () => <PfpHeaderComponent navigation={navigation} />,
                     headerBackground: () => <HeaderComponent />,
-                    
+
                   })}
 
                 />
@@ -492,8 +586,11 @@ export default function App() {
                   name="NftDetails"
                   component={NftDetailsView}
 
+                />  
+                 <Stack.Screen
+                  name="AiTransform"
+                  component={AiTransformView}
                 />
-
               </Stack.Navigator>
             </NavigationContainer>
           </StripeProvider>

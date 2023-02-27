@@ -6,9 +6,9 @@ import HomeHorizontalList from "../components/home/HomeHorizontalList";
 const events = [
   {
     id: 1,
-    title: "Doodles Festival",
+    title: "Doodles Party",
     image:
-      "https://res.cloudinary.com/ddbgaessi/image/upload/v1676908822/doodles_jheqf6.png",
+      "https://nftnow.com/wp-content/uploads/2021/12/Doodles-Featured-1200x449.jpg",
     date: "March 20, 2023",
     location: "Central Park, NY",
     price: "$50",
@@ -17,16 +17,16 @@ const events = [
     id: 2,
     title: "Flovatar Art Exhibition",
     image:
-      "https://res.cloudinary.com/ddbgaessi/image/upload/v1676908822/doodles_jheqf6.png",
+      "https://nftnow.com/wp-content/uploads/2021/12/Doodles-Featured-1200x449.jpg",
     date: "April 5, 2023",
     location: "MoMA, NY",
     price: "$25",
   },
   {
     id: 3,
-    title: "Another one",
+    title: "Flowverse Fest",
     image:
-      "https://res.cloudinary.com/ddbgaessi/image/upload/v1676908822/doodles_jheqf6.png",
+      "https://nftnow.com/wp-content/uploads/2021/12/Doodles-Featured-1200x449.jpg",
     date: "May 15, 2023",
     location: "Brooklyn, NY",
     price: "$35",
@@ -37,7 +37,7 @@ const reveals = [
   {
     id: 1,
     title: "Genesis Box",
-    uri: "https://cdn.discordapp.com/attachments/969311733451726949/1078715021716111472/-LOOT.gif",
+    uri: "https://cdn.discordapp.com/attachments/1073306606005145692/1079121507487322242/lootnegro.gif",
   },
   {
     id: 2,
@@ -66,6 +66,20 @@ const games = [
     id: 3,
     title: "Doodlery",
     uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676916768/metarace_2_xmo7mh.png",
+  }, {
+    id: 4,
+    title: "Metarace",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676916768/metarace_2_xmo7mh.png",
+  },
+  {
+    id: 5,
+    title: "Flobrawl",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676916768/metarace_2_xmo7mh.png",
+  },
+  {
+    id: 6,
+    title: "Doodlery",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676916768/metarace_2_xmo7mh.png",
   },
 ];
 
@@ -87,7 +101,10 @@ export default function HomeView({ navigation }) {
   const Divider = ({ height }) => <View style={{ height: height }} />;
 
   return (
-    <ScrollView>
+    <ScrollView style={{
+      flex: 1,
+      backgroundColor: "white",
+    }}>
       <Divider height={20} />
       <HomeHorizontalList items={events} type="events" onPress={handleEventNav} />
       <Divider height={20} />

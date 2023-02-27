@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as AuthSession from "expo-auth-session";
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID } from "@env";
 import UserService from "../services/UserService";
+import AuthBottomSheet from "../components/AuthBottomSheet";
 
 export const AuthContext = createContext();
 
@@ -17,6 +18,7 @@ export default function AuthProvider({ children }) {
   const [auth, setAuth] = useState();
   const [userAuthData, setUserAuthData] = useState();
   const [userFullData, setUserFullData] = useState();
+  const [IsOpen, setIsOpen] = useState(false)
 
   console.log("userAuthData from context", userAuthData);
   console.log("auth from context", auth);
@@ -52,7 +54,7 @@ export default function AuthProvider({ children }) {
 
       finishLogin(response.authentication.accessToken)
     }
-    
+
     getPersistedAuth();
   }, [response]);
 
@@ -89,7 +91,7 @@ export default function AuthProvider({ children }) {
       console.log("RES", res);
       return res;
     });
-  
+
     AsyncStorage.setItem("userAuthData", JSON.stringify(data));
     AsyncStorage.setItem("userFullData", JSON.stringify(result));
     setUserFullData(result);
@@ -125,10 +127,14 @@ export default function AuthProvider({ children }) {
     logout,
     auth,
     userAuthData,
-    userFullData
+    userFullData,
+    setIsOpen,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>
+    {IsOpen && <AuthBottomSheet setIsOpen={setIsOpen} />}
+    {children}
+  </AuthContext.Provider>;
 }
 
 export const useAuth = () => useContext(AuthContext);

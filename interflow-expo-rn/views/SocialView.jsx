@@ -4,15 +4,25 @@ import CustomTabs from "../components/CustomTabs";
 import ExploreTab from "../components/social/tabs/ExploreTab";
 import FollowingTab from "../components/social/tabs/FollowingTab";
 import RankingsTab from "../components/social/tabs/RankingTab";
+import { useAuth } from "../contexts/AuthContext";
 
 const SocialView = ({navigation}) => {
   const [activeTab, setActiveTab] = useState(1);
+  const { auth, setIsOpen } = useAuth();
+
 
   const handleTabChange = (tabId) => {
+
+    if (!auth) {
+      setIsOpen(true);
+      return;
+    }
     setActiveTab(tabId);
   };
 
   const handleNavigateToUserDetails = () => {
+
+
     navigation.navigate("UserDetails");
   };
 

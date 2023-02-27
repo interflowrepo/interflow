@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import * as MediaLibrary from "expo-media-library";
 import { captureRef } from "react-native-view-shot";
 import AvatarScene from "../components/AvatarScene";
-import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("window");

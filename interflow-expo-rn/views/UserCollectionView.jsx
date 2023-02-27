@@ -2,8 +2,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import UserNftCard from '../components/social/user/UserNftCard'
 import UserDetailsHeader from '../components/social/user/UserDetailsHeader'
-import { Scroll } from '@react-three/drei'
 import { ScrollView } from 'react-native-gesture-handler'
+
+
 
 const NFTARRAY = [
   {
@@ -33,8 +34,8 @@ export default function UserCollectionView({ navigation }) {
     return (
       <ScrollView horizontal={true}>
         {NFTARRAY.map((item) => {
-          return (       <UserNftCard onPress={handleNav} />
-          ) 
+          return (<UserNftCard onPress={handleNav} />
+          )
         })}
       </ScrollView>
     )
@@ -54,7 +55,6 @@ export default function UserCollectionView({ navigation }) {
         bottomRightText2="10"
         collection
       />
-      <Text>UserCollectionView</Text>
       <HorizontalListComponent />
     </View>
   )

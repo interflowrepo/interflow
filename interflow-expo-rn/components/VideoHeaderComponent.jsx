@@ -33,11 +33,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     width,
-    height: 320
+    height: 320,
+    overflow: 'hidden',
   },
   video: {
-    flex: 1,
+    // flex: 1,
     width,
+    height: 400,
   
   },
   overlay: {
