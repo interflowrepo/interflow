@@ -2,9 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import PfpComponent from './PfpComponent';
 import { useUser } from '../../contexts/UserContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function PfpHeaderComponent({ navigation }) {
   const { user } = useUser()
+  const {userInterflowTokens} = useAuth()
 
   const UserBalanceComponent = () => {
     return (
@@ -27,7 +29,7 @@ export default function PfpHeaderComponent({ navigation }) {
         }}
         onPress={() => navigation.navigate("Profile")}
       >
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>0</Text>
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>{userInterflowTokens || 0}</Text>
         <Image source={{
           uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677272668/logo_kkdwhj.png"
         }} style={styles.image} />   

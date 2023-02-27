@@ -1,9 +1,9 @@
 import { View, Text, ImageBackground, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
-export default function PrimaryBtnComponent({ label, onPress }) {
+export default function PrimaryBtnComponent({ label, onPress, disabled }) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} disabled={disabled} style={disabled && {opacity: 0.5}}>
       <View
         style={{
           borderRadius: 50,

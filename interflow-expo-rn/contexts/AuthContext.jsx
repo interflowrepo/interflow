@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -11,6 +12,7 @@ import * as AuthSession from "expo-auth-session";
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID } from "@env";
 import UserService from "../services/UserService";
 import AuthBottomSheet from "../components/AuthBottomSheet";
+import { Alert } from "react-native";
 
 export const AuthContext = createContext();
 
@@ -22,6 +24,7 @@ export default function AuthProvider({ children }) {
 
   console.log("userAuthData from context", userAuthData);
   console.log("auth from context", auth);
+  console.log("userFullData from context", userFullData);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
@@ -44,9 +47,31 @@ export default function AuthProvider({ children }) {
 
   }, []);
 
+  const updateUserData = useCallback(async (result) => {
+    console.log("Update user ---- ", result)
+    AsyncStorage.setItem("userFullData", JSON.stringify(result));
+    setUserFullData(result);
+  }, [])
+
+  const updateUserCallingBackEnd = useCallback(async () => {
+    let result = await UserService.getUserCollectionData(userId).then((res) => {
+      return res;
+    });
+    console.log("Update user ---- ", result)
+
+    AsyncStorage.setItem("userFullData", JSON.stringify(result));
+    setUserFullData(result);
+  }, [])
+
+  const getUserData = useCallback(async () => {
+    let result = await UserService.getUserCollectionData(userId).then((res) => {
+      return res;
+    });
+
+    return result
+  }, [])
+
   useEffect(() => {
-    console.log("request REQUEST", request)
-    console.log("request RESPONSE", response)
     if (response?.type === "success") {
       console.log(response);
       setAuth(response.authentication);
@@ -85,8 +110,6 @@ export default function AuthProvider({ children }) {
       authId: authId,
     };
 
-    console.log("DATA", data)
-
     let result = await UserService.postLogin(data).then((res) => {
       console.log("RES", res);
       return res;
@@ -120,7 +143,29 @@ export default function AuthProvider({ children }) {
     await AsyncStorage.removeItem("auth");
     await AsyncStorage.removeItem("userAuthData");
     await AsyncStorage.removeItem("userFullData");
+    Alert.alert("Logged out successfully!")
   };
+
+  const userId = useMemo(() => {
+    return userFullData?.user.id;
+  }, [userFullData]);
+
+  const userNickname = useMemo(() => {
+    return userFullData?.user.nickname;
+  }, [userFullData]);
+
+  const userInterflowAddress = useMemo(() => {
+    return userFullData?.user.interflowAddress;
+  }, [userFullData]);
+
+  const userInterflowTokens = useMemo(() => {
+    return userFullData?.user.interflowTokens;
+  }, [userFullData]);
+
+  const userPfpImage = useMemo(() => {
+    return userFullData?.user.pfpImage;
+  }, [userFullData]);
+
 
   const value = {
     login,
@@ -129,10 +174,19 @@ export default function AuthProvider({ children }) {
     userAuthData,
     userFullData,
     setIsOpen,
+    updateUserData,
+    userId,
+    userInterflowTokens,
+    userNickname,
+    userInterflowAddress,
+    userPfpImage,
+    getUserData,
+    updateUserCallingBackEnd,
+    setUserFullData
   };
 
   return <AuthContext.Provider value={value}>
-    {IsOpen && <AuthBottomSheet setIsOpen={setIsOpen} />}
+    {IsOpen && <AuthBottomSheet setIsOpen={setIsOpen} onPress={login}/>}
     {children}
   </AuthContext.Provider>;
 }

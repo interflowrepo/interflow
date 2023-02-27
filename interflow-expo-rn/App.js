@@ -178,7 +178,7 @@ function SocialStackNavigator() {
       />
       <SocialStack.Screen
         name="UserCollection"
-        component={UserCollectionView}
+        component={<UserCollectionView {...props}/>}
         options={{
           headerShown: false,
         }}

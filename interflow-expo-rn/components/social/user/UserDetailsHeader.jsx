@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-const UserDetailsHeader = (props) => {
+const UserDetailsHeader = (props, backgroundImageSource) => {
+
+  console.log(props)
+  console.log(backgroundImageSource)
 
   const styles = StyleSheet.create({
     container: {
@@ -19,7 +22,7 @@ const UserDetailsHeader = (props) => {
     topLeftContainer: {
       position: 'absolute',
       top: 20,
-      left: 20,
+      left: 80,
     },
     nameTitle: {
       fontSize: 24,
@@ -46,7 +49,7 @@ const UserDetailsHeader = (props) => {
     },
     avatarImage: {
       position: 'absolute',
-      bottom: 20,
+      bottom: 30,
       left: 20,
       width: 50,
       height: 50,

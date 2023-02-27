@@ -4,7 +4,7 @@ import RestClient from "../config/RestClient";
 class StripeService {
   async createPaymentIntent(userId, amount) {
     const currency = "usd";
-    console.log("was hereeee");
+    console.log("was hereeee", userId);
     return RestClient()
       .post(restRoutes(userId).createPaymentIntent, { amount, currency })
       .then((response) => {

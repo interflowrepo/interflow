@@ -1,21 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { TextInput, View, Animated, StyleSheet, Dimensions, Image, Text } from 'react-native';
 import UserNftCard from '../../components/social/user/UserNftCard';
 import PrimaryBtnComponent from '../../components/PrimaryBtnComponent';
+import { useAuth } from '../../contexts/AuthContext';
+import UserService from '../../services/UserService';
 
 
 const windowWidth = Dimensions.get('window').width;
 
-const CustomTextInput = ({ placeholderText }) => {
-    const [text, setText] = useState('');
-
+const CustomTextInput = ({ placeholderText, setText, text }) => {
     const handleTextChange = (value) => {
         setText(value);
     };
-
-
-
-
 
     return (
         <View style={styles.container}>
@@ -32,9 +28,15 @@ const CustomTextInput = ({ placeholderText }) => {
     );
 };
 
-const AiTransformView = () => {
-    const [IsCreatingVariation, setIsCreatingVariation] = useState(false)
+const AiTransformView = ({route}) => {
+    const {userId, updateUserData} = useAuth()
+    const [text, setText] = useState('');
+    const nft = useMemo(() => {
+        return route.params.nft
+      }, [route.params])
 
+    console.log('testttt 44444 ----------',nft)
+    const [IsCreatingVariation, setIsCreatingVariation] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
@@ -53,14 +55,29 @@ const AiTransformView = () => {
         }).start();
     };
 
-    const initVariation = () => {
+    const initVariation = async () => {
+        const data = {
+            "nftUuid": nft.uuid,
+            "nftImageLink": nft.thumbnail,
+            "nftCollectionName": nft.collectionName,
+            "nftType": "",
+            "nftContractAddress": "",
+            "prompt": text
+        }
+        const result = await UserService.generateCustom(userId, data)
+        console.log('result', result)
+        if(result.status === "FAILED"){
+            alert("You don't have enought tokens to create a variation! Add more tokens to your account!")
+            return
+        }
+        updateUserData(result)
         alert("Creating Variation...")
         setIsCreatingVariation(true)
     }
 
     return (
         <View style={styles.appContainer}>
-            <UserNftCard width={IsCreatingVariation ? 140 : 260} height={IsCreatingVariation ? 200 : 400} />
+            <UserNftCard width={IsCreatingVariation ? 140 : 260} height={IsCreatingVariation ? 200 : 400} thumbnail={nft.thumbnail} />
             {IsCreatingVariation ?
                 <Image
                     source={{
@@ -70,6 +87,8 @@ const AiTransformView = () => {
                 /> :
                 <CustomTextInput
                     placeholderText="My Doodle NFT in the moon..."
+                    setText={setText}
+                    text={text}
                 />
             }
 
