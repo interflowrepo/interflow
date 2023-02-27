@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import React, { useMemo } from 'react'
 
-export default function UserNftCard({ onPress, width, height }) {
+export default function UserNftCard({ onPress, width, height, name, id, thumbnail }) {
 
     const styles = StyleSheet.create({
         container: {
@@ -20,18 +20,35 @@ export default function UserNftCard({ onPress, width, height }) {
             shadowOpacity: 0.20,
             shadowRadius: 1.41,
         },
+        backgroundImage: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          },
     })
+
+    const thumbnailCheck = useMemo(() => {
+        if(!thumbnail) return
+        if (thumbnail.includes("ipfs")) {
+            return `https://ipfs.io/${thumbnail}`
+        } else {
+            return thumbnail
+        }
+    }, [thumbnail])
+
     return (
         <View style={styles.container}>
+            <Image style={styles.backgroundImage} source={{
+            uri: thumbnailCheck,
+            }} />
             <TouchableOpacity
                 onPress={onPress}
                 style={{ flex: 1 }}
             >
-                <Text>UserNftCard</Text>
+                <Text>{name}</Text>
             </TouchableOpacity>
         </View>
     )
 }
-
-
-

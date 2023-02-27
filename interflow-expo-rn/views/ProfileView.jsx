@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import StripeService from "../services/StripeService";
@@ -6,9 +6,13 @@ import { usePaymentSheet } from "@stripe/stripe-react-native";
 import PurchaseBtnComponent from "../components/PurchaseBtnComponent";
 import GridListComponent from "../components/GridListComponent";
 import { useAuth } from "../contexts/AuthContext";
+import PrimaryBtnComponent from "../components/PrimaryBtnComponent";
+import useUserData from "../hooks/useUserData";
+import { params } from "@onflow/fcl";
 
 const ProfileView = ({ navigation }) => {
-  const { auth, setIsOpen, userId } = useAuth()
+  const { auth, setIsOpen, userId, updateUserData, logout, login } = useAuth();
+  const { nfts } = useUserData();
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
   const fetchPaymentSheetParams = async (amount) => {
@@ -41,6 +45,7 @@ const ProfileView = ({ navigation }) => {
       console.log("error", error);
     } else {
       const response = await StripeService.addTokens(userId, tokensAmount);
+      updateUserData(response);
       console.log("response", response);
       Alert.alert(
         "Success",
@@ -50,36 +55,17 @@ const ProfileView = ({ navigation }) => {
     }
   }
 
-  const getAllStorageData = async () => {
-    try {
-      const keys = await AsyncStorage.getAllKeys();
-      const result = await AsyncStorage.multiGet(keys);
-      console.log("result", result);
-      return result;
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
-
   // let userId = "a3341f16-f912-4213-9dd4-fffa9ac567c5";
 
-  const data = [
-    { id: 1, title: "Item 1" },
-    { id: 2, title: "Item 2" },
-    { id: 3, title: "Item 3" },
-    { id: 4, title: "Item 4" },
-    { id: 5, title: "Item 5" },
-    { id: 6, title: "Item 6" },
-    { id: 7, title: "Item 7" },
-    { id: 8, title: "Item 8" },
-    { id: 9, title: "Item 9" },
-  ];
-
-  const onPress = () => {
+  const onPress = (item) => {
     // console.log("item", item);
-    navigation.navigate("UserCollection");
+    navigation.navigate({
+      name: "UserCollection",
+      params: {
+        collection: item,
+      },
+    });
   };
-
 
   return (
     <View style={{ flex: 1, paddingHorizontal: 30, paddingTop: 40 }}>
@@ -87,28 +73,71 @@ const ProfileView = ({ navigation }) => {
         <Text style={{ fontSize: 24, fontWeight: "900", marginBottom: 4 }}>
           Buy Tokens
         </Text>
-        <PurchaseBtnComponent quantity={10} price={2.99} color="lightgrey" width={220} onPress={
-          !auth ? () => setIsOpen(true) :
-            () => handleBuyTokens(userId, 299, 10)} />
-        <PurchaseBtnComponent quantity={20} price={9.99} color="white" width={280} onPress={
-          !auth ? () => setIsOpen(true) :
-            () => handleBuyTokens(userId, 999, 20)} />
-        <PurchaseBtnComponent quantity={50} price={59.99} color="gold" width={320} onPress={
-          !auth ? () => setIsOpen(true) :
-            () => handleBuyTokens(userId, 5999, 50)} />
+        <PurchaseBtnComponent
+          quantity={10}
+          price={2.99}
+          color="lightgrey"
+          width={220}
+          onPress={
+            !auth
+              ? () => setIsOpen(true)
+              : () => handleBuyTokens(userId, 299, 10)
+          }
+        />
+        <PurchaseBtnComponent
+          quantity={20}
+          price={9.99}
+          color="white"
+          width={280}
+          onPress={
+            !auth
+              ? () => setIsOpen(true)
+              : () => handleBuyTokens(userId, 999, 20)
+          }
+        />
+        <PurchaseBtnComponent
+          quantity={50}
+          price={59.99}
+          color="gold"
+          width={320}
+          onPress={
+            !auth
+              ? () => setIsOpen(true)
+              : () => handleBuyTokens(userId, 5999, 50)
+          }
+        />
       </View>
       <View style={{ height: 30 }} />
-      <View style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start"
-      }}>
-        <Text style={{ fontSize: 24, fontWeight: "900", marginBottom: 4, height: 30 }}>
+      <View
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: "900",
+            marginBottom: 4,
+            height: 30,
+          }}
+        >
           Your Collections
         </Text>
-        <GridListComponent data={data} numColumns={3} onPress={onPress} isProfile />
+        <GridListComponent
+          data={nfts}
+          numColumns={3}
+          onPress={onPress}
+          isProfile
+        />
       </View>
+      {auth ? (
+        <PrimaryBtnComponent label={"LOGOUT"} onPress={logout} />
+      ) : (
+        <PrimaryBtnComponent label={"LOGIN / SIGNUP"} onPress={login} />
+      )}
     </View>
   );
 };

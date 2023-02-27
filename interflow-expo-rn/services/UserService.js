@@ -10,6 +10,30 @@ class UserService {
       });
   }
 
+  async generateCustom(id, data){
+    return RestClient()
+      .post(restRoutes(id).generateCustom, data)
+      .then((response) => {
+        return response.data;
+      });
+  }
+
+  async revealCustom(id){
+    return RestClient()
+      .post(restRoutes(id).revealCustom)
+      .then((response) => {
+        return response.data;
+      });
+  }
+
+  async getCustom(id){
+    return RestClient()
+      .get(restRoutes(id).getCustom)
+      .then((response) => {
+        return response.data;
+      });
+  }
+
   async postFollowUnfollow(id, data) {
     return RestClient()
       .post(restRoutes(id).followUnfollow, data)

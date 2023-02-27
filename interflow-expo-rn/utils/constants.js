@@ -6,6 +6,9 @@ export const restRoutes = (id) => {
       createPost: `/posts/create/${id}`,
       createPaymentIntent: `/payment/create/${id}`,
       addTokens: `/payment/addTokens/${id}`,
+      generateCustom: `/image/generate/${id}`,
+      revealCustom: `/image/reveal/${id}`,
+      
   
       // ------ GETS
       getUserCollectionData: `/users/getUserCollectionData/${id}`,
@@ -15,6 +18,7 @@ export const restRoutes = (id) => {
       getUserExplore: `/users/social/explore/${id}`,
       getRaking: `/users/social/ranking`,
       getAllPosts: `/posts/getAllPosts`,
+      getCustom: `/image/getInterflow/${id}`,
   
       // ------ PUTS
       updateUserData: `/users/update/${id}`,
