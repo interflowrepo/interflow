@@ -6,7 +6,7 @@ import GlassesIcon from "./GlassesIcon";
 export default function NativeAvatar(props) {
   const { nodes } = useGLTF(require("../models/kira.glb"));
   const ref = useRef();
-  
+
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
     if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
@@ -30,17 +30,17 @@ export default function NativeAvatar(props) {
 
   return (
     <group {...props} dispose={null}>
-      <GlassesIcon
+      {props.selectedAccesory && <GlassesIcon
         scale={0.002}
         position={[-0.05, 0.76, 0.13]}
         rotation={[0, -0.5, 0]}
         animated={false}
-      />
+      />}
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.kaedim_mesh_0.geometry}
-        // material={nodes.kaedim_mesh_0.material}
+      // material={nodes.kaedim_mesh_0.material}
       >
         {/* <meshBasicMaterial color="black" /> */}
       </mesh>

@@ -19,7 +19,8 @@ const BottomSheetModal = ({
   contentTranslateY,
   bottomSheetHeight,
   toggleModal,
-  showModal
+  showModal,
+  handleAccesorySelection
 }) => {
 
   const styles = StyleSheet.create({
@@ -112,9 +113,7 @@ const BottomSheetModal = ({
                 source={require("../assets/avatar/bg(1).png")}
                 style={styles.background}
               >
-            <HorizontalList />
-            <HorizontalList />
-            <HorizontalList />
+            <HorizontalList handleAccesorySelection={handleAccesorySelection} />
                 {/* <TouchableOpacity
                   style={styles.modalButton}
                   onPress={toggleModal}

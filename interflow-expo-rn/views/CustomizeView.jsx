@@ -30,6 +30,7 @@ export default function CustomizeView() {
   const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
   const [Zoom, setZoom] = useState(0.7);
   const [SelectedSphere, setSelectedSphere] = useState("accesories")
+  const [SelectedAccesory, setSelectedAccesory] = useState(null)
 
 
 
@@ -45,6 +46,10 @@ export default function CustomizeView() {
       useNativeDriver: true,
     }).start();
   };
+
+  const handleAccesorySelection = (type) => {
+    setSelectedAccesory(type)
+  }
 
   const overlayOpacity = bottomSheetAnimation.interpolate({
     inputRange: [0, 1],
@@ -82,6 +87,7 @@ export default function CustomizeView() {
     bottomSheetHeight,
     toggleModal,
     showModal,
+    handleAccesorySelection
   };
 
   const closeProps = {
@@ -100,16 +106,17 @@ export default function CustomizeView() {
   const avatarProps = {
     handleSphereSelection,
     zoom: Zoom,
-    pfp: false
+    pfp: false,
+    SelectedAccesory
   };
 
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      <AvatarScene {...avatarProps} />
+      <AvatarScene {...avatarProps}  />
       {(showModal || showWheelModal) && <CloseActionComponent {...closeProps} />}
-      <TestCircle {...modalWheelProps} />
-      <BottomSheetModal {...modalProps} />
+      <TestCircle {...modalWheelProps}  />
+      <BottomSheetModal {...modalProps}  />
     </View>
   )
 }

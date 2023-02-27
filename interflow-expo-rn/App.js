@@ -36,6 +36,7 @@ import LoginView from "./views/LoginView.jsx";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import * as Notifications from 'expo-notifications';
 import AiTransformView from "./views/NFT/AiTransformView.jsx";
+import SelectGenderView from "./views/SelectGenderView.jsx";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -409,13 +410,29 @@ export default function App() {
           <RequestsComponent /> */}
             <NavigationContainer>
               <Stack.Navigator>
+
                 {/* <Stack.Screen
-                name="auth"
-                component={LoginView}
-                options={{
-                  headerShown: false,
-                }}
-              /> */}
+                  name="select"
+                  component={SelectGenderView}
+                  options={{
+                    headerShown: false,
+                  }}
+                /> */}
+
+                {/* <Stack.Screen
+                  name="auth"
+                  component={LoginView}
+                  options={{
+                    headerShown: false,
+                  }}
+                /> */}
+                {/* <Stack.Screen
+                  name="Onboarding"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={OnboardingView}
+                /> */}
                 <Stack.Screen
                   name="Home"
                   component={HomeTabs}
@@ -431,13 +448,8 @@ export default function App() {
                     // },
                   })}
                 />
-                <Stack.Screen
-                  name="Onboarding"
-                  options={{
-                    headerShown: false,
-                  }}
-                  component={OnboardingView}
-                />
+
+
                 <Stack.Screen
                   name="Wallets"
 
@@ -586,8 +598,8 @@ export default function App() {
                   name="NftDetails"
                   component={NftDetailsView}
 
-                />  
-                 <Stack.Screen
+                />
+                <Stack.Screen
                   name="AiTransform"
                   component={AiTransformView}
                 />
