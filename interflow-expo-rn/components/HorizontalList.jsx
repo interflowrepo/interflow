@@ -42,7 +42,7 @@ const Divider = () => {
   );
 };
 
-const HorizontalList = () => {
+const HorizontalList = ({handleAccesorySelection}) => {
   return (
     <View style={styles.container}>
       <View style={{
@@ -66,7 +66,7 @@ const HorizontalList = () => {
      
       <ScrollView horizontal={true}>
         {DATA.map((item) => (
-          <AvatarPreviewComponent key={item.id} item={item} />
+          <AvatarPreviewComponent key={item.id} item={item} handleAccesorySelection={handleAccesorySelection} />
         ))}
       </ScrollView>
       <Divider />
