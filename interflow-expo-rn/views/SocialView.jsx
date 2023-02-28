@@ -6,13 +6,11 @@ import FollowingTab from "../components/social/tabs/FollowingTab";
 import RankingsTab from "../components/social/tabs/RankingTab";
 import { useAuth } from "../contexts/AuthContext";
 
-const SocialView = ({navigation}) => {
+const SocialView = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState(1);
   const { auth, setIsOpen } = useAuth();
 
-
   const handleTabChange = (tabId) => {
-
     if (!auth) {
       setIsOpen(true);
       return;
@@ -20,16 +18,24 @@ const SocialView = ({navigation}) => {
     setActiveTab(tabId);
   };
 
-  const handleNavigateToUserDetails = () => {
-
-
-    navigation.navigate("UserDetails");
+  const handleNavigateToUserDetails = (item) => {
+    navigation.navigate({
+      name: "UserDetails",
+      params: {
+        user: item,
+      },
+    });
   };
 
   return (
     <View style={styles.container}>
       <CustomTabs activeTab={activeTab} onChangeTab={handleTabChange} />
-      {activeTab === 1 && <FollowingTab onPress={() => handleTabChange(2)} />}
+      {activeTab === 1 && (
+        <FollowingTab
+          onPressNoFollowing={() => handleTabChange(2)}
+          onPress={handleNavigateToUserDetails}
+        />
+      )}
       {activeTab === 2 && <ExploreTab onPress={handleNavigateToUserDetails} />}
       {activeTab === 3 && <RankingsTab />}
     </View>

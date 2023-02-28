@@ -14,6 +14,7 @@ const UserDetailsHeader = (props, backgroundImageSource) => {
     },
     backgroundImage: {
       position: 'absolute',
+      opacity: 0.3,
       top: 0,
       left: 0,
       right: 0,
@@ -27,12 +28,13 @@ const UserDetailsHeader = (props, backgroundImageSource) => {
     nameTitle: {
       fontSize: 24,
       fontWeight: 'bold',
-      color: '#fff',
+      color: '#000000',
       marginBottom: 5,
     },
     address: {
       fontSize: 16,
-      color: '#fff',
+      color: '#000000',
+      boxShadow: '0 0 5px rgba(0, 0, 0, 0.5)',
     },
     topRightButton: {
       position: 'absolute',
@@ -63,7 +65,8 @@ const UserDetailsHeader = (props, backgroundImageSource) => {
     },
     bottomRightText: {
       fontSize: 14,
-      color: '#fff',
+      fontWeight: 'bold',
+      color: '#000000',
       marginBottom: 5,
     },
   });
