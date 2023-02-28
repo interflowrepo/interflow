@@ -7,8 +7,8 @@ import GridListComponent from "../components/GridListComponent";
 import { useAuth } from "../contexts/AuthContext";
 import PrimaryBtnComponent from "../components/PrimaryBtnComponent";
 import useUserData from "../hooks/useUserData";
-import Spinner from "react-native-loading-spinner-overlay";
 import ContentLoader from "react-native-easy-content-loader";
+import { useFcl } from "../contexts/FclContext";
 
 const ProfileView = ({ navigation }) => {
   const {
@@ -24,8 +24,7 @@ const ProfileView = ({ navigation }) => {
   const { nfts } = useUserData();
   const { initPaymentSheet, presentPaymentSheet } = usePaymentSheet();
   const [loading, setLoading] = useState(true);
-
-  // console.log("nfts", nfts.length > 1);
+  const { authenticate } = useFcl();
 
   const fetchPaymentSheetParams = async (amount) => {
     const data = await StripeService.createPaymentIntent(userId, amount);
@@ -34,7 +33,7 @@ const ProfileView = ({ navigation }) => {
   };
 
   useEffect(() => {
-    nfts.length > 1 && setLoading(false);
+    nfts.length >= 1 && setLoading(false);
   }, [nfts]);
 
   async function handleBuyTokens(userId, amount, tokensAmount) {
@@ -231,7 +230,9 @@ const ProfileView = ({ navigation }) => {
         }}
       >
         {auth ? (
+          <>
           <PrimaryBtnComponent label={"LOGOUT"} onPress={logout} />
+          </>
         ) : (
           <PrimaryBtnComponent label={"LOGIN / SIGNUP"} onPress={login} />
         )}

@@ -16,17 +16,16 @@ export default function useUserData() {
   }, [userId]);
 
   const userNfts = useMemo(async () => {
+    console.log("USER ID", userId)
+    if(userId == undefined){
+      setNfts(['NOT-LOGGED'])
+      return
+    }
     const result = await UserService.getUserNfts(userId);
     let nfts = Object.values(result)
     let nftsFiltered = nfts.filter(nft => nft.length > 0)
     setNfts(nftsFiltered)
     }, [userId]);
-
-    const exploreUsersFn = useMemo(async () => {
-      const result = await UserService.getUserExplore(userId);
-      console.log("EXPLORE USERS", result)
-      setExploreUsers(result)
-    }, [])
 
     const getUserCollectionData = useCallback(async (userId) => {
       let result = await UserService.getUserCollectionData(userId).then((res) => {
@@ -42,10 +41,13 @@ export default function useUserData() {
       return result
     }, [])
 
-    const followingUsersFn = useMemo(async () => {
-      const result = await UserService.getUserFollowing(userId);
-      console.log("FOLLOWING USERS", result)
-      setFollowingUsers(result)
+    const getExploreUsers = useCallback(async () => {
+      let result = await UserService.getUserExplore(userId).then((res) => {
+        return res;
+      });
+      setExploreUsers(result)
+      console.log("EXPLORE USERS", result)
+      return result
     }, [])
     
 
@@ -69,12 +71,12 @@ export default function useUserData() {
     userNfts,
     nfts,
     exploreUsers,
-    exploreUsersFn,
     exploreUsers,
     followingUsers,
     getUserCollectionData,
     followUnfollowUser,
     getUserNfts,
-    getRanking
+    getRanking,
+    getExploreUsers
   };
 }

@@ -175,6 +175,7 @@ export default function AuthProvider({ children }) {
   }, [userFullData]);
 
   const bloctoAddress = useMemo(() => {
+    console.log("userFullData?.user.bloctoAddress", userFullData?.user.bloctoAddress)
     return userFullData?.user.bloctoAddress;
   }, [userFullData]);
 

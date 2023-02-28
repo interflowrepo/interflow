@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import { useAuth } from "../../../contexts/AuthContext";
 import useUserData from "../../../hooks/useUserData";
-import GridListComponent from "../../GridListComponent";
+import GridLoaderSocialListComponent from "../../GridLoaderSocialListComponent";
+import GridSocialListComponent from "../../GridSocialListComponent";
 
 const ExploreTab = ({ onPress }) => {
   const { userId } = useAuth();
-  const { exploreUsers } = useUserData();
+  const { getExploreUsers, exploreUsers } = useUserData();
+
+  useEffect(() => {
+    getExploreUsers();
+  }, []);
 
   return (
     <View
@@ -14,9 +19,18 @@ const ExploreTab = ({ onPress }) => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        marginTop: 50,
       }}
     >
-      <GridListComponent data={exploreUsers} numColumns={2} onPress={onPress} />
+      {!exploreUsers.length > 0 ? (
+        <GridLoaderSocialListComponent />
+      ) : (
+        <GridSocialListComponent
+          data={exploreUsers}
+          numColumns={2}
+          onPress={onPress}
+        />
+      )}
     </View>
   );
 };

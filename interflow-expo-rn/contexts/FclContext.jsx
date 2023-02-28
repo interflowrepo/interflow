@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import { Alert, View } from "react-native";
 import * as fcl from "@onflow/fcl";
 import { WebView } from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,22 +17,10 @@ import {
 } from "../utils/authFclUser";
 import { injectedJavaScript } from "../utils/blocto/injectedJavaScript";
 import AvailableWalletsView from "../components/AvailableWalletsView";
+import UserService from "../services/UserService";
 import { useAuth } from "./AuthContext";
 
 export const FclContext = createContext();
-
-const availableWallets = [
-  {
-    walledName: "Dapper Wallet",
-    connected: false,
-    address: "",
-  },
-  {
-    walledName: "Blocto",
-    connected: false,
-    address: "",
-  },
-];
 
 export default function FclProvider({ children }) {
   const [services, setServices] = useState(undefined);
@@ -41,43 +29,17 @@ export default function FclProvider({ children }) {
   const [userAddr, setUserAddr] = useState();
   const [openAvailableWalletsView, setOpenAvailableWalletsView] =
     useState(false);
-  const [wallets, setWallets] = useState(availableWallets);
-  const { dapperWallet, bloctoWallet } = useAuth();
+
+  const { userId, updateUserData } = useAuth();
+
+  console.log("USER ID", userId)
 
   useEffect(() => {
     fcl.discovery.authn.subscribe((res) => setServices(res.results));
     if (linkUrl != "" && linkUrl != undefined) {
       setOpenWalletWebView(true);
     }
-    getWallets();
   }, [services, linkUrl]);
-
-  const getWallets = async () => {
-    const newWallets = wallets.map((wallet) => {
-      const connectedWallet = connectedWallets.find(
-        (connectedWallet) => connectedWallet.walledName == wallet.walledName
-      );
-
-      console.log("the connectedWallet", connectedWallet);
-      if (connectedWallet) {
-        return {
-          ...wallet,
-          connected: true,
-          address: connectedWallet.address,
-        };
-      } else {
-        return {
-          ...wallet,
-          connected: false,
-          address: "",
-        };
-      }
-    });
-
-    console.log("newWallets", wallets);
-
-    setWallets(wallets);
-  };
 
   const updateLink = useCallback(async (link) => {
     await setLinkUrl(link);
@@ -130,7 +92,8 @@ export default function FclProvider({ children }) {
     if (statusData != undefined) {
       if (statusData.status == "APPROVED") {
         console.log("APPROVED");
-        await storeBloctoData(statusData.data.addr);
+        const key = 'bloctoAddress'
+        await storeWallet(key, statusData.data.addr);
         setOpenWalletWebView(false);
         setOpenAvailableWalletsView(false);
         setServices(undefined);
@@ -149,53 +112,45 @@ export default function FclProvider({ children }) {
     }
   }, []);
 
-  const removeWallet = useCallback(async (walletAddress) => {
+  const removeWallet = useCallback(async (walletKey) => {
     try {
-      const keys = await AsyncStorage.getAllKeys();
-      const result = await AsyncStorage.multiGet(keys);
-      result.map((item) => {
-        if (item[1] == walletAddress) {
-          AsyncStorage.removeItem(item[0]);
-        }
-      });
-      await getWallets();
+      const data =
+        walletKey == "Blocto"
+          ? {
+              bloctoAddress: null,
+            }
+          : {
+              dapperAddress: null,
+            };
+
+      const result = await UserService.updateUserData(userId, data);
+      console.log("result ------------", result)
+      updateUserData(result);
+      await AsyncStorage.setItem(
+        "userFullData",
+        JSON.stringify(result)
+      );
+      Alert.alert("Wallet removed successfully");
       console.log("wallet removed");
     } catch (e) {
       console.log("Async Storage error", e);
     }
   }, []);
 
-  const getAllStoredData = useCallback(async () => {
+  const storeWallet = useCallback(async (walletKey, walletAddress) => {
     try {
-      const keys = await AsyncStorage.getAllKeys();
-      const result = await AsyncStorage.multiGet(keys);
-      console.log("wallets storageeee", result);
-      let walletsAddress = [];
-      result.map((item) => {
-        if (item[0].includes("Blocto.userAddr")) {
-          let walletData = {
-            walledName: "Blocto",
-            address: item[1],
-          };
-          walletsAddress.push(walletData);
-        } else if (item[0].includes("Dapper.userAddr")) {
-          let walletData = {
-            walledName: "Dapper",
-            address: item[1],
-          };
-          walletsAddress.push(walletData);
-        }
-      });
-      return walletsAddress;
-    } catch (e) {
-      console.log("Async Storage error", e);
-    }
-  }, []);
+      const data = {
+        [walletKey]: walletAddress,
+      }
 
-  const getStorageData = useCallback(async () => {
-    try {
-      const value = await AsyncStorage.getItem("Blocto.userAddr");
-      setUserAddr(value);
+      const result = await UserService.updateUserData(userId, data);
+      updateUserData(result);
+      await AsyncStorage.setItem(
+        "userFullData",
+        JSON.stringify(result)
+      );
+      Alert.alert("Wallet added successfully");
+      console.log("wallet Added");
     } catch (e) {
       console.log("Async Storage error", e);
     }
@@ -204,7 +159,8 @@ export default function FclProvider({ children }) {
   const getDapperWallet = async (e) => {
     const objParsed = JSON.parse(e);
     let address = `0x${Object.values(objParsed)[3]}`;
-    await storeDapperData(address);
+    const key = 'dapperAddress'
+    await storeWallet(key, address);
     setOpenWalletWebView(false);
     setOpenAvailableWalletsView(false);
     setServices(undefined);
@@ -216,13 +172,10 @@ export default function FclProvider({ children }) {
     linkUrl,
     userAddr,
     onPressActionFn,
-    getStorageData,
     checkAuthStatus,
-    getAllStoredData,
     authenticate,
     closeAvailableWalletsView,
     removeWallet,
-    wallets,
   };
 
   return (
@@ -230,12 +183,9 @@ export default function FclProvider({ children }) {
       {children}
       {openAvailableWalletsView && (
         <AvailableWalletsView
-          wallets={wallets}
           services={services}
           userAddr={userAddr}
           onPressActionFn={onPressActionFn}
-          getStorageData={getStorageData}
-          getAllStoredData={getAllStoredData}
           closeAvailableWalletsView={closeAvailableWalletsView}
           removeWalletFn={removeWallet}
         />

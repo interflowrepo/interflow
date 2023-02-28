@@ -66,40 +66,50 @@ const GridListComponent = ({ data, numColumns, onPress, isProfile }) => {
     },
   });
 
+  console.log("data", data)
+
   return (
     <>
-      {data.length > 10 ? (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          numColumns={numColumns}
-          style={styles.container}
-        />
-      ) : (
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 200,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "grey",
-              marginBottom: 20,
-            }}
-          >
-            You don't have any NFT Collection
-          </Text>
-          <PrimaryBtnComponent
-            label={"CONNECT WALLETS"}
-            onPress={() => authenticate()}
-          />
+      {data[0] == "NOT-LOGGED" ? (
+        <View style={{height: 80, justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+          <Text style={{fontSize: 24}}>You are not Logged!</Text>
         </View>
+      ) : (
+        <>
+          {data.length >= 1 ? (
+            <FlatList
+              data={data}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              numColumns={numColumns}
+              style={styles.container}
+            />
+          ) : (
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: 200,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  color: "grey",
+                  marginBottom: 20,
+                }}
+              >
+                You don't have any NFT Collection
+              </Text>
+              <PrimaryBtnComponent
+                label={"CONNECT WALLETS"}
+                onPress={() => authenticate()}
+              />
+            </View>
+          )}
+        </>
       )}
     </>
   );
