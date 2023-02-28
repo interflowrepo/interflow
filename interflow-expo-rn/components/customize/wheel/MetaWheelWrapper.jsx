@@ -12,7 +12,7 @@ import MetaElementsMenu from "./MetaElementsMenu";
 
 const { width, height } = Dimensions.get("window");
 
-const MetaWheelWrapper = ({ wheelTranslateY}) => {
+const MetaWheelWrapper = ({ wheelTranslateY , handleAccesorySelection}) => {
     const [spinning, setSpinning] = useState(false);
     const spinAnimation = useRef(new Animated.Value(0)).current;
 
@@ -98,6 +98,7 @@ const MetaWheelWrapper = ({ wheelTranslateY}) => {
                         interpolatedRotation={interpolatedRotation}
                         color="red"
                         diameter={300}
+                        handleAccesorySelection={handleAccesorySelection}
                     />
                 </View>
             </ImageBackground>

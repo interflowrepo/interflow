@@ -44,7 +44,7 @@ const WheelMenuComponent = ({
   const icons = [
     {
       id: 1,
-      uri: require("../../../assets/avatar/hat.png"),
+      uri:  require("../../../assets/avatar/inactive-shirt.png"),
     },
     {
       id: 2,
@@ -55,27 +55,27 @@ const WheelMenuComponent = ({
       uri: require("../../../assets/avatar/inactive-sneaker.png"),
     },
     {
-      id: 1,
-      uri: require("../../../assets/avatar/hat.png"),
-    },
-    {
-      id: 2,
+      id: 4,
       uri: require("../../../assets/avatar/inactive-shirt.png"),
     },
     {
-      id: 3,
+      id: 5,
+      uri: require("../../../assets/avatar/inactive-shirt.png"),
+    },
+    {
+      id: 6,
       uri: require("../../../assets/avatar/inactive-sneaker.png"),
     },
     {
-      id: 1,
+      id: 7,
       uri: require("../../../assets/avatar/hat.png"),
     },
     {
-      id: 2,
+      id: 8,
       uri: require("../../../assets/avatar/inactive-shirt.png"),
     },
     {
-      id: 3,
+      id: 9,
       uri: require("../../../assets/avatar/inactive-sneaker.png"),
     },
   ];

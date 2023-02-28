@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei/native";
 import { useFrame } from "@react-three/fiber/native";
 import GlassesIcon from "./GlassesIcon";
+import Headset from "./customize/RuntimeModels/HeadsetModel";
+import HeadsetModel from "./customize/headset/HeadsetModel";
 
 export default function NativeAvatar(props) {
   const { nodes } = useGLTF(require("../models/kira.glb"));
@@ -30,12 +32,15 @@ export default function NativeAvatar(props) {
 
   return (
     <group {...props} dispose={null}>
+      {props.SelectedAccesory == "headset" && <HeadsetModel scale={0.12} position={[-0.0, -1.2, -0.3]} rotation={[0, -Math.PI / 2 - 0.5, 0]} />}
       {props.selectedTemplate == "glasses" && <GlassesIcon
         scale={0.002}
         position={[-0.05, 0.76, 0.13]}
         rotation={[0, -0.5, 0]}
         animated={false}
       />}
+
+      {/* <Headset scale={0.02} rotation={[0,0,0]} position={[0,1,0]}/> */}
       <mesh
         castShadow
         receiveShadow
@@ -133,7 +138,7 @@ export default function NativeAvatar(props) {
         receiveShadow
         geometry={nodes.kaedim_mesh_10.geometry}
         material={nodes.kaedim_mesh_10.material}
-        rotation={[0 ,Math.PI, 0]}
+        rotation={[0, Math.PI, 0]}
         position={[0, -0.05, 0.15]}
       >
         {/* hat */}
@@ -144,7 +149,7 @@ export default function NativeAvatar(props) {
           receiveShadow
           geometry={nodes.kaedim_mesh_10.geometry}
           material={nodes.kaedim_mesh_10.material}
-          rotation={[0 ,0, 0]}
+          rotation={[0, 0, 0]}
           position={[0, 0, 0]}
         >
           {/* hat */}

@@ -579,7 +579,6 @@ export default function App() {
                     // headerStyle: styles.navBar,
                     headerTitle: () => <PfpHeaderComponent navigation={navigation} />,
                     headerBackground: () => <HeaderComponent />,
-
                   })}
                 />
                 <Stack.Screen

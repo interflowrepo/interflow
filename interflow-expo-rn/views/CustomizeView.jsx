@@ -31,11 +31,14 @@ export default function CustomizeView() {
   const [showWheelModal, setShowWheelModal] = useState(false);
   const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
   const wheelSheetAnimation = useRef(new Animated.Value(0)).current;
+  const aSheetAnimation = useRef(new Animated.Value(0)).current;
+  
   const [Zoom, setZoom] = useState(0.7);
   const [SelectedSphere, setSelectedSphere] = useState("")
   const [SelectedTemplate, setSelectedTemplate] = useState(null)
   const [SelectedCategory, setSelectedCategory] = useState(null)
   const [IsTwoSelected, setIsTwoSelected] = useState(false)
+  const [SelectedAccesory, setSelectedAccesory] = useState(null)
 
   useEffect(() => {
     // toggleModal("other ")
@@ -106,6 +109,11 @@ export default function CustomizeView() {
     }
   };
 
+  const handleAccesorySelection = (type) => {
+    setSelectedAccesory(type)
+  }
+
+
   const modalProps = {
     overlayOpacity,
     contentTranslateY,
@@ -133,6 +141,7 @@ export default function CustomizeView() {
   const metaWheelProps = {
     wheelTranslateY,
     bottomSheetHeight,
+    handleAccesorySelection,
   };
 
   const avatarProps = {
@@ -143,6 +152,7 @@ export default function CustomizeView() {
     isTwoSelected: IsTwoSelected,
     showModal,
     showWheelModal,
+    SelectedAccesory
   };
 
 
@@ -155,7 +165,7 @@ export default function CustomizeView() {
       <AvatarScene {...avatarProps} />
       {(showModal || showWheelModal) && <CloseActionComponent {...closeProps} />}
       <WheelMenuWrapper {...modalWheelProps} />
-      <MetaWheelWrapper {...metaWheelProps} />
+      <MetaWheelWrapper {...metaWheelProps}  />
       <BottomSheetModal {...modalProps} />
     </View>
   )

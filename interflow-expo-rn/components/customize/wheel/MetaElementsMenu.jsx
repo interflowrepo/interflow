@@ -15,6 +15,7 @@ const WheelMenuComponent = ({
   color,
   spinning,
   interpolatedRotation,
+  handleAccesorySelection
 }) => {
   const circleStyle = {
     width: diameter,
@@ -43,39 +44,39 @@ const WheelMenuComponent = ({
   const icons = [
     {
       id: 1,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 2,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 3,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 1,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 2,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 3,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 1,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 2,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 3,
-      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
   ];
 
@@ -117,7 +118,7 @@ const WheelMenuComponent = ({
               },
             ]}
             onPress={() => {
-              alert("Coming soon!");
+              handleAccesorySelection("headset");
             }}
           >
             <IconComponent uri={icon.uri} size={40} color={color} network />
