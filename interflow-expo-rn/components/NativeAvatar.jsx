@@ -7,10 +7,10 @@ export default function NativeAvatar(props) {
   const { nodes } = useGLTF(require("../models/kira.glb"));
   const ref = useRef();
 
-  // useFrame(({ clock }) => {
-  //   const t = clock.getElapsedTime();
-  //   if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
-  // });
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
+  });
 
   if (props.icon) {
     return (
@@ -30,7 +30,7 @@ export default function NativeAvatar(props) {
 
   return (
     <group {...props} dispose={null}>
-      {props.selectedAccesory && <GlassesIcon
+      {props.selectedTemplate == "glasses" && <GlassesIcon
         scale={0.002}
         position={[-0.05, 0.76, 0.13]}
         rotation={[0, -0.5, 0]}
@@ -40,8 +40,9 @@ export default function NativeAvatar(props) {
         castShadow
         receiveShadow
         geometry={nodes.kaedim_mesh_0.geometry}
-      // material={nodes.kaedim_mesh_0.material}
+        material={nodes.kaedim_mesh_0.material}
       >
+        {/* right eyebrow */}
         {/* <meshBasicMaterial color="black" /> */}
       </mesh>
       <mesh
@@ -50,7 +51,8 @@ export default function NativeAvatar(props) {
         geometry={nodes.kaedim_mesh_1.geometry}
         material={nodes.kaedim_mesh_1.material}
       >
-        {/* <meshBasicMaterial color="black" /> */}
+        {/* mouth */}
+        <meshBasicMaterial color="black" />
       </mesh>
       <mesh
         castShadow
@@ -125,14 +127,29 @@ export default function NativeAvatar(props) {
         {/* <meshBasicMaterial color="black" /> */}
       </mesh>
 
-      <mesh
+
+      {props.selectedTemplate == "inverted" ? <mesh
         castShadow
         receiveShadow
         geometry={nodes.kaedim_mesh_10.geometry}
         material={nodes.kaedim_mesh_10.material}
+        rotation={[0 ,Math.PI, 0]}
+        position={[0, -0.05, 0.15]}
       >
+        {/* hat */}
         <meshBasicMaterial color="#4BC98D" />
-      </mesh>
+      </mesh> :
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.kaedim_mesh_10.geometry}
+          material={nodes.kaedim_mesh_10.material}
+          rotation={[0 ,0, 0]}
+          position={[0, 0, 0]}
+        >
+          {/* hat */}
+          <meshBasicMaterial color="#4BC98D" />
+        </mesh>}
       <mesh
         castShadow
         receiveShadow

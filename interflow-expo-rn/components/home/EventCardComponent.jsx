@@ -12,7 +12,7 @@ const EventCardComponent = ({ event, onPress }) => {
         style={styles.bgImg}
       >
         <LinearGradient
-        colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.1)']}
+        colors={['rgba(0,0,0,0.36)', 'rgba(0,0,0,0.1)']}
         style={styles.overlay}
       />
         <Text style={styles.title}>{event.title}</Text>

@@ -6,6 +6,7 @@ import {
   PanResponder,
   Animated,
   ImageBackground,
+  TouchableOpacity
 } from "react-native";
 import IconComponent from "./IconComponent";
 
@@ -29,14 +30,14 @@ const WheelMenuComponent = ({
     position: "absolute",
     color: "white",
     fontSize: 24,
-    width:60,
-    height:60,
-    borderRadius:30,
-    borderWidth:1,
-    borderColor:"white",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   const icons = [
@@ -70,11 +71,11 @@ const WheelMenuComponent = ({
     },
     {
       id: 2,
-      uri:"https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png" ,
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 3,
-      uri:"https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png" ,
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
   ];
 
@@ -106,7 +107,7 @@ const WheelMenuComponent = ({
         const translateY = diameter / 2 + y - 18;
 
         return (
-          <View
+          <TouchableOpacity
             key={index}
             style={[
               iconStyle,
@@ -115,9 +116,12 @@ const WheelMenuComponent = ({
                 transform: [{ rotate: rotateZ }],
               },
             ]}
+            onPress={() => {
+              alert("Coming soon!");
+            }}
           >
             <IconComponent uri={icon.uri} size={40} color={color} network />
-          </View>
+          </TouchableOpacity>
         );
       })}
     </Animated.View>

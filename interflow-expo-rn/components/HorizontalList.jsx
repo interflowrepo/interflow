@@ -5,28 +5,29 @@ import AvatarPreviewComponent from "./customize/AvatarPreviewComponent";
 const DATA = [
   {
     id: 1,
-    title: "Item 1",
-    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676665565/expo_1-removebg-preview_kbpvr1.png",
+    title: "base",
+    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677585652/base-avatar-removebg-preview_xx7hlp.png",
   },
   {
     id: 2,
-    title: "Item 2",
+    title: "glasses",
     url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676665565/expo_1-removebg-preview_kbpvr1.png",
+
   },
   {
     id: 3,
-    title: "Item 3",
-    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676665565/expo_1-removebg-preview_kbpvr1.png",
+    title: "inverted",
+    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677587578/avatar-4-removebg-preview_lua0cx.png",
   },
   {
     id: 4,
-    title: "Item 4",
-    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676665565/expo_1-removebg-preview_kbpvr1.png",
+    title: "happy",
+    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677585308/doodly_nenkuo.png",
   },
   {
     id: 5,
-    title: "Item 5",
-    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676665565/expo_1-removebg-preview_kbpvr1.png",
+    title: "base",
+    url: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677588421/template5_aiarys.png",
   },
 ];
 
@@ -42,7 +43,7 @@ const Divider = () => {
   );
 };
 
-const HorizontalList = ({handleAccesorySelection}) => {
+const HorizontalList = ({ handleTemplateSelection }) => {
   return (
     <View style={styles.container}>
       <View style={{
@@ -52,21 +53,21 @@ const HorizontalList = ({handleAccesorySelection}) => {
         alignItems: "center",
         marginLeft: 10,
       }}>
-         <Image
-        source={{
-          uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676667835/flovaty-removebg-preview_dj7vdp.png",
-        }}
-        style={{
-          width: 30,
-          height: 30,
-        }}
-      />
-      <Text style={styles.title}>Flovatary</Text>
+        <Image
+          source={{
+            uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1676667835/flovaty-removebg-preview_dj7vdp.png",
+          }}
+          style={{
+            width: 30,
+            height: 30,
+          }}
+        />
+        <Text style={styles.title}>Flovatary</Text>
       </View>
-     
+
       <ScrollView horizontal={true}>
         {DATA.map((item) => (
-          <AvatarPreviewComponent key={item.id} item={item} handleAccesorySelection={handleAccesorySelection} />
+          <AvatarPreviewComponent key={item.id} item={item} handleTemplateSelection={handleTemplateSelection} />
         ))}
       </ScrollView>
       <Divider />

@@ -83,11 +83,43 @@ const games = [
   },
 ];
 
+const interDrops = [
+  {
+    id: 1,
+    title: "PSG x Doodles",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677594710/Interdrop-removebg-preview_cpvsgj.png",
+  },
+  {
+    id: 2,
+    title: "Nike x Flovatar",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677594710/Interdrop-removebg-preview_cpvsgj.png",
+  },
+  {
+    id: 3,
+    title: "Doodlery",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677594710/Interdrop-removebg-preview_cpvsgj.png",
+  }, {
+    id: 4,
+    title: "Metarace",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677594710/Interdrop-removebg-preview_cpvsgj.png",
+  },
+  {
+    id: 5,
+    title: "Flobrawl",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677594710/Interdrop-removebg-preview_cpvsgj.png",
+  },
+  {
+    id: 6,
+    title: "Doodlery",
+    uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677594710/Interdrop-removebg-preview_cpvsgj.png",
+  },
+];
+
 export default function HomeView({ navigation }) {
   const { user } = useUser();
 
   const handleNav = () => {
-    navigation.navigate("Reveal");
+    navigation.navigate("RevealDetails");
   };
 
   const handleGameNav = () => {
@@ -96,6 +128,10 @@ export default function HomeView({ navigation }) {
 
   const handleEventNav = () => {
     navigation.navigate("EventDetails");
+  }; 
+  
+  const handleInterNav = () => {
+    alert("Coming Soon!");
   };
 
   const Divider = ({ height }) => <View style={{ height: height }} />;
@@ -111,6 +147,8 @@ export default function HomeView({ navigation }) {
       <HomeHorizontalList items={reveals} type="reveals" onPress={handleNav} />
       <Divider height={20} />
       <HomeHorizontalList items={games} type="games" onPress={handleGameNav} />
+      <Divider height={20} />
+      <HomeHorizontalList items={interDrops} type="interdrops" onPress={handleInterNav} />
       <Divider height={20} />
     </ScrollView>
   );

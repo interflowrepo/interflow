@@ -1,10 +1,11 @@
-import { View, Text, Animated, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, Animated, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useRef, useState, Suspense, useEffect } from "react";
 import AvatarScene from '../components/AvatarScene'
 import BottomSheetModal from '../components/BottomSheetModal'
 import WheelMenuWrapper from '../components/customize/wheel/WheelMenuWrapper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MetaWheelWrapper from '../components/customize/wheel/MetaWheelWrapper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 const CloseActionComponent = ({ toggleModal, type }) => {
@@ -32,8 +33,9 @@ export default function CustomizeView() {
   const wheelSheetAnimation = useRef(new Animated.Value(0)).current;
   const [Zoom, setZoom] = useState(0.7);
   const [SelectedSphere, setSelectedSphere] = useState("")
-  const [SelectedAccesory, setSelectedAccesory] = useState(null)
+  const [SelectedTemplate, setSelectedTemplate] = useState(null)
   const [SelectedCategory, setSelectedCategory] = useState(null)
+  const [IsTwoSelected, setIsTwoSelected] = useState(false)
 
   useEffect(() => {
     // toggleModal("other ")
@@ -65,8 +67,8 @@ export default function CustomizeView() {
     }
   };
 
-  const handleAccesorySelection = (type) => {
-    setSelectedAccesory(type)
+  const handleTemplateSelection = (type) => {
+    setSelectedTemplate(type)
   }
 
   const overlayOpacity = bottomSheetAnimation.interpolate({
@@ -110,7 +112,8 @@ export default function CustomizeView() {
     bottomSheetHeight,
     toggleModal,
     showModal,
-    handleAccesorySelection
+    handleTemplateSelection,
+
   };
 
   const closeProps = {
@@ -136,12 +139,19 @@ export default function CustomizeView() {
     handleSphereSelection,
     zoom: Zoom,
     pfp: false,
-    SelectedAccesory
+    SelectedTemplate,
+    isTwoSelected: IsTwoSelected,
+    showModal,
+    showWheelModal,
   };
 
 
   return (
-    <View style={{ flex: 1, backgroundColor: "black", }}>
+    <View style={{ flex: 1,  }}>
+      <LinearGradient
+        colors={['rgba(1,1,1,1)','rgba(0,0,0,0.9)', ]}
+        style={styles.overlay}
+      />  
       <AvatarScene {...avatarProps} />
       {(showModal || showWheelModal) && <CloseActionComponent {...closeProps} />}
       <WheelMenuWrapper {...modalWheelProps} />
@@ -150,3 +160,13 @@ export default function CustomizeView() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+});
