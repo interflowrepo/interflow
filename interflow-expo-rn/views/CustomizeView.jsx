@@ -36,7 +36,7 @@ export default function CustomizeView() {
   const [SelectedCategory, setSelectedCategory] = useState(null)
 
   useEffect(() => {
-    toggleModal("other ")
+    // toggleModal("other ")
 
   }, [])
 
