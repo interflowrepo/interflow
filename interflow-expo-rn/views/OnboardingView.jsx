@@ -103,7 +103,7 @@ const OnboardingView = ({ navigation }) => {
           <View style={styles.actionsContainer}>
             <PrimaryBtnComponent
               label={"CREATE AVATAR"}
-              onPress={() => navigation.navigate("Customize")}
+              onPress={() => navigation.navigate("Select")}
             />
             <View style={styles.secondaryBtnContainer}>
               <SecondaryBtn label={"SKIP"} onPress={handleSkip} />

@@ -410,15 +410,6 @@ export default function App() {
           <RequestsComponent /> */}
             <NavigationContainer>
               <Stack.Navigator>
-
-                {/* <Stack.Screen
-                  name="select"
-                  component={SelectGenderView}
-                  options={{
-                    headerShown: false,
-                  }}
-                /> */}
-
                 <Stack.Screen
                   name="auth"
                   component={LoginView}
@@ -432,6 +423,13 @@ export default function App() {
                     headerShown: false,
                   }}
                   component={OnboardingView}
+                />
+                   <Stack.Screen
+                  name="Select"
+                  component={SelectGenderView}
+                  options={{
+                    headerShown: false,
+                  }}
                 />
                 <Stack.Screen
                   name="Home"

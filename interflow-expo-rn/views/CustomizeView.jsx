@@ -143,7 +143,6 @@ export default function CustomizeView() {
   return (
     <View style={{ flex: 1, backgroundColor: "black", }}>
       <AvatarScene {...avatarProps} />
-
       {(showModal || showWheelModal) && <CloseActionComponent {...closeProps} />}
       <WheelMenuWrapper {...modalWheelProps} />
       <MetaWheelWrapper {...metaWheelProps} />
