@@ -15,7 +15,7 @@ const WheelMenuComponent = ({
   color,
   spinning,
   interpolatedRotation,
-  handleCategorySelection,
+  handleAccesorySelection
 }) => {
   const circleStyle = {
     width: diameter,
@@ -27,56 +27,56 @@ const WheelMenuComponent = ({
     zIndex: 80,
   };
 
-  const IconStyle = {
+  const iconStyle = {
     position: "absolute",
     color: "white",
     fontSize: 24,
-    width:60,
-    height:60,
-    borderRadius:30,
-    borderWidth:1,
-    borderColor:"white",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   const icons = [
     {
       id: 1,
-      uri:  require("../../../assets/avatar/inactive-shirt.png"),
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 2,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
       id: 3,
-      uri: require("../../../assets/avatar/inactive-sneaker.png"),
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
-      id: 4,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      id: 1,
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
-      id: 5,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      id: 2,
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
-      id: 6,
-      uri: require("../../../assets/avatar/inactive-sneaker.png"),
+      id: 3,
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
-      id: 7,
-      uri: require("../../../assets/avatar/hat.png"),
+      id: 1,
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
-      id: 8,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      id: 2,
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
     {
-      id: 9,
-      uri: require("../../../assets/avatar/inactive-sneaker.png"),
+      id: 3,
+      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
     },
   ];
 
@@ -111,15 +111,17 @@ const WheelMenuComponent = ({
           <TouchableOpacity
             key={index}
             style={[
-              IconStyle,
+              iconStyle,
               { top: translateY, left: translateX },
               {
                 transform: [{ rotate: rotateZ }],
               },
             ]}
-            onPress={() => handleCategorySelection(icon.id)}
+            onPress={() => {
+              handleAccesorySelection("headset");
+            }}
           >
-            <IconComponent uri={icon.uri} size={30} color={color} />
+            <IconComponent uri={icon.uri} size={40} color={color} network />
           </TouchableOpacity>
         );
       })}

@@ -2,6 +2,7 @@ import React from "react";
 import { View, ScrollView, Text, StyleSheet, Image, FlatList } from "react-native";
 import EventCardComponent from "./EventCardComponent";
 import GameCardComponent from "./GameCardComponent";
+import InterdropComponent from "./InterdropComponent";
 import RevealComponent from "./RevealComponent";
 
 
@@ -25,6 +26,14 @@ const HomeHorizontalList = ({ items, type, onPress }) => {
       <RevealComponent key={item.id} uri={item.uri} onPress={onPress} />
     );
   };
+  
+  const renderInterdropItem = ({ item }) => {
+    return (
+      <InterdropComponent key={item.id} uri={item.uri} onPress={onPress} />
+    );
+  };
+
+
   const Separator = () => {
     return (
       <View
@@ -58,18 +67,18 @@ const HomeHorizontalList = ({ items, type, onPress }) => {
         //     height: 260,
         //   }}
         // >
-          <FlatList
-            
-            horizontal
-            data={items}
-            renderItem={renderEventItem}
-            keyExtractor={(item) => item.id}
-            showsHorizontalScrollIndicator={false}
-            // ItemSeparatorComponent={Separator}
-            contentContainerStyle={styles.contentContainer}
+        <FlatList
 
-          //  extraData={selectedId}
-          />
+          horizontal
+          data={items}
+          renderItem={renderEventItem}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          // ItemSeparatorComponent={Separator}
+          contentContainerStyle={styles.contentContainer}
+
+        //  extraData={selectedId}
+        />
         // </View>
       )}
 
@@ -96,8 +105,18 @@ const HomeHorizontalList = ({ items, type, onPress }) => {
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}
+        />
+      )}
 
-        //  extraData={selectedId}
+      {type == "interdrops" && (
+
+        <FlatList
+          horizontal
+          data={items}
+          renderItem={renderInterdropItem}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.contentContainer}
         />
       )}
 
@@ -114,12 +133,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     // backgroundColor: "gray",
-    width:1000
+    width: 1000
   },
   item: {
     backgroundColor: "gray",
     padding: 20,
-    margin:10,
+    margin: 10,
     borderRadius: 10,
   },
   title: {

@@ -41,7 +41,7 @@ export default function LoginView({ navigation }) {
       {/* {auth && ( */}
       <>
         <Video
-          source={{ uri: 'https://cdn.discordapp.com/attachments/950238425192206388/1074856644359499826/Color.mov' }}
+          source={{ uri: 'https://cdn.discordapp.com/attachments/1073307357964148836/1079909968267989012/Presentacion_video.mp4' }}
           shouldPlay={isPlaying}
           style={styles.video}
         />

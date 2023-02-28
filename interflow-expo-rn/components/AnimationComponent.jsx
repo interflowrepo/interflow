@@ -38,7 +38,7 @@ export default function AnimationComponent({ actualIdx }) {
     } else if (actualIdx === "1") {
       return "https://res.cloudinary.com/ddbgaessi/image/upload/v1677305165/flota_juqmrm.gif";
     } else if (actualIdx === "2") {
-      return "https://cdn.discordapp.com/attachments/953339977083797504/1079124317008310342/Walletsvprueba.gif";
+      return "https://cdn.discordapp.com/attachments/953339977083797504/1079827319369248839/3D-ahora-2d.gif";
     }
   };
 

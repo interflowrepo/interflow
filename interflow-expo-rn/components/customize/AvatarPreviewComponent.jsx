@@ -2,11 +2,12 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function AvatarPreviewComponent({ item, handleAccesorySelection }) {
+export default function AvatarPreviewComponent({ item, handleTemplateSelection }) {
   return (
     <TouchableOpacity key={item.id} style={styles.item}
       onPress={() => {
-        handleAccesorySelection(item)
+        if(item.id >= 4) alert("This template is not available yet") 
+        handleTemplateSelection(item.title)
       }}
     >
       <Image
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "transparent",
-    marginHorizontal: 10,
+    marginHorizontal: 16,
     marginTop: 10,
   },
   title: {

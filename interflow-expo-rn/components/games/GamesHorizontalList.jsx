@@ -8,16 +8,16 @@ import {
   ImageBackground,
 } from "react-native";
 
-const VerticalGameCard = ({ backgroundImage, name }) => {
+const VerticalGameCard = ({ backgroundImage, drops }) => {
   return (
-    <ImageBackground style={styles.imgContainer} source={{ uri: backgroundImage }}>
-      <Text>{name}</Text>
+    <ImageBackground style={styles.imgContainer} source={{ uri: backgroundImage }}  resizeMode={drops ? "contain" : "cover"}>
+      {/* <Text>{name}</Text> */}
       {/* Additional content for the game card, such as game title and genre */}
     </ImageBackground>
   );
 };
 
-const GamesHorizontalList = ({ categories }) => {
+const GamesHorizontalList = ({ categories, drops }) => {
   return (
     <View style={styles.container}>
       {categories.map((category) => (
@@ -36,7 +36,7 @@ const GamesHorizontalList = ({ categories }) => {
           </View>
           <ScrollView horizontal={true}>
             {category.games.map((game) => (
-              <VerticalGameCard key={game.id} backgroundImage={game.uri} name={game.name}/>
+              <VerticalGameCard key={game.id} backgroundImage={game.uri} name={game.name} drops={drops}/>
             ))}
           </ScrollView>
         </>
@@ -69,6 +69,17 @@ const styles = StyleSheet.create({
     margin: 20,
     elevation: 0.1,
     borderRadius: 10,
+    // ios shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    // android shadow
+    borderRadius: 12,
+    overflow: "hidden",
 
     // Add additional styling as desired
   },

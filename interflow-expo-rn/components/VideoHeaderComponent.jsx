@@ -6,12 +6,34 @@ import PrimaryBtnComponent from './PrimaryBtnComponent';
 
 const { width } = Dimensions.get('window');
 
-export default function VideoHeaderComponent({uri}) {
+export default function VideoHeaderComponent({uri, reveal}) {
   const [isPlaying, setIsPlaying] = useState(true);
 
   const togglePlaying = () => {
     setIsPlaying(!isPlaying);
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#fff',
+      width,
+      height: reveal ? 320 : 320,
+      overflow: 'hidden',
+    },
+    video: {
+      // flex: 1,
+      width,
+      height: reveal ? 420 : 400,
+    
+    },
+    overlay: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -29,24 +51,4 @@ export default function VideoHeaderComponent({uri}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    width,
-    height: 320,
-    overflow: 'hidden',
-  },
-  video: {
-    // flex: 1,
-    width,
-    height: 400,
-  
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
+

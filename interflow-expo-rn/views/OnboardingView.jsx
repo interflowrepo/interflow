@@ -28,7 +28,7 @@ const steps = [
     id: "1",
     label: "Step 2",
     description: "This is the second step",
-    src: require("../assets/onboarding/avatarIcon.png"),
+    src: require("../assets/onboarding/AvatarIcon.png"),
   },
   {
     id: "2",
@@ -103,7 +103,7 @@ const OnboardingView = ({ navigation }) => {
           <View style={styles.actionsContainer}>
             <PrimaryBtnComponent
               label={"CREATE AVATAR"}
-              onPress={() => navigation.navigate("Customize")}
+              onPress={() => navigation.navigate("Select")}
             />
             <View style={styles.secondaryBtnContainer}>
               <SecondaryBtn label={"SKIP"} onPress={handleSkip} />

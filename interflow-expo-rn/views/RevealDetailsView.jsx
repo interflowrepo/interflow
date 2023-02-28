@@ -5,29 +5,29 @@ import PrimaryBtnComponent from '../components/PrimaryBtnComponent'
 import VideoHeaderComponent from '../components/VideoHeaderComponent'
 import { useAuth } from '../contexts/AuthContext'
 
-export default function EventDetailsView({ navigation }) {
+export default function RevealDetailsView({ navigation }) {
     const { auth, setIsOpen } = useAuth()
 
     const handlePress = () => {
         // if (!auth) {
         //     setIsOpen(true)
         // // } else {
-            navigation.navigate('Interspace')
+        navigation.navigate('Reveal')
         // }
     }
 
     return (
         <View style={styles.container}>
-            <VideoHeaderComponent uri={"https://res.cloudinary.com/ddbgaessi/video/upload/v1677366436/Screen_Recording_2023-02-25_at_17.05.18_dijtrc.mov"} />
+            <VideoHeaderComponent uri={"https://res.cloudinary.com/ddbgaessi/video/upload/v1677591490/reveal_h4xpmz.mov"} reveal={true} />
             <View style={{
                 paddingLeft: 20,
                 paddingTop: 20,
             }}>
+                <EventDetail icon="gallery" title="Collection" data="Interflow" />
                 <EventDetail icon="calendar" title="Date" data="3/6/23" />
-                <EventDetail icon="time" title="Hour" data="3/6/23" />
+                <EventDetail icon="time" title="Hour" data="10:00 TMZ" />
                 <EventDetail icon="coin" title="Price" data="10 Interflows" />
-                <EventDetail icon="cash" title="Minimum Holdings" data="1 Doodle NFT" />
-                <EventDetail icon="location" title="Location" data="Doodles Interspace" />
+                <EventDetail icon="cash" title="Minimum Holdings" data="10 Flow Tokens" />
             </View>
             <View style={{
                 position: "absolute",
@@ -40,7 +40,7 @@ export default function EventDetailsView({ navigation }) {
                 bottom: 40,
             }}>
                 <View style={styles.centered}>
-                    <PrimaryBtnComponent label="Access Interspace" onPress={handlePress} />
+                    <PrimaryBtnComponent label="START REVEAL" onPress={handlePress} />
                 </View>
             </View>
 

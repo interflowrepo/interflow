@@ -27,7 +27,7 @@ import SphereComponent from "./SphereComponent";
 
 const { width, height } = Dimensions.get("window");
 
-const AvatarScene = ({ pfp, handleSphereSelection, zoom, SelectedAccesory }) => {
+const AvatarScene = ({ pfp, handleSphereSelection, zoom, SelectedTemplate, showModal, showWheelModal, SelectedAccesory}) => {
 
   return (
 
@@ -50,18 +50,18 @@ const AvatarScene = ({ pfp, handleSphereSelection, zoom, SelectedAccesory }) => 
           // center={[0, 0, 0]}
           adjustCamera={zoom}
         >
-          <NativeAvatar scale={4} position={[0.1, 0, 0]} selectedAccesory={SelectedAccesory} />
+          <NativeAvatar scale={4} position={[0.1, 0, 0]} selectedTemplate={SelectedTemplate} SelectedAccesory={SelectedAccesory}     />
         </Stage>
         {/* <Caustics backside lightSource={[2.5, 5, -2.5]}> */}
         {!pfp ? (
           <>
             <SphereComponent
-              position={[2.7, 3, 0]}
+              position={[(showModal || showWheelModal) ?   5 : 2.7, 3, 0]}
               type="accesories"
               onPress={handleSphereSelection}
             />
             <SphereComponent
-              position={[2.7, 1, 0]}
+              position={[(showModal || showWheelModal) ?   5 : 2.7, 1, 0]}
               type="outfit"
               onPress={handleSphereSelection}
             />

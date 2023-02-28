@@ -23,6 +23,7 @@ import MetaraceView from "./views/MetaraceView.jsx";
 import UserCollectionView from "./views/UserCollectionView.jsx";
 import NftDetailsView from "./views/NftDetailsView.jsx";
 import EventDetailsView from "./views/EventDetailsView.jsx";
+import RevealDetailsView from "./views/RevealDetailsView.jsx";
 import InterspaceView from "./views/InterspaceView.jsx";
 import ProfileView from "./views/ProfileView.jsx";
 import PfpHeaderComponent from "./components/header/PfpHeaderComponent.jsx";
@@ -31,12 +32,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Device from 'expo-device';
 import GameDetailsView from "./views/games/GameDetailsView.jsx";
-import AuthView from "./views/AuthView.jsx";
 import LoginView from "./views/LoginView.jsx";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import * as Notifications from 'expo-notifications';
 import AiTransformView from "./views/NFT/AiTransformView.jsx";
 import SelectGenderView from "./views/SelectGenderView.jsx";
+import DropsView from "./views/DropsView.jsx";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -147,7 +148,6 @@ function HomeStackNavigator() {
       <HomeStack.Screen
         name="EventDetails"
         component={EventDetailsView}
-
       />
       <HomeStack.Screen
         name="Interspace"
@@ -178,7 +178,7 @@ function SocialStackNavigator() {
       />
       <SocialStack.Screen
         name="UserCollection"
-        component={<UserCollectionView {...props}/>}
+        component={<UserCollectionView {...props} />}
         options={{
           headerShown: false,
         }}
@@ -228,9 +228,6 @@ function HomeTabs() {
   const isIos = Device.osName === 'iOS';
 
   const CustomTabBarButton = (props) => {
-
-
-
 
     // if (getFocusedRouteNameFromRoute(route) !== 'GameDetails') {
     return <TouchableOpacity
@@ -340,12 +337,12 @@ function HomeTabs() {
         }}
       />
       <Tab.Screen
-        name="Game"
-        component={GamesStackNavigator}
+        name="Drops"
+        component={DropsView}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="gamepad-variant" color={color} size={size} />
+            <MaterialCommunityIcons name="airballoon" color={color} size={size} />
           ),
           tabBarIconStyle: {
             marginBottom: isIos ? 0 : 16,
@@ -410,29 +407,27 @@ export default function App() {
           <RequestsComponent /> */}
             <NavigationContainer>
               <Stack.Navigator>
-
-                {/* <Stack.Screen
-                  name="select"
-                  component={SelectGenderView}
-                  options={{
-                    headerShown: false,
-                  }}
-                /> */}
-
-                {/* <Stack.Screen
+                <Stack.Screen
                   name="auth"
                   component={LoginView}
                   options={{
                     headerShown: false,
                   }}
-                /> */}
-                {/* <Stack.Screen
+                />
+                <Stack.Screen
                   name="Onboarding"
                   options={{
                     headerShown: false,
                   }}
                   component={OnboardingView}
-                /> */}
+                />
+                <Stack.Screen
+                  name="Select"
+                  component={SelectGenderView}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
                 <Stack.Screen
                   name="Home"
                   component={HomeTabs}
@@ -448,17 +443,16 @@ export default function App() {
                     // },
                   })}
                 />
-
-
                 <Stack.Screen
                   name="Wallets"
-
                   component={WalletsConnectionView}
                 />
                 <Stack.Screen
                   name="Customize"
                   component={CustomizeView}
                   options={({ navigation }) => ({
+                    gestureEnabled: false,
+                    gestureDirection: 'horizontal',
                     // headerStyle: styles.navBar,
                     headerRight: () => (
                       <View style={{ flexDirection: "row" }}>
@@ -507,7 +501,6 @@ export default function App() {
                     },
                   })
                   }
-
                 />
                 <Stack.Screen
                   name="Photo"
@@ -539,7 +532,6 @@ export default function App() {
                     },
                   }}
                 />
-
                 <Stack.Screen
                   name="GameDetails"
                   component={GameDetailsView}
@@ -563,6 +555,13 @@ export default function App() {
                   }}
                 />
                 <Stack.Screen
+                  name="RevealDetails"
+                  component={RevealDetailsView}
+                  options={{
+                    headerLargeTitle: true,
+                  }}
+                />
+                <Stack.Screen
                   name="Interspace"
                   component={InterspaceView}
                 // options={{
@@ -580,9 +579,7 @@ export default function App() {
                     // headerStyle: styles.navBar,
                     headerTitle: () => <PfpHeaderComponent navigation={navigation} />,
                     headerBackground: () => <HeaderComponent />,
-
                   })}
-
                 />
                 <Stack.Screen
                   name="UserDetails"
