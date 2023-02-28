@@ -17,6 +17,7 @@ import {
 } from "../utils/authFclUser";
 import { injectedJavaScript } from "../utils/blocto/injectedJavaScript";
 import AvailableWalletsView from "../components/AvailableWalletsView";
+import { useAuth } from "./AuthContext";
 
 export const FclContext = createContext();
 
@@ -31,7 +32,7 @@ const availableWallets = [
     connected: false,
     address: "",
   },
-]
+];
 
 export default function FclProvider({ children }) {
   const [services, setServices] = useState(undefined);
@@ -41,6 +42,7 @@ export default function FclProvider({ children }) {
   const [openAvailableWalletsView, setOpenAvailableWalletsView] =
     useState(false);
   const [wallets, setWallets] = useState(availableWallets);
+  const { dapperWallet, bloctoWallet } = useAuth();
 
   useEffect(() => {
     fcl.discovery.authn.subscribe((res) => setServices(res.results));
@@ -51,15 +53,12 @@ export default function FclProvider({ children }) {
   }, [services, linkUrl]);
 
   const getWallets = async () => {
-    const connectedWallets = await getAllStoredData();
-    console.log("connectedWallets", connectedWallets);
-
     const newWallets = wallets.map((wallet) => {
       const connectedWallet = connectedWallets.find(
         (connectedWallet) => connectedWallet.walledName == wallet.walledName
       );
 
-      console.log("the connectedWallet", connectedWallet)
+      console.log("the connectedWallet", connectedWallet);
       if (connectedWallet) {
         return {
           ...wallet,
@@ -75,9 +74,9 @@ export default function FclProvider({ children }) {
       }
     });
 
-    console.log("newWallets", newWallets);
+    console.log("newWallets", wallets);
 
-    setWallets(newWallets);
+    setWallets(wallets);
   };
 
   const updateLink = useCallback(async (link) => {
@@ -170,7 +169,7 @@ export default function FclProvider({ children }) {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const result = await AsyncStorage.multiGet(keys);
-      console.log("wallets", result);
+      console.log("wallets storageeee", result);
       let walletsAddress = [];
       result.map((item) => {
         if (item[0].includes("Blocto.userAddr")) {

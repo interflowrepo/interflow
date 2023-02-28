@@ -16,7 +16,7 @@ export const restRoutes = (id) => {
       getUserFollowers: `/users/social/followers/${id}`,
       getUserFollowing: `/users/social/following/${id}`,
       getUserExplore: `/users/social/explore/${id}`,
-      getRaking: `/users/social/ranking`,
+      getRanking: `/users/social/ranking`,
       getAllPosts: `/posts/getAllPosts`,
       getCustom: `/image/getInterflow/${id}`,
   

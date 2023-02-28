@@ -1,39 +1,36 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import {
   View,
   FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
-  ImageBackground,
   Image,
+  Button,
 } from "react-native";
-//collectionSquareImage
+import { useFcl } from "../contexts/FclContext";
+import PrimaryBtnComponent from "./PrimaryBtnComponent";
 const GridListComponent = ({ data, numColumns, onPress, isProfile }) => {
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
-        <Image style={styles.backgroundImage} source={{
-        uri: item[0].collectionSquareImage,
-        }} />
+  const { authenticate } = useFcl();
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.item}>
+        <Image
+          style={styles.backgroundImage}
+          source={{
+            uri:
+              item[0]?.collectionSquareImage ||
+              item.bgImage ||
+              "https://interflow-app.s3.amazonaws.com/bgImage.png",
+          }}
+        />
         <TouchableOpacity
           onPress={() => onPress(item)}
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: "black",
-            }}
-          >
-            {item[0].collectionIdentifier}
-          </Text>
-        </TouchableOpacity>
-    </View>
-  );
+          style={{ height: 100, width: 100 }}
+        ></TouchableOpacity>
+      </View>
+    );
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -57,10 +54,11 @@ const GridListComponent = ({ data, numColumns, onPress, isProfile }) => {
     },
     image: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: "center",
     },
     backgroundImage: {
-      position: 'absolute',
+      position: "absolute",
+      borderRadius: 50,
       top: 0,
       left: 0,
       right: 0,
@@ -69,13 +67,41 @@ const GridListComponent = ({ data, numColumns, onPress, isProfile }) => {
   });
 
   return (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      numColumns={numColumns}
-      style={styles.container}
-    />
+    <>
+      {data.length > 10 ? (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          numColumns={numColumns}
+          style={styles.container}
+        />
+      ) : (
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 200,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: "grey",
+              marginBottom: 20,
+            }}
+          >
+            You don't have any NFT Collection
+          </Text>
+          <PrimaryBtnComponent
+            label={"CONNECT WALLETS"}
+            onPress={() => authenticate()}
+          />
+        </View>
+      )}
+    </>
   );
 };
 

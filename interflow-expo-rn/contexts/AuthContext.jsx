@@ -166,6 +166,18 @@ export default function AuthProvider({ children }) {
     return userFullData?.user.pfpImage;
   }, [userFullData]);
 
+  const userEmail = useMemo(() => {
+    return userFullData?.user.email;
+  }, [userFullData]);
+
+  const dapperAddress = useMemo(() => {
+    return userFullData?.user.dapperAddress;
+  }, [userFullData]);
+
+  const bloctoAddress = useMemo(() => {
+    return userFullData?.user.bloctoAddress;
+  }, [userFullData]);
+
 
   const value = {
     login,
@@ -178,11 +190,14 @@ export default function AuthProvider({ children }) {
     userId,
     userInterflowTokens,
     userNickname,
+    userEmail,
     userInterflowAddress,
     userPfpImage,
     getUserData,
     updateUserCallingBackEnd,
-    setUserFullData
+    setUserFullData,
+    dapperAddress,
+    bloctoAddress
   };
 
   return <AuthContext.Provider value={value}>

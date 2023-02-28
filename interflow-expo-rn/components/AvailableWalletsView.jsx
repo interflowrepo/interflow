@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View, Pressable, Text,Image } from "react-native";
 import { BlurView } from "expo-blur";
+import { useAuth } from "../contexts/AuthContext";
 
 const AvailableWalletsView = ({
   wallets,
@@ -12,7 +13,6 @@ const AvailableWalletsView = ({
   closeAvailableWalletsView,
   removeWalletFn,
 }) => {
-
   const LogoContainer = ({ isOn }) => {
     const statusColor = isOn ? 'lightgreen' : 'grey';
     return (
@@ -30,8 +30,13 @@ const AvailableWalletsView = ({
   const onPressAction = async (service) => {
     await onPressActionFn(service);
   };
-  // getStorageData();
-  getAllStoredData();
+
+  const { dapperWallet, bloctoWallet } = useAuth();
+
+  console.log('BLOCTO', bloctoWallet)
+
+
+  console.log("Wallets: ", wallets)
 
   return (
     <BlurView
@@ -71,6 +76,11 @@ const AvailableWalletsView = ({
           {services != undefined &&
             services.map((service, idx) => {
               const isConnected = wallets[idx].connected;
+
+              console.log("SERVICESSS: ", service.provider.name)
+              console.log("WALLETS: ", wallets[1])
+
+              const name = service.provider.name
 
               return (
                 <View style={styles.walletCard} key={idx}>

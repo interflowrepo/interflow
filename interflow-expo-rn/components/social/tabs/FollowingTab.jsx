@@ -1,16 +1,27 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import PrimaryBtnComponent from "../../PrimaryBtnComponent";
-// import useAuth from the AuthContext
-import { useAuth } from "../../../contexts/AuthContext";
+import useUserData from "../../../hooks/useUserData";
+import GridListComponent from "../../GridListComponent";
 
-export default function FollowingTab({onPress}) {
+export default function FollowingTab({ onPressNoFollowing, onPress }) {
   // destructure the user from the AuthContext
+  const { followingUsers } = useUserData();
 
   return (
     <View style={styles.centeredContainer}>
-      <Text>You're not following anyone yet</Text>
-      <PrimaryBtnComponent label="FIND FRIENDS" onPress={onPress} />
+      {followingUsers.length > 0 ? (
+        <GridListComponent
+          data={followingUsers}
+          numColumns={2}
+          onPress={onPress}
+        />
+      ) : (
+        <>
+          <Text>You're not following anyone yet</Text>
+          <PrimaryBtnComponent label="FIND FRIENDS" onPress={onPressNoFollowing} />
+        </>
+      )}
     </View>
   );
 }
@@ -22,5 +33,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
- 

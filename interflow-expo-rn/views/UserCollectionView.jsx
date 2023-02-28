@@ -8,16 +8,18 @@ import { useAuth } from '../contexts/AuthContext'
 export default function UserCollectionView({ navigation, route }) {
 const [nftArray, setNftArray] = useState([])
 const {userNickname, userInterflowAddress, userPfpImage} = useAuth()
+const [nickname, setNickname] = useState('')
+const [interflowAddress, setInterflowAddress] = useState('')
   const handleNav = (item) => {
     navigation.navigate({name: "NftDetails", params: {
       nft: item
     },});
   };
 
-  // console.log('testttt 44444 ----------',route.params)
-
   useMemo(() => {
     let collection = route.params.collection
+    route.params.nickname ? setNickname(route.params.nickname) : setNickname(userNickname)
+    route.params.address ? setInterflowAddress(route.params.address) : setInterflowAddress(userInterflowAddress)
     setNftArray(collection)
   }, [route])
 
@@ -42,8 +44,8 @@ const {userNickname, userInterflowAddress, userPfpImage} = useAuth()
   const HorizontalListComponent = () => {
     return (
       <ScrollView horizontal={true}>
-        {nftArray.map((item) => {
-          return (<UserNftCard onPress={() => handleNav(item)} name={item.name} id={item.id} thumbnail={item.thumbnail}/>
+        {nftArray?.map((item) => {
+          return (<UserNftCard onPress={() => handleNav(item)} width={300} height={500} name={item.name} id={item.id} thumbnail={item.thumbnail}/>
           )
         })}
       </ScrollView>
@@ -55,8 +57,8 @@ const {userNickname, userInterflowAddress, userPfpImage} = useAuth()
     <View style={styles.container}>
       <UserDetailsHeader
         backgroundImageSource={collectionBannerImg}
-        userName={userNickname}
-        userAddress={userInterflowAddress}
+        userName={nickname}
+        userAddress={interflowAddress}
         onPressButton={() => console.log('Button pressed')}
         buttonText="Follow"
         avatarImageSource={collectionSquareImage}
