@@ -419,20 +419,20 @@ export default function App() {
                   }}
                 /> */}
 
-                {/* <Stack.Screen
+                <Stack.Screen
                   name="auth"
                   component={LoginView}
                   options={{
                     headerShown: false,
                   }}
-                /> */}
-                {/* <Stack.Screen
+                />
+                <Stack.Screen
                   name="Onboarding"
                   options={{
                     headerShown: false,
                   }}
                   component={OnboardingView}
-                /> */}
+                />
                 <Stack.Screen
                   name="Home"
                   component={HomeTabs}
@@ -459,6 +459,8 @@ export default function App() {
                   name="Customize"
                   component={CustomizeView}
                   options={({ navigation }) => ({
+                    gestureEnabled: false,
+                    gestureDirection: 'horizontal',
                     // headerStyle: styles.navBar,
                     headerRight: () => (
                       <View style={{ flexDirection: "row" }}>

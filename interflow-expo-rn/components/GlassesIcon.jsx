@@ -9,10 +9,10 @@ import { useFrame } from "@react-three/fiber/native";
 export default function GlassesIcon(props) {
   const ref = useRef();
 
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
-    if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
-  });
+  // useFrame(({ clock }) => {
+  //   const t = clock.getElapsedTime();
+  //   if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
+  // });
 
   const { nodes, materials } = useGLTF(require("../models/deal.glb"));
   return (

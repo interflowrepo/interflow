@@ -101,7 +101,7 @@ const BottomSheetModal = ({
     <View style={styles.container}>
       {showModal && (
         <Animated.View style={[styles.modalContainer]}>
-          <TouchableOpacity style={styles.overlay} onPress={toggleModal} />
+          <TouchableOpacity style={styles.overlay} />
           <Animated.View
             style={[
               styles.modalContent,

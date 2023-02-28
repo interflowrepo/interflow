@@ -6,7 +6,6 @@ import {
   PanResponder,
   Animated,
   ImageBackground,
-  TouchableOpacity
 } from "react-native";
 import IconComponent from "./IconComponent";
 
@@ -15,7 +14,6 @@ const WheelMenuComponent = ({
   color,
   spinning,
   interpolatedRotation,
-  handleCategorySelection,
 }) => {
   const circleStyle = {
     width: diameter,
@@ -27,7 +25,7 @@ const WheelMenuComponent = ({
     zIndex: 80,
   };
 
-  const IconStyle = {
+  const iconStyle = {
     position: "absolute",
     color: "white",
     fontSize: 24,
@@ -44,39 +42,39 @@ const WheelMenuComponent = ({
   const icons = [
     {
       id: 1,
-      uri: require("../../../assets/avatar/hat.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 2,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 3,
-      uri: require("../../../assets/avatar/inactive-sneaker.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 1,
-      uri: require("../../../assets/avatar/hat.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 2,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 3,
-      uri: require("../../../assets/avatar/inactive-sneaker.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 1,
-      uri: require("../../../assets/avatar/hat.png"),
+      uri: "https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png",
     },
     {
       id: 2,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      uri:"https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png" ,
     },
     {
       id: 3,
-      uri: require("../../../assets/avatar/inactive-sneaker.png"),
+      uri:"https://cdn.discordapp.com/attachments/1073317467734151279/1079883177683857518/helmet.png" ,
     },
   ];
 
@@ -108,19 +106,18 @@ const WheelMenuComponent = ({
         const translateY = diameter / 2 + y - 18;
 
         return (
-          <TouchableOpacity
+          <View
             key={index}
             style={[
-              IconStyle,
+              iconStyle,
               { top: translateY, left: translateX },
               {
                 transform: [{ rotate: rotateZ }],
               },
             ]}
-            onPress={() => handleCategorySelection(icon.id)}
           >
-            <IconComponent uri={icon.uri} size={30} color={color} />
-          </TouchableOpacity>
+            <IconComponent uri={icon.uri} size={40} color={color} network />
+          </View>
         );
       })}
     </Animated.View>

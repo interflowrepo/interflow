@@ -7,10 +7,10 @@ export default function NativeAvatar(props) {
   const { nodes } = useGLTF(require("../models/kira.glb"));
   const ref = useRef();
 
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
-    if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
-  });
+  // useFrame(({ clock }) => {
+  //   const t = clock.getElapsedTime();
+  //   if (props.animated) ref.current.rotation.y = Math.sin(t / 2);
+  // });
 
   if (props.icon) {
     return (
