@@ -62,6 +62,7 @@ const GridSocialListComponent = ({ data, numColumns, onPress }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      paddingTop: 62,
     },
     itemText: {
       display: "flex",

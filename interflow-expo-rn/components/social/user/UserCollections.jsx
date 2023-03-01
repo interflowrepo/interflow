@@ -12,6 +12,8 @@ export default function UserCollections({ onPress, collections, nfts }) {
     }
   }, [nfts])
 
+  console.log("filteredNftArray", filteredNftArray)
+
 
   return (
     <View>

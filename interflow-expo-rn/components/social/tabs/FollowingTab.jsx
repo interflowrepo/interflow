@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import PrimaryBtnComponent from "../../PrimaryBtnComponent";
 import useUserData from "../../../hooks/useUserData";
 import GridListComponent from "../../GridListComponent";
+import GridSocialListComponent from "../../GridSocialListComponent";
 
 export default function FollowingTab({ onPressNoFollowing, onPress }) {
   // destructure the user from the AuthContext
@@ -15,7 +16,7 @@ export default function FollowingTab({ onPressNoFollowing, onPress }) {
   return (
     <View style={styles.centeredContainer}>
       {followingUsers.length > 0 ? (
-        <GridListComponent
+        <GridSocialListComponent
           data={followingUsers}
           numColumns={2}
           onPress={onPress}

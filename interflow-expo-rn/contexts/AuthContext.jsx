@@ -13,6 +13,8 @@ import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID } from "@env";
 import UserService from "../services/UserService";
 import AuthBottomSheet from "../components/AuthBottomSheet";
 import { Alert } from "react-native";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
 
 export const AuthContext = createContext();
 
@@ -79,9 +81,42 @@ export default function AuthProvider({ children }) {
 
       finishLogin(response.authentication.accessToken)
     }
-
     getPersistedAuth();
   }, [response]);
+
+  async function registerForPushNotificationsAsync(userId) {
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  
+    const result = await UserService.updateUserData(userId, { expoToken: token });
+    console.log('EXPO TOKEN!!',result);
+  
+    return token;
+  }
 
   const getPersistedAuth = async () => {
     const authJsonValue = await AsyncStorage.getItem("auth");
@@ -119,6 +154,7 @@ export default function AuthProvider({ children }) {
     AsyncStorage.setItem("userFullData", JSON.stringify(result));
     setUserFullData(result);
     console.log("RES", result);
+    registerForPushNotificationsAsync(result.user.id)
     return result;
   };
 
