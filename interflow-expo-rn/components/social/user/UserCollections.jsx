@@ -1,44 +1,27 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useMemo } from 'react'
 import UserCollectionCard from './UserCollectionCard'
 
-const userCollections = [
-  {
-    id: 1,
-    name: 'Collection 1',
-    description: 'This is the first collection',
-  },
-  {
-    id: 2,
-    name: 'Collection 2',
-    description: 'This is the second collection',
-  },
-  {
-    id: 3,
-    name: 'Collection 3',
-    description: 'This is the third collection',
-  },
-  {
-    id: 4,
-    name: 'Collection 4',
-    description: 'This is the fourth collection',
-  },
-  {
-    id: 5,
-    name: 'Collection 5',
-    description: 'This is the fifth collection',
-  },
-]
+export default function UserCollections({ onPress, collections, nfts }) {
 
-export default function UserCollections({ onPress }) {
+  const filteredNftArray = useMemo(() => {
+    if(nfts && nfts.length > 0){
+      return nfts.filter(nft => nft.length > 0)
+    } else {
+      return []
+    }
+  }, [nfts])
+
+
   return (
     <View>
-      {userCollections.map((collection) => (
+      {filteredNftArray.map((collection) => (
         <UserCollectionCard
-          key={collection.id}
-          name={collection.name}
-          description={collection.description}
+          name={collection[0].collectionName}
+          bgImage={collection[0].collectionBannerImage}
+          nftLength={collection.length}
           onPress={onPress}
+          nft={collection}
         />
       ))}
     </View>

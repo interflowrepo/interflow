@@ -90,9 +90,9 @@ class UserService {
       });
   }
 
-  async getRaking() {
+  async getRanking() {
     return RestClient()
-      .get(restRoutes().getRaking)
+      .get(restRoutes().getRanking)
       .then((response) => {
         return response.data;
       });

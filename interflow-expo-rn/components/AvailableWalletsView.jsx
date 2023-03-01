@@ -1,18 +1,16 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View, Pressable, Text,Image } from "react-native";
 import { BlurView } from "expo-blur";
+import { useAuth } from "../contexts/AuthContext";
+import { useMemo } from "react";
 
 const AvailableWalletsView = ({
-  wallets,
   services,
   userAddr,
   onPressActionFn,
-  getStorageData,
-  getAllStoredData,
   closeAvailableWalletsView,
   removeWalletFn,
 }) => {
-
   const LogoContainer = ({ isOn }) => {
     const statusColor = isOn ? 'lightgreen' : 'grey';
     return (
@@ -30,8 +28,25 @@ const AvailableWalletsView = ({
   const onPressAction = async (service) => {
     await onPressActionFn(service);
   };
-  // getStorageData();
-  getAllStoredData();
+
+  const { dapperAddress, bloctoAddress } = useAuth();
+
+  const userWallets = useMemo(() => {
+    return [
+      {
+        walledName: "Dapper",
+        address: dapperAddress,
+        connected: dapperAddress ? true : false,
+      },
+      {
+        walledName: "Blocto",
+        address: bloctoAddress,
+        connected: bloctoAddress ? true : false,
+      }
+    ]
+  }, [dapperAddress, bloctoAddress])
+
+  console.log("userWallets: ", userWallets)
 
   return (
     <BlurView
@@ -70,14 +85,14 @@ const AvailableWalletsView = ({
         <>
           {services != undefined &&
             services.map((service, idx) => {
-              const isConnected = wallets[idx].connected;
+              const isConnected = userWallets[idx].connected;
 
               return (
                 <View style={styles.walletCard} key={idx}>
-                  <LogoContainer isOn={wallets[idx].connected} />
+                  <LogoContainer isOn={userWallets[idx].connected} />
                   <View style={styles.textContainer}>
-                    <Text style={styles.walletName}>{wallets[idx].walledName}</Text>
-                    <Text style={styles.walletAddress}>{wallets[idx].address ? wallets[idx].address : "NO ADDRESS"}</Text>
+                    <Text style={styles.walletName}>{userWallets[idx].walledName}</Text>
+                    <Text style={styles.walletAddress}>{userWallets[idx].address ? userWallets[idx].address : "NO ADDRESS"}</Text>
                   </View>
 
                   <Pressable
@@ -94,7 +109,7 @@ const AvailableWalletsView = ({
                       borderBottomRightRadius: 50,
                     }}
                     onPress={
-                     !isConnected  ?  () => onPressAction(service) : () => removeWalletFn(wallets[idx].address)
+                     !isConnected  ?  () => onPressAction(service) : () => removeWalletFn(userWallets[idx].walledName)
                       // () => removeWalletFn(wallet.address)
                     }
                   >
