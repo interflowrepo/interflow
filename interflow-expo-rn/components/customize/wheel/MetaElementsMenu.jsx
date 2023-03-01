@@ -15,7 +15,8 @@ const WheelMenuComponent = ({
   color,
   spinning,
   interpolatedRotation,
-  handleAccesorySelection
+  handleAccesorySelection,
+  setSelectedTemplate,
 }) => {
   const circleStyle = {
     width: diameter,
@@ -44,39 +45,39 @@ const WheelMenuComponent = ({
   const icons = [
     {
       id: 1,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 2,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 3,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 1,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 2,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 3,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 1,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 2,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
     {
       id: 3,
-      uri: "https://res.cloudinary.com/ddbgaessi/image/upload/v1677626714/headset_z70wvr.png",
+      uri: "https://cdn.discordapp.com/attachments/969311733451726949/1080304370006106182/smokepipe0001.png",
     },
   ];
 
@@ -119,6 +120,7 @@ const WheelMenuComponent = ({
             ]}
             onPress={() => {
               handleAccesorySelection("headset");
+              setSelectedTemplate(null);
             }}
           >
             <IconComponent uri={icon.uri} size={40} color={color} network />

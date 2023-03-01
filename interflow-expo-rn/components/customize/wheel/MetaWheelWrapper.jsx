@@ -12,7 +12,7 @@ import MetaElementsMenu from "./MetaElementsMenu";
 
 const { width, height } = Dimensions.get("window");
 
-const MetaWheelWrapper = ({ wheelTranslateY , handleAccesorySelection}) => {
+const MetaWheelWrapper = ({ wheelTranslateY, handleAccesorySelection, setSelectedTemplate }) => {
     const [spinning, setSpinning] = useState(false);
     const spinAnimation = useRef(new Animated.Value(0)).current;
 
@@ -57,10 +57,10 @@ const MetaWheelWrapper = ({ wheelTranslateY , handleAccesorySelection}) => {
 
     return (
         <Animated.View
-        style={[
-            styles.container,
-            { transform: [{ translateY: wheelTranslateY }] },
-          ]}
+            style={[
+                styles.container,
+                { transform: [{ translateY: wheelTranslateY }] },
+            ]}
         >
             <ImageBackground
                 source={require("../../../assets/avatar/bg(1).png")}
@@ -82,7 +82,7 @@ const MetaWheelWrapper = ({ wheelTranslateY , handleAccesorySelection}) => {
             >
                 <View
                     style={{
-                        height:500,
+                        height: 500,
                         width,
                         display: "flex",
                         justifyContent: "center",
@@ -99,6 +99,7 @@ const MetaWheelWrapper = ({ wheelTranslateY , handleAccesorySelection}) => {
                         color="red"
                         diameter={300}
                         handleAccesorySelection={handleAccesorySelection}
+                        setSelectedTemplate={setSelectedTemplate}
                     />
                 </View>
             </ImageBackground>
