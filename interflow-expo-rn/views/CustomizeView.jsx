@@ -29,9 +29,10 @@ const CloseActionComponent = ({ toggleModal, type }) => {
 export default function CustomizeView() {
   const [showModal, setShowModal] = useState(false);
   const [showWheelModal, setShowWheelModal] = useState(false);
+  const [showCollectionModal, setshowCollectionModal] = useState(false)
   const bottomSheetAnimation = useRef(new Animated.Value(0)).current;
   const wheelSheetAnimation = useRef(new Animated.Value(0)).current;
-  const aSheetAnimation = useRef(new Animated.Value(0)).current;
+  const collectionSheetAnimation = useRef(new Animated.Value(0)).current;
   
   const [Zoom, setZoom] = useState(0.7);
   const [SelectedSphere, setSelectedSphere] = useState("")
@@ -62,6 +63,8 @@ export default function CustomizeView() {
         useNativeDriver: true,
       }).start();
     } else {
+      // collections
+
       setShowWheelModal(!showWheelModal)
       Animated.spring(wheelSheetAnimation, {
         toValue: showWheelModal ? 0 : 1,
@@ -121,6 +124,7 @@ export default function CustomizeView() {
     toggleModal,
     showModal,
     handleTemplateSelection,
+    setSelectedCategory
 
   };
 
@@ -142,6 +146,7 @@ export default function CustomizeView() {
     wheelTranslateY,
     bottomSheetHeight,
     handleAccesorySelection,
+    setSelectedTemplate,
   };
 
   const avatarProps = {

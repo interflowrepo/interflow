@@ -32,20 +32,20 @@ const WheelMenuComponent = ({
     position: "absolute",
     color: "white",
     fontSize: 24,
-    width:60,
-    height:60,
-    borderRadius:30,
-    borderWidth:1,
-    borderColor:"white",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   const icons = [
     {
       id: 1,
-      uri:  require("../../../assets/avatar/inactive-shirt.png"),
+      uri: require("../../../assets/avatar/inactive-shirt.png"),
     },
     {
       id: 2,
@@ -69,10 +69,12 @@ const WheelMenuComponent = ({
     },
     {
       id: 7,
-      uri: selectedAccesoryCategory == "hat" ?  require(`../../../assets/avatar/hat.png`) : require(`../../../assets/avatar/inactive-hat.png`),
+      name: "hat",
+      uri: selectedAccesoryCategory == "hat" ? require(`../../../assets/avatar/hat.png`) : require(`../../../assets/avatar/inactive-hat.png`),
     },
     {
       id: 8,
+      name: "shirt",
       uri: require(`../../../assets/avatar/shirt.png`),
     },
     {
@@ -118,7 +120,7 @@ const WheelMenuComponent = ({
                 transform: [{ rotate: rotateZ }],
               },
             ]}
-            onPress={() => handleCategorySelection(icon.id)}
+            onPress={() => handleCategorySelection(icon.name)}
           >
             <IconComponent uri={icon.uri} size={30} color={color} />
           </TouchableOpacity>

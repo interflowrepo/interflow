@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber/native";
 import GlassesIcon from "./GlassesIcon";
 import Headset from "./customize/RuntimeModels/HeadsetModel";
 import HeadsetModel from "./customize/headset/HeadsetModel";
+import SkullModel from "./customize/skull/SkullModel";
 
 export default function NativeAvatar(props) {
   const { nodes } = useGLTF(require("../models/kira.glb"));
@@ -32,13 +33,15 @@ export default function NativeAvatar(props) {
 
   return (
     <group {...props} dispose={null}>
-      {props.SelectedAccesory == "headset" && <HeadsetModel scale={0.12} position={[-0.0, -1.2, -0.3]} rotation={[0, -Math.PI / 2 - 0.5, 0]} />}
-      {props.selectedTemplate == "glasses" && <GlassesIcon
-        scale={0.002}
-        position={[-0.05, 0.76, 0.13]}
-        rotation={[0, -0.5, 0]}
-        animated={false}
-      />}
+      {/* {props.SelectedAccesory == "headset" && <SkullModel scale={1} position={[-0.0, -1.2, -0.3]} rotation={[0, -Math.PI / 2 - 0.5, 0]} />} */}
+      {props.SelectedAccesory == "headset" && !props.selectedTemplate ? <SkullModel scale={0.3} position={[0.0, 0.85, -0.02]} rotation={[0, -1.8, 0]} />
+        :
+        props.selectedTemplate == "glasses" && <GlassesIcon
+          scale={0.002}
+          position={[-0.05, 0.76, 0.13]}
+          rotation={[0, -0.5, 0]}
+          animated={false}
+        />}
 
       {/* <Headset scale={0.02} rotation={[0,0,0]} position={[0,1,0]}/> */}
       <mesh

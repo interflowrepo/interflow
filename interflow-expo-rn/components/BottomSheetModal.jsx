@@ -20,7 +20,8 @@ const BottomSheetModal = ({
   bottomSheetHeight,
   toggleModal,
   showModal,
-  handleTemplateSelection
+  handleTemplateSelection,
+  setSelectedCategory,
 }) => {
 
   const styles = StyleSheet.create({
@@ -113,7 +114,7 @@ const BottomSheetModal = ({
                 source={require("../assets/avatar/bg(1).png")}
                 style={styles.background}
               >
-            <HorizontalList handleTemplateSelection={handleTemplateSelection} />
+            <HorizontalList handleTemplateSelection={handleTemplateSelection} setSelectedCategory={setSelectedCategory} />
                 {/* <TouchableOpacity
                   style={styles.modalButton}
                   onPress={toggleModal}
