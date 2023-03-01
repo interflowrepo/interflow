@@ -14,6 +14,7 @@ import PrimaryBtnComponent from "../components/PrimaryBtnComponent";
 export default function NftDetailsView({ navigation, route }) {
   const [canReveal, setCanReveal] = useState(false);
   const [revealedLink, setRevealedLink] = useState("");
+  const [revealed, setRevealed] = useState(false);
 
   const nft = useMemo(() => {
     return route.params.nft;
@@ -40,16 +41,24 @@ export default function NftDetailsView({ navigation, route }) {
       const result = await UserService.getCustom(nft.interflowId);
       if (result.readyToReveal) {
         setCanReveal(true);
-        if (result.customNftImageLink != "") {
-          setRevealedLink(result.customNftImageLink);
-        }
+      } else if(result.revealed){
+        setRevealed(true);
+      } else {
+        setRevealed(false);
       }
-      console.log("INTERFLOW DATA --- ", result);
+      console.log("INTERFLOW DATA --- 123 ", result);
+      setRevealedLink(result.customNftImageLink)
+      console.log("CAN REVEAL", canReveal)
     }, []);
 
     const revealNft = useCallback(async () => {
       const result = await UserService.revealCustom(nft.interflowId);
-      console.log("INTERFLOW DATA --- ", result);
+      console.log("INTERFLOW DATA ---  333", result);
+      if(result.revealed){
+        setRevealedLink(result.customNftImageLink)
+        console.log("REVEALED LINK", revealedLink)
+        setRevealed(true);
+      }
       Alert.alert("Interflow Revealed with success!");
     }, []);
 
@@ -63,7 +72,7 @@ export default function NftDetailsView({ navigation, route }) {
       <>
         {nft.isInterflow ? (
           <View style={styles.container}>
-            {revealedLink != "" ? (
+            {revealed ? (
               <View style={[styles.imageContainer2]}>
                 <Image
                   source={require("../assets/nft-view/PostIcon.png")}
