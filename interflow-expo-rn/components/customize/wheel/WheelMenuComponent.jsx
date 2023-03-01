@@ -16,6 +16,7 @@ const WheelMenuComponent = ({
   spinning,
   interpolatedRotation,
   handleCategorySelection,
+  selectedAccesoryCategory
 }) => {
   const circleStyle = {
     width: diameter,
@@ -68,14 +69,14 @@ const WheelMenuComponent = ({
     },
     {
       id: 7,
-      uri: require("../../../assets/avatar/hat.png"),
+      uri: selectedAccesoryCategory == "hat" ?  require(`../../../assets/avatar/hat.png`) : require(`../../../assets/avatar/inactive-hat.png`),
     },
     {
       id: 8,
-      uri: require("../../../assets/avatar/inactive-shirt.png"),
+      uri: require(`../../../assets/avatar/shirt.png`),
     },
     {
-      id: 9,
+      id: 3,
       uri: require("../../../assets/avatar/inactive-sneaker.png"),
     },
   ];
