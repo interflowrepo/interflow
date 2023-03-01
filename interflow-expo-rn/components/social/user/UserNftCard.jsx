@@ -32,7 +32,8 @@ export default function UserNftCard({ onPress, width, height, name, id, thumbnai
     const thumbnailCheck = useMemo(() => {
         if(!thumbnail) return
         if (thumbnail.includes("ipfs")) {
-            return `https://ipfs.io/${thumbnail}`
+            let thumbnailSplit = thumbnail.replace("ipfs://", "")
+            return `https://gateway.pinata.cloud/ipfs/${thumbnailSplit}`
         } else {
             return thumbnail
         }

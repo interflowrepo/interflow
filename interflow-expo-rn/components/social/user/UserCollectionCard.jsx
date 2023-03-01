@@ -8,6 +8,7 @@ export default function UserCollectionCard({
   nftLength,
   nft
 }) {
+  console.log("nft ---------------- ", nft)
   return (
     <TouchableOpacity
       onPress={() => onPress(nft)}

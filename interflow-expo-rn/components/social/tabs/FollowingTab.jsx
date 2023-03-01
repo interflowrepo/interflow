@@ -1,12 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import PrimaryBtnComponent from "../../PrimaryBtnComponent";
 import useUserData from "../../../hooks/useUserData";
 import GridListComponent from "../../GridListComponent";
 
 export default function FollowingTab({ onPressNoFollowing, onPress }) {
   // destructure the user from the AuthContext
-  const { followingUsers } = useUserData();
+  const { followingUsers, getFollowingUsers } = useUserData();
+
+  useEffect(() => {
+    getFollowingUsers();
+  }, [])
 
   return (
     <View style={styles.centeredContainer}>

@@ -38,6 +38,11 @@ import * as Notifications from 'expo-notifications';
 import AiTransformView from "./views/NFT/AiTransformView.jsx";
 import SelectGenderView from "./views/SelectGenderView.jsx";
 import DropsView from "./views/DropsView.jsx";
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

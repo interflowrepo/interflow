@@ -11,7 +11,7 @@ import {
 import ContentLoader from "react-native-easy-content-loader";
 
 const GridSocialListComponent = ({ data, numColumns, onPress }) => {
-  console.log("data ---------------- ", data);
+
 
   const renderItem = ({ item }) => {
     return (

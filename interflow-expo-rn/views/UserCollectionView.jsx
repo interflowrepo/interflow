@@ -16,6 +16,8 @@ const [interflowAddress, setInterflowAddress] = useState('')
     },});
   };
 
+  console.log('ITEM -----',route.params)
+
   useMemo(() => {
     let collection = route.params.collection
     route.params.nickname ? setNickname(route.params.nickname) : setNickname(userNickname)

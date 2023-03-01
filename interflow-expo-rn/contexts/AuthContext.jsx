@@ -29,7 +29,7 @@ export default function AuthProvider({ children }) {
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: IOS_CLIENT_ID,
-    expoClientId: "853114116942-0e1blf79vsl1hnaj53dn92mnljfb975f.apps.googleusercontent.com",
+    expoClientId: EXPO_CLIENT_ID,
   });
 
   const finishLogin = useCallback(async (token) => {

@@ -49,6 +49,15 @@ export default function useUserData() {
       console.log("EXPLORE USERS", result)
       return result
     }, [])
+
+    const getFollowingUsers = useCallback(async () => {
+      let result = await UserService.getUserFollowing(userId).then((res) => {
+        return res;
+      });
+      setFollowingUsers(result)
+      console.log("FOLLOWING USERS", result)
+      return result
+    }, [])
     
 
     const followUnfollowUser = useCallback(async (id) => {
@@ -77,6 +86,7 @@ export default function useUserData() {
     followUnfollowUser,
     getUserNfts,
     getRanking,
-    getExploreUsers
+    getExploreUsers,
+    getFollowingUsers
   };
 }
