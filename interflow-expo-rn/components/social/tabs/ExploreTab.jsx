@@ -19,7 +19,6 @@ const ExploreTab = ({ onPress }) => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 50,
       }}
     >
       {!exploreUsers.length > 0 ? (

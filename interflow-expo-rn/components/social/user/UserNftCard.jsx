@@ -33,11 +33,15 @@ export default function UserNftCard({ onPress, width, height, name, id, thumbnai
         if(!thumbnail) return
         if (thumbnail.includes("ipfs")) {
             let thumbnailSplit = thumbnail.replace("ipfs://", "")
-            return `https://gateway.pinata.cloud/ipfs/${thumbnailSplit}`
+            //https://cloudflare-ipfs.com/ipfs/
+            //https://gateway.pinata.cloud/ipfs/
+            return `https://cloudflare-ipfs.com/ipfs/${thumbnailSplit}`
         } else {
             return thumbnail
         }
     }, [thumbnail])
+
+    console.log(thumbnailCheck)
 
     return (
         <View style={styles.container}>

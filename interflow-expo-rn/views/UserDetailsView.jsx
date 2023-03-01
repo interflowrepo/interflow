@@ -63,6 +63,8 @@ export default function UserDetailsView({ navigation, route }) {
     !isFollowing ? Alert.alert(`You stoped following ${result.userName}`) : Alert.alert(`You started following ${result.userName}`)
   }
 
+  console.log("userNfts ------ ", collections)
+
   return (
     <View style={styles.container}>
       <UserDetailsHeader

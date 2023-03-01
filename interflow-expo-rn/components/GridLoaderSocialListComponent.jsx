@@ -33,6 +33,7 @@ const GridLoaderSocialListComponent = ({
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      paddingTop: 62,
     },
     itemText: {
       display: "flex",
@@ -83,6 +84,7 @@ const GridLoaderSocialListComponent = ({
     },
     centeredContainer: {
       flex: 1,
+      paddingTop: 62,
     },
   });
 

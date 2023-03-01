@@ -39,6 +39,7 @@ import AiTransformView from "./views/NFT/AiTransformView.jsx";
 import SelectGenderView from "./views/SelectGenderView.jsx";
 import DropsView from "./views/DropsView.jsx";
 import { LogBox } from 'react-native';
+import UserService from "./services/UserService.js";
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
@@ -99,6 +100,9 @@ async function registerForPushNotificationsAsync() {
       lightColor: '#FF231F7C',
     });
   }
+
+  const result = await UserService.updateUserData({ pushToken: token });
+  console.log(result);
 
   return token;
 }
@@ -375,7 +379,7 @@ export default function App() {
   const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    // registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);

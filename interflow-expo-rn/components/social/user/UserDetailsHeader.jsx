@@ -23,7 +23,7 @@ const UserDetailsHeader = (props, backgroundImageSource) => {
     topLeftContainer: {
       position: 'absolute',
       top: 20,
-      left: 80,
+      left: 110,
     },
     nameTitle: {
       fontSize: 24,
@@ -51,10 +51,10 @@ const UserDetailsHeader = (props, backgroundImageSource) => {
     },
     avatarImage: {
       position: 'absolute',
-      bottom: 30,
+      bottom: 10,
       left: 20,
-      width: 50,
-      height: 50,
+      width: 80,
+      height: 80,
       borderRadius: 25,
     },
     bottomRightContainer: {
