@@ -1,3 +1,30 @@
+# Instructions for running the code
+
+Execute the commands 
+
+yarn add 
+expo npx expo install
+
+After these two commands, you can start the expo application with the command:
+
+npx expo start
+
+Once the app is running, you can choose how you want to use it. 
+To access all the features we developed during the hackathon, download the expo go app to your mobile phone and scan the code QR, which is on your terminal!
+
+*Some features only work on your device, e.g. avatar creation, push notifications..*
+
+To test the created functionalities, you currently only need to run the native app. Our app uses 2 APIs:
+
+- Node JS (https://github.com/interflowrepo/interflow-api)
+- Go Lang (https://github.com/interflowrepo/interflow-wallet-api)
+
+Both have been deployed and are active to receive requests.
+
+**NOTE: We had some issues with gits repositories and conflicts. Over time we have made some changes and created new repositories to ease and avoid problems, [the history and explanation of this you can find in this link](https://github.com/interflowrepo/interflow-api/blob/main/HACKATON-HISTORY.md)**
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
 # Interoperability for all users on the Flow blockchain :dizzy:
 
 
