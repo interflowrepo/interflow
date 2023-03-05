@@ -20,6 +20,8 @@ To test the created functionalities, you currently only need to run the native a
 
 Both have been deployed and are active to receive requests.
 
+**NOTE: We had some issues with gits repositories and conflicts. Over time we have made some changes and created new repositories to ease and avoid problems, [the history and explanation of this you can find in this link](https://github.com/interflowrepo/interflow-api/blob/main/HACKATON-HISTORY.md)**
+
 
 # Interoperability for all users on the Flow blockchain :dizzy:
 
