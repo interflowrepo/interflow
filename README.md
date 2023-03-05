@@ -5,7 +5,10 @@ This is the main repository (**Interflow**) where you will find the directory wi
 In order to run the native application, you will need to create a new application within the directory
 /interflow-expo-rn
 
-execute the command yarn add expo npx expo install
+Execute the commands 
+
+yarn add 
+expo npx expo install
 
 After these two commands, you can start the expo application with the command:
 
@@ -25,6 +28,7 @@ Both have been deployed and are active to receive requests.
 
 **NOTE: We had some issues with gits repositories and conflicts. Over time we have made some changes and created new repositories to ease and avoid problems, [the history and explanation of this you can find in this link](https://github.com/interflowrepo/interflow-api/blob/main/HACKATON-HISTORY.md)**
 
+----------------------------------------------------------------------------
 
 # Interoperability for all users on the Flow blockchain :dizzy:
 
