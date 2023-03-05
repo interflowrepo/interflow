@@ -11,7 +11,10 @@ After these two commands, you can start the expo application with the command:
 
 npx expo start
 
-Once the app is running, you can choose how you want to use it. To access all the features we developed during the hackathon, download the expo go app to your mobile phone and scan the code QR, which is on your terminal!
+Once the app is running, you can choose how you want to use it. 
+To access all the features we developed during the hackathon, download the expo go app to your mobile phone and scan the code QR, which is on your terminal!
+
+*Some features only work on your device, e.g. avatar creation, push notifications..*
 
 To test the created functionalities, you currently only need to run the native app. Our app uses 2 APIs:
 
